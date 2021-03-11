@@ -1,9 +1,16 @@
 import React from 'react'
+import {useEffect} from 'react'
 
-function GameListCard() {
+function GameListCard(prop) {
+
+    useEffect(() => {
+        console.log(prop)
+        
+    }, [])
+
     return (
         <div>
-            <img src={game.img} alt="game image" />
+            <h1>{prop.game.name}</h1>
         </div>
     )
 }
