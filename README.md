@@ -18,3 +18,5 @@
      - Map (missions, gravestones)
      - Squad chat
    - Player profile (Active games, completed games)
+
+Player, w Squad
