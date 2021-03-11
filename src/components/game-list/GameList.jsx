@@ -1,14 +1,32 @@
 import React from 'react'
 import GameListCard from './GameListCard'
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
+
 
 function GameList() {
 
-    const [cards, setCards] = useState();
+    const [games, setGames] = useState([]);
+    const database = require('../../mockdata/mockDb.json')
+
+    useEffect(() => {
+        setGames(database.games);
+    }, [])
+
+    useEffect(() => {
+        console.log(games)
+    }, [games])
+
+
 
     return (
+    
         <div>
-            <GameListCard />
+            <h1>Active games</h1>
+            {games && games.map(game => (
+                <GameListCard key={game.id} game={game} />
+            ))
+            }
+            
         </div>
     )
 }
