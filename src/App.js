@@ -1,6 +1,12 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from './pages/Home'
 import LoginPage from './pages/LoginPage'
+import AdminPage from './pages/AdminPage'
+import ProfilePage from './pages/ProfilePage'
+import GameDetailsPage from './pages/GameDetailsPage'
+
+
+
 
 function App() {
   return (
@@ -13,6 +19,16 @@ function App() {
             <Route path="/login">
                 <LoginPage />
             </Route>
+            <Route path="/admin">
+                <AdminPage />
+            </Route>
+            <Route path="/profile/:id">
+                <ProfilePage />
+            </Route>
+            <Route path="/game/:id">
+                <GameDetailsPage />
+            </Route>
+
         </Switch>
     </Router>
   );
