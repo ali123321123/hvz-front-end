@@ -27,19 +27,100 @@
       "id": 1,
       "name": "Noroff Wars",
       "game_state": true,
+      "game_registration": false,
       "nw_lat": 42.123,
       "nw_lng": 34.234,
       "se_lat": 43.32,
-      "se_lng": 22.88
+      "se_lng": 22.88,
+      "url": "https://loremflickr.com/320/240"
     },
     {
       "id": 2,
-      "name": "Oslo Games",
+      "name": "Games",
       "game_state": false,
+      "game_registration": false,
       "nw_lat": 42.123,
       "nw_lng": 34.234,
       "se_lat": 43.32,
-      "se_lng": 22.88
+      "se_lng": 22.88,
+      "url": "https://loremflickr.com/320/240"
+    },
+    {
+      "id": 3,
+      "name": "REGISTERED",
+      "game_state": false,
+      "game_registration": true,
+      "nw_lat": 42.123,
+      "nw_lng": 34.234,
+      "se_lat": 43.32,
+      "se_lng": 22.88,
+      "url": "https://loremflickr.com/320/240"
+    },
+    {
+      "id": 4,
+      "name": "Wars",
+      "game_state": true,
+      "game_registration": false,
+      "nw_lat": 42.123,
+      "nw_lng": 34.234,
+      "se_lat": 43.32,
+      "se_lng": 22.88,
+      "url": "https://loremflickr.com/320/240"
+    },
+    {
+      "id": 5,
+      "name": "Oslo Games",
+      "game_state": false,
+      "game_registration": false,
+      "nw_lat": 42.123,
+      "nw_lng": 34.234,
+      "se_lat": 43.32,
+      "se_lng": 22.88,
+      "url": "https://loremflickr.com/320/240"
+    },
+    {
+      "id": 6,
+      "name": "Swedish Smoke",
+      "game_state": false,
+      "game_registration": true,
+      "nw_lat": 42.123,
+      "nw_lng": 34.234,
+      "se_lat": 43.32,
+      "se_lng": 22.88,
+      "url": "https://loremflickr.com/320/240"
+    },
+    {
+      "id": 7,
+      "name": "Noroff",
+      "game_state": true,
+      "game_registration": false,
+      "nw_lat": 42.123,
+      "nw_lng": 34.234,
+      "se_lat": 43.32,
+      "se_lng": 22.88,
+      "url": "https://loremflickr.com/320/240"
+    },
+    {
+      "id": 8,
+      "name": "Noroff",
+      "game_state": true,
+      "game_registration": false,
+      "nw_lat": 42.123,
+      "nw_lng": 34.234,
+      "se_lat": 43.32,
+      "se_lng": 22.88,
+      "url": "https://loremflickr.com/320/240"
+    },
+    {
+      "id": 9,
+      "name": "Test",
+      "game_state": true,
+      "game_registration": false,
+      "nw_lat": 42.123,
+      "nw_lng": 34.234,
+      "se_lat": 43.32,
+      "se_lng": 22.88,
+      "url": "https://loremflickr.com/320/240"
     }
   ],
 
