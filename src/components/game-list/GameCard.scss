@@ -1,10 +1,16 @@
 $primaryColor: red;
 $secondaryColor: blue;
 $fontColor: #333;
+$primaryFont: Roboto;
 
-h1 {
-  font-weight: 200;
-  font-size: 30px;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  font-family: $primaryFont;
   color: $fontColor;
 }
 
@@ -18,9 +24,6 @@ h1 {
 .card {
   margin: 1em;
   padding: 20px;
-  max-width: 345;
-  transition: 0.3s;
-  box-shadow: 0 8px 40px -12px rgba(0, 0, 0, 0.3);
 
   &:hover {
     box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24),
@@ -30,13 +33,4 @@ h1 {
 .card:hover > .header {
   transition: 0.3s;
   color: $primaryColor;
-}
-
-p {
-  color: $fontColor;
-  text-align: left;
-  text-indent: 1em;
-  font-size: 16px;
-  line-height: 26px;
-  transition: color 0.3s;
 }

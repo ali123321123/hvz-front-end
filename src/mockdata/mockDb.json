@@ -91,7 +91,7 @@
     },
     {
       "id": 7,
-      "name": "Noroff",
+      "name": "Something",
       "game_state": true,
       "game_registration": false,
       "nw_lat": 42.123,
@@ -146,13 +146,13 @@
   "squads": [
     {
       "id": 1,
-      "name": "Noroff kings",
+      "name": "Noroff kings Squad",
       "is_human": true,
       "game_id": 1
     },
     {
       "id": 2,
-      "name": "Gang Gang Squaa",
+      "name": "Gang Gang Squad",
       "is_human": true,
       "game_id": 1
     }
