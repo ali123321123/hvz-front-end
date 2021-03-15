@@ -9,12 +9,14 @@
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.8.3",
     "fontsource-roboto": "^4.0.0",
+    "node-sass": "^5.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "recharts": "^2.0.8",
+    "swr": "^0.5.2",
     "web-vitals": "^1.1.0"
   },
   "scripts": {
