@@ -22,7 +22,7 @@ import purple from "@material-ui/core/colors/purple";
 import ColoredButton from "../shared/ColoredButton";
 import theme from "../shared/theme";
 import { dark } from "@material-ui/core/styles/createPalette";
-import GameCardPopUp from "./GameCardPopup";
+import GameCardPopup from "./GameCardPopup";
 
 function GameListCard({ game, onClick, onClose }) {
   const useStyles = makeStyles((theme) => ({
@@ -55,8 +55,6 @@ function GameListCard({ game, onClick, onClose }) {
     },
   }));
   const classes = useStyles();
-
-  const database = require("../../mockdata/mockDb.json");
   const [gameCards, setGameCards] = useState([]);
 
   const [gameSquad, setGameSquad] = useState([]);
@@ -71,77 +69,22 @@ function GameListCard({ game, onClick, onClose }) {
     setOpen(false);
   };
 
-  useEffect(() => {
-    setSquads(
-      database.squads.filter((squad) =>
-        database.games.some((game) => squad.game_id === game.id)
-      )
-    );
-  }, [gameSquad]);
+//   useEffect(() => {
+//     setSquads(
+//       database.squads.filter((squad) =>
+//         database.games.some((game) => squad.game_id === game.id)
+//       )
+//     );
+//   }, [gameSquad]);
 
-  useEffect(() => {
-    setGameSquad(database.squads);
-  }, []);
+//   useEffect(() => {
+//     setGameSquad(database.squads);
+//   }, []);
 
   return (
+      <>
+      
     <div>
-      <article container justify="center">
-        {gameSquad.map((squad) => {
-          if (gameCards.some((game) => game.id === squad.id)) {
-            return <GameCardPopUp squad={squad} />;
-          }
-        })}
-      </article>
-      {gameCards && (
-        <div>
-          {squads.map((squad) => (
-            <GameCardPopUp
-              key={squad.id}
-              squad={squad}
-              open={open}
-              game={game}
-            />
-          ))}
-        </div>
-      )}
-      <Dialog
-        onClose={handleClose}
-        aria-labelledby="customized-dialog-title"
-        open={open}
-      >
-        <DialogTitle id="customized-dialog-title" onClose={handleClose}>
-          {game.name}
-        </DialogTitle>
-        <DialogContent dividers>
-          <Typography gutterBottom>
-            Latitude: {game.nw_lat}
-            <br />
-            Longitude: {game.nw_lng}
-          </Typography>
-          <Typography gutterBottom>
-            {squads.map((squad) => (
-              <p>{squad.name}</p>
-            ))}
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vero
-            minima cum culpa at. Unde modi distinctio nemo iure non vel placeat
-            soluta nesciunt incidunt velit, aut, eveniet neque magni saepe?
-            {squads.map((squad) => {
-              if (game.gam_state) {
-                return <p>{squad.name}</p>;
-              } else if (!game.game_state && game.game_registration) {
-                return <p>{squad.name}</p>;
-              } else {
-                return <p>{squad.name}</p>;
-              }
-            })}
-          </Typography>
-        </DialogContent>
-        <DialogActions>
-          <Button autoFocus onClick={handleClose} color="primary">
-            Close
-          </Button>
-        </DialogActions>
-      </Dialog>
       <section className={classes.root}>
         <ThemeProvider theme={theme}>
           <Card className="card">
@@ -196,6 +139,10 @@ function GameListCard({ game, onClick, onClose }) {
         </ThemeProvider>
       </section>
     </div>
+    {open && 
+        <GameCardPopup open={open} setOpen={setOpen} game={game} />
+    }
+    </>
   );
 }
 

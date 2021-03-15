@@ -3,9 +3,14 @@ import GameListCard from "./GameListCard";
 import { useState, useEffect } from "react";
 import { Divider, Grid, Typography, makeStyles } from "@material-ui/core";
 import theme from "../shared/theme";
-import GameCardPopUp from "./GameCardPopup";
+import useSWR from "swr";
+import { fetcher } from "../../services/FetcherFunction";
 
 function GameList() {
+  const { data: games, error: gamesError } = useSWR("https://localhost:44390/api/games", fetcher);
+//const { data: squads, error: squadsError} = useSWR("https://localhost:44390/api/Games", fetcher);
+  console.log(games, gamesError);
+
   const useStyles = makeStyles((theme) => ({
     root: {
       "& .MuiTypography-h4": {
@@ -23,70 +28,75 @@ function GameList() {
   }));
   const classes = useStyles();
 
-  const database = require("../../mockdata/mockDb.json");
-  const gameDatabase = database.games;
-  const squadDatabase = database.squads;
-
   const [activeGames, setActiveGames] = useState([]);
   const [completedGames, setCompletedGames] = useState([]);
   const [upCommingGames, setupCommingGames] = useState([]);
   const [squads, setSquads] = useState([]);
 
+  const [loading, setLoading] = useState(true);
+
   //Filter out new array from game_state and registration
   useEffect(() => {
-    setActiveGames(gameDatabase.filter((f) => f.game_state));
-    setCompletedGames(
-      gameDatabase.filter((f) => !f.game_state && !f.game_registration)
-    );
-    setupCommingGames(
-      gameDatabase.filter((f) => !f.game_state && f.game_registration)
-    );
-
-    setSquads(
-      squadDatabase.filter((squad) =>
-        gameDatabase.some((game) => squad.game_id === game.id)
-      )
-    );
-  }, []);
+    if (gamesError) {
+      console.log(gamesError);
+    }
+    if (!games) {
+      setLoading(true);
+    } else {
+      console.log(games);
+      setActiveGames(games.filter((f) => f.game_state));
+      setCompletedGames(
+        games.filter((f) => !f.game_state && !f.game_registration)
+      );
+      setupCommingGames(
+        games.filter((f) => !f.game_state && f.game_registration)
+      );
+      setLoading(false);
+    }
+  }, [games]);
 
   return (
-    <div className={classes.root}>
-      <div>{squads.map((map) => `${map.name} | `)}</div>
-      <GameCardPopUp setGameSquad={squadDatabase} />
-      <section className="container">
-        <Typography variant="h4" color="primary" component="p">
-          Active games
-        </Typography>
-        <Divider variant="middle" />
-        <Grid container justify="center">
-          {activeGames.map((game) => (
-            <GameListCard key={game.id} game={game} />
-          ))}
-        </Grid>
-      </section>
-      <section className="container">
-        <Typography variant="h4" color="primary" component="p">
-          Upcoming games
-        </Typography>
-        <Divider />
-        <Grid container justify="center">
-          {upCommingGames.map((game) => (
-            <GameListCard key={game.id} game={game} />
-          ))}
-        </Grid>
-      </section>
-      <section className="container">
-        <Typography variant="h4" color="primary" component="p">
-          Completed games
-        </Typography>
-        <Divider />
-        <Grid container justify="center">
-          {completedGames.map((game) => (
-            <GameListCard key={game.id} game={game} />
-          ))}
-        </Grid>
-      </section>
-    </div>
+    <>
+      {loading ? 
+        <div>Loading...</div>
+       : 
+        <div className={classes.root}>
+          <section className="container">
+            <Typography variant="h4" color="primary" component="p">
+              Active games
+            </Typography>
+            <Divider variant="middle" />
+            <Grid container justify="center">
+              {activeGames.map((game) => (
+                <GameListCard key={game.id} game={game} />
+              ))}
+            </Grid>
+          </section>
+          <section className="container">
+            <Typography variant="h4" color="primary" component="p">
+              Upcoming games
+            </Typography>
+            <Divider />
+            <Grid container justify="center">
+              {upCommingGames.map((game) => (
+                <GameListCard key={game.id} game={game} />
+              ))}
+            </Grid>
+          </section>
+          <section className="container">
+            <Typography variant="h4" color="primary" component="p">
+              Completed games
+            </Typography>
+            <Divider />
+            <Grid container justify="center">
+              {completedGames.map((game) => (
+                <GameListCard key={game.id} game={game} />
+              ))}
+            </Grid>
+          </section>
+        </div>
+      }
+    </>
   );
 }
 
