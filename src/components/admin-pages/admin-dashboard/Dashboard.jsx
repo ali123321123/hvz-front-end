@@ -1,36 +1,34 @@
 import React from "react";
 import clsx from "clsx";
-import { makeStyles } from "@material-ui/core/styles";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Drawer from "@material-ui/core/Drawer";
-import Box from "@material-ui/core/Box";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import List from "@material-ui/core/List";
-import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
-import IconButton from "@material-ui/core/IconButton";
-import Badge from "@material-ui/core/Badge";
-import Container from "@material-ui/core/Container";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import Link from "@material-ui/core/Link";
+import {
+  makeStyles,
+  CssBaseline,
+  Drawer,
+  Box,
+  AppBar,
+  Toolbar,
+  List,
+  Typography,
+  Divider,
+  IconButton,
+  Container,
+  Grid,
+  Paper,
+  Link,
+} from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import { mainListItems } from "./ListItems";
-import Temp from "./Temp";
+import TempInteractiveMap from "./TempInteractiveMap";
 import GameStats from "./GameStats";
 import MissionStats from "./MissionStats";
 import PlayerStats from "./PlayerStats";
+import MenuItems from "./MenuItems";
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
+      <Link color="inherit">HVZ</Link> {new Date().getFullYear()}
       {"."}
     </Typography>
   );
@@ -71,6 +69,13 @@ const useStyles = makeStyles((theme) => ({
     marginRight: 36,
   },
   menuButtonHidden: {
+    display: "none",
+  },
+
+  startGameButton: {
+    marginRight: 36,
+  },
+  startGameButtonHidden: {
     display: "none",
   },
   title: {
@@ -117,15 +122,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Dashboard() {
+export default function Dashboard({ game }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
-  const handleDrawerOpen = () => {
+
+  const handleToggleOpen = () => {
     setOpen(true);
   };
-  const handleDrawerClose = () => {
+
+  const handleToggleClose = () => {
     setOpen(false);
   };
+
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   return (
@@ -140,7 +148,7 @@ export default function Dashboard() {
             edge="start"
             color="inherit"
             aria-label="open drawer"
-            onClick={handleDrawerOpen}
+            onClick={handleToggleOpen}
             className={clsx(
               classes.menuButton,
               open && classes.menuButtonHidden
@@ -169,12 +177,21 @@ export default function Dashboard() {
         open={open}
       >
         <div className={classes.toolbarIcon}>
-          <IconButton onClick={handleDrawerClose}>
+          <IconButton onClick={handleToggleClose}>
             <ChevronLeftIcon />
           </IconButton>
         </div>
         <Divider />
-        <List>{mainListItems}</List>
+
+        <List>
+          <MenuItems
+            onClick={handleToggleOpen}
+            className={clsx(
+              classes.startGameButton,
+              open && classes.startGameButtonHidden
+            )}
+          />
+        </List>
       </Drawer>
       {/* Side menu End  */}
 
@@ -183,35 +200,31 @@ export default function Dashboard() {
         <Container maxWidth="lg" className={classes.container}>
           <Grid container spacing={3}>
             {/* Player stats */}
-            <Grid item xs={2} md={3} lg={3}>
-              <Paper className={fixedHeightPaper}>
-                <PlayerStats />
-              </Paper>
+            <Grid item xs={12} md={3} lg={3}>
+              <PlayerStats />
             </Grid>
 
             {/* Mission Stats */}
-            <Grid item xs={5} md={4} lg={5}>
+            <Grid item xs={12} md={5} lg={6}>
               <Paper className={fixedHeightPaper}>
                 <MissionStats />
               </Paper>
             </Grid>
 
             {/* Interactive Map */}
-            <Grid item xs={5} md={4} lg={4}>
+            <Grid item xs={12} md={4} lg={3}>
               <Paper className={fixedHeightPaper}>
-                <Temp />
+                <TempInteractiveMap />
               </Paper>
             </Grid>
 
             {/* Player stats */}
-            <Grid item xs={2} md={5} lg={4}>
-              <Paper className={fixedHeightPaper}>
-                <PlayerStats />
-              </Paper>
+            <Grid item xs={12} md={3} lg={3}>
+              <PlayerStats />
             </Grid>
 
             {/* Game Stats */}
-            <Grid item xs={8}>
+            <Grid item xs={9}>
               <Paper className={classes.paper}>
                 <GameStats />
               </Paper>

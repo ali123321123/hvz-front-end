@@ -1,16 +1,18 @@
 import React from "react";
-import Link from "@material-ui/core/Link";
 import { makeStyles } from "@material-ui/core/styles";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+} from "@material-ui/core";
+
 import Title from "./Title";
 
 // Generate Game Data
-function createData(id, date, name, player, bitCode, squad) {
-  return { id, date, name, player, bitCode, squad };
+function createData(id, date, name, player, biteCode, squad) {
+  return { id, date, name, player, biteCode, squad };
 }
 
 const rows = [
