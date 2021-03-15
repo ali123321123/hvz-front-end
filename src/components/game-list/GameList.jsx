@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { Divider, Grid, Typography, makeStyles } from "@material-ui/core";
 import theme from "../shared/theme";
 import GameCardPopUp from "./GameCardPopup";
-import { setActiveGames } from "../shared/API";
 
 function GameList() {
   const useStyles = makeStyles((theme) => ({
