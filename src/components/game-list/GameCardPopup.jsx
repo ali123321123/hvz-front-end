@@ -17,23 +17,24 @@ import {
   DialogActions,
 } from "@material-ui/core";
 
-const GameCardPopUp = ({ squad, open }) => {
+const GameCardPopUp = ({ game, open, squadDatabase, setGameSquad }) => {
   const [openX, setOpen] = React.useState(false);
 
   const handleClose = () => {
     setOpen(false);
   };
+  console.log(setGameSquad);
 
   return (
     <div>
       <Dialog aria-labelledby="customized-dialog-title" open={open}>
-        <DialogTitle id="customized-dialog-title" onClose={handleClose}>
-          {squad.name}
-        </DialogTitle>
+        <DialogTitle
+          id="customized-dialog-title"
+          onClose={handleClose}
+        ></DialogTitle>
         <DialogContent dividers>
           <Typography gutterBottom>Latitude: Longitude:</Typography>
           <Typography gutterBottom>
-            {squad.name}
             <br />
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum,
             eligendi? Qui tenetur aut reiciendis dolorum laborum magnam minima

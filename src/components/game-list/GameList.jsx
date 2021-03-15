@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Divider, Grid, Typography, makeStyles } from "@material-ui/core";
 import theme from "../shared/theme";
 import GameCardPopUp from "./GameCardPopup";
+import { setActiveGames } from "../shared/API";
 
 function GameList() {
   const useStyles = makeStyles((theme) => ({
@@ -23,10 +24,9 @@ function GameList() {
   }));
   const classes = useStyles();
 
-  const [gameCards, setGameCards] = useState([]);
-  const [gameSquad, setGameSquad] = useState([]);
-
   const database = require("../../mockdata/mockDb.json");
+  const gameDatabase = database.games;
+  const squadDatabase = database.squads;
 
   const [activeGames, setActiveGames] = useState([]);
   const [completedGames, setCompletedGames] = useState([]);
@@ -35,65 +35,25 @@ function GameList() {
 
   //Filter out new array from game_state and registration
   useEffect(() => {
-    setActiveGames(database.games.filter((f) => f.game_state));
+    setActiveGames(gameDatabase.filter((f) => f.game_state));
     setCompletedGames(
-      database.games.filter((f) => !f.game_state && !f.game_registration)
+      gameDatabase.filter((f) => !f.game_state && !f.game_registration)
     );
     setupCommingGames(
-      database.games.filter((f) => !f.game_state && f.game_registration)
+      gameDatabase.filter((f) => !f.game_state && f.game_registration)
     );
 
     setSquads(
-      database.squads.filter((o1) =>
-        database.games.some((o2) => o1.id === o2.id)
+      squadDatabase.filter((squad) =>
+        gameDatabase.some((game) => squad.game_id === game.id)
       )
     );
-  }, [gameCards]);
-
-  useEffect(() => {
-    setGameCards(database.games);
-    setGameSquad(database.squads);
   }, []);
-
-  console.log(
-    database.games.map((squad, i) => {
-      let game = database.squads.find((id) => id.id === squad.id);
-      return game;
-    })
-  );
 
   return (
     <div className={classes.root}>
-      testing
-      {gameCards && (
-        <div>
-          {squads.map((squad) => (
-            <GameCardPopUp key={squad.id} squad={squad} />
-          ))}
-        </div>
-      )}
-      <Grid container justify="center">
-        test
-        {squads.map((squad) => (
-          <GameCardPopUp key={squad.id} squad={squad} />
-        ))}
-      </Grid>
-      <article>
-        <Grid container justify="center">
-          {gameSquad.map((squad) => {
-            if (gameCards.some((game) => game.id === squad.id)) {
-              return <GameCardPopUp squad={squad} />;
-            }
-          })}
-        </Grid>
-      </article>
-      <Typography gutterBottom>
-        {gameSquad.map((squad) => {
-          if (completedGames.some((game) => game.id === squad.id)) {
-            return `SQUAD ${squad.name}`;
-          }
-        })}
-      </Typography>
+      <div>{squads.map((map) => `${map.name} | `)}</div>
+      <GameCardPopUp setGameSquad={squadDatabase} />
       <section className="container">
         <Typography variant="h4" color="primary" component="p">
           Active games

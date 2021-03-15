@@ -74,7 +74,7 @@ function GameListCard({ game, onClick, onClose }) {
   useEffect(() => {
     setSquads(
       database.squads.filter((squad) =>
-        database.games.some((game) => squad.id === game.id)
+        database.games.some((game) => squad.game_id === game.id)
       )
     );
   }, [gameSquad]);
@@ -83,23 +83,15 @@ function GameListCard({ game, onClick, onClose }) {
     setGameSquad(database.squads);
   }, []);
 
-  console.log(
-    database.games.map((squad, i) => {
-      let game = database.squads.find((id) => id.id === squad.id);
-      return game;
-    })
-  );
   return (
     <div>
       <article container justify="center">
-        gameSquad
         {gameSquad.map((squad) => {
           if (gameCards.some((game) => game.id === squad.id)) {
             return <GameCardPopUp squad={squad} />;
           }
         })}
       </article>
-      test squad:
       {gameCards && (
         <div>
           {squads.map((squad) => (
