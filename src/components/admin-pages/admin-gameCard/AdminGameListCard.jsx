@@ -103,7 +103,7 @@ function AdminGameListCard({ game }) {
                   color="secondary"
                   component="p"
                 >
-                  See More
+                  Edit Game
                 </Button>
               </CardContent>
             </Card>

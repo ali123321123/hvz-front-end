@@ -9,9 +9,8 @@ import {
   IconButton,
 } from "@material-ui/core";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import MenuItems from "./admin-dashboard/MenuItems";
 
-export default function MenuDrawer({ open, setOpen }) {
+export default function MenuDrawer({ open, setOpen, menuItems }) {
   const drawerWidth = 240;
 
   const useStyles = makeStyles((theme) => ({
@@ -20,9 +19,7 @@ export default function MenuDrawer({ open, setOpen }) {
     },
 
     //keep right padding when drawer closed
-    toolbar: {
-      paddingRight: 24,
-    },
+
     toolbarIcon: {
       display: "flex",
       alignItems: "center",
@@ -67,6 +64,12 @@ export default function MenuDrawer({ open, setOpen }) {
       overflow: "auto",
       flexDirection: "column",
     },
+    menuButton: {
+      marginRight: 36,
+    },
+    menuButtonHidden: {
+      display: "none",
+    },
   }));
   const classes = useStyles();
 
@@ -92,9 +95,7 @@ export default function MenuDrawer({ open, setOpen }) {
         </div>
         <Divider />
 
-        <List>
-          <MenuItems />
-        </List>
+        <List>{menuItems}</List>
       </Drawer>
       {/* Side menu End  */}
     </div>

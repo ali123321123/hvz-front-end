@@ -59,6 +59,7 @@ function GameList() {
       setupCommingGames(
         games.filter((f) => !f.game_state && f.game_registration)
       );
+
       setLoading(false);
     }
   }, [games]);

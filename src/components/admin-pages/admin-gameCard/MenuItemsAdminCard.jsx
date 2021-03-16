@@ -12,7 +12,7 @@ import PeopleIcon from "@material-ui/icons/People";
 import LayersIcon from "@material-ui/icons/Layers";
 import { AddLocation, ToggleOff, ToggleOn } from "@material-ui/icons";
 
-export default function MenuItems() {
+export default function MenuItemsAdminCard() {
   const useStyles = makeStyles((theme) => ({
     registrationButton: {
       marginRight: 36,
@@ -56,6 +56,7 @@ export default function MenuItems() {
       <article>
         <ListItem
           button
+          disabled
           aria-label="start game"
           onClick={handleGameEnd}
           className={clsx(
@@ -89,6 +90,7 @@ export default function MenuItems() {
       <article>
         <ListItem
           button
+          disabled
           aria-label="open registration"
           onClick={handleRegistrationToggleClose}
           className={clsx(
@@ -119,7 +121,7 @@ export default function MenuItems() {
         </ListItem>
       </article>
 
-      <ListItem button>
+      <ListItem button disabled>
         <ListItemIcon>
           <AddLocation />
         </ListItemIcon>

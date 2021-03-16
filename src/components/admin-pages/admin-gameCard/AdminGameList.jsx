@@ -8,7 +8,7 @@ import {
   Container,
 } from "@material-ui/core";
 import AdminGameListCard from "./AdminGameListCard";
-import Appbar from "../Appbar";
+import Appbar from "./Appbar";
 import useSWR from "swr";
 import { fetcher } from "../../../services/FetcherFunction";
 

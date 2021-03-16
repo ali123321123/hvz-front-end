@@ -1,4 +1,5 @@
 import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import {
   Table,
   TableBody,
@@ -6,14 +7,12 @@ import {
   TableHead,
   TableRow,
 } from "@material-ui/core";
-
 import Title from "./Title";
 
 // Generate Game Data
 function createData(id, date, name, player, biteCode, squad) {
   return { id, date, name, player, biteCode, squad };
 }
-
 const rows = [
   createData(0, "16 Mar, 2019", "Player 0", "Human", "V!gx37&19", "None"),
   createData(1, "16 Mar, 2019", "Player 1", "Zombie", "V!gx37&19", "None"),
@@ -36,7 +35,14 @@ const rows = [
   createData(4, "15 Mar, 2019", "Player 5", "Zombie", "V!gx37&19", "None"),
 ];
 
+const useStyles = makeStyles((theme) => ({
+  seeMore: {
+    marginTop: theme.spacing(3),
+  },
+}));
+
 export default function GameStats() {
+  const classes = useStyles();
   return (
     <>
       <Title>Game Stats</Title>

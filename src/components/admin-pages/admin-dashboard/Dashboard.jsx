@@ -11,7 +11,7 @@ import TempInteractiveMap from "./TempInteractiveMap";
 import GameStats from "./GameStats";
 import MissionStats from "./MissionStats";
 import PlayerStats from "./PlayerStats";
-import Appbar from "../Appbar";
+import Appbar from "./Appbar";
 
 export default function Dashboard() {
   const useStyles = makeStyles((theme) => ({
@@ -21,7 +21,7 @@ export default function Dashboard() {
 
     //Content container
     container: {
-      paddingTop: theme.spacing(4),
+      paddingTop: theme.spacing(16),
       paddingBottom: theme.spacing(4),
     },
 

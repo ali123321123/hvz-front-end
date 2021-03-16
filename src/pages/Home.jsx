@@ -6,11 +6,11 @@ import AdminGameList from "../components/admin-pages/admin-gameCard/AdminGameLis
 function Home() {
   return (
     <Main>
-      <AdminDashboard />
+      <GameList />
       {/* 
-       <AdminGameList />
+      <AdminGameList />
+   <AdminDashboard />
       
-        <GameList />
       */}
     </Main>
   );

@@ -10,9 +10,10 @@ import {
   IconButton,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
+import MenuItems from "./MenuItems";
 import MenuDrawer from "./MenuDrawer";
 
-export default function Appbar({ game }) {
+export default function Appbar({ game, sideMenu }) {
   const drawerWidth = 240;
 
   const useStyles = makeStyles((theme) => ({
@@ -93,7 +94,7 @@ export default function Appbar({ game }) {
       </AppBar>
 
       {/* Drawer Side menu  */}
-      <MenuDrawer open={open} setOpen={setOpen} />
+      <MenuDrawer open={open} setOpen={setOpen} menuItems={<MenuItems />} />
     </div>
   );
 }
