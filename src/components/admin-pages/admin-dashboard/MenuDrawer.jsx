@@ -19,6 +19,35 @@ export default function MenuDrawer({ open, setOpen, menuItems }) {
     },
 
     //keep right padding when drawer closed
+    toolbar: {
+      paddingRight: 24,
+    },
+
+    appBar: {
+      //Keep appbar on top
+      zIndex: theme.zIndex.drawer + 1,
+      transition: theme.transitions.create(["width", "margin"], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
+    },
+
+    //Shift appbar right the same amount as drawer width
+    appBarShift: {
+      marginLeft: drawerWidth,
+      width: `calc(100% - ${drawerWidth}px)`,
+      transition: theme.transitions.create(["width", "margin"], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+    },
+
+    appBarSpacer: theme.mixins.toolbar,
+    content: {
+      flexGrow: 1,
+      height: "100vh",
+      overflow: "auto",
+    },
 
     toolbarIcon: {
       display: "flex",
@@ -64,12 +93,6 @@ export default function MenuDrawer({ open, setOpen, menuItems }) {
       overflow: "auto",
       flexDirection: "column",
     },
-    menuButton: {
-      marginRight: 36,
-    },
-    menuButtonHidden: {
-      display: "none",
-    },
   }));
   const classes = useStyles();
 
@@ -82,7 +105,7 @@ export default function MenuDrawer({ open, setOpen, menuItems }) {
       <CssBaseline />
       {/* Drawer Side menu  */}
       <Drawer
-        variant="permanent"
+        variant="temporary"
         classes={{
           paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
         }}

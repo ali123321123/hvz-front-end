@@ -10,11 +10,10 @@ import {
   IconButton,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
-import MenuItems from "../admin-dashboard/MenuItems";
-import MenuDrawer from "../admin-dashboard/MenuDrawer";
-import MenuItemsAdminCard from "./MenuItemsAdminCard";
+import MenuItemsGameList from "./MenuItemsGameList";
+import MenuDrawer from "../admin-pages/admin-dashboard/MenuDrawer";
 
-export default function Appbar({ game, sideMenu }) {
+export default function AppbarGameList({ game, sideMenu }) {
   const drawerWidth = 240;
 
   const useStyles = makeStyles((theme) => ({
@@ -55,7 +54,7 @@ export default function Appbar({ game, sideMenu }) {
   }));
   const classes = useStyles();
 
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   const handleToggleOpen = () => {
     setOpen(true);
@@ -65,7 +64,7 @@ export default function Appbar({ game, sideMenu }) {
     <div className={classes.root}>
       <CssBaseline />
       <AppBar
-        position="absolute"
+        position="fixed"
         className={clsx(classes.appBar, open && classes.appBarShift)}
       >
         <Toolbar className={classes.toolbar}>
@@ -76,14 +75,11 @@ export default function Appbar({ game, sideMenu }) {
             onClick={handleToggleOpen}
             className={clsx(
               classes.menuButton,
-              open && classes.menuButtonHidden
+              !open && classes.menuButtonHidden
             )}
           >
             <MenuIcon />
           </IconButton>
-          <Typography component="h1" variant="h6" color="inherit" noWrap>
-            Dashboard | Insert Game Name
-          </Typography>
         </Toolbar>
       </AppBar>
 
@@ -91,7 +87,7 @@ export default function Appbar({ game, sideMenu }) {
       <MenuDrawer
         open={open}
         setOpen={setOpen}
-        menuItems={<MenuItemsAdminCard />}
+        menuItems={<MenuItemsGameList />}
       />
     </div>
   );

@@ -10,6 +10,7 @@ import {
   Divider,
   Button,
   ThemeProvider,
+  Tooltip,
 } from "@material-ui/core";
 import "../../game-list/GameCard.scss";
 import "fontsource-roboto";
@@ -88,8 +89,17 @@ function AdminGameListCard({ game }) {
                 <Typography variant="body1" color="textPrimary" component="p">
                   Relative dates
                 </Typography>
+
                 <Typography variant="body2" color="secondary" component="p">
-                  12.02.2021 | 12.02.2021 | 12.02.2021{" "}
+                  <Tooltip title="Game start">
+                    <span>
+                      {game.startTime} | {}
+                    </span>
+                  </Tooltip>
+
+                  <Tooltip title="Game End">
+                    <span>{game.endTime}</span>
+                  </Tooltip>
                 </Typography>
               </CardContent>
 

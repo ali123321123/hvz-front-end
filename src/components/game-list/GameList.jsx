@@ -10,12 +10,14 @@ import {
 } from "@material-ui/core";
 import useSWR from "swr";
 import { fetcher } from "../../services/FetcherFunction";
+import AppbarGameList from "./AppbarGameList";
 
 function GameList() {
   const { data: games, error: gamesError } = useSWR(
     "https://localhost:44390/api/games",
     fetcher
   );
+
   //const { data: squads, error: squadsError} = useSWR("https://localhost:44390/api/Games", fetcher);
   console.log(games, gamesError);
 
@@ -32,6 +34,10 @@ function GameList() {
       " .MuiDivider-root": {
         height: "2px",
       },
+    },
+    container: {
+      paddingTop: theme.spacing(16),
+      paddingBottom: theme.spacing(4),
     },
   }));
   const classes = useStyles();
@@ -61,10 +67,8 @@ function GameList() {
       );
 
       setLoading(false);
-      
     }
   }, [games]);
-  
 
   return (
     <>
@@ -72,8 +76,9 @@ function GameList() {
         <div>Loading...</div>
       ) : (
         <div className={classes.root}>
+          <AppbarGameList />
           <main className={classes.content}>
-            <Container maxWidth="lg" className={classes.container}>
+            <Container maxWidth="xl" className={classes.container}>
               <Grid container spacing={3}>
                 <section className="container">
                   <Typography variant="h4" color="primary" component="p">

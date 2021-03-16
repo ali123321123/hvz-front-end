@@ -10,6 +10,7 @@ import {
   Divider,
   Button,
   ThemeProvider,
+  Tooltip,
 } from "@material-ui/core";
 import "./GameCard.scss";
 import "fontsource-roboto";
@@ -44,6 +45,9 @@ function GameListCard({ game, onClick, onClose }) {
       common: {
         black: "#a61766",
       },
+    },
+    customWidth: {
+      maxWidth: 120,
     },
   }));
   const classes = useStyles();
@@ -89,8 +93,17 @@ function GameListCard({ game, onClick, onClose }) {
                 <Typography variant="body1" color="textPrimary" component="p">
                   Relative dates
                 </Typography>
+
                 <Typography variant="body2" color="secondary" component="p">
-                  {game.startTime} | {game.endTime}
+                  <Tooltip title="Game start">
+                    <span>
+                      {game.startTime} | {}
+                    </span>
+                  </Tooltip>
+
+                  <Tooltip title="Game End">
+                    <span>{game.endTime}</span>
+                  </Tooltip>
                 </Typography>
               </CardContent>
 

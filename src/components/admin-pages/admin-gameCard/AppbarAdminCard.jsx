@@ -10,10 +10,11 @@ import {
   IconButton,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
-import MenuItems from "./MenuItems";
-import MenuDrawer from "./MenuDrawer";
+import MenuItems from "../admin-dashboard/MenuItems";
+import MenuDrawer from "../admin-dashboard/MenuDrawer";
+import MenuItemsAdminCard from "./MenuItemsAdminCard";
 
-export default function Appbar({ game, sideMenu }) {
+export default function AppbarAdminCard({ game, sideMenu }) {
   const drawerWidth = 240;
 
   const useStyles = makeStyles((theme) => ({
@@ -51,13 +52,6 @@ export default function Appbar({ game, sideMenu }) {
       height: "100vh",
       overflow: "auto",
     },
-
-    menuButton: {
-      marginRight: 36,
-    },
-    menuButtonHidden: {
-      display: "none",
-    },
   }));
   const classes = useStyles();
 
@@ -94,7 +88,11 @@ export default function Appbar({ game, sideMenu }) {
       </AppBar>
 
       {/* Drawer Side menu  */}
-      <MenuDrawer open={open} setOpen={setOpen} menuItems={<MenuItems />} />
+      <MenuDrawer
+        open={open}
+        setOpen={setOpen}
+        menuItems={<MenuItemsAdminCard />}
+      />
     </div>
   );
 }

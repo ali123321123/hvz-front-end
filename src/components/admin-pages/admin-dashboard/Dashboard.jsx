@@ -14,6 +14,7 @@ import PlayerStats from "./PlayerStats";
 import Appbar from "./Appbar";
 
 export default function Dashboard() {
+  const drawerWidth = 240;
   const useStyles = makeStyles((theme) => ({
     root: {
       display: "flex",
@@ -21,7 +22,7 @@ export default function Dashboard() {
 
     //Content container
     container: {
-      paddingTop: theme.spacing(16),
+      paddingTop: theme.spacing(8),
       paddingBottom: theme.spacing(4),
     },
 
@@ -30,6 +31,32 @@ export default function Dashboard() {
       display: "flex",
       overflow: "auto",
       flexDirection: "column",
+    },
+
+    appBar: {
+      //Keep appbar on top
+      zIndex: theme.zIndex.drawer + 1,
+      transition: theme.transitions.create(["width", "margin"], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
+    },
+
+    //Shift appbar right the same amount as drawer width
+    appBarShift: {
+      marginLeft: drawerWidth,
+      width: `calc(100% - ${drawerWidth}px)`,
+      transition: theme.transitions.create(["width", "margin"], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+    },
+
+    appBarSpacer: theme.mixins.toolbar,
+    content: {
+      flexGrow: 1,
+      height: "100vh",
+      overflow: "auto",
     },
 
     fixedHeight: {

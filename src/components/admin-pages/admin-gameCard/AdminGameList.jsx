@@ -8,9 +8,9 @@ import {
   Container,
 } from "@material-ui/core";
 import AdminGameListCard from "./AdminGameListCard";
-import Appbar from "./Appbar";
 import useSWR from "swr";
 import { fetcher } from "../../../services/FetcherFunction";
+import AppbarAdminCard from "./AppbarAdminCard";
 
 function AdminGameList() {
   const { data: games, error: gamesError } = useSWR(
@@ -77,10 +77,10 @@ function AdminGameList() {
         <div>Loading...</div>
       ) : (
         <div className={classes.root}>
-          <Appbar />
+          <AppbarAdminCard />
 
           <main className={classes.content}>
-            <Container maxWidth="lg" className={classes.container}>
+            <Container maxWidth="false" className={classes.container}>
               <Grid container spacing={3}>
                 <section className="container">
                   <Typography variant="h4" color="primary" component="p">
