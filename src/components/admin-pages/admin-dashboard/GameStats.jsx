@@ -1,5 +1,4 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import {
   Table,
   TableBody,
@@ -37,18 +36,7 @@ const rows = [
   createData(4, "15 Mar, 2019", "Player 5", "Zombie", "V!gx37&19", "None"),
 ];
 
-function preventDefault(event) {
-  event.preventDefault();
-}
-
-const useStyles = makeStyles((theme) => ({
-  seeMore: {
-    marginTop: theme.spacing(3),
-  },
-}));
-
 export default function GameStats() {
-  const classes = useStyles();
   return (
     <>
       <Title>Game Stats</Title>

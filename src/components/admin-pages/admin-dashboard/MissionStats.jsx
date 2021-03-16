@@ -1,5 +1,4 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -20,18 +19,7 @@ const rows = [
   createData(4, "15 Mar, 2019", "Mission 5"),
 ];
 
-function preventDefault(event) {
-  event.preventDefault();
-}
-
-const useStyles = makeStyles((theme) => ({
-  seeMore: {
-    marginTop: theme.spacing(3),
-  },
-}));
-
 export default function MissionStats() {
-  const classes = useStyles();
   return (
     <>
       <Title>Missions</Title>

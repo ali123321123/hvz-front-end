@@ -1,5 +1,4 @@
 import React from "react";
-import GameListCard from "./GameListCard";
 import { useState, useEffect } from "react";
 import {
   Divider,
@@ -8,19 +7,21 @@ import {
   makeStyles,
   Container,
 } from "@material-ui/core";
+import AdminGameListCard from "./AdminGameListCard";
+import Appbar from "../Appbar";
 import useSWR from "swr";
-import { fetcher } from "../../services/FetcherFunction";
+import { fetcher } from "../../../services/FetcherFunction";
 
-function GameList() {
+function AdminGameList() {
   const { data: games, error: gamesError } = useSWR(
     "https://localhost:44390/api/games",
     fetcher
   );
-  //const { data: squads, error: squadsError} = useSWR("https://localhost:44390/api/Games", fetcher);
   console.log(games, gamesError);
-
   const useStyles = makeStyles((theme) => ({
     root: {
+      display: "flex",
+
       "& .MuiTypography-h4": {
         textAlign: "center",
       },
@@ -32,6 +33,13 @@ function GameList() {
       " .MuiDivider-root": {
         height: "2px",
       },
+    },
+    container: {
+      paddingTop: theme.spacing(8),
+      paddingBottom: theme.spacing(4),
+    },
+    menuButtonHidden: {
+      display: "none",
     },
   }));
   const classes = useStyles();
@@ -69,6 +77,8 @@ function GameList() {
         <div>Loading...</div>
       ) : (
         <div className={classes.root}>
+          <Appbar />
+
           <main className={classes.content}>
             <Container maxWidth="lg" className={classes.container}>
               <Grid container spacing={3}>
@@ -76,11 +86,10 @@ function GameList() {
                   <Typography variant="h4" color="primary" component="p">
                     Active games
                   </Typography>
-
                   <Divider variant="middle" />
                   <Grid container spacing={3}>
                     {activeGames.map((game) => (
-                      <GameListCard key={game.id} game={game} />
+                      <AdminGameListCard key={game.id} game={game} />
                     ))}
                   </Grid>
                 </section>
@@ -92,7 +101,7 @@ function GameList() {
                   <Divider />
                   <Grid container spacing={3}>
                     {upCommingGames.map((game) => (
-                      <GameListCard key={game.id} game={game} />
+                      <AdminGameListCard key={game.id} game={game} />
                     ))}
                   </Grid>
                 </section>
@@ -104,7 +113,7 @@ function GameList() {
                   <Divider />
                   <Grid container spacing={3}>
                     {completedGames.map((game) => (
-                      <GameListCard key={game.id} game={game} />
+                      <AdminGameListCard key={game.id} game={game} />
                     ))}
                   </Grid>
                 </section>
@@ -117,4 +126,4 @@ function GameList() {
   );
 }
 
-export default GameList;
+export default AdminGameList;

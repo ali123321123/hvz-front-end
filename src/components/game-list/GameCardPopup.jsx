@@ -1,25 +1,14 @@
 import React from "react";
-import { useState, useEffect } from "react";
 import {
-  Card,
-  CardHeader,
-  CardMedia,
-  CardContent,
-  makeStyles,
   Typography,
-  Divider,
   Button,
-  ThemeProvider,
   Dialog,
-  Paper,
   DialogTitle,
   DialogContent,
   DialogActions,
 } from "@material-ui/core";
 
 const GameCardPopUp = ({ game, open, setOpen }) => {
-  
-
   const handleClose = () => {
     setOpen(false);
   };
@@ -27,10 +16,9 @@ const GameCardPopUp = ({ game, open, setOpen }) => {
   return (
     <div>
       <Dialog aria-labelledby="customized-dialog-title" open={open}>
-        <DialogTitle
-          id="customized-dialog-title"
-          onClose={handleClose}
-        >{game.name}</DialogTitle>
+        <DialogTitle id="customized-dialog-title" onClose={handleClose}>
+          {game.name}
+        </DialogTitle>
         <DialogContent dividers>
           <Typography gutterBottom>Latitude: Longitude:</Typography>
           <Typography gutterBottom>

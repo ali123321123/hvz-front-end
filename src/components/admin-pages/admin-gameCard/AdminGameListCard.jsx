@@ -11,12 +11,11 @@ import {
   Button,
   ThemeProvider,
 } from "@material-ui/core";
-import "./GameCard.scss";
+import "../../game-list/GameCard.scss";
 import "fontsource-roboto";
-import theme from "../shared/theme";
-import GameCardPopup from "./GameCardPopup";
+import theme from "../../shared/theme";
 
-function GameListCard({ game, onClick, onClose }) {
+function AdminGameListCard({ game }) {
   const useStyles = makeStyles((theme) => ({
     root: {
       textAlign: "center",
@@ -111,9 +110,8 @@ function GameListCard({ game, onClick, onClose }) {
           </ThemeProvider>
         </section>
       </div>
-      {open && <GameCardPopup open={open} setOpen={setOpen} game={game} />}
     </>
   );
 }
 
-export default GameListCard;
+export default AdminGameListCard;
