@@ -52,17 +52,19 @@ function GameList() {
       setLoading(true);
     } else {
       console.log(games);
-      setActiveGames(games.filter((f) => f.game_state));
+      setActiveGames(games.filter((f) => f.gameState && !f.registrationOpen));
       setCompletedGames(
-        games.filter((f) => !f.game_state && !f.game_registration)
+        games.filter((f) => !f.gameState && !f.registrationOpen)
       );
       setupCommingGames(
-        games.filter((f) => !f.game_state && f.game_registration)
+        games.filter((f) => !f.gameState && f.registrationOpen)
       );
 
       setLoading(false);
+      
     }
   }, [games]);
+  
 
   return (
     <>

@@ -7,11 +7,10 @@ function Home() {
   return (
     <Main>
       <GameList />
-      {/* 
+      {/*
       <AdminGameList />
-   <AdminDashboard />
-      
-      */}
+      <AdminDashboard />
+       */}
     </Main>
   );
 }

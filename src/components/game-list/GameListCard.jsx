@@ -62,7 +62,7 @@ function GameListCard({ game, onClick, onClose }) {
             <Card className="card">
               <CardMedia
                 className={classes.media}
-                image={game.url}
+                image={game.imageUrl}
                 height="200px"
                 title="game avatar"
               />
@@ -70,9 +70,9 @@ function GameListCard({ game, onClick, onClose }) {
                 className="header"
                 title={game.name}
                 subheader={
-                  game.game_state
+                  game.gameState
                     ? "In Progress"
-                    : !game.game_state && game.game_registration
+                    : !game.gameState && game.registrationOpen
                     ? "Open for registration"
                     : "Completed games"
                 }
@@ -90,7 +90,7 @@ function GameListCard({ game, onClick, onClose }) {
                   Relative dates
                 </Typography>
                 <Typography variant="body2" color="secondary" component="p">
-                  12.02.2021 | 12.02.2021 | 12.02.2021{" "}
+                  {game.startTime} | {game.endTime}
                 </Typography>
               </CardContent>
 
