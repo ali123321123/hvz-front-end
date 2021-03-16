@@ -98,9 +98,9 @@ function GameListCard({ game, onClick, onClose }) {
               className="header"
               title={game.name}
               subheader={
-                game.game_state
+                game.gameState
                   ? "In Progress"
-                  : !game.game_state && game.game_registration
+                  : !game.gameState && game.registrationOpen
                   ? "Open for registration"
                   : "Completed games"
               }
