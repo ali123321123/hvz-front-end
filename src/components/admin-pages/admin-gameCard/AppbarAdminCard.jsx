@@ -10,7 +10,6 @@ import {
   IconButton,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
-import MenuItems from "../admin-dashboard/MenuItems";
 import MenuDrawer from "../admin-dashboard/MenuDrawer";
 import MenuItemsAdminCard from "./MenuItemsAdminCard";
 

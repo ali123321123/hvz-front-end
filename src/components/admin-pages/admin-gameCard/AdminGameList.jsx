@@ -11,6 +11,8 @@ import AdminGameListCard from "./AdminGameListCard";
 import useSWR from "swr";
 import { fetcher } from "../../../services/FetcherFunction";
 import AppbarAdminCard from "./AppbarAdminCard";
+import MainMenu from "../MainMenu";
+import MenuItemsAdminCard from "./MenuItemsAdminCard";
 
 function AdminGameList() {
   const { data: games, error: gamesError } = useSWR(
@@ -77,7 +79,10 @@ function AdminGameList() {
         <div>Loading...</div>
       ) : (
         <div className={classes.root}>
-          <AppbarAdminCard />
+          <MainMenu
+            menuTitle={"Dashboard | Admin"}
+            menuItems={<MenuItemsAdminCard />}
+          />
 
           <main className={classes.content}>
             <Container maxWidth="false" className={classes.container}>

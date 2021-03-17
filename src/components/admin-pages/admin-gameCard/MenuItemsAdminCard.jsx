@@ -10,7 +10,13 @@ import {
 } from "@material-ui/core";
 import PeopleIcon from "@material-ui/icons/People";
 import LayersIcon from "@material-ui/icons/Layers";
-import { AddLocation, ToggleOff, ToggleOn } from "@material-ui/icons";
+import {
+  AddLocation,
+  Lock,
+  PlayCircleOutline,
+  ToggleOff,
+  ToggleOn,
+} from "@material-ui/icons";
 
 export default function MenuItemsAdminCard() {
   const useStyles = makeStyles((theme) => ({
@@ -54,52 +60,18 @@ export default function MenuItemsAdminCard() {
   return (
     <div>
       <article>
-        <ListItem
-          button
-          disabled
-          aria-label="start game"
-          onClick={handleGameEnd}
-          className={clsx(
-            classes.gameButton,
-            !startGame && classes.gameButtonHidden
-          )}
-        >
+        <ListItem button disabled aria-label="start game">
           <ListItemIcon>
-            <ToggleOn />
+            <PlayCircleOutline />
           </ListItemIcon>
           <ListItemText primary="Start Game" />
-        </ListItem>
-
-        <ListItem
-          button
-          aria-label="end game"
-          onClick={handleGameStart}
-          className={clsx(
-            classes.gameButton,
-            startGame && classes.gameButtonHidden
-          )}
-          open={startGame}
-        >
-          <ListItemIcon>
-            <ToggleOff />
-          </ListItemIcon>
-          <ListItemText primary="End Game" />
         </ListItem>
       </article>
 
       <article>
-        <ListItem
-          button
-          disabled
-          aria-label="open registration"
-          onClick={handleRegistrationToggleClose}
-          className={clsx(
-            classes.registrationButton,
-            !openRegistration && classes.registrationButtonHidden
-          )}
-        >
+        <ListItem button disabled aria-label="open registration">
           <ListItemIcon>
-            <ToggleOn />
+            <Lock />
           </ListItemIcon>
           <ListItemText primary="Open Registration" />
         </ListItem>
@@ -121,12 +93,20 @@ export default function MenuItemsAdminCard() {
         </ListItem>
       </article>
 
-      <ListItem button disabled>
-        <ListItemIcon>
-          <AddLocation />
-        </ListItemIcon>
-        <ListItemText primary="Add Mission" />
-      </ListItem>
+      <Tooltip
+        classes={{ tooltip: classes.customWidth }}
+        arrow
+        placement={"bottom"}
+        aria-label="add"
+        title="Pick a Game Card to Edit Missions"
+      >
+        <ListItem button>
+          <ListItemIcon>
+            <AddLocation />
+          </ListItemIcon>
+          <ListItemText primary="Add Mission" />
+        </ListItem>
+      </Tooltip>
 
       <Tooltip
         classes={{ tooltip: classes.customWidth }}
