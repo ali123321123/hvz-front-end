@@ -10,9 +10,9 @@ import {
   IconButton,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
-import MenuDrawer from "./admin-dashboard/MenuDrawer";
+import MenuDrawer from "../admin-pages/admin-dashboard/MenuDrawer";
 
-export default function MainMenu({ menuItems, menuTitle }) {
+export default function AppbarMainMenu({ menuItems, menuTitle }) {
   const drawerWidth = 240;
 
   const useStyles = makeStyles((theme) => ({
@@ -26,6 +26,7 @@ export default function MainMenu({ menuItems, menuTitle }) {
     },
 
     appBar: {
+      backgroundColor: "#CA1551",
       //Keep appbar on top
       zIndex: theme.zIndex.drawer + 1,
       transition: theme.transitions.create(["width", "margin"], {

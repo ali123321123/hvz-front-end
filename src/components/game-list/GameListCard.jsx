@@ -63,7 +63,7 @@ function GameListCard({ game, onClick, onClose }) {
       <div>
         <section className={classes.root}>
           <ThemeProvider theme={theme}>
-            <Card className="card">
+            <Card className="card" style={{ backgroundColor: "#345995" }}>
               <CardMedia
                 className={classes.media}
                 image={game.imageUrl}
@@ -94,7 +94,7 @@ function GameListCard({ game, onClick, onClose }) {
                   Relative dates
                 </Typography>
 
-                <Typography variant="body2" color="secondary" component="p">
+                <Typography variant="body2" color="warningLight" component="p">
                   <Tooltip title="Game start">
                     <span>
                       {game.startTime} | {}

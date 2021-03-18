@@ -10,8 +10,7 @@ import {
 import AdminGameListCard from "./AdminGameListCard";
 import useSWR from "swr";
 import { fetcher } from "../../../services/FetcherFunction";
-import AppbarAdminCard from "./AppbarAdminCard";
-import MainMenu from "../MainMenu";
+import AppbarMainMenu from "../../shared/AppbarMainMenu";
 import MenuItemsAdminCard from "./MenuItemsAdminCard";
 
 function AdminGameList() {
@@ -79,7 +78,7 @@ function AdminGameList() {
         <div>Loading...</div>
       ) : (
         <div className={classes.root}>
-          <MainMenu
+          <AppbarMainMenu
             menuTitle={"Dashboard | Admin"}
             menuItems={<MenuItemsAdminCard />}
           />

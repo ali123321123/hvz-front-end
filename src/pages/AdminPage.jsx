@@ -3,7 +3,7 @@ import AdminDashboard from "../components/admin-pages/admin-dashboard/AdminDashb
 import AdminGameList from "../components/admin-pages/admin-gameCard/AdminGameList";
 
 function AdminPage() {
-  return <AdminGameList />;
+  return <AdminDashboard />;
 }
 
 export default AdminPage;

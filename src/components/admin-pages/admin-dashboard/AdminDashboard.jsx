@@ -12,7 +12,7 @@ import GameStats from "./GameStats";
 import MissionStats from "./MissionStats";
 import PlayerStats from "./PlayerStats";
 import MenuItemsAdminDashboard from "./MenuItemsAdminDashboard";
-import MainMenu from "../MainMenu";
+import AppbarMainMenu from "../../shared/AppbarMainMenu";
 
 export default function AdminDashboard() {
   const drawerWidth = 240;
@@ -73,7 +73,7 @@ export default function AdminDashboard() {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <MainMenu
+      <AppbarMainMenu
         menuTitle={"Dashboard | Insert Game Name"}
         menuItems={<MenuItemsAdminDashboard />}
       />

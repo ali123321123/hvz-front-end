@@ -1,6 +1,4 @@
 import React from "react";
-import { useState } from "react";
-import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   ListItem,
@@ -15,7 +13,6 @@ import {
   Lock,
   PlayCircleOutline,
   ToggleOff,
-  ToggleOn,
 } from "@material-ui/icons";
 
 export default function MenuItemsAdminCard() {
@@ -38,25 +35,6 @@ export default function MenuItemsAdminCard() {
   }));
   const classes = useStyles();
 
-  const [startGame, setStartGame] = useState(true);
-  const [openRegistration, setOpenRegistration] = useState(true);
-
-  const handleGameStart = () => {
-    setStartGame(true);
-  };
-
-  const handleGameEnd = () => {
-    setStartGame(false);
-  };
-
-  const handleRegistrationleOpen = () => {
-    setOpenRegistration(true);
-  };
-
-  const handleRegistrationToggleClose = () => {
-    setOpenRegistration(false);
-  };
-
   return (
     <div>
       <article>
@@ -76,16 +54,7 @@ export default function MenuItemsAdminCard() {
           <ListItemText primary="Open Registration" />
         </ListItem>
 
-        <ListItem
-          button
-          aria-label="close registration"
-          onClick={handleRegistrationleOpen}
-          className={clsx(
-            classes.registrationButton,
-            openRegistration && classes.registrationButtonHidden
-          )}
-          open={openRegistration}
-        >
+        <ListItem button aria-label="close registration">
           <ListItemIcon>
             <ToggleOff />
           </ListItemIcon>
