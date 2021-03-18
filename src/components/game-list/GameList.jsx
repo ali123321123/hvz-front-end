@@ -7,9 +7,11 @@ import {
   Typography,
   makeStyles,
   Container,
+  ThemeProvider,
 } from "@material-ui/core";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import theme from "../shared/theme";
 import useSWR from "swr";
 import { fetcher } from "../../services/FetcherFunction";
 import AppbarMainMenu from "../shared/AppbarMainMenu";
@@ -48,25 +50,6 @@ function GameList() {
   }));
   const classes = useStyles();
 
-  const themeDark = createMuiTheme({
-    palette: {
-      background: {
-        default: "#87CEA4",
-      },
-      text: {
-        primary: "#ffffff",
-      },
-    },
-  });
-
-  const themeLight = createMuiTheme({
-    palette: {
-      background: {
-        default: "#03CEA4",
-      },
-    },
-    divider: "#222222",
-  });
   //Toggle ColorTheme
   const [light, setLight] = useState(true);
 
@@ -108,7 +91,7 @@ function GameList() {
             menuTitle={"Dashboard | Insert Game Name"}
             menuItems={<MenuItemsGameList />}
           />
-          <MuiThemeProvider theme={light ? themeLight : themeDark}>
+          <ThemeProvider theme={theme}>
             <CssBaseline />
             <div
               style={{
@@ -164,7 +147,7 @@ function GameList() {
                 </Grid>
               </Container>
             </main>
-          </MuiThemeProvider>
+          </ThemeProvider>
         </div>
       )}
     </>

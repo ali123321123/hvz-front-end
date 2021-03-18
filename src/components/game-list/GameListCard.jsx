@@ -16,8 +16,11 @@ import "./GameCard.scss";
 import "fontsource-roboto";
 import theme from "../shared/theme";
 import GameCardPopup from "./GameCardPopup";
+import Moment from "moment";
 
 function GameListCard({ game, onClick, onClose }) {
+  const moment = require("moment");
+
   const useStyles = makeStyles((theme) => ({
     root: {
       textAlign: "center",
@@ -91,18 +94,23 @@ function GameListCard({ game, onClick, onClose }) {
 
               <CardContent>
                 <Typography variant="body1" color="textPrimary" component="p">
-                  Relative dates
+                  <span>Start Date &emsp; {} &emsp; End Date</span>
                 </Typography>
 
                 <Typography variant="body2" color="warningLight" component="p">
                   <Tooltip title="Game start">
                     <span>
-                      {game.startTime} | {}
+                      {moment(`${game.startTime}`).format(
+                        "MMMM Do YYYY, HH:mm "
+                      )}
+                      | {}
                     </span>
                   </Tooltip>
 
                   <Tooltip title="Game End">
-                    <span>{game.endTime}</span>
+                    <span>
+                      {moment(`${game.endTime}`).format("MMMM Do YYYY, HH:mm ")}
+                    </span>
                   </Tooltip>
                 </Typography>
               </CardContent>
