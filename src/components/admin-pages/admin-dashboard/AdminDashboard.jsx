@@ -13,6 +13,7 @@ import MissionStats from "./MissionStats";
 import PlayerStats from "./PlayerStats";
 import MenuItemsAdminDashboard from "./MenuItemsAdminDashboard";
 import AppbarMainMenu from "../../shared/AppbarMainMenu";
+import ImageCard from "./ImageCard";
 
 export default function AdminDashboard() {
   const drawerWidth = 240;
@@ -101,9 +102,9 @@ export default function AdminDashboard() {
               </Paper>
             </Grid>
 
-            {/* Player stats */}
+            {/* Game Avatar Image */}
             <Grid item xs={12} md={3} lg={3}>
-              <PlayerStats />
+              <ImageCard />
             </Grid>
 
             {/* Game Stats */}

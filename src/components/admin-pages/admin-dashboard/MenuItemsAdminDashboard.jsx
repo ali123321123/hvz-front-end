@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   ListItem,
@@ -14,9 +14,14 @@ import {
   HighlightOff,
   Lock,
   LockOpen,
+  Photo,
   PlayCircleOutline,
 } from "@material-ui/icons";
 import DialogPopUp from "./DialogPopUp";
+import UploadImages from "../../upload-images/UploadImages";
+import useSWR from "swr";
+import { fetcher } from "../../../services/FetcherFunction";
+import { Cloudinary } from "cloudinary-core";
 
 export default function MenuItemsAdminDashboard() {
   const useStyles = makeStyles((theme) => ({
@@ -77,6 +82,17 @@ export default function MenuItemsAdminDashboard() {
     setOpenRegistrationPopUp(false); // close popup
     setRegistrationState(registrationState === true ? false : true);
   };
+
+  const { data: games, error: gamesError } = useSWR(
+    "https://localhost:44390/api/games/4",
+    fetcher
+  );
+
+  useEffect(() => {
+    console.log(games);
+  }, [games]);
+
+  const cloudinaryCore = new Cloudinary({ cloud_name: "debyqnalg" });
 
   return (
     <div>
@@ -236,6 +252,12 @@ export default function MenuItemsAdminDashboard() {
           </ListItem>
         </Tooltip>
       </article>
+
+      {games ? (
+        <div>
+          <UploadImages game={games} />
+        </div>
+      ) : null}
     </div>
   );
 }

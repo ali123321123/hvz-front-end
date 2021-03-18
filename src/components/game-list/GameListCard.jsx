@@ -66,7 +66,7 @@ function GameListCard({ game, onClick, onClose }) {
       <div>
         <section className={classes.root}>
           <ThemeProvider theme={theme}>
-            <Card className="card" style={{ backgroundColor: "#345995" }}>
+            <Card className="card" style={{ backgroundColor: "#885c91" }}>
               <CardMedia
                 className={classes.media}
                 image={game.imageUrl}
@@ -85,7 +85,7 @@ function GameListCard({ game, onClick, onClose }) {
                 }
               />
               <CardContent>
-                <Typography variant="body2" color="primary" component="p">
+                <Typography variant="body2" color="black" component="p">
                   X Registered Players
                 </Typography>
               </CardContent>
@@ -97,7 +97,7 @@ function GameListCard({ game, onClick, onClose }) {
                   <span>Start Date &emsp; {} &emsp; End Date</span>
                 </Typography>
 
-                <Typography variant="body2" color="warningLight" component="p">
+                <Typography variant="body2" color="black" component="p">
                   <Tooltip title="Game start">
                     <span>
                       {moment(`${game.startTime}`).format(
