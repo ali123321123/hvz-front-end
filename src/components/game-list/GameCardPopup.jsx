@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import {Marker, Popup, Rectangle } from "react-leaflet";
+import { Marker, Popup, Rectangle } from "react-leaflet";
 import {
   Card,
   CardHeader,
@@ -19,25 +19,36 @@ import {
 } from "@material-ui/core";
 import Map from "../map/Map";
 import "./GameCard.scss";
-
+import { useHistory } from "react-router";
+import GameCardPopupMap from "./GameCardPopupMap";
 
 const GameCardPopUp = ({ game, open, setOpen }) => {
+  const history = useHistory();
+
+  const [playArea, setPlayArea] = useState(null);
+  const [centerArea, setCenterArea] = useState(null);
+
   const handleClose = () => {
     setOpen(false);
   };
 
-  const playArea = [
-    [game.nW_lat, game.nW_lng],
-    [game.sE_lat, game.sE_lng],
-  ]
+  const handleJoinButton = () => {
+    history.push(`/game/${game.id}`);
+  };
 
-  const x = (game.nW_lat + game.sE_lat) / 2
-  const y = (game.nW_lng + game.sE_lng) / 2
-  console.log(x,y);
+  useEffect(() => {
+    setPlayArea([
+      [game.nW_lat, game.nW_lng],
+      [game.sE_lat, game.sE_lng],
+    ]);
+  }, [game]);
 
-  const centerArea = [
-      x,y
-  ]
+  useEffect(() => {
+    const x = (game.nW_lat + game.sE_lat) / 2;
+    const y = (game.nW_lng + game.sE_lng) / 2;
+    console.log(x, y);
+    setCenterArea([x, y]);
+  }, [game]);
 
   return (
     <div>
@@ -45,20 +56,21 @@ const GameCardPopUp = ({ game, open, setOpen }) => {
         <DialogTitle id="customized-dialog-title" onClose={handleClose}>
           {game.name}
         </DialogTitle>
-
-        <div className="mapid">
-          <Map center={centerArea} zoomBounds={playArea}>
-              <Rectangle bounds={playArea} />
-            <Marker position={centerArea}>
-              <Popup>
-                A pretty CSS3 popup. <br /> Easily customizable.
-              </Popup>
-            </Marker>
-          </Map>
-        </div>
+        {playArea && centerArea ? (
+          <div className="mapid">
+            <GameCardPopupMap
+              playAreaCoordinates={playArea}
+              centerAreaCoordinates={centerArea}
+            />
+          </div>
+        ) : null}
 
         <DialogContent dividers>
-          <Typography gutterBottom>Latitude: Longitude:</Typography>
+          {centerArea && (
+            <Typography gutterBottom>
+              Latitude: {centerArea[0].toFixed(2)} Longitude: {centerArea[1].toFixed(2)}
+            </Typography>
+          )}
 
           <Typography gutterBottom>
             <br />
@@ -67,6 +79,9 @@ const GameCardPopUp = ({ game, open, setOpen }) => {
             nisi, ducimus quis earum atque ipsam commodi temporibus doloribus,
             quod exercitationem excepturi.
           </Typography>
+          <Button variant="outlined" onClick={handleJoinButton} color="primary">
+            Join Game
+          </Button>
         </DialogContent>
 
         <DialogActions>

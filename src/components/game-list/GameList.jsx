@@ -5,11 +5,16 @@ import { Divider, Grid, Typography, makeStyles } from "@material-ui/core";
 import theme from "../shared/theme";
 import useSWR from "swr";
 import { fetcher } from "../../services/FetcherFunction";
+import { useHistory } from "react-router";
 
 function GameList() {
-  const { data: games, error: gamesError } = useSWR("https://localhost:44390/api/games", fetcher);
-//const { data: squads, error: squadsError} = useSWR("https://localhost:44390/api/Games", fetcher);
-  console.log(games, gamesError);
+    const history = useHistory();
+
+  const { data: games, error: gamesError } = useSWR(
+    "https://localhost:44390/api/games",
+    fetcher
+  );
+  //const { data: squads, error: squadsError} = useSWR("https://localhost:44390/api/Games", fetcher);
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -43,7 +48,6 @@ function GameList() {
     if (!games) {
       setLoading(true);
     } else {
-      console.log(games);
       setActiveGames(games.filter((f) => f.gameState && !f.registrationOpen));
       setCompletedGames(
         games.filter((f) => !f.gameState && !f.registrationOpen)
@@ -52,16 +56,14 @@ function GameList() {
         games.filter((f) => !f.gameState && f.registrationOpen)
       );
       setLoading(false);
-      
     }
   }, [games]);
-  
 
   return (
     <>
-      {loading ? 
+      {loading ? (
         <div>Loading...</div>
-       : 
+      ) : (
         <div className={classes.root}>
           <section className="container">
             <Typography variant="h4" color="primary" component="p">
@@ -97,7 +99,7 @@ function GameList() {
             </Grid>
           </section>
         </div>
-      }
+      )}
     </>
   );
 }

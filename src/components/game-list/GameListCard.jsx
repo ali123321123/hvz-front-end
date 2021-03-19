@@ -23,6 +23,7 @@ import ColoredButton from "../shared/ColoredButton";
 import theme from "../shared/theme";
 import { dark } from "@material-ui/core/styles/createPalette";
 import GameCardPopup from "./GameCardPopup";
+import { Cloudinary } from "cloudinary-core";
 
 function GameListCard({ game, onClick, onClose }) {
   const useStyles = makeStyles((theme) => ({
@@ -69,79 +70,83 @@ function GameListCard({ game, onClick, onClose }) {
     setOpen(false);
   };
 
-//   useEffect(() => {
-//     setSquads(
-//       database.squads.filter((squad) =>
-//         database.games.some((game) => squad.game_id === game.id)
-//       )
-//     );
-//   }, [gameSquad]);
+  //Move to cloudinary component with widget
+  const cloudinaryCore = new Cloudinary({ cloud_name: "debyqnalg" });
 
-//   useEffect(() => {
-//     setGameSquad(database.squads);
-//   }, []);
+  //   useEffect(() => {
+  //     setSquads(
+  //       database.squads.filter((squad) =>
+  //         database.games.some((game) => squad.game_id === game.id)
+  //       )
+  //     );
+  //   }, [gameSquad]);
+
+  //   useEffect(() => {
+  //     setGameSquad(database.squads);
+  //   }, []);
 
   return (
-      <>
-      
-    <div>
-      <section className={classes.root}>
-        <ThemeProvider theme={theme}>
-          <Card className="card">
-            <CardMedia
-              className={classes.media}
-              image={game.url}
-              height="200px"
-              title="game avatar"
-            />
-            <CardHeader
-              className="header"
-              title={game.name}
-              subheader={
-                game.gameState
-                  ? "In Progress"
-                  : !game.gameState && game.registrationOpen
-                  ? "Open for registration"
-                  : "Completed games"
-              }
-            />
-            <CardContent>
-              <Typography variant="body2" color="primary" component="p">
-                X Registered Players
-              </Typography>
-            </CardContent>
-
-            <Divider variant="middle" />
-
-            <CardContent>
-              <Typography variant="body1" color="textPrimary" component="p">
-                Relative dates
-              </Typography>
-              <Typography variant="body2" color="secondary" component="p">
-                12.02.2021 | 12.02.2021 | 12.02.2021{" "}
-              </Typography>
-            </CardContent>
-
-            <Divider />
-
-            <CardContent>
-              <Button
-                onClick={handleClickOpen}
-                className={classes.button}
-                variant="button"
-                color="secondary"
-                component="p"
+    <>
+      <div>
+        <section className={classes.root}>
+          <ThemeProvider theme={theme}>
+            <Card className="card">
+              <CardMedia
+                className={classes.media}
+                image={cloudinaryCore.url(game.imageUrl)}
+                height="200px"
+                title="game avatar"
               >
-                See More
-              </Button>
-            </CardContent>
-          </Card>
-        </ThemeProvider>
-      </section>
-    </div>
-    {open && 
-        <GameCardPopup open={open} setOpen={setOpen} game={game} />
-    }
+                
+              </CardMedia>
+
+              <CardHeader
+                className="header"
+                title={game.name}
+                subheader={
+                  game.gameState
+                    ? "In Progress"
+                    : !game.gameState && game.registrationOpen
+                    ? "Open for registration"
+                    : "Completed games"
+                }
+              />
+              <CardContent>
+                <Typography variant="body2" color="primary" component="p">
+                  X Registered Players
+                </Typography>
+              </CardContent>
+
+              <Divider variant="middle" />
+
+              <CardContent>
+                <Typography variant="body1" color="textPrimary" component="p">
+                  Relative dates
+                </Typography>
+                <Typography variant="body2" color="secondary" component="p">
+                  12.02.2021 | 12.02.2021 | 12.02.2021{" "}
+                </Typography>
+              </CardContent>
+
+              <Divider />
+
+              <CardContent>
+                <Button
+                  onClick={handleClickOpen}
+                  className={classes.button}
+                  variant="button"
+                  color="secondary"
+                  component="p"
+                >
+                  See More
+                </Button>
+                
+              </CardContent>
+            </Card>
+          </ThemeProvider>
+        </section>
+      </div>
+      {open && <GameCardPopup open={open} setOpen={setOpen} game={game} />}
     </>
   );
 }
