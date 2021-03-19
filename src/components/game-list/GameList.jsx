@@ -29,6 +29,8 @@ function GameList() {
 
   const useStyles = makeStyles((theme) => ({
     root: {
+      display: "flex",
+
       "& .MuiTypography-h4": {
         textAlign: "center",
       },

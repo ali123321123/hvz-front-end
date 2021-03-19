@@ -2,7 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Title from "./Title";
 
-export default function Temp() {
+export default function TempInteractiveMap() {
   const useStyles = makeStyles({
     depositContext: {
       flex: 1,

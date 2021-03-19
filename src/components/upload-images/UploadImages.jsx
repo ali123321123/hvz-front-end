@@ -1,5 +1,4 @@
 import React from "react";
-import { Cloudinary } from "cloudinary-core";
 import { updateImage } from "../../services/ImagesAPI";
 import {
   ListItem,

@@ -16,6 +16,7 @@ import {
   LockOpen,
   Photo,
   PlayCircleOutline,
+  PostAdd,
 } from "@material-ui/icons";
 import DialogPopUp from "./DialogPopUp";
 import UploadImages from "../../upload-images/UploadImages";
@@ -57,6 +58,8 @@ export default function MenuItemsAdminDashboard() {
   const [gameState, setGameState] = useState(true);
   const [registrationState, setRegistrationState] = useState(true);
 
+  const [openForm, setOpenForm] = useState(false);
+
   //Open PopUp
   const handleClickOpenPopUp = () => {
     setopenPopUp(true);
@@ -93,6 +96,10 @@ export default function MenuItemsAdminDashboard() {
   }, [games]);
 
   const cloudinaryCore = new Cloudinary({ cloud_name: "debyqnalg" });
+
+  const handleOpenForm = () => {
+    setOpenForm(openForm);
+  };
 
   return (
     <div>
@@ -235,29 +242,25 @@ export default function MenuItemsAdminDashboard() {
         </Tooltip>
       </article>
 
-      {/* BTN: ADD EDIT GAMES */}
+      {/* CREATE NEW GAME */}
       <article>
         <Tooltip
           classes={{ tooltip: classes.customWidth }}
           arrow
           placement={"bottom"}
-          aria-label="edit games"
-          title="Edit Games"
+          aria-label="create game"
+          title="Create new Game"
         >
-          <ListItem button>
+          <ListItem button onClick={handleOpenForm}>
             <ListItemIcon>
-              <LayersIcon />
+              <PostAdd />
             </ListItemIcon>
-            <ListItemText primary="Edit Games" />
+            <ListItemText primary="Create new Game" />
           </ListItem>
         </Tooltip>
       </article>
 
-      {games ? (
-        <div>
-          <UploadImages game={games} />
-        </div>
-      ) : null}
+      {/* OPEN LINK TO ADMIN FORM */}
     </div>
   );
 }

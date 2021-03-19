@@ -1,0 +1,132 @@
+body {
+  background: #0e101c;
+  font-family: "Roboto";
+  color: white;
+  box-sizing: border-box;
+  margin-top: 20px;
+
+}
+
+.h1 {
+  margin-top: 80px;
+  color: white;
+  font-size: 25px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgb(79, 98, 148);
+}
+
+.h3{
+  line-height: 2;
+  text-align: left;
+  display: block;
+  margin-bottom: 13px;
+  margin-top: 20px;
+  color: white;
+  font-size: 14px;
+  font-weight: 200;
+}
+
+.form {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.p {
+  color: #bf1650;
+  text-align: center;
+
+}
+
+.input {
+  display: block;
+  width: 50%;
+  border-radius: 4px;
+  border: 1px solid white;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+
+
+.label,
+section > label {
+  line-height: 2;
+  text-align: left;
+  display: block;
+  margin-bottom: 13px;
+  margin-top: 20px;
+  color: white;
+  font-size: 14px;
+  font-weight: 200;
+}
+
+.button {
+  background: #5b59ec;
+  color: white;
+  text-transform: uppercase;
+  border: none;
+  margin-top: 40px;
+  padding: 20px;
+  font-size: 16px;
+  font-weight: 100;
+  letter-spacing: 10px;
+  display: block;
+  appearance: none;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.buttonPink {
+  background: #df1b55;
+  color: white;
+  text-transform: uppercase;
+  border: none;
+  margin-top: 40px;
+  padding: 20px;
+  font-size: 16px;
+  font-weight: 100;
+  letter-spacing: 10px;
+  display: block;
+  appearance: none;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.buttonImg{
+  background: #5b59ec;
+  color: white;
+  text-transform: uppercase;
+  border: none;
+  padding: 10px;
+  font-size: 12px;
+  font-weight: 100;
+  letter-spacing: 4px;
+  display: block;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.buttonBlack {
+  background: black;
+  border: 1px solid white;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+}
+
+.datePicker {
+  display: block;
+  width: 100%;
+  border-radius: 4px;
+  border: 1px solid white;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+.checkBox {
+  display: inline;
+}

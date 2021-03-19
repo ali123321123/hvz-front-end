@@ -52,6 +52,7 @@ export default function AppbarAdminCard({ game, sideMenu }) {
       overflow: "auto",
     },
   }));
+
   const classes = useStyles();
 
   const [open, setOpen] = useState(false);

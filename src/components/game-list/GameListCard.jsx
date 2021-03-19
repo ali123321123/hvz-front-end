@@ -18,7 +18,7 @@ import theme from "../shared/theme";
 import GameCardPopup from "./GameCardPopup";
 import Moment from "moment";
 
-function GameListCard({ game, onClick, onClose }) {
+function GameListCard({ game }) {
   const moment = require("moment");
 
   const useStyles = makeStyles((theme) => ({
@@ -60,13 +60,13 @@ function GameListCard({ game, onClick, onClose }) {
   const handleClickOpen = () => {
     setOpen(true);
   };
-
+  //If no image is uploaded display default image
   return (
     <>
       <div>
         <section className={classes.root}>
           <ThemeProvider theme={theme}>
-            <Card className="card" style={{ backgroundColor: "#885c91" }}>
+            <Card className="card" style={{ backgroundColor: "#ec5959" }}>
               <CardMedia
                 className={classes.media}
                 image={game.imageUrl}
@@ -85,7 +85,7 @@ function GameListCard({ game, onClick, onClose }) {
                 }
               />
               <CardContent>
-                <Typography variant="body2" color="black" component="p">
+                <Typography variant="body2" color="primary" component="p">
                   X Registered Players
                 </Typography>
               </CardContent>
