@@ -1,0 +1,199 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "first_name": "Fredrik",
+      "last_name": "Olsvold",
+      "email": "fredrik.olsvold@gmail.com",
+      "age": 25,
+      "phone": "91248780",
+      "gender": "male",
+      "contact_person": "mom"
+    },
+    {
+      "id": 2,
+      "first_name": "Sofie",
+      "last_name": "Bergquist",
+      "email": "Sofie.Bergquist@gmail.com",
+      "age": 34,
+      "phone": "91248780",
+      "gender": "female",
+      "contact_person": "mom"
+    }
+  ],
+
+  "games": [
+    {
+      "id": 1,
+      "name": "Noroff Wars",
+      "game_state": true,
+      "game_registration": false,
+      "nw_lat": 42.123,
+      "nw_lng": 34.234,
+      "se_lat": 43.32,
+      "se_lng": 22.88,
+      "url": "https://loremflickr.com/320/240"
+    },
+    {
+      "id": 2,
+      "name": "Games",
+      "game_state": false,
+      "game_registration": false,
+      "nw_lat": 42.123,
+      "nw_lng": 34.234,
+      "se_lat": 43.32,
+      "se_lng": 22.88,
+      "url": "https://loremflickr.com/320/240"
+    },
+    {
+      "id": 3,
+      "name": "REGISTERED",
+      "game_state": false,
+      "game_registration": true,
+      "nw_lat": 42.123,
+      "nw_lng": 34.234,
+      "se_lat": 43.32,
+      "se_lng": 22.88,
+      "url": "https://loremflickr.com/320/240"
+    },
+    {
+      "id": 4,
+      "name": "Wars",
+      "game_state": true,
+      "game_registration": false,
+      "nw_lat": 42.123,
+      "nw_lng": 34.234,
+      "se_lat": 43.32,
+      "se_lng": 22.88,
+      "url": "https://loremflickr.com/320/240"
+    },
+    {
+      "id": 5,
+      "name": "Oslo Games",
+      "game_state": false,
+      "game_registration": false,
+      "nw_lat": 42.123,
+      "nw_lng": 34.234,
+      "se_lat": 43.32,
+      "se_lng": 22.88,
+      "url": "https://loremflickr.com/320/240"
+    },
+    {
+      "id": 6,
+      "name": "Swedish Smoke",
+      "game_state": false,
+      "game_registration": true,
+      "nw_lat": 42.123,
+      "nw_lng": 34.234,
+      "se_lat": 43.32,
+      "se_lng": 22.88,
+      "url": "https://loremflickr.com/320/240"
+    },
+    {
+      "id": 7,
+      "name": "Something",
+      "game_state": true,
+      "game_registration": false,
+      "nw_lat": 42.123,
+      "nw_lng": 34.234,
+      "se_lat": 43.32,
+      "se_lng": 22.88,
+      "url": "https://loremflickr.com/320/240"
+    },
+    {
+      "id": 8,
+      "name": "Noroff",
+      "game_state": true,
+      "game_registration": false,
+      "nw_lat": 42.123,
+      "nw_lng": 34.234,
+      "se_lat": 43.32,
+      "se_lng": 22.88,
+      "url": "https://loremflickr.com/320/240"
+    },
+    {
+      "id": 9,
+      "name": "Test",
+      "game_state": true,
+      "game_registration": false,
+      "nw_lat": 42.123,
+      "nw_lng": 34.234,
+      "se_lat": 43.32,
+      "se_lng": 22.88,
+      "url": "https://loremflickr.com/320/240"
+    }
+  ],
+
+  "players": [
+    {
+      "id": 1,
+      "is_human": true,
+      "is_patient_zero": false,
+      "bite_code": "dS2Sfdxx3",
+      "user_id": 1,
+      "game_id": 1
+    },
+    {
+      "id": 2,
+      "is_human": false,
+      "is_patient_zero": true,
+      "bite_code": "sdsdfgdfb3",
+      "user_id": 2,
+      "game_id": 1
+    }
+  ],
+
+  "squads": [
+    {
+      "id": 1,
+      "name": "Noroff kings Squad",
+      "is_human": true,
+      "game_id": 1
+    },
+    {
+      "id": 2,
+      "name": "Gang Gang Squad",
+      "is_human": true,
+      "game_id": 1
+    }
+  ],
+
+  "missions": [
+    {
+      "id": 1,
+      "name": "Kill zombies",
+      "is_human_visible": true,
+      "is_zombie_visible": false,
+      "start_time": "2021-01-01T12:00:00Z",
+      "end_time": "2021-01-01T14:00:00Z",
+      "lat": 33.44,
+      "lng": 44.33,
+      "game": 1
+    },
+    {
+      "id": 2,
+      "name": "Eat humans",
+      "is_human_visible": false,
+      "is_zombie_visible": true,
+      "start_time": "2021-01-01T12:00:00Z",
+      "end_time": "2021-01-01T14:00:00Z",
+      "lat": 33.44,
+      "lng": 44.33,
+      "game": 1
+    }
+  ],
+
+  "kills": [
+    {
+      "id": 1,
+      "time_of_death": "2021-01-01T12:30:00Z",
+      "is_visible": true,
+      "story": "A sad death",
+      "lat": 33.44,
+      "lng": 44.33,
+      "game_id": 1,
+      "killer_id": 2,
+      "victim_id": 1
+    }
+  ]
+}

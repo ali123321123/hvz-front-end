@@ -6,6 +6,7 @@ import ProfilePage from "./pages/ProfilePage";
 import GameDetailsPage from "./pages/GameDetailsPage";
 import NotFound from "./pages/NotFound";
 
+
 function App() {
   return (
     <Router>

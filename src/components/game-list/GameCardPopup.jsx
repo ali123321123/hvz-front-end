@@ -2,25 +2,18 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Marker, Popup, Rectangle } from "react-leaflet";
 import {
-  Card,
-  CardHeader,
-  CardMedia,
-  CardContent,
-  makeStyles,
   Typography,
-  Divider,
   Button,
-  ThemeProvider,
   Dialog,
-  Paper,
   DialogTitle,
   DialogContent,
   DialogActions,
 } from "@material-ui/core";
 import Map from "../map/Map";
-import "./GameCard.scss";
+import "./GameCard.scss"; // remove?
 import { useHistory } from "react-router";
 import GameCardPopupMap from "./GameCardPopupMap";
+import "./CardStyles.scss";
 
 const GameCardPopUp = ({ game, open, setOpen }) => {
   const history = useHistory();
