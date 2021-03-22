@@ -9,6 +9,14 @@ import GameDetailPlayerInfo from "./GameDetailPlayerInfo";
 
 function GameDetail() {
   const { id: gameId } = useParams();
+  
+
+//   const { data: game, error: gameError } = useSWR(
+//     `${process.env.REACT_APP_BASE_URL}${process.env.REACT_APP_GAME_API}/${gameId}`,
+//     fetcher
+//   );
+// console.log(process.env.REACT_APP_GAME_API);
+
   const { data: game, error: gameError } = useSWR(
     `https://localhost:44390/api/games/${gameId}`,
     fetcher

@@ -20,15 +20,14 @@ import theme from "../shared/theme";
 import GameCardPopup from "./GameCardPopup";
 import Moment from "moment";
 import { Cloudinary } from "cloudinary-core";
+import { sizing } from '@material-ui/system';
 
 function GameListCard({ game }) {
   const moment = require("moment");
   const cloudinaryCore = new Cloudinary({ cloud_name: "debyqnalg" });
 
   const useStyles = makeStyles((theme) => ({
-    root: {
-      display: "flex",
-    },
+
     media: {
       //paddingTop: "56.25%", // 16:9
       paddingTop: "75%", // 4:3
@@ -49,6 +48,10 @@ function GameListCard({ game }) {
         color: "#25252b",
       },
     },
+
+    card :{
+      width:"120%",
+  },
   }));
   const classes = useStyles();
 
@@ -62,7 +65,7 @@ function GameListCard({ game }) {
     <>
       <div>
         <Container>
-          <Card className="card">
+          <Card className={classes.card} style={{display: 'inline-block'}} >
             <CardMedia
               className={classes.media}
               image={cloudinaryCore.url(game.imageUrl)}
@@ -85,23 +88,6 @@ function GameListCard({ game }) {
                 X Registered Players
               </Typography>
             </CardContent>
-
-              <CardHeader
-                className="header"
-                title={game.name}
-                subheader={
-                  game.gameState
-                    ? "In Progress"
-                    : !game.gameState && game.registrationOpen
-                    ? "Open for registration"
-                    : "Completed games"
-                }
-              />
-              <CardContent>
-                <Typography variant="body2" color="primary" component="p">
-                  X Registered Players
-                </Typography>
-              </CardContent>
 
             <CardContent>
               <Typography variant="body1" color="textPrimary" component="p">

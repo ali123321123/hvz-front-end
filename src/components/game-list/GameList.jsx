@@ -27,6 +27,14 @@ function GameList() {
 
   const useStyles = makeStyles((theme) => ({
     root: {
+      "& .MuiGrid": {
+          backgroundColor:"red",
+          '&$spacing-xs-8': {
+            margin: -5,
+          
+        },
+      },
+
       "& .MuiTypography-h3": {
         textAlign: "center",
       },
@@ -38,6 +46,8 @@ function GameList() {
         marginBottom: "2em",
       },
     },
+
+
 
     content: {
       width: "100%",
@@ -233,14 +243,14 @@ function GameList() {
                   <section>
                     <Grid
                       container
-                      spacing={2}
+                      spacing={10}
                       style={{
                         textAlign: "center",
                       }}
                     >
                       {activeGames.map((game) => (
                         <Grid item xs={12} sm={6} md={4} lg={4} xl={3}>
-                          <GameListCard
+                        <GameListCard
                             key={game.id}
                             game={game}
                             className={classes.card}
