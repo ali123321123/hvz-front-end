@@ -12,7 +12,7 @@ import {
   ThemeProvider,
   Tooltip,
 } from "@material-ui/core";
-import "../../game-list/GameCard.scss";
+import "../../game-list/CardStyles.scss";
 import "fontsource-roboto";
 import theme from "../../shared/theme";
 

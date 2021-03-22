@@ -10,7 +10,7 @@ import {
   DialogActions,
 } from "@material-ui/core";
 import Map from "../map/Map";
-import "./GameCard.scss"; // remove?
+import "./CardStyles.scss"; // remove?
 import { useHistory } from "react-router";
 import GameCardPopupMap from "./GameCardPopupMap";
 import "./CardStyles.scss";
@@ -61,7 +61,8 @@ const GameCardPopUp = ({ game, open, setOpen }) => {
         <DialogContent dividers>
           {centerArea && (
             <Typography gutterBottom>
-              Latitude: {centerArea[0].toFixed(2)} Longitude: {centerArea[1].toFixed(2)}
+              Latitude: {centerArea[0].toFixed(2)} Longitude:{" "}
+              {centerArea[1].toFixed(2)}
             </Typography>
           )}
 
