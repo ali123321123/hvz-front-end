@@ -15,7 +15,7 @@ import {
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
 import TempInteractiveMap from "./admin-dashboard/TempInteractiveMap";
-import "./styles.css";
+import "./styles.scss";
 import ButtonsResult from "./ButtonsResult";
 import { Cloudinary } from "cloudinary-core";
 import MenuItemsAdminDashboard from "../admin-pages/admin-dashboard/MenuItemsAdminDashboard";
@@ -133,7 +133,7 @@ function AdminForm({ onClick, openForm, setopenForm }) {
           <div className={classes.appBarSpacer} />
           <Container maxWidth="lg" className={classes.container}>
             <Grid container spacing={10}>
-              <Grid spacing={10} item xs={6}>
+              <Grid spacing={10} item xs={7}>
                 {/* FORM START*/}
                 <form
                   onSubmit={handleSubmit((data) => setData(data))}
@@ -152,28 +152,37 @@ function AdminForm({ onClick, openForm, setopenForm }) {
                       onChange={handleGameTitle}
                     />
 
-                    {/* REGISTRATION & START GAME */}
-                    <section>
-                      <label className="checkBox">Open Registration </label>
-                      <Controller
-                        className="checkBox"
-                        as={Checkbox}
-                        name="registrationOpen"
-                        type="checkbox"
-                        control={control}
-                        onClick={handleRegistration}
-                      />
+                    {/* BUTTON UPLOAD IMAGE */}
+                    <button
+                      className="buttonImg"
+                      type="button"
+                      onClick={handleUpload}
+                    >
+                      Upload image
+                    </button>
+                  </section>
 
-                      <label className="checkBox">&emsp; Start Game</label>
-                      <Controller
-                        className="checkBox"
-                        as={Checkbox}
-                        name="gameState"
-                        type="checkbox"
-                        control={control}
-                        onClick={handleGameState}
-                      />
-                    </section>
+                  {/* REGISTRATION & START GAME */}
+                  <section>
+                    <label className="checkBox">Open Registration </label>
+                    <Controller
+                      className="checkBox"
+                      as={Checkbox}
+                      name="registrationOpen"
+                      type="checkbox"
+                      control={control}
+                      onClick={handleRegistration}
+                    />
+
+                    <label className="checkBox">&emsp; Start Game</label>
+                    <Controller
+                      className="checkBox"
+                      as={Checkbox}
+                      name="gameState"
+                      type="checkbox"
+                      control={control}
+                      onClick={handleGameState}
+                    />
 
                     {/* Interactive Map */}
                     <Paper className={fixedHeightPaper}>
@@ -182,8 +191,8 @@ function AdminForm({ onClick, openForm, setopenForm }) {
                   </section>
 
                   {/* START | END DATE */}
-                  <section>
-                    <label>Start Date</label>
+                  <section className="date">
+                    <label className="checkBox">Start Date</label>
                     <DatePicker
                       className="datePicker"
                       placeholderText="Select date"
@@ -195,7 +204,7 @@ function AdminForm({ onClick, openForm, setopenForm }) {
                       onChange={(date) => setStartTime(date)}
                     />
 
-                    <label>End Date</label>
+                    <label className="checkBox">End Date</label>
                     <DatePicker
                       className="datePicker"
                       placeholderText="Select date"
@@ -208,17 +217,6 @@ function AdminForm({ onClick, openForm, setopenForm }) {
                       dateFormat="Pp"
                       onChange={(date) => setEndTime(date)}
                     />
-                  </section>
-
-                  {/* BUTTON UPLOAD IMAGE */}
-                  <section>
-                    <button
-                      className="buttonImg"
-                      type="button"
-                      onClick={handleUpload}
-                    >
-                      Upload image
-                    </button>
                   </section>
 
                   {/* BUTTON CREATE GAME */}
@@ -235,19 +233,19 @@ function AdminForm({ onClick, openForm, setopenForm }) {
               </Grid>
 
               {/* CARD PREVIEW */}
-              <Grid spacing={3} item xs={4}>
-                <div styles={{ marginTop: "5000px", margin: "4em" }}>
-                  <AdminCard
-                    name={name}
-                    registrationOpen={registrationOpen}
-                    gameState={gameState}
-                    startTime={moment(`${startTime}`).format(
-                      "MM do YYYY, HH:mm"
-                    )}
-                    endTime={moment(`${endTime}`).format("MM do YYYY, HH:mm")}
-                    imageUrl={imageUrl}
-                  />
-                </div>
+              <Grid item>
+                <section>
+                  <label className="h1">Preview</label>
+                </section>
+
+                <AdminCard
+                  name={name}
+                  registrationOpen={registrationOpen}
+                  gameState={gameState}
+                  startTime={moment(`${startTime}`).format("MM do YYYY, HH:mm")}
+                  endTime={moment(`${endTime}`).format("MM do YYYY, HH:mm")}
+                  imageUrl={cloudinaryCore.url(imageUrl)}
+                />
               </Grid>
             </Grid>
           </Container>

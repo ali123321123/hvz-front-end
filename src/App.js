@@ -4,6 +4,7 @@ import LoginPage from "./pages/LoginPage";
 import AdminPage from "./pages/AdminPage";
 import ProfilePage from "./pages/ProfilePage";
 import GameDetailsPage from "./pages/GameDetailsPage";
+import AdminForm from "./components/admin-pages/AdminForm";
 
 function App() {
   return (
@@ -17,6 +18,9 @@ function App() {
         </Route>
         <Route path="/admin">
           <AdminPage />
+        </Route>
+        <Route path="/adminform">
+          <AdminForm />
         </Route>
         <Route path="/profile/:id">
           <ProfilePage />

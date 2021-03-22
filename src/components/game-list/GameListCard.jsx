@@ -11,46 +11,43 @@ import {
   Button,
   ThemeProvider,
   Tooltip,
+  Grid,
+  Container,
 } from "@material-ui/core";
-import "./GameCard.scss";
+import "./CardStyles.scss";
 import "fontsource-roboto";
 import theme from "../shared/theme";
 import GameCardPopup from "./GameCardPopup";
 import Moment from "moment";
+import { Cloudinary } from "cloudinary-core";
 
 function GameListCard({ game }) {
   const moment = require("moment");
+  const cloudinaryCore = new Cloudinary({ cloud_name: "debyqnalg" });
 
   const useStyles = makeStyles((theme) => ({
     root: {
-      textAlign: "center",
-      "& .MuiPaper-root": {
-        borderRadius: "25px",
-      },
-      " & .MuiCardMedia-root": {
-        margin: "auto",
-        width: "80%",
-        borderRadius: "100%",
-      },
+      display: "flex",
     },
-
     media: {
-      height: "100%",
       //paddingTop: "56.25%", // 16:9
       paddingTop: "75%", // 4:3
       objectFit: "cover",
+      width: "80%",
+      borderRadius: "100%",
+      margin: "auto",
+      marginTop: "2em",
+      //  "&:hover": {
+      boxShadow: "0px 0px 20px 5px #333",
+      transition: "0.3s",
+      //},
     },
-    primary: {
-      main: "#a61766",
-    },
-    palette: {
-      type: "dark",
-      common: {
-        black: "#a61766",
+
+    Typography: {
+      color: "#25252b",
+      body2: {
+        color: "#25252b",
       },
-    },
-    customWidth: {
-      maxWidth: 120,
     },
   }));
   const classes = useStyles();
@@ -64,73 +61,69 @@ function GameListCard({ game }) {
   return (
     <>
       <div>
-        <section className={classes.root}>
-          <ThemeProvider theme={theme}>
-            <Card className="card" style={{ backgroundColor: "#ec5959" }}>
-              <CardMedia
-                className={classes.media}
-                image={game.imageUrl}
-                height="200px"
-                title="game avatar"
-              />
-              <CardHeader
-                className="header"
-                title={game.name}
-                subheader={
-                  game.gameState
-                    ? "In Progress"
-                    : !game.gameState && game.registrationOpen
-                    ? "Open for registration"
-                    : "Completed games"
-                }
-              />
-              <CardContent>
-                <Typography variant="body2" color="primary" component="p">
-                  X Registered Players
-                </Typography>
-              </CardContent>
+        <Container>
+          <Card className="card">
+            <CardMedia
+              className={classes.media}
+              image={cloudinaryCore.url(game.imageUrl)}
+              height="200px"
+              title="game avatar"
+            />
+            <CardHeader
+              className="header"
+              title={game.name}
+              subheader={
+                game.gameState
+                  ? "In Progress"
+                  : !game.gameState && game.registrationOpen
+                  ? "Open for registration"
+                  : "Completed games"
+              }
+            />
+            <CardContent>
+              <Typography variant="body2" color="primary" component="p">
+                X Registered Players
+              </Typography>
+            </CardContent>
 
-              <Divider variant="middle" />
+            <Divider variant="middle" />
 
-              <CardContent>
-                <Typography variant="body1" color="textPrimary" component="p">
-                  <span>Start Date &emsp; {} &emsp; End Date</span>
-                </Typography>
+            <CardContent>
+              <Typography variant="body1" color="textPrimary" component="p">
+                <span>Start Date &emsp; {} &emsp; End Date</span>
+              </Typography>
 
-                <Typography variant="body2" color="black" component="p">
-                  <Tooltip title="Game start">
-                    <span>
-                      {moment(`${game.startTime}`).format(
-                        "MMMM Do YYYY, HH:mm "
-                      )}
-                      | {}
-                    </span>
-                  </Tooltip>
+              <Typography variant="body2" color="black" component="p">
+                <Tooltip title="Game start">
+                  <span>
+                    {moment(`${game.startTime}`).format("MMMM Do YYYY, HH:mm ")}
+                    | {}
+                  </span>
+                </Tooltip>
 
-                  <Tooltip title="Game End">
-                    <span>
-                      {moment(`${game.endTime}`).format("MMMM Do YYYY, HH:mm ")}
-                    </span>
-                  </Tooltip>
-                </Typography>
-              </CardContent>
+                <Tooltip title="Game End">
+                  <span>
+                    {moment(`${game.endTime}`).format("MMMM Do YYYY, HH:mm ")}
+                  </span>
+                </Tooltip>
+              </Typography>
+            </CardContent>
 
-              <Divider />
+            <Divider />
 
-              <CardContent>
-                <Button
-                  onClick={handleClickOpen}
-                  className={classes.button}
-                  variant="button"
-                  color="secondary"
-                  component="p"
-                >
-                  See More
-                </Button>
-              </CardContent>
-            </Card>
-          </ThemeProvider>
-        </section>
+            <CardContent>
+              <Button
+                onClick={handleClickOpen}
+                className={classes.button}
+                variant="button"
+                color="secondary"
+                component="p"
+              >
+                See More
+              </Button>
+            </CardContent>
+          </Card>
+        </Container>
       </div>
       {open && <GameCardPopup open={open} setOpen={setOpen} game={game} />}
     </>

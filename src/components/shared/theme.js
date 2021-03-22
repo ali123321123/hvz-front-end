@@ -1,7 +1,7 @@
 import { createMuiTheme, responsiveFontSizes } from "@material-ui/core";
 
 // colors
-const primary = "#e4e4e4";
+const primary = "#25252b";
 const secondary = "#c43c80";
 const card = "f3e45b";
 const black = "#343a40";
@@ -86,8 +86,9 @@ const theme = createMuiTheme({
     },
     MuiDivider: {
       root: {
-        backgroundColor: borderColor,
+        backgroundColor: "#df1b55",
         height: borderWidth,
+        marginTop: "-100px",
       },
     },
     MuiPrivateNotchedOutline: {
@@ -100,9 +101,11 @@ const theme = createMuiTheme({
         borderBottom: `${borderWidth}px solid ${borderColor}`,
       },
     },
+
     MuiDialog: {
       paper: {
         width: "100%",
+        backgroundColor: "#fff",
         maxWidth: 430,
         marginLeft: spacing,
         marginRight: spacing,

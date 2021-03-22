@@ -10,7 +10,7 @@ import {
   DialogActions,
 } from "@material-ui/core";
 import Map from "../map/Map";
-import "./GameCard.scss";
+import "./CardStyles.scss";
 
 const GameCardPopUp = ({ game, open, setOpen }) => {
   const handleClose = () => {

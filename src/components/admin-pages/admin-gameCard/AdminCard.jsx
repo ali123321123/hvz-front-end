@@ -11,7 +11,7 @@ import {
   ThemeProvider,
   Tooltip,
 } from "@material-ui/core";
-import "../../game-list/GameCard.scss";
+import "../../game-list/CardStyles.scss";
 import "fontsource-roboto";
 import theme from "../../shared/theme";
 import Moment from "moment";
@@ -27,22 +27,18 @@ const AdminCard = ({
   const useStyles = makeStyles((theme) => ({
     root: {
       textAlign: "center",
-      "& .MuiPaper-root": {
-        borderRadius: "25px",
-      },
-      " & .MuiCardMedia-root": {
-        margin: "auto",
-        width: "80%",
-        borderRadius: "100%",
-      },
     },
 
     media: {
-      height: "100%",
       //paddingTop: "56.25%", // 16:9
       paddingTop: "75%", // 4:3
       objectFit: "cover",
+      width: "80%",
+      borderRadius: "100%",
+      margin: "auto",
+      marginTop: "2em",
     },
+
     primary: {
       main: "#a61766",
     },
@@ -57,8 +53,13 @@ const AdminCard = ({
     },
 
     container: {
-      paddingTop: theme.spacing(16),
+      paddingTop: theme.spacing(8),
       paddingBottom: theme.spacing(4),
+    },
+
+    divider: {
+      marginTop: "0px",
+      height: "1px",
     },
   }));
   const classes = useStyles();
@@ -68,13 +69,14 @@ const AdminCard = ({
     <div className={classes.container}>
       <section className={classes.root}>
         <ThemeProvider theme={theme}>
-          <Card className="card" style={{ backgroundColor: "#004ba0" }}>
+          <Card style={{ borderRadius: "20px" }}>
             <CardMedia
               className={classes.media}
               image={imageUrl}
               height="200px"
               title="game avatar"
             />
+
             <CardHeader
               className="header"
               title={name}
@@ -91,12 +93,14 @@ const AdminCard = ({
               </Typography>
             </CardContent>
 
-            <Divider variant="middle" />
-
+            <Divider className="divider" variant="middle" />
+            <br />
             <CardContent>
               <Typography variant="body1" color="textPrimary" component="p">
                 <span>Start Date &emsp; {} &emsp; End Date</span>
               </Typography>
+              <br />
+              <br />
 
               <Typography variant="body2" color="black" component="p">
                 <Tooltip title="Game start">

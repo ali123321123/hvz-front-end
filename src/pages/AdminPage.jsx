@@ -3,7 +3,7 @@ import AdminDashboard from "../components/admin-pages/admin-dashboard/AdminDashb
 import AdminForm from "../components/admin-pages/AdminForm";
 
 function AdminPage() {
-  return <AdminForm />;
+  return <AdminDashboard />;
 }
 
 export default AdminPage;
