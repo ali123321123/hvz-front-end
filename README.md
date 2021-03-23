@@ -1,22 +1,15 @@
-# TODO
+# HVZ front-end
+
+## Setup and installation
+
+1. run `npm install -y` to install dependencies
+2. Make sure HVZapi is running (Visual Studio IIS express)
+3. run `npm start` to start localhost:3000
 
 ## Landing page
 
-1. Unregisterd user:
+- `http://localhost:3000`
 
-   - View Login/register in header.
-   - View games in list.
-   - Game: Title, Squad list, map with gravestones, players in game.
-   - Prompt registration at "Join Game" attempt.
+  This is th landing page with list of games in their different states, Active, upcoming or completed. You can click `See more` on th cards to get a popup with a map over the play area. From there you can join a game and view a more detailed page of the game.
 
-2. Player, no squad:
-   - View games in list.
-   - Join Game. (Registerd for game)
-   - View Game Detail (Player dashboard FE-02)
-     - Bite Code
-     - Squad
-     - Map (missions, gravestones)
-     - Squad chat
-   - Player profile (Active games, completed games)
-
-Player, w Squad
+## Admin page

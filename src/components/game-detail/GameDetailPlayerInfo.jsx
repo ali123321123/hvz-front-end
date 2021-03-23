@@ -1,39 +1,57 @@
 import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 import { fetcher, fetcherToken } from "../../services/FetcherFunction";
+import Auth from "../../utils/authentication";
+import Endpoints from "../../services/endpoints";
+import { useSelector } from "react-redux";
 
 function GameDetailPlayerInfo({ gameId }) {
-  //User token temp variables
-  const userTokenId = 1;
-  const userSquadId = 1;
-  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjEiLCJyb2xlIjoiQWRtaW4iLCJuYmYiOjE2MTY0MTY2MTcsImV4cCI6MTYxNzAyMTQxNywiaWF0IjoxNjE2NDE2NjE3fQ.hJPEwjYT7LpdmX5FoSTzXlvHVopqgPXAPkTBHcBz68k"
-
-  const { data: players, error: playersError } = useSWR(
-    `https://localhost:44390/api/games/${gameId}/players`,
-    fetcher
-  );
-  const { data: user, error: userError } = useSWR(
-    `https://localhost:44390/api/Users/${userTokenId}`,
-    url => fetcherToken(url, token)
-  );
-
-  const { data: squad, error: squadError } = useSWR(
-    `https://localhost:44390/api/squads/${userSquadId}`,
-    url => fetcherToken(url, token)
-  );
   const [humanPlayers, setHumanPlayers] = useState([]);
   const [zombiePlayers, setZombiePlayers] = useState([]);
 
   const [player, setPlayer] = useState({});
 
+const [playerSquad, setPlayerSquad] = useState({})
+  const user = useSelector((state) => state.loggedInUser);
+
+  const { data: players, error: playersError } = useSWR(
+    `${Endpoints.GAME_API}/${gameId}/players`,
+    fetcher
+  );
+
+  const { data: gameSquads, error: gameSquadsError } = useSWR(
+    `${Endpoints.GAME_API}/${gameId}/squads`,
+    fetcher
+  );
+
+  const {data: squads, error: squadsError} = useSWR(
+      `${Endpoints.SQUADS_API}/`, fetcher
+  )
+
+  //Temp squads map etc...
+  useEffect(() => {
+      setPlayerSquad(squads.filter((s) => s.gameId === gameId));
+      console.log(squads);
+  }, [squads]);
+
+  //   const {
+  //     data: user,
+  //     error: userError,
+  //   } = useSWR(`${Endpoints.USERS_API}/${user.id}`, (url) =>
+  //     fetcherToken(url, Auth.getTokenInStorage)
+  //   );
+
   useEffect(() => {
     if (players) {
-        console.log(players);
+      console.log(players);
       setHumanPlayers(players.filter((p) => p.isHuman));
       setZombiePlayers(players.filter((p) => !p.isHuman));
-      setPlayer(players.filter((p) => p.userId === userTokenId));
+      setPlayer(players.filter((p) => p.userId === user.id));
     }
   }, [players]);
+
+  useEffect(() => {}, [gameSquads]);
+
   return (
     <aside>
       <div className="players">
@@ -48,8 +66,7 @@ function GameDetailPlayerInfo({ gameId }) {
       <div className="squadName">
         <h3>Squad:</h3>
         <ul>
-          {squad?.squadMembers.map((m) => (
-            //Change playerId to playerName when database is updated
+          {playerSquad?.squadMembers.map((m) => (
             <li>
               {m.rank} {m.name}
             </li>

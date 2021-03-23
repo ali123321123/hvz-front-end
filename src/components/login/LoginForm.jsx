@@ -11,9 +11,13 @@ import {
 import { loginRequest } from "../../utils/loginApi";
 import Auth from "../../utils/authentication";
 
-import {errorToaster} from '../../utils/global'
+import { errorToaster } from "../../utils/global";
+import { useHistory } from "react-router";
+
+import Validation from "../../utils/validation";
 
 function LoginForm() {
+  const history = useHistory();
   const useStyles = makeStyles((theme) => ({
     root: {
       textAlign: "center",
@@ -59,6 +63,8 @@ function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  const [formData, setFormData] = useState({});
+
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
   };
@@ -68,12 +74,18 @@ function LoginForm() {
   };
 
   const handleLogin = async () => {
-    if(username === "" || password === ""){
-        errorToaster("Input fields are empty")
-        return;
-    }
-    Auth.loginUser(await loginRequest(username, password));
+      if(username === "" || password === "")
+      {
+          errorToaster("Username or password is empty")
+          return;
+      }
+    const loginData = await loginRequest(username, password);
+    
+
+    Auth.loginUser(loginData);
+    history.push(`/`);
   };
+
 
   return (
     <FormControl className={classes.container}>
@@ -104,7 +116,5 @@ function LoginForm() {
     </FormControl>
   );
 }
-
-
 
 export default LoginForm;

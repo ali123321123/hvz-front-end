@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import clsx from "clsx";
 import {
@@ -17,7 +17,7 @@ import Auth from "../../utils/authentication";
 import { useSelector } from "react-redux";
 
 export default function AppbarMainMenu({ menuItems, menuTitle }) {
-  const user = useSelector((state) => state);
+  const user = useSelector((state) => state.loggedInUser);
   const history = useHistory();
   const drawerWidth = 240;
 
@@ -81,6 +81,10 @@ export default function AppbarMainMenu({ menuItems, menuTitle }) {
       history.push("/register");
   }
 
+  useEffect(() => {
+    console.log(user);
+  }, [user])
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -107,7 +111,7 @@ export default function AppbarMainMenu({ menuItems, menuTitle }) {
           {!Auth.userIsLoggedIn() ? (
             <div>
               <Button onClick={handleLoginClick}>Login</Button>
-              <Button onClick={handleRegisterClick}>Register</Button>
+              <Button onClick={handleRegisterClick}>Register</Button>      
             </div>
           ) : (
             <div>

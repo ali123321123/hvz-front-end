@@ -17,8 +17,10 @@ import { fetcher } from "../../services/FetcherFunction";
 import AppbarMainMenu from "../shared/AppbarMainMenu";
 import MenuItemsGameList from "./MenuItemsGameList";
 import { ReactComponent as HvZLogo } from "../../assets/logo_without_title.svg";
+import { useSelector } from "react-redux";
 
 function GameList() {
+    
     
   const { data: games, error: gamesError } = useSWR(
     "https://localhost:44390/api/games",
