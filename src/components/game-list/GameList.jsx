@@ -178,7 +178,6 @@ function GameList() {
   const [activeGames, setActiveGames] = useState([]);
   const [completedGames, setCompletedGames] = useState([]);
   const [upCommingGames, setupCommingGames] = useState([]);
-  const [player, setPlayers] = useState();
 
   const [loading, setLoading] = useState(true);
 
@@ -186,10 +185,6 @@ function GameList() {
   const { data: games, error: gamesError } = useSWR(
     "https://localhost:44390/api/games",
     fetcher
-  );
-
-  const { data: getPlayer, error: playerError } = useSWR(
-    `https://localhost44390/api/games/${1}/players`
   );
 
   //Filter out new array from game_state and registration

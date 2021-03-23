@@ -52,22 +52,22 @@ function GameListCard({ game }) {
   const classes = useStyles();
 
   const [open, setOpen] = useState(false);
-  const [player, setPlayer] = useState();
+  const [players, setPlayers] = useState();
 
   //Fetch players from game id
 
-  const { data: players, error: playersError } = useSWR(
+  const { data: getPlayers, error: playersError } = useSWR(
     `https://localhost:44390/api/games/${game.id}/players`,
     fetcher
   );
 
   useEffect(() => {
-    if (players) {
-      setPlayer(Object.keys(players).length);
-      // console.log(players);
+    if (getPlayers) {
+      // setPlayer(Object.keys(players).length);
+      setPlayers(getPlayers.length);
       //console.log(Object.keys(players).length);
     }
-  }, [players]);
+  }, [getPlayers]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -96,7 +96,7 @@ function GameListCard({ game }) {
           />
           <CardContent>
             <Typography variant="body2" color="primary" component="p">
-              X Registered Players {player}
+              {players} Registered Players
             </Typography>
           </CardContent>
 
