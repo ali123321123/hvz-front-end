@@ -77,6 +77,7 @@ function GameListCard({ game }) {
     <>
       <div classes="root">
         <Card className="card">
+          <p>Game id: {game.id}</p>
           <CardMedia
             className={classes.media}
             image={cloudinaryCore.url(game.imageUrl)}
@@ -118,15 +119,6 @@ function GameListCard({ game }) {
                   {moment(`${game.endTime}`).format("MMMM Do YYYY, HH:mm ")}
                 </span>
               </Tooltip>
-            </Typography>
-          </CardContent>
-
-          <CardContent>
-            <Typography variant="body1" color="textPrimary" component="p">
-              Relative dates
-            </Typography>
-            <Typography variant="body2" color="secondary" component="p">
-              12.02.2021 | 12.02.2021 | 12.02.2021{" "}
             </Typography>
           </CardContent>
 
