@@ -22,6 +22,7 @@
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "react-scroll": "^1.8.2",
     "recharts": "^2.0.8",
     "swr": "^0.5.2",
     "web-vitals": "^1.1.0"

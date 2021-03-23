@@ -15,10 +15,9 @@ import {
   Button,
   useTheme,
 } from "@material-ui/core";
-import PeopleIcon from "@material-ui/icons/People";
-import LayersIcon from "@material-ui/icons/Layers";
-import { AddLocation, ToggleOff, ToggleOn } from "@material-ui/icons";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
+import BrightnessLow from "@material-ui/icons/BrightnessLow";
+import BrightnessMedium from "@material-ui/icons/BrightnessMedium";
+import BrightnessHigh from "@material-ui/icons/BrightnessHigh";
 
 export default function MenuItemsGameList() {
   const useStyles = makeStyles((theme) => ({
@@ -52,7 +51,7 @@ export default function MenuItemsGameList() {
       >
         <ListItem button>
           <ListItemIcon>
-            <AddLocation />
+            <BrightnessMedium />
           </ListItemIcon>
           <ListItemText primary="Active Games" />
         </ListItem>
@@ -67,7 +66,7 @@ export default function MenuItemsGameList() {
       >
         <ListItem button>
           <ListItemIcon>
-            <PeopleIcon />
+            <BrightnessLow />
           </ListItemIcon>
           <ListItemText primary="Upcoming Games" />
         </ListItem>
@@ -82,7 +81,7 @@ export default function MenuItemsGameList() {
       >
         <ListItem button>
           <ListItemIcon>
-            <LayersIcon />
+            <BrightnessHigh />
           </ListItemIcon>
           <ListItemText primary="Completed Games" />
         </ListItem>
