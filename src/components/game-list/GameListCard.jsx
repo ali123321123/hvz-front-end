@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Card,
   CardHeader,
@@ -19,6 +19,8 @@ import "fontsource-roboto";
 import theme from "../shared/theme";
 import GameCardPopup from "./GameCardPopup";
 import Moment from "moment";
+import useSWR from "swr";
+import { fetcher } from "../../services/FetcherFunction";
 import { Cloudinary } from "cloudinary-core";
 
 function GameListCard({ game }) {
@@ -26,9 +28,6 @@ function GameListCard({ game }) {
   const cloudinaryCore = new Cloudinary({ cloud_name: "debyqnalg" });
 
   const useStyles = makeStyles((theme) => ({
-    root: {
-      display: "flex",
-    },
     media: {
       //paddingTop: "56.25%", // 16:9
       paddingTop: "75%", // 4:3
@@ -53,6 +52,22 @@ function GameListCard({ game }) {
   const classes = useStyles();
 
   const [open, setOpen] = useState(false);
+  const [player, setPlayer] = useState();
+
+  //Fetch players from game id
+
+  const { data: players, error: playersError } = useSWR(
+    `https://localhost:44390/api/games/${game.id}/players`,
+    fetcher
+  );
+
+  useEffect(() => {
+    if (players) {
+      setPlayer(Object.keys(players).length);
+      // console.log(players);
+      //console.log(Object.keys(players).length);
+    }
+  }, [players]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -60,92 +75,73 @@ function GameListCard({ game }) {
   //If no image is uploaded display default image
   return (
     <>
-      <div>
-        <Container>
-          <Card className="card">
-            <CardMedia
-              className={classes.media}
-              image={cloudinaryCore.url(game.imageUrl)}
-              height="200px"
-              title="game avatar"
-            />
-            <CardHeader
-              className="header"
-              title={game.name}
-              subheader={
-                game.gameState
-                  ? "In Progress"
-                  : !game.gameState && game.registrationOpen
-                  ? "Open for registration"
-                  : "Completed games"
-              }
-            />
-            <CardContent>
-              <Typography variant="body2" color="primary" component="p">
-                X Registered Players
-              </Typography>
-            </CardContent>
+      <div classes="root">
+        <Card className="card">
+          <CardMedia
+            className={classes.media}
+            image={cloudinaryCore.url(game.imageUrl)}
+            height="200px"
+            title="game avatar"
+          />
+          <CardHeader
+            className="header"
+            title={game.name}
+            subheader={
+              game.gameState
+                ? "In Progress"
+                : !game.gameState && game.registrationOpen
+                ? "Open for registration"
+                : "Completed games"
+            }
+          />
+          <CardContent>
+            <Typography variant="body2" color="primary" component="p">
+              X Registered Players {player}
+            </Typography>
+          </CardContent>
 
-              <CardHeader
-                className="header"
-                title={game.name}
-                subheader={
-                  game.gameState
-                    ? "In Progress"
-                    : !game.gameState && game.registrationOpen
-                    ? "Open for registration"
-                    : "Completed games"
-                }
-              />
-              <CardContent>
-                <Typography variant="body2" color="primary" component="p">
-                  X Registered Players
-                </Typography>
-              </CardContent>
+          <CardContent>
+            <Typography variant="body1" color="textPrimary" component="p">
+              <span>Start Date &emsp; {} &emsp; End Date</span>
+            </Typography>
 
-            <CardContent>
-              <Typography variant="body1" color="textPrimary" component="p">
-                <span>Start Date &emsp; {} &emsp; End Date</span>
-              </Typography>
+            <Typography variant="body2" color="black" component="p">
+              <Tooltip title="Game start">
+                <span>
+                  {moment(`${game.startTime}`).format("MMMM Do YYYY, HH:mm ")}|{" "}
+                  {}
+                </span>
+              </Tooltip>
 
-              <Typography variant="body2" color="black" component="p">
-                <Tooltip title="Game start">
-                  <span>
-                    {moment(`${game.startTime}`).format("MMMM Do YYYY, HH:mm ")}
-                    | {}
-                  </span>
-                </Tooltip>
+              <Tooltip title="Game End">
+                <span>
+                  {moment(`${game.endTime}`).format("MMMM Do YYYY, HH:mm ")}
+                </span>
+              </Tooltip>
+            </Typography>
+          </CardContent>
 
-                <Tooltip title="Game End">
-                  <span>
-                    {moment(`${game.endTime}`).format("MMMM Do YYYY, HH:mm ")}
-                  </span>
-                </Tooltip>
-              </Typography>
-            </CardContent>
+          <CardContent>
+            <Typography variant="body1" color="textPrimary" component="p">
+              Relative dates
+            </Typography>
+            <Typography variant="body2" color="secondary" component="p">
+              12.02.2021 | 12.02.2021 | 12.02.2021{" "}
+            </Typography>
+          </CardContent>
 
-              <CardContent>
-                <Typography variant="body1" color="textPrimary" component="p">
-                  Relative dates
-                </Typography>
-                <Typography variant="body2" color="secondary" component="p">
-                  12.02.2021 | 12.02.2021 | 12.02.2021{" "}
-                </Typography>
-              </CardContent>
-
-            <CardContent>
-              <Button
-                onClick={handleClickOpen}
-                className={classes.button}
-                variant="button"
-                color="secondary"
-                component="p"
-              >
-                See More
-              </Button>
-            </CardContent>
-          </Card>
-        </Container>
+          <CardContent>
+            <Button
+              onClick={handleClickOpen}
+              className={classes.button}
+              variant="button"
+              color="secondary"
+              component="p"
+            >
+              See More
+            </Button>
+          </CardContent>
+        </Card>
       </div>
       {open && <GameCardPopup open={open} setOpen={setOpen} game={game} />}
     </>

@@ -23,6 +23,7 @@ import UploadImages from "../../upload-images/UploadImages";
 import useSWR from "swr";
 import { fetcher } from "../../../services/FetcherFunction";
 import { Cloudinary } from "cloudinary-core";
+import { useHistory } from "react-router";
 
 export default function MenuItemsAdminDashboard() {
   const useStyles = makeStyles((theme) => ({
@@ -59,6 +60,8 @@ export default function MenuItemsAdminDashboard() {
   const [registrationState, setRegistrationState] = useState(true);
 
   const [openForm, setOpenForm] = useState(false);
+
+  const history = useHistory();
 
   //Open PopUp
   const handleClickOpenPopUp = () => {
@@ -99,6 +102,7 @@ export default function MenuItemsAdminDashboard() {
 
   const handleOpenForm = () => {
     setOpenForm(openForm);
+    history.push("/adminform");
   };
 
   return (

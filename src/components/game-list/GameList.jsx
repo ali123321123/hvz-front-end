@@ -19,12 +19,6 @@ import MenuItemsGameList from "./MenuItemsGameList";
 import { ReactComponent as HvZLogo } from "../../assets/logo_without_title.svg";
 
 function GameList() {
-    
-  const { data: games, error: gamesError } = useSWR(
-    "https://localhost:44390/api/games",
-    fetcher
-  );
-
   const useStyles = makeStyles((theme) => ({
     root: {
       "& .MuiTypography-h3": {
@@ -66,6 +60,12 @@ function GameList() {
     },
     //Override MuiCard HoverColor
     overrides: {
+      MuiGrid: {
+        container: {
+          justifyContent: "center",
+          // backgroundColor: "blue",
+        },
+      },
       MuiCard: {
         root: {
           "&:hover": {
@@ -105,6 +105,11 @@ function GameList() {
 
     //Override MuiCard HoverColor
     overrides: {
+      MuiGrid: {
+        container: {
+          justifyContent: "center",
+        },
+      },
       MuiCard: {
         root: {
           "&:hover": {
@@ -144,6 +149,11 @@ function GameList() {
 
     //Override MuiCard HoverColor
     overrides: {
+      MuiGrid: {
+        container: {
+          justifyContent: "center",
+        },
+      },
       MuiCard: {
         root: {
           "&:hover": {
@@ -168,9 +178,19 @@ function GameList() {
   const [activeGames, setActiveGames] = useState([]);
   const [completedGames, setCompletedGames] = useState([]);
   const [upCommingGames, setupCommingGames] = useState([]);
-  //const [squads, setSquads] = useState([]);
+  const [player, setPlayers] = useState();
 
   const [loading, setLoading] = useState(true);
+
+  //Fetch games
+  const { data: games, error: gamesError } = useSWR(
+    "https://localhost:44390/api/games",
+    fetcher
+  );
+
+  const { data: getPlayer, error: playerError } = useSWR(
+    `https://localhost44390/api/games/${1}/players`
+  );
 
   //Filter out new array from game_state and registration
   useEffect(() => {
@@ -199,10 +219,7 @@ function GameList() {
       ) : (
         <div className={classes.root}>
           {/* APP BAR  */}
-          <AppbarMainMenu
-            menuTitle={"Dashboard | Insert Game Name"}
-            menuItems={<MenuItemsGameList />}
-          />
+          <AppbarMainMenu menuItems={<MenuItemsGameList />} />
 
           <ThemeProvider theme={theme}>
             <div
@@ -219,88 +236,93 @@ function GameList() {
             </div>
 
             <main className={classes.content}>
-              <Container className={classes.container}>
-                {/* ACTIVE GAMES */}
-                <MuiThemeProvider theme={themeActive}>
-                  <CssBaseline />
-                  <article className="gameTitle">
-                    <Typography variant="h3" color="primary" component="p">
-                      Active games
-                    </Typography>
-                  </article>
+              {/* ACTIVE GAMES */}
+              <MuiThemeProvider theme={themeActive}>
+                <CssBaseline />
+                <article className="gameTitle">
+                  <Typography variant="h3" color="primary" component="p">
+                    Active games
+                  </Typography>
+                </article>
 
-                  <Divider variant="middle" />
-                  <section>
-                    <Grid
-                      container
-                      spacing={2}
-                      style={{
-                        textAlign: "center",
-                      }}
-                    >
-                      {activeGames.map((game) => (
-                        <Grid item xs={12} sm={6} md={4} lg={4} xl={3}>
-                          <GameListCard
-                            key={game.id}
-                            game={game}
-                            className={classes.card}
-                          />
-                        </Grid>
-                      ))}
-                    </Grid>
-                  </section>
-                </MuiThemeProvider>
+                <Divider variant="middle" />
+                <section>
+                  <Grid
+                    container
+                    spacing={10}
+                    align="center"
+                    style={{
+                      textAlign: "center",
+                    }}
+                  >
+                    {activeGames.map((game) => (
+                      <Grid item xs={12} sm={6} md={4} lg={4} xl={3}>
+                        <GameListCard
+                          key={game.id}
+                          game={game}
+                          className={classes.card}
+                        />
+                      </Grid>
+                    ))}
+                  </Grid>
+                </section>
+              </MuiThemeProvider>
 
-                {/* UCOMING GAMES */}
-                <MuiThemeProvider theme={themeUpcoming}>
-                  <CssBaseline />
-                  <article className="gameTitle">
-                    <Typography variant="h3" color="primary" component="p">
-                      Upcoming games
-                    </Typography>
-                  </article>
+              {/* UCOMING GAMES */}
+              <MuiThemeProvider theme={themeUpcoming}>
+                <CssBaseline />
+                <article className="gameTitle">
+                  <Typography variant="h3" color="primary" component="p">
+                    Upcoming games
+                  </Typography>
+                </article>
 
-                  <Divider />
-                  <section className="container">
-                    <Grid
-                      container
-                      spacing={2}
-                      style={{ textAlign: "center", margin: "auto" }}
-                    >
-                      {upCommingGames.map((game) => (
-                        <Grid item xs={12} sm={6} md={4} lg={4} xl={3}>
-                          <GameListCard key={game.id} game={game} />
-                        </Grid>
-                      ))}
-                    </Grid>
-                  </section>
-                </MuiThemeProvider>
+                <Divider />
+                <section className="container">
+                  <Grid
+                    container
+                    spacing={10}
+                    align="center"
+                    style={{
+                      textAlign: "center",
+                    }}
+                  >
+                    {upCommingGames.map((game) => (
+                      <Grid item xs={12} sm={6} md={4} lg={4} xl={3}>
+                        <GameListCard key={game.id} game={game} />
+                      </Grid>
+                    ))}
+                  </Grid>
+                </section>
+              </MuiThemeProvider>
 
-                {/* COMPLETED GAMES */}
-                <MuiThemeProvider theme={themeCompleted}>
-                  <CssBaseline />
-                  <article className="gameTitle">
-                    <Typography variant="h3" color="primary" component="p">
-                      Completed games
-                    </Typography>
-                  </article>
+              {/* COMPLETED GAMES */}
+              <MuiThemeProvider theme={themeCompleted}>
+                <CssBaseline />
+                <article className="gameTitle">
+                  <Typography variant="h3" color="primary" component="p">
+                    Completed games
+                  </Typography>
+                </article>
 
-                  <Divider />
-                  <section className="container">
-                    <Grid
-                      container
-                      spacing={2}
-                      style={{ textAlign: "center", margin: "auto" }}
-                    >
-                      {completedGames.map((game) => (
-                        <Grid item xs={12} sm={6} md={4} lg={4} xl={3}>
-                          <GameListCard key={game.id} game={game} />{" "}
-                        </Grid>
-                      ))}
-                    </Grid>
-                  </section>
-                </MuiThemeProvider>
-              </Container>
+                <Divider />
+                <section className="container">
+                  <Grid
+                    container
+                    spacing={10}
+                    align="center"
+                    style={{
+                      textAlign: "center",
+                    }}
+                  >
+                    {completedGames.map((game) => (
+                      <Grid item xs={12} sm={6} md={4} lg={4} xl={3}>
+                        <GameListCard key={game.id} game={game} />{" "}
+                      </Grid>
+                    ))}
+                  </Grid>
+                </section>
+              </MuiThemeProvider>
             </main>
           </ThemeProvider>
         </div>
