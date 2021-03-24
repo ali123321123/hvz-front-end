@@ -34,6 +34,7 @@ import { themeCreateGameForm } from "../../shared/themeGameCards";
 import TempInteractiveMap from "../admin-dashboard/TempInteractiveMap";
 import CloseIcon from "@material-ui/icons/Close";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
+import { createGame } from "../../../utils/createGameApi";
 
 const CreateGameForm = ({ dialogTitle, dialogText, open, setOpen, game }) => {
   const cloudinaryCore = new Cloudinary({ cloud_name: "debyqnalg" });
@@ -57,15 +58,9 @@ const CreateGameForm = ({ dialogTitle, dialogText, open, setOpen, game }) => {
       endTime,
       imageUrl,
     };
-    console.log(data);
 
-    fetch("https://localhost:44390/api/games", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    }).then((res) => res.json().then((res) => console.warn("result", res)));
+    console.log(createGame(data))
+    
     setOpen(false);
   };
 

@@ -1,6 +1,5 @@
+import Endpoints from "../services/endpoints";
 import Validation from "./validation";
-
-const url = "https://localhost:44390/api";
 
 export async function loginRequest(username, pw) {
   const data = {
@@ -8,7 +7,7 @@ export async function loginRequest(username, pw) {
     password: pw,
   };
 
-  return await fetch(`${url}/users/authenticate`, {
+  return await fetch(`${Endpoints.USER_API}/authenticate`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

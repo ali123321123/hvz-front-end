@@ -24,6 +24,8 @@ import { Cloudinary } from "cloudinary-core";
 import EditGame from "./EditGame";
 import AdminDashboard from "../admin-dashboard/AdminDashboard";
 import { useHistory } from "react-router";
+import Endpoints from "../../../services/endpoints";
+import { Link } from "react-router-dom";
 
 function AdminCard({ game }) {
   const moment = require("moment");
@@ -33,25 +35,28 @@ function AdminCard({ game }) {
   const [players, setPlayers] = useState();
 
   //Fetch players from game id
-  const { data: getPlayers, error: playersError } = useSWR(
-    `https://localhost:44390/api/games/${game.id}/players`,
-    fetcher
-  );
+  //   const { data: getPlayers, error: playersError } = useSWR(
+  //     `${Endpoints.GAME_API}/${game.id}/players`,
+  //     fetcher
+  //   );
 
   const history = useHistory();
 
-  useEffect(() => {
-    if (getPlayers) {
-      setPlayers(getPlayers.length);
-    }
-  }, [getPlayers]);
+  //   useEffect(() => {
+  //     if (getPlayers) {
+  //       setPlayers(getPlayers.length);
+  //     }
+  //   }, [getPlayers]);
 
   const handleClickOpen = () => {
     setOpen(true);
   };
 
   const handleOpenGame = () => {
-    history.push("/edit");
+    history.push({
+      path: `/admin/game/${game.id}`,
+      satte: game,
+    });
   };
   //pass on game.id for edit games
 
@@ -105,12 +110,19 @@ function AdminCard({ game }) {
 
           <CardContent>
             <Button
-              onClick={handleOpenGame}
+            //   onClick={handleOpenGame}
               variant="button"
               color="secondary"
               component="p"
             >
-              Edit Game
+              <Link
+                to={{
+                  pathname: `/admin/game/${game.id}`,
+                  state: game,
+                }}
+              >
+                Edit game
+              </Link>
             </Button>
           </CardContent>
         </Card>

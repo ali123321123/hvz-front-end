@@ -24,8 +24,9 @@ import {
   themeUpcoming,
   themeCompleted,
 } from "../../shared/themeGameCards";
+import Endpoints from "../../../services/endpoints";
 
-function AdminGameList({ game }) {
+function AdminGameList() {
   const useStyles = makeStyles((theme) => ({
     root: {
       width: "100%",
@@ -62,7 +63,7 @@ function AdminGameList({ game }) {
 
   //Fetch games
   const { data: games, error: gamesError } = useSWR(
-    "https://localhost:44390/api/games",
+    `${Endpoints.GAME_API}`,
     fetcher
   );
   //Filter out new array from game_state and registration

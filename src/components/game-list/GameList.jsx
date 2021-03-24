@@ -22,6 +22,7 @@ import {
   themeUpcoming,
   themeCompleted,
 } from "../shared/themeGameCards";
+import Endpoints from "../../services/endpoints";
 
 function GameList() {
   const useStyles = makeStyles((theme) => ({
@@ -54,7 +55,7 @@ function GameList() {
 
   //Fetch games
   const { data: games, error: gamesError } = useSWR(
-    "https://localhost:44390/api/games",
+    `${Endpoints.GAME_API}`,
     fetcher
   );
 

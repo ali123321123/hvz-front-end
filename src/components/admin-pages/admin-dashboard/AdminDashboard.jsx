@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import clsx from "clsx";
 import {
   makeStyles,
@@ -15,7 +15,9 @@ import MenuItemsAdminDashboard from "./MenuItemsAdminDashboard";
 import AppbarMainMenu from "../../shared/AppbarMainMenu";
 import ImageCard from "./ImageCard";
 
-export default function AdminDashboard({ gameId, game }) {
+export default function AdminDashboard(props) {
+    
+    console.log(props.location.state)
   const drawerWidth = 240;
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -68,9 +70,14 @@ export default function AdminDashboard({ gameId, game }) {
 
   const classes = useStyles();
 
-  console.log(gameId);
   //Group classes
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+
+  const [game, setGame] = useState({});
+
+  useEffect(() => {
+      setGame(props.location.state)
+  }, [props.location.state])
 
   return (
     <div className={classes.root}>
@@ -98,15 +105,13 @@ export default function AdminDashboard({ gameId, game }) {
 
             {/* Interactive Map */}
             <Grid item xs={12} md={4} lg={3}>
+                <h1>{game.name}</h1>
               <Paper className={fixedHeightPaper}>
                 <TempInteractiveMap />
               </Paper>
             </Grid>
 
-            {/* Game Avatar Image */}
-            <Grid item xs={12} md={3} lg={3}>
-              <ImageCard />
-            </Grid>
+            
 
             {/* Game Stats */}
             <Grid item xs={9}>

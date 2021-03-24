@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
 import Home from "./pages/Home";
 import LoginPage from "./pages/LoginPage";
 import AdminPage from "./pages/AdminPage";
@@ -11,7 +12,7 @@ import Header from "./components/header/Header";
 function App() {
   return (
     <Router>
-      <Switch> 
+      <Switch>
         <Route exact path="/">
           <Header />
           <Home />
@@ -20,13 +21,22 @@ function App() {
           <Header />
           <LoginPage />
         </Route>
-        <Route path="/admin">
-          <Header />
-          <AdminPage />
+        <Route
+          path="/admin"
+          render={({ match: { url } }) => (
+            <>
+              <Route path={`${url}/`} component={AdminPage} exact />
+              <Route path={`${url}/game/:id`} component={AdminDashboard} />
+              {/* <Header />
+                <AdminDashboard /> */}
+              {/* </Route> */}
+            </>
+          )}
+        >
+          {/* <Header />
+          <AdminPage /> */}
         </Route>
-        <Route path="/edit">
-          <AdminDashboard />
-        </Route>
+
         <Route path="/profile/:id">
           <Header />
           <ProfilePage />
