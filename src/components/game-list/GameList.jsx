@@ -151,22 +151,14 @@ function GameList() {
                     <Grid
                       container
                       spacing={10}
-<<<<<<< HEAD
                       align="center"
-=======
->>>>>>> hvz-69-login-register-form
                       style={{
                         textAlign: "center",
                       }}
                     >
                       {activeGames.map((game) => (
-<<<<<<< HEAD
-                        <Grid item xs={12} sm={6} md={4} lg={4} xl={4}>
-                          <GameListCard
-=======
                         <Grid item xs={12} sm={6} md={4} lg={4} xl={3}>
                         <GameListCard
->>>>>>> hvz-69-login-register-form
                             key={game.id}
                             game={game}
                             className={classes.card}
