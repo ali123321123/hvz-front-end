@@ -125,13 +125,8 @@ function GameList() {
                       }}
                     >
                       {activeGames.map((game) => (
-<<<<<<< HEAD
                         <Grid item xs={12} sm={6} md={4} lg={4} xl={4}>
                           <GameListCard
-=======
-                        <Grid item xs={12} sm={6} md={4} lg={4} xl={3}>
-                        <GameListCard
->>>>>>> 71f5875006daf964d82f4bc2d034ed6ba05e3dbb
                             key={game.id}
                             game={game}
                             className={classes.card}
