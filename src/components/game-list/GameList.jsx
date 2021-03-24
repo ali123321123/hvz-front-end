@@ -87,7 +87,7 @@ function GameList() {
         default: "#e4f0e2",
       },
       text: {
-        primary: "#eeff00",
+        primary: "#000000",
       },
     },
   });
@@ -98,7 +98,7 @@ function GameList() {
         default: "#222222",
       },
       text: {
-        primary: "#9c27b0",
+        primary: "#cec32e",
       },
     },
   });

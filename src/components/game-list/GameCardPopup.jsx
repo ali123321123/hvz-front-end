@@ -34,7 +34,11 @@ const GameCardPopUp = ({ game, open, setOpen }) => {
         history.push(`/game/${game.id}`);
         return;
       }
-      history.push(`/login`)
+      history.push( 
+          {
+            pathname: `/login`,
+            state: game.id,
+          })
     
   };
 

@@ -4,35 +4,38 @@ import { fetcher, fetcherToken } from "../../services/FetcherFunction";
 import Auth from "../../utils/authentication";
 import Endpoints from "../../services/endpoints";
 import { useSelector } from "react-redux";
+import { getTokenInStorage } from "../../utils/tokenHelper";
 
-function GameDetailPlayerInfo({ gameId }) {
+function GameDetailPlayerInfo({ game }) {
   const [humanPlayers, setHumanPlayers] = useState([]);
   const [zombiePlayers, setZombiePlayers] = useState([]);
 
   const [player, setPlayer] = useState({});
 
 const [playerSquad, setPlayerSquad] = useState({})
+
   const user = useSelector((state) => state.loggedInUser);
 
   const { data: players, error: playersError } = useSWR(
-    `${Endpoints.GAME_API}/${gameId}/players`,
-    fetcher
+    `${Endpoints.GAME_API}/${game.id}/players`, (url) => 
+    fetcherToken(url, getTokenInStorage())
   );
 
+  //TODO: squadMembers will be supported later (FIX THEN)
   const { data: gameSquads, error: gameSquadsError } = useSWR(
-    `${Endpoints.GAME_API}/${gameId}/squads`,
-    fetcher
+    `${Endpoints.GAME_API}/${game.id}/squads`, (url) => 
+    fetcherToken(url, getTokenInStorage())
   );
 
-  const {data: squads, error: squadsError} = useSWR(
-      `${Endpoints.SQUADS_API}/`, fetcher
-  )
+//   const {data: squads, error: squadsError} = useSWR(
+//       `${Endpoints.SQUADS_API}/`, (url) => 
+//       fetcherToken(url, getTokenInStorage())
+//   )
 
   //Temp squads map etc...
   useEffect(() => {
-      setPlayerSquad(squads.filter((s) => s.gameId === gameId));
-      console.log(squads);
-  }, [squads]);
+      setPlayerSquad()
+  }, [gameSquads]);
 
   //   const {
   //     data: user,

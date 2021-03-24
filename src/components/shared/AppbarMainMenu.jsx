@@ -82,6 +82,9 @@ export default function AppbarMainMenu({ menuItems, menuTitle }) {
       history.push("/register");
   }
 
+  const handleLogoutClick = () => {
+      Auth.logoutUser()
+  }
 
   return (
     <div className={classes.root}>
@@ -114,6 +117,7 @@ export default function AppbarMainMenu({ menuItems, menuTitle }) {
           ) : (
             <div>
               <h3>{user.firstName}</h3>
+              <Button onClick={handleLogoutClick}>Log out</Button>
             </div>
           )}
         </Toolbar>

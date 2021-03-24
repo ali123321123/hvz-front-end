@@ -16,7 +16,7 @@ import { useHistory } from "react-router";
 
 import Validation from "../../utils/validation";
 
-function LoginForm() {
+function LoginForm({ gameId }) {
   const history = useHistory();
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -74,18 +74,23 @@ function LoginForm() {
   };
 
   const handleLogin = async () => {
-      if(username === "" || password === "")
-      {
-          errorToaster("Username or password is empty")
-          return;
-      }
+    if (username === "" || password === "") {
+      errorToaster("Username or password is empty");
+      return;
+    }
     const loginData = await loginRequest(username, password);
-    
-
-    Auth.loginUser(loginData);
-    history.push(`/`);
+    if (loginData) {
+      console.log(loginData);
+      Auth.loginUser(loginData);
+      if (gameId) {
+        history.push(`/game/${gameId}`);
+      } else {
+        history.push(`/`);
+      }
+    } else {
+      errorToaster("Something went wrong");
+    }
   };
-
 
   return (
     <FormControl className={classes.container}>

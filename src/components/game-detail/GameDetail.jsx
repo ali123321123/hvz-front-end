@@ -1,28 +1,30 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router";
 import useSWR from "swr";
-import { fetcher } from "../../services/FetcherFunction";
+import Endpoints from "../../services/endpoints";
+import { fetcherToken } from "../../services/FetcherFunction";
+import Auth from "../../utils/authentication";
 
 import "../shared/GameDetailPage.scss";
 import GameDetailInteractiveMap from "./GameDetailInteractiveMap";
 import GameDetailPlayerInfo from "./GameDetailPlayerInfo";
 
+import {getTokenInStorage} from '../../utils/tokenHelper';
+
 function GameDetail() {
   const { id: gameId } = useParams();
-  
+  const history = useHistory();
 
-//   const { data: game, error: gameError } = useSWR(
-//     `${process.env.REACT_APP_BASE_URL}${process.env.REACT_APP_GAME_API}/${gameId}`,
-//     fetcher
-//   );
-// console.log(process.env.REACT_APP_GAME_API);
+  useEffect(() => {
+    if (!Auth.userIsLoggedIn()) {
+      history.push("/");
+    }
+  }, []);
 
   const { data: game, error: gameError } = useSWR(
-    `https://localhost:44390/api/games/${game.id}`,
-    fetcher
+    `${Endpoints.GAME_API}/${gameId}`, (url) =>
+    fetcherToken(url, getTokenInStorage())
   );
-
-  const history = useHistory();
 
   const [loading, setLoading] = useState(true);
   const [playAreaCoordinates, setPlayAreaCoordinates] = useState([]);
@@ -57,7 +59,7 @@ function GameDetail() {
               playAreaCoordinates={playAreaCoordinates}
             />
           </div>
-          <GameDetailPlayerInfo gameId={gameId} />
+          <GameDetailPlayerInfo game={game} />
         </div>
       )}
     </div>
