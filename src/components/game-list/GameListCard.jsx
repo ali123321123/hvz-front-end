@@ -14,15 +14,47 @@ import GameCardPopup from "./GameCardPopup";
 import useSWR from "swr";
 import { fetcher } from "../../services/FetcherFunction";
 import { Cloudinary } from "cloudinary-core";
+import { sizing } from '@material-ui/system';
 
 function GameListCard({ game }) {
   const moment = require("moment");
   const cloudinaryCore = new Cloudinary({ cloud_name: "debyqnalg" });
 
+<<<<<<< HEAD
   const [open, setOpen] = useState(false);
   const [players, setPlayers] = useState();
 
   //Fetch players from game id
+=======
+  const useStyles = makeStyles((theme) => ({
+
+    media: {
+      //paddingTop: "56.25%", // 16:9
+      paddingTop: "75%", // 4:3
+      objectFit: "cover",
+      width: "80%",
+      borderRadius: "100%",
+      margin: "auto",
+      marginTop: "2em",
+      //  "&:hover": {
+      boxShadow: "0px 0px 20px 5px #333",
+      transition: "0.3s",
+      //},
+    },
+
+    Typography: {
+      color: "#25252b",
+      body2: {
+        color: "#25252b",
+      },
+    },
+
+    card :{
+      width:"120%",
+  },
+  }));
+  const classes = useStyles();
+>>>>>>> hvz-69-login-register-form
 
   const { data: getPlayers, error: playersError } = useSWR(
     `https://localhost:44390/api/games/${game.id}/players`,
@@ -42,6 +74,7 @@ function GameListCard({ game }) {
   return (
     <>
       <div>
+<<<<<<< HEAD
         <Card className="card">
           <p>Game id: {game.id}</p>
           <CardMedia
@@ -65,6 +98,37 @@ function GameListCard({ game }) {
               {players} Registered Players
             </Typography>
           </CardContent>
+=======
+        <Container>
+          <Card className={classes.card} style={{display: 'inline-block'}} >
+            <CardMedia
+              className={classes.media}
+              image={cloudinaryCore.url(game.imageUrl)}
+              height="200px"
+              title="game avatar"
+            />
+            <CardHeader
+              className="header"
+              title={game.name}
+              subheader={
+                game.gameState
+                  ? "In Progress"
+                  : !game.gameState && game.registrationOpen
+                  ? "Open for registration"
+                  : "Completed games"
+              }
+            />
+            <CardContent>
+              <Typography variant="body2" color="primary" component="p">
+                X Registered Players
+              </Typography>
+            </CardContent>
+
+            <CardContent>
+              <Typography variant="body1" color="textPrimary" component="p">
+                <span>Start Date &emsp; {} &emsp; End Date</span>
+              </Typography>
+>>>>>>> hvz-69-login-register-form
 
           <CardContent>
             <Typography variant="body1" color="textPrimary" component="p">

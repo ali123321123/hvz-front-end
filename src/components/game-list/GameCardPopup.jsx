@@ -14,8 +14,12 @@ import "./CardStyles.scss"; // remove?
 import { useHistory } from "react-router";
 import GameCardPopupMap from "./GameCardPopupMap";
 import "./CardStyles.scss";
+import { useSelector } from "react-redux";
+import Auth from "../../utils/authentication";
 
 const GameCardPopUp = ({ game, open, setOpen }) => {
+
+    const user = useSelector((state) => state.loggedInUser)
   const history = useHistory();
 
   const [playArea, setPlayArea] = useState(null);
@@ -26,7 +30,12 @@ const GameCardPopUp = ({ game, open, setOpen }) => {
   };
 
   const handleJoinButton = () => {
-    history.push(`/game/${game.id}`);
+      if(Auth.userIsLoggedIn()){
+        history.push(`/game/${game.id}`);
+        return;
+      }
+      history.push(`/login`)
+    
   };
 
   useEffect(() => {

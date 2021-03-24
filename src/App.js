@@ -6,27 +6,33 @@ import ProfilePage from "./pages/ProfilePage";
 import GameDetailsPage from "./pages/GameDetailsPage";
 import NotFound from "./pages/NotFound";
 import AdminDashboard from "./components/admin-pages/admin-dashboard/AdminDashboard";
+import Header from "./components/header/Header";
 
 function App() {
   return (
     <Router>
-      <Switch>
+      <Switch> 
         <Route exact path="/">
+          <Header />
           <Home />
         </Route>
         <Route path="/login">
+          <Header />
           <LoginPage />
         </Route>
         <Route path="/admin">
+          <Header />
           <AdminPage />
         </Route>
         <Route path="/edit">
           <AdminDashboard />
         </Route>
         <Route path="/profile/:id">
+          <Header />
           <ProfilePage />
         </Route>
         <Route path="/game/:id">
+          <Header />
           <GameDetailsPage />
         </Route>
         <Route path="*">

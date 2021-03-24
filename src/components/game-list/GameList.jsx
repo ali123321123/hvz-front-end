@@ -17,6 +17,7 @@ import { fetcher } from "../../services/FetcherFunction";
 import AppbarMainMenu from "../shared/AppbarMainMenu";
 import MenuItemsGameList from "./MenuItemsGameList";
 import { ReactComponent as HvZLogo } from "../../assets/logo_without_title.svg";
+<<<<<<< HEAD
 import {
   themeActive,
   themeUpcoming,
@@ -28,6 +29,27 @@ function GameList() {
     root: {
       width: "100%",
       position: "relative",
+=======
+import { useSelector } from "react-redux";
+
+function GameList() {
+    
+    
+  const { data: games, error: gamesError } = useSWR(
+    "https://localhost:44390/api/games",
+    fetcher
+  );
+
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      "& .MuiGrid": {
+          backgroundColor:"red",
+          '&$spacing-xs-8': {
+            margin: -5,
+          
+        },
+      },
+>>>>>>> hvz-69-login-register-form
 
       "& .MuiTypography-h3": {
         textAlign: "center",
@@ -40,6 +62,16 @@ function GameList() {
         marginBottom: "2em",
       },
     },
+<<<<<<< HEAD
+=======
+
+
+
+    content: {
+      width: "100%",
+      margin: "auto",
+    },
+>>>>>>> hvz-69-login-register-form
   }));
   const classes = useStyles();
 
@@ -119,14 +151,22 @@ function GameList() {
                     <Grid
                       container
                       spacing={10}
+<<<<<<< HEAD
                       align="center"
+=======
+>>>>>>> hvz-69-login-register-form
                       style={{
                         textAlign: "center",
                       }}
                     >
                       {activeGames.map((game) => (
+<<<<<<< HEAD
                         <Grid item xs={12} sm={6} md={4} lg={4} xl={4}>
                           <GameListCard
+=======
+                        <Grid item xs={12} sm={6} md={4} lg={4} xl={3}>
+                        <GameListCard
+>>>>>>> hvz-69-login-register-form
                             key={game.id}
                             game={game}
                             className={classes.card}

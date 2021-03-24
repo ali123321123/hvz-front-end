@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import clsx from "clsx";
 import {
@@ -8,11 +8,17 @@ import {
   Toolbar,
   Typography,
   IconButton,
+  Button,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import MenuDrawer from "../admin-pages/admin-dashboard/MenuDrawer";
+import { useHistory } from "react-router";
+import Auth from "../../utils/authentication";
+import { useSelector } from "react-redux";
 
 export default function AppbarMainMenu({ menuItems, menuTitle }) {
+  const user = useSelector((state) => state.loggedInUser);
+  const history = useHistory();
   const drawerWidth = 240;
 
   const useStyles = makeStyles((theme) => ({
@@ -67,6 +73,18 @@ export default function AppbarMainMenu({ menuItems, menuTitle }) {
     setOpen(true);
   };
 
+  const handleLoginClick = () => {
+    history.push("/login");
+  };
+
+  const handleRegisterClick = () => {
+      history.push("/register");
+  }
+
+  useEffect(() => {
+    console.log(user);
+  }, [user])
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -90,6 +108,16 @@ export default function AppbarMainMenu({ menuItems, menuTitle }) {
           <Typography component="h1" variant="h6" color="inherit" noWrap>
             {menuTitle}
           </Typography>
+          {!Auth.userIsLoggedIn() ? (
+            <div>
+              <Button onClick={handleLoginClick}>Login</Button>
+              <Button onClick={handleRegisterClick}>Register</Button>      
+            </div>
+          ) : (
+            <div>
+              <h3>{user.firstName}</h3>
+            </div>
+          )}
         </Toolbar>
       </AppBar>
 

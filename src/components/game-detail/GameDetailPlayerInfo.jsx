@@ -1,37 +1,57 @@
 import React, { useEffect, useState } from "react";
 import useSWR from "swr";
-import { fetcher } from "../../services/FetcherFunction";
+import { fetcher, fetcherToken } from "../../services/FetcherFunction";
+import Auth from "../../utils/authentication";
+import Endpoints from "../../services/endpoints";
+import { useSelector } from "react-redux";
 
 function GameDetailPlayerInfo({ gameId }) {
-  //User token temp variables
-  const userTokenId = 1;
-  const userSquadId = 1;
-
-  const { data: players, error: playersError } = useSWR(
-    `https://localhost:44390/api/games/${gameId}/players`,
-    fetcher
-  );
-  const { data: user, error: userError } = useSWR(
-    `https://localhost:44390/api/Users/${userTokenId}`,
-    fetcher
-  );
-
-  const { data: squad, error: squadError } = useSWR(
-    `https://localhost:44390/api/squads/${userSquadId}`,
-    fetcher
-  );
   const [humanPlayers, setHumanPlayers] = useState([]);
   const [zombiePlayers, setZombiePlayers] = useState([]);
 
   const [player, setPlayer] = useState({});
 
+const [playerSquad, setPlayerSquad] = useState({})
+  const user = useSelector((state) => state.loggedInUser);
+
+  const { data: players, error: playersError } = useSWR(
+    `${Endpoints.GAME_API}/${gameId}/players`,
+    fetcher
+  );
+
+  const { data: gameSquads, error: gameSquadsError } = useSWR(
+    `${Endpoints.GAME_API}/${gameId}/squads`,
+    fetcher
+  );
+
+  const {data: squads, error: squadsError} = useSWR(
+      `${Endpoints.SQUADS_API}/`, fetcher
+  )
+
+  //Temp squads map etc...
+  useEffect(() => {
+      setPlayerSquad(squads.filter((s) => s.gameId === gameId));
+      console.log(squads);
+  }, [squads]);
+
+  //   const {
+  //     data: user,
+  //     error: userError,
+  //   } = useSWR(`${Endpoints.USERS_API}/${user.id}`, (url) =>
+  //     fetcherToken(url, Auth.getTokenInStorage)
+  //   );
+
   useEffect(() => {
     if (players) {
+      console.log(players);
       setHumanPlayers(players.filter((p) => p.isHuman));
       setZombiePlayers(players.filter((p) => !p.isHuman));
-      setPlayer(players.filter((p) => p.userId === userTokenId));
+      setPlayer(players.filter((p) => p.userId === user.id));
     }
   }, [players]);
+
+  useEffect(() => {}, [gameSquads]);
+
   return (
     <aside>
       <div className="players">
@@ -46,10 +66,9 @@ function GameDetailPlayerInfo({ gameId }) {
       <div className="squadName">
         <h3>Squad:</h3>
         <ul>
-          {squad?.squadMembers.map((m) => (
-            //Change playerId to playerName when database is updated
+          {playerSquad?.squadMembers.map((m) => (
             <li>
-              {m.rank} {m.playerId}
+              {m.rank} {m.name}
             </li>
           ))}
         </ul>

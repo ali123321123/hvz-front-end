@@ -1,10 +1,12 @@
 import React from 'react'
+import LoginForm from '../components/login/LoginForm'
+import Main from '../components/main/Main'
 
 function LoginPage() {
     return (
-        <div>
-            <h1>LOGIN PAGE</h1>
-        </div>
+        <Main>
+            <LoginForm/>
+        </Main>
     )
 }
 

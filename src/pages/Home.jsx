@@ -1,11 +1,15 @@
 import Main from "../components/main/Main";
 import GameList from "../components/game-list/GameList";
+import Header from "../components/header/Header";
 
 function Home() {
   return (
-    <Main>
-      <GameList />
-    </Main>
+    <>
+      <Header />
+      <Main>
+        <GameList />
+      </Main>
+    </>
   );
 }
 
