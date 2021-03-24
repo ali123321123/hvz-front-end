@@ -83,6 +83,7 @@ export default function MenuItemsGameList() {
           <ListItemIcon>
             <BrightnessHigh />
           </ListItemIcon>
+
           <ListItemText primary="Completed Games" />
         </ListItem>
       </Tooltip>

@@ -3,22 +3,19 @@ $secondaryColor: blue;
 $fontColor: #333;
 $primaryFont: Roboto;
 
-
+/* TODO: Move Everything to styles */
 
 .card {
-
   &:hover {
     box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24),
       0 17px 50px 0 rgba(0, 0, 0, 0.19);
-      box-shadow: 0px 0px 40px 15px #00ffd5;
+    box-shadow: 0px 0px 40px 15px #00ffd5;
   }
 }
-
 
 .card:hover > .header {
   transition: 0.3s;
   color: #df1b55;
-
 }
 
 .gameTitle {
@@ -27,18 +24,12 @@ $primaryFont: Roboto;
   margin-top: 6em;
 }
 
-
-
 .mapid {
-    width: 100%;
-    height: 20em;
-    
+  width: 100%;
+  height: 20em;
 }
 
 .leaflet-container {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
-
-
-

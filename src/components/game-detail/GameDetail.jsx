@@ -10,12 +10,11 @@ import GameDetailPlayerInfo from "./GameDetailPlayerInfo";
 function GameDetail() {
   const { id: gameId } = useParams();
   const { data: game, error: gameError } = useSWR(
-    `https://localhost:44390/api/games/${gameId}`,
+    `https://localhost:44390/api/games/${game.id}`,
     fetcher
   );
 
   const history = useHistory();
-
 
   const [loading, setLoading] = useState(true);
   const [playAreaCoordinates, setPlayAreaCoordinates] = useState([]);
@@ -23,8 +22,8 @@ function GameDetail() {
   useEffect(() => {
     if (gameError) {
       console.log(gameError);
-      if(gameError.status === 404){
-          history.push('../*') //TODO: GOTO ROOT (NOT FOUND) PAGE
+      if (gameError.status === 404) {
+        history.push("../*"); //TODO: GOTO ROOT (NOT FOUND) PAGE
       }
     }
     if (!game) {

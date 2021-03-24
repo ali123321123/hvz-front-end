@@ -102,7 +102,6 @@ export default function MenuItemsAdminDashboard() {
 
   const handleOpenForm = () => {
     setOpenForm(openForm);
-    history.push("/adminform");
   };
 
   return (

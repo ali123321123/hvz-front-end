@@ -5,7 +5,7 @@ import AdminPage from "./pages/AdminPage";
 import ProfilePage from "./pages/ProfilePage";
 import GameDetailsPage from "./pages/GameDetailsPage";
 import NotFound from "./pages/NotFound";
-import AdminForm from "./components/admin-pages/AdminForm";
+import AdminDashboard from "./components/admin-pages/admin-dashboard/AdminDashboard";
 
 function App() {
   return (
@@ -20,8 +20,8 @@ function App() {
         <Route path="/admin">
           <AdminPage />
         </Route>
-        <Route path="/adminform">
-          <AdminForm />
+        <Route path="/edit">
+          <AdminDashboard />
         </Route>
         <Route path="/profile/:id">
           <ProfilePage />

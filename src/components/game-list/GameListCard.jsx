@@ -5,20 +5,12 @@ import {
   CardHeader,
   CardMedia,
   CardContent,
-  makeStyles,
   Typography,
-  Divider,
   Button,
-  ThemeProvider,
   Tooltip,
-  Grid,
-  Container,
 } from "@material-ui/core";
 import "./CardStyles.scss";
-import "fontsource-roboto";
-import theme from "../shared/theme";
 import GameCardPopup from "./GameCardPopup";
-import Moment from "moment";
 import useSWR from "swr";
 import { fetcher } from "../../services/FetcherFunction";
 import { Cloudinary } from "cloudinary-core";
@@ -26,30 +18,6 @@ import { Cloudinary } from "cloudinary-core";
 function GameListCard({ game }) {
   const moment = require("moment");
   const cloudinaryCore = new Cloudinary({ cloud_name: "debyqnalg" });
-
-  const useStyles = makeStyles((theme) => ({
-    media: {
-      //paddingTop: "56.25%", // 16:9
-      paddingTop: "75%", // 4:3
-      objectFit: "cover",
-      width: "80%",
-      borderRadius: "100%",
-      margin: "auto",
-      marginTop: "2em",
-      //  "&:hover": {
-      boxShadow: "0px 0px 20px 5px #333",
-      transition: "0.3s",
-      //},
-    },
-
-    Typography: {
-      color: "#25252b",
-      body2: {
-        color: "#25252b",
-      },
-    },
-  }));
-  const classes = useStyles();
 
   const [open, setOpen] = useState(false);
   const [players, setPlayers] = useState();
@@ -63,23 +31,20 @@ function GameListCard({ game }) {
 
   useEffect(() => {
     if (getPlayers) {
-      // setPlayer(Object.keys(players).length);
       setPlayers(getPlayers.length);
-      //console.log(Object.keys(players).length);
     }
   }, [getPlayers]);
 
   const handleClickOpen = () => {
     setOpen(true);
   };
-  //If no image is uploaded display default image
+
   return (
     <>
-      <div classes="root">
+      <div>
         <Card className="card">
           <p>Game id: {game.id}</p>
           <CardMedia
-            className={classes.media}
             image={cloudinaryCore.url(game.imageUrl)}
             height="200px"
             title="game avatar"
@@ -125,7 +90,6 @@ function GameListCard({ game }) {
           <CardContent>
             <Button
               onClick={handleClickOpen}
-              className={classes.button}
               variant="button"
               color="secondary"
               component="p"

@@ -15,7 +15,7 @@ import MenuItemsAdminDashboard from "./MenuItemsAdminDashboard";
 import AppbarMainMenu from "../../shared/AppbarMainMenu";
 import ImageCard from "./ImageCard";
 
-export default function AdminDashboard() {
+export default function AdminDashboard({ gameId, game }) {
   const drawerWidth = 240;
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -68,6 +68,7 @@ export default function AdminDashboard() {
 
   const classes = useStyles();
 
+  console.log(gameId);
   //Group classes
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 

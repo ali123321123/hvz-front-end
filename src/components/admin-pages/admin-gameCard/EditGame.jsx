@@ -1,38 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import clsx from "clsx";
-
 import {
-  Checkbox,
-  ThemeProvider,
-  createMuiTheme,
-  makeStyles,
-  CssBaseline,
+  Typography,
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
   Container,
   Grid,
-  Paper,
+  makeStyles,
+  CssBaseline,
+  Checkbox,
 } from "@material-ui/core";
-import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
-import TempInteractiveMap from "./admin-dashboard/TempInteractiveMap";
-import "./styles.scss";
-import ButtonsResult from "./ButtonsResult";
 import { Cloudinary } from "cloudinary-core";
-import MenuItemsAdminDashboard from "../admin-pages/admin-dashboard/MenuItemsAdminDashboard";
-import AppbarMainMenu from "../shared/AppbarMainMenu";
-import AdminCard from "./admin-gameCard/AdminCard";
-import Moment from "moment";
 
-const theme = createMuiTheme({
-  palette: {
-    type: "dark",
-  },
-});
-
-function AdminForm({ onClick, openForm, setopenForm }) {
-  const moment = require("moment");
-  const drawerWidth = 240;
-
+const EditGame = ({ open, setOpen, game }) => {
   const useStyles = makeStyles((theme) => ({
     root: {
       background: "#0e101c",
@@ -49,12 +34,9 @@ function AdminForm({ onClick, openForm, setopenForm }) {
   }));
 
   const classes = useStyles();
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
-  const cloudinaryCore = new Cloudinary({ cloud_name: "debyqnalg" });
-
-  const { handleSubmit, control } = useForm();
   const [data, setData] = useState(null);
+  const { handleSubmit, control } = useForm();
 
   const [name, setName] = useState("");
   const [gameState, setGameState] = useState(false);
@@ -63,9 +45,8 @@ function AdminForm({ onClick, openForm, setopenForm }) {
   const [endTime, setEndTime] = useState(new Date());
 
   const [imageUrl, setImageUrl] = useState("");
-  const [toggle, setToggle] = useState(false);
 
-  const saveGame = () => {
+  const updateGame = () => {
     let data = {
       name,
       gameState,
@@ -74,15 +55,17 @@ function AdminForm({ onClick, openForm, setopenForm }) {
       endTime,
       imageUrl,
     };
-    console.log(data);
+    console.log("data id", game.id, data);
 
-    fetch("https://localhost:44390/api/games", {
-      method: "POST",
+    fetch(`https://localhost:44390/api/games/${game.id}`, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
     }).then((res) => res.json().then((res) => console.warn("result", res)));
+
+    setOpen(false);
   };
 
   const myWidget = window.cloudinary.createUploadWidget(
@@ -98,8 +81,8 @@ function AdminForm({ onClick, openForm, setopenForm }) {
     }
   );
 
-  const handleUpload = () => {
-    myWidget.open();
+  const handleClose = () => {
+    setOpen(false);
   };
 
   const handleGameTitle = (e) => {
@@ -113,23 +96,18 @@ function AdminForm({ onClick, openForm, setopenForm }) {
     setRegistrationOpen(true);
   };
 
-  const handleToggle = () => {
-    setToggle(toggle === true ? false : true);
-    console.log(toggle);
+  const handleUpload = () => {
+    myWidget.open();
   };
 
-  //Create a game card that recives all the changes
-
   return (
-    <div className={classes.root}>
-      <CssBaseline />
-      <AppbarMainMenu
-        menuTitle={"Dashboard | Insert Game Name"}
-        menuItems={<MenuItemsAdminDashboard />}
-      />
+    <div>
+      <Dialog aria-labelledby="customized-dialog-title" open={open}>
+        <DialogTitle id="customized-dialog-title" onClose={handleClose}>
+          {game.name} id: {game.id}
+        </DialogTitle>
 
-      <ThemeProvider theme={theme}>
-        <main className={classes.content}>
+        <DialogContent className={classes.content}>
           <div className={classes.appBarSpacer} />
           <Container maxWidth="lg" className={classes.container}>
             <Grid container spacing={10}>
@@ -140,7 +118,7 @@ function AdminForm({ onClick, openForm, setopenForm }) {
                   className="form"
                 >
                   <section>
-                    <label className="h1">Create new Game</label>
+                    <label className="h1">Edit Game</label>
                   </section>
 
                   {/* GAME TITLE | REG | START | MAP */}
@@ -185,9 +163,6 @@ function AdminForm({ onClick, openForm, setopenForm }) {
                     />
 
                     {/* Interactive Map */}
-                    <Paper className={fixedHeightPaper}>
-                      <TempInteractiveMap />
-                    </Paper>
                   </section>
 
                   {/* START | END DATE */}
@@ -224,51 +199,27 @@ function AdminForm({ onClick, openForm, setopenForm }) {
                     <button
                       className="buttonPink"
                       type="button"
-                      onClick={saveGame}
+                      onClick={updateGame}
                     >
-                      Create Game
+                      Save
                     </button>
                   </section>
                 </form>
               </Grid>
 
               {/* CARD PREVIEW */}
-              <Grid item>
-                <section>
-                  <label className="h1">Preview</label>
-                </section>
-
-                <AdminCard
-                  name={name}
-                  registrationOpen={registrationOpen}
-                  gameState={gameState}
-                  startTime={moment(`${startTime}`).format("MM do YYYY, HH:mm")}
-                  endTime={moment(`${endTime}`).format("MM do YYYY, HH:mm")}
-                  imageUrl={cloudinaryCore.url(imageUrl)}
-                />
-              </Grid>
             </Grid>
           </Container>
-        </main>
-      </ThemeProvider>
+        </DialogContent>
+
+        <DialogActions>
+          <Button autoFocus onClick={handleClose} color="primary">
+            CLose
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
-}
+};
 
-export default AdminForm;
-
-//Denne fungerer
-//   useEffect(() => {
-//     // DELETE request using fetch with set headers
-//     const requestOptions = {
-//       method: "DELETE",
-//       headers: {
-//         Authorization: "Bearer my-token",
-//         "My-Custom-Header": "foobar",
-//       },
-//     };
-//     fetch(
-//       `https://localhost:44390/api/games/${game.id}`,
-//       requestOptions
-//     ).then(() => setStatus("Delete successful"));
-//   }, []);
+export default EditGame;
