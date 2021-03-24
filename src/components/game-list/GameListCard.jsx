@@ -14,7 +14,7 @@ import GameCardPopup from "./GameCardPopup";
 import useSWR from "swr";
 import { fetcher } from "../../services/FetcherFunction";
 import { Cloudinary } from "cloudinary-core";
-import { sizing } from '@material-ui/system';
+import { sizing } from "@material-ui/system";
 
 function GameListCard({ game }) {
   const moment = require("moment");
@@ -25,16 +25,9 @@ function GameListCard({ game }) {
 
   //Fetch players from game id
 
-  const { data: getPlayers, error: playersError } = useSWR(
-    `https://localhost:44390/api/games/${game.id}/players`,
-    fetcher
-  );
-
   useEffect(() => {
-    if (getPlayers) {
-      setPlayers(getPlayers.length);
-    }
-  }, [getPlayers]);
+    setPlayers(game.countPlayers);
+  }, [game]);
 
   const handleClickOpen = () => {
     setOpen(true);
