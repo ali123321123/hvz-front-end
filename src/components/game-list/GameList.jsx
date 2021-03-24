@@ -111,7 +111,7 @@ function GameList() {
 
                   <article className="gameTitle">
                     <Typography variant="h3" color="primary" component="p">
-                      Active games
+                      Active games!!!
                     </Typography>
                   </article>
 

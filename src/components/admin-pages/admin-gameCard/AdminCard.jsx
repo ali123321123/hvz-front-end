@@ -34,11 +34,11 @@ function AdminCard({ game }) {
   const [open, setOpen] = useState(false);
   const [players, setPlayers] = useState();
 
-  //Fetch players from game id
-  //   const { data: getPlayers, error: playersError } = useSWR(
-  //     `${Endpoints.GAME_API}/${game.id}/players`,
-  //     fetcher
-  //   );
+    //Fetch players from game id
+    //   const { data: getPlayers, error: playersError } = useSWR(
+    //     `${Endpoints.GAME_API}/${game.id}/players`,
+    //     fetcher
+    //   );
 
   const history = useHistory();
 

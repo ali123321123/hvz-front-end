@@ -7,7 +7,7 @@ export async function loginRequest(username, pw) {
     password: pw,
   };
 
-  return await fetch(`${Endpoints.USER_API}/authenticate`, {
+  return await fetch(`${Endpoints.USERS_API}/authenticate`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

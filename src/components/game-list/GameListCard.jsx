@@ -25,16 +25,13 @@ function GameListCard({ game }) {
 
   //Fetch players from game id
 
-  const { data: getPlayers, error: playersError } = useSWR(
-    `https://localhost:44390/api/games/${game.id}/players`,
-    fetcher
-  );
+  
 
   useEffect(() => {
-    if (getPlayers) {
-      setPlayers(getPlayers.length);
-    }
-  }, [getPlayers]);
+    
+      setPlayers(game.countPlayers);
+  
+  }, [game]);
 
   const handleClickOpen = () => {
     setOpen(true);

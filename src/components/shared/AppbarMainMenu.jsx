@@ -17,6 +17,7 @@ import Auth from "../../utils/authentication";
 import { useSelector } from "react-redux";
 
 export default function AppbarMainMenu({ menuItems, menuTitle }) {
+    
   const user = useSelector((state) => state.loggedInUser);
   const history = useHistory();
   const drawerWidth = 240;
@@ -81,9 +82,6 @@ export default function AppbarMainMenu({ menuItems, menuTitle }) {
       history.push("/register");
   }
 
-  useEffect(() => {
-    console.log(user);
-  }, [user])
 
   return (
     <div className={classes.root}>
