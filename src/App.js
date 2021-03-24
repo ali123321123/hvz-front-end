@@ -27,15 +27,9 @@ function App() {
             <>
               <Route path={`${url}/`} component={AdminPage} exact />
               <Route path={`${url}/game/:id`} component={AdminDashboard} />
-              {/* <Header />
-                <AdminDashboard /> */}
-              {/* </Route> */}
             </>
           )}
-        >
-          {/* <Header />
-          <AdminPage /> */}
-        </Route>
+        ></Route>
 
         <Route path="/profile/:id">
           <Header />

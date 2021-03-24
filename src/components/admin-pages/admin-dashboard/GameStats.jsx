@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Table,
@@ -7,6 +7,8 @@ import {
   TableHead,
   TableRow,
 } from "@material-ui/core";
+import Moment from "moment";
+
 import Title from "./Title";
 
 // Generate Game Data
@@ -41,11 +43,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function GameStats() {
+export default function GameStats({ game }) {
+  const moment = require("moment");
   const classes = useStyles();
+
   return (
     <>
-      <Title>Game Stats</Title>
+      <Title>Game Stats {game.name}</Title>
       <Table size="small">
         <TableHead>
           <TableRow>
@@ -60,8 +64,12 @@ export default function GameStats() {
         <TableBody>
           {rows.map((row) => (
             <TableRow key={row.id}>
-              <TableCell>{row.date}</TableCell>
-              <TableCell>{row.date}</TableCell>
+              <TableCell>
+                {moment(`${game.startTime}`).format("MMMM Do YYYY, HH:mm ")}
+              </TableCell>
+              <TableCell>
+                {moment(`${game.endTime}`).format("MMMM Do YYYY, HH:mm ")}
+              </TableCell>
               <TableCell>{row.name}</TableCell>
               <TableCell>{row.player}</TableCell>
               <TableCell>{row.biteCode}</TableCell>

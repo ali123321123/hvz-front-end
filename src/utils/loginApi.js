@@ -13,7 +13,5 @@ export async function loginRequest(username, pw) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(data),
-  })
-    .then((r) => Validation.responseFromAuthenticateApi(r))
-    
+  }).then((r) => Validation.responseFromAuthenticateApi(r));
 }
