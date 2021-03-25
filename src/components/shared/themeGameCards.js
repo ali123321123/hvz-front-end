@@ -15,6 +15,67 @@ const commonSettings = {
 //Set rubrik 1 til primary, rubrik 2 til secondary.. active, completed etc..
 //
 
+export const light = createMuiTheme({
+  palette: {
+    primary: {
+      //Font color
+      main: "#9c27b0",
+    },
+    background: {
+      default: "#0e101c",
+    },
+  },
+
+  typography: {
+    h3: {
+      textAlign: "center",
+      textDecoration: "underline",
+      textDecorationColor: "#00ffd5",
+      marginBottom: "0.6em",
+    },
+  },
+
+  overrides: {
+    MuiGrid: {
+      container: {
+        justifyContent: "center",
+        // backgroundColor: "blue",
+      },
+    },
+    MuiCard: {
+      root: {
+        "&:hover": {
+          boxShadow:
+            "0 12px 15px 0 rgba(0, 0, 0, 0.24) 0 17px 50px 0 rgba(0, 0, 0, 0.19)",
+          boxShadow: "0px 0px 40px 15px #9c27b0",
+        },
+      },
+    },
+    MuiCardMedia: {
+      root: {
+        paddingTop: "75%", // 4:3
+        objectFit: "cover",
+        width: "80%",
+        borderRadius: "100%",
+        margin: "auto",
+        marginTop: "2em",
+        boxShadow: "0px 0px 20px 5px #333",
+        transition: "0.3s",
+
+        "&:hover": {
+          boxShadow: "0px 0px 20px 5px #9c27b0",
+          transition: "0.3s",
+        },
+      },
+    },
+    MuiPaper: {
+      rounded: {
+        borderRadius: "20px",
+      },
+    },
+  },
+});
+
 //Dark Theme
 export const themeActive = createMuiTheme({
   palette: {
@@ -22,6 +83,9 @@ export const themeActive = createMuiTheme({
       //Font color
       main: "#9c27b0",
     },
+  },
+  background: {
+    default: "#0e101c",
   },
   typography: {
     h3: {
@@ -138,8 +202,7 @@ export const themeCompleted = createMuiTheme({
       main: "#ff0062",
     },
     background: {
-      // default: "#18191f",
-      default: "#f7f7f7",
+      default: "#0e101c",
     },
   },
   typography: {
@@ -199,9 +262,9 @@ export const themeCreateGameForm = createMuiTheme({
       //Font color
       main: "#9c27b0",
     },
-    background: {
-      default: "#0e101c",
-    },
+    // background: {
+    //   default: "#0e101c",
+    // },
   },
   typography: {
     h3: {

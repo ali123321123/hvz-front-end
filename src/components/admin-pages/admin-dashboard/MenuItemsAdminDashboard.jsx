@@ -8,24 +8,25 @@ import {
   Tooltip,
 } from "@material-ui/core";
 import PeopleIcon from "@material-ui/icons/People";
-import LayersIcon from "@material-ui/icons/Layers";
 import {
   AddLocation,
+  Delete,
   HighlightOff,
   Lock,
   LockOpen,
-  Photo,
   PlayCircleOutline,
   PostAdd,
 } from "@material-ui/icons";
 import DialogPopUp from "./DialogPopUp";
-import UploadImages from "../../upload-images/UploadImages";
 import useSWR from "swr";
-import { fetcher } from "../../../services/FetcherFunction";
+import { fetcherToken } from "../../../services/FetcherFunction";
+import Endpoints from "../../../services/endpoints";
+import { getTokenInStorage } from "../../../utils/tokenHelper";
 import { Cloudinary } from "cloudinary-core";
 import { useHistory } from "react-router";
+import CreateGameForm from "../admin-gameCard/CreateGameForm";
 
-export default function MenuItemsAdminDashboard() {
+export default function MenuItemsAdminDashboard({ games }) {
   const useStyles = makeStyles((theme) => ({
     registrationButton: {
       marginRight: 36,
@@ -59,9 +60,28 @@ export default function MenuItemsAdminDashboard() {
   const [gameState, setGameState] = useState(true);
   const [registrationState, setRegistrationState] = useState(true);
 
-  const [openForm, setOpenForm] = useState(false);
-
+  const [open, setOpen] = useState(false);
   const history = useHistory();
+  //Fetch game
+  // const { data: games, error: gamesError } = useSWR(
+  //   `${Endpoints.GAME_API}`,
+  //   (url) => fetcherToken(url, getTokenInStorage())
+  // );
+  // console.log("games", games);
+  // console.log("hej");
+  // console.log(games.id);
+  console.log(games);
+
+  const onClickDelete = () => {
+    // fetch(`${Endpoints.GAME_API}/${game.id}`, {
+    //   method: "DELETE",
+    //   headers: {
+    //     Authorization: "Bearer " + getTokenInStorage(),
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(data),
+    // }).then((res) => res.json().then((res) => console.warn("result", res)));
+  };
 
   //Open PopUp
   const handleClickOpenPopUp = () => {
@@ -89,19 +109,24 @@ export default function MenuItemsAdminDashboard() {
     setRegistrationState(registrationState === true ? false : true);
   };
 
-  const { data: games, error: gamesError } = useSWR(
-    "https://localhost:44390/api/games/4",
-    fetcher
-  );
-
-  useEffect(() => {
-    console.log(games);
-  }, [games]);
+  // Denne fungerer
+  // useEffect(() => {
+  //   const requestOptions = {
+  //     method: "DELETE",
+  //     headers: {
+  //       Authorization: "Bearer " + getTokenInStorage(),
+  //       "Content-Type": "application/json",
+  //     },
+  //   };
+  //   fetch(`${Endpoints.GAME_API}${game.id}`, requestOptions).then(() =>
+  //     setStatus("Delete successful")
+  //   );
+  // }, []);
 
   const cloudinaryCore = new Cloudinary({ cloud_name: "debyqnalg" });
 
-  const handleOpenForm = () => {
-    setOpenForm(openForm);
+  const handleClickOpen = () => {
+    setOpen(true);
   };
 
   return (
@@ -254,7 +279,7 @@ export default function MenuItemsAdminDashboard() {
           aria-label="create game"
           title="Create new Game"
         >
-          <ListItem button onClick={handleOpenForm}>
+          <ListItem button onClick={handleClickOpen}>
             <ListItemIcon>
               <PostAdd />
             </ListItemIcon>
@@ -263,7 +288,25 @@ export default function MenuItemsAdminDashboard() {
         </Tooltip>
       </article>
 
-      {/* OPEN LINK TO ADMIN FORM */}
+      {/* DELETE NEW GAME */}
+      <article>
+        <Tooltip
+          classes={{ tooltip: classes.customWidth }}
+          arrow
+          placement={"bottom"}
+          aria-label="delete game"
+          title="Delete Game"
+        >
+          <ListItem button onClick={onClickDelete}>
+            <ListItemIcon>
+              <Delete />
+            </ListItemIcon>
+            <ListItemText primary="Delete Game" />
+          </ListItem>
+        </Tooltip>
+      </article>
+
+      {open && <CreateGameForm open={open} setOpen={setOpen} />}
     </div>
   );
 }

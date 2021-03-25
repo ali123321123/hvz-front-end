@@ -13,7 +13,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import theme from "../shared/theme";
 import useSWR from "swr";
-import { fetcher } from "../../services/FetcherFunction";
+import { fetcherToken } from "../../services/FetcherFunction";
 import AppbarMainMenu from "../shared/AppbarMainMenu";
 import MenuItemsGameList from "./MenuItemsGameList";
 import { ReactComponent as HvZLogo } from "../../assets/logo_without_title.svg";
@@ -23,6 +23,7 @@ import {
   themeCompleted,
 } from "../shared/themeGameCards";
 import Endpoints from "../../services/endpoints";
+import { getTokenInStorage } from "../../utils/tokenHelper";
 
 function GameList() {
   const useStyles = makeStyles((theme) => ({
@@ -44,9 +45,6 @@ function GameList() {
   }));
   const classes = useStyles();
 
-  //Toggle ColorTheme
-  const [light, setLight] = useState(true);
-
   const [activeGames, setActiveGames] = useState([]);
   const [completedGames, setCompletedGames] = useState([]);
   const [upCommingGames, setupCommingGames] = useState([]);
@@ -56,7 +54,7 @@ function GameList() {
   //Fetch games
   const { data: games, error: gamesError } = useSWR(
     `${Endpoints.GAME_API}`,
-    fetcher
+    (url) => fetcherToken(url, getTokenInStorage())
   );
 
   //Filter out new array from game_state and registration

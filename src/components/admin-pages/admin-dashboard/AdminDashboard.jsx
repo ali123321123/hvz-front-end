@@ -6,6 +6,9 @@ import {
   Container,
   Grid,
   Paper,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
 } from "@material-ui/core";
 import TempInteractiveMap from "./TempInteractiveMap";
 import GameStats from "./GameStats";
@@ -14,13 +17,15 @@ import PlayerStats from "./PlayerStats";
 import MenuItemsAdminDashboard from "./MenuItemsAdminDashboard";
 import AppbarMainMenu from "../../shared/AppbarMainMenu";
 import ImageCard from "./ImageCard";
+import { fetcherToken } from "../../../services/FetcherFunction";
+import Endpoints from "../../../services/endpoints";
+import { getTokenInStorage } from "../../../utils/tokenHelper";
+import { Delete } from "@material-ui/icons";
 
 export default function AdminDashboard(props) {
   const drawerWidth = 240;
   const useStyles = makeStyles((theme) => ({
-    root: {
-      display: "flex",
-    },
+    root: {},
 
     //Content container
     container: {
@@ -68,25 +73,37 @@ export default function AdminDashboard(props) {
 
   const classes = useStyles();
 
-  // const { data: players, error: playersError } = useSWR(
-  //   `${Endpoints.GAME_API}/${game.id}/players`,
-  //   fetcher
-  // );
-
   //Group classes
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   const [game, setGame] = useState({});
 
+  // useEffect(() => {
+  //   if (!Auth.userIsLoggedIn()) {
+  //     history.push("/");
+  //   }
+  // }, []);
+
+  const onClickDelete = () => {
+    const requestOptions = {
+      method: "DELETE",
+      headers: {
+        Authorization: "Bearer my-token",
+        "My-Custom-Header": "foobar",
+      },
+    };
+    fetch(`${Endpoints.GAME_API}/${game.id}`, requestOptions);
+  };
+
   useEffect(() => {
-      setGame(props.location.state)
-  }, [props.location.state])
+    setGame(props.location.state);
+  }, [props.location.state]);
 
   return (
     <div className={classes.root}>
       <CssBaseline />
       <AppbarMainMenu
-        menuTitle={"Dashboard | Insert Game Name"}
+        menuTitle={`Dashboard | ${game.name}`}
         menuItems={<MenuItemsAdminDashboard />}
       />
 
@@ -94,10 +111,20 @@ export default function AdminDashboard(props) {
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
           <Grid container spacing={3}>
-            {/* Player stats */}
+            {/* Game Avatar Image */}
             <Grid item xs={12} md={3} lg={3}>
-              <PlayerStats />
+              <ImageCard game={game} />
             </Grid>
+            {/* DELETE NEW GAME */}
+
+            <article>
+              <ListItem button onClick={onClickDelete}>
+                <ListItemIcon>
+                  <Delete />
+                </ListItemIcon>
+                <ListItemText primary="Delete Game" />
+              </ListItem>
+            </article>
 
             {/* Mission Stats */}
             <Grid item xs={12} md={5} lg={6}>
@@ -108,18 +135,20 @@ export default function AdminDashboard(props) {
 
             {/* Interactive Map */}
             <Grid item xs={12} md={4} lg={3}>
-                <h1>{game.name}</h1>
               <Paper className={fixedHeightPaper}>
                 <TempInteractiveMap />
               </Paper>
             </Grid>
 
-            
+            {/* Player stats */}
+            <Grid item xs={12} md={3} lg={3}>
+              <PlayerStats game={game} />
+            </Grid>
 
             {/* Game Stats */}
             <Grid item xs={9}>
               <Paper className={classes.paper}>
-                <GameStats />
+                <GameStats game={game} />
               </Paper>
             </Grid>
           </Grid>

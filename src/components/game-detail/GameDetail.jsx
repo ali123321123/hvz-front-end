@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router";
 import useSWR from "swr";
-import Endpoints from "../../services/endpoints";
 import { fetcherToken } from "../../services/FetcherFunction";
 import Auth from "../../utils/authentication";
-
 import "../shared/GameDetailPage.scss";
 import GameDetailInteractiveMap from "./GameDetailInteractiveMap";
 import GameDetailPlayerInfo from "./GameDetailPlayerInfo";
-
-import {getTokenInStorage} from '../../utils/tokenHelper';
+import Endpoints from "../../services/endpoints";
+import { getTokenInStorage } from "../../utils/tokenHelper";
 
 function GameDetail() {
   const { id: gameId } = useParams();
@@ -21,8 +19,10 @@ function GameDetail() {
     }
   }, []);
 
-  const { data: game, error: gameError } = useSWR(
-    `${Endpoints.GAME_API}/${gameId}`, (url) =>
+  const {
+    data: game,
+    error: gameError,
+  } = useSWR(`${Endpoints.GAME_API}/${gameId}`, (url) =>
     fetcherToken(url, getTokenInStorage())
   );
 

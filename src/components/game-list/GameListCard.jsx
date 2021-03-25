@@ -24,7 +24,6 @@ function GameListCard({ game }) {
   const [players, setPlayers] = useState();
 
   //Fetch players from game id
-
   useEffect(() => {
     setPlayers(game.countPlayers);
   }, [game]);

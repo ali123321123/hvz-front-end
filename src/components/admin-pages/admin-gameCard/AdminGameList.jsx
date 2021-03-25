@@ -11,11 +11,10 @@ import {
 } from "@material-ui/core";
 import "../../game-list/CardStyles.scss";
 import "fontsource-roboto";
-import theme from "../../shared/theme";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import useSWR from "swr";
-import { fetcher } from "../../../services/FetcherFunction";
+import { fetcherToken } from "../../../services/FetcherFunction";
 import AdminCard from "./AdminCard";
 import AppbarMainMenu from "../../shared/AppbarMainMenu";
 import MenuItemsAdminCard from "./MenuItemsAdminCard";
@@ -24,9 +23,11 @@ import {
   themeActive,
   themeUpcoming,
   themeCompleted,
+  light,
 } from "../../shared/themeGameCards";
 import Endpoints from "../../../services/endpoints";
 import { Brightness3Outlined, Brightness7Outlined } from "@material-ui/icons";
+import { getTokenInStorage } from "../../../utils/tokenHelper";
 
 function AdminGameList() {
   const useStyles = makeStyles((theme) => ({
@@ -54,8 +55,6 @@ function AdminGameList() {
   }));
   const classes = useStyles();
 
-  //Toggle ColorTheme
-
   const [activeGames, setActiveGames] = useState([]);
   const [completedGames, setCompletedGames] = useState([]);
   const [upCommingGames, setupCommingGames] = useState([]);
@@ -65,9 +64,10 @@ function AdminGameList() {
   //Fetch games
   const { data: games, error: gamesError } = useSWR(
     `${Endpoints.GAME_API}`,
-    fetcher
+    (url) => fetcherToken(url, getTokenInStorage())
   );
-  //Filter out new array from game_state and registration
+
+  //Filter out new array from gameState and registration
   useEffect(() => {
     if (gamesError) {
       console.log(gamesError);
@@ -87,40 +87,6 @@ function AdminGameList() {
     }
   }, [games]);
 
-  const light = createMuiTheme({
-    palette: {
-      background: {
-        default: "#f7f7f7",
-      },
-    },
-  });
-
-  const dark = createMuiTheme({
-    palette: {
-      background: {
-        default: "#e4f0e2",
-      },
-      text: {
-        primary: "#0e101c",
-      },
-    },
-  });
-
-  const [theme, setTheme] = useState(true);
-  const [activeTheme, setActiveTheme] = useState(true);
-  const [upcomingTheme, setUpcomingTheme] = useState(true);
-
-  const icon = !theme ? <Brightness7Outlined /> : <Brightness3Outlined />;
-
-  const appliedTheme = createMuiTheme(theme ? light : themeActive);
-
-  const handleColorTheme = () => {
-    setTheme((t) => !t);
-  };
-
-  const handleColorActiveTheme = () => {
-    setActiveTheme((t) => !t);
-  };
   return (
     <>
       <div className={classes.root}>
@@ -131,7 +97,7 @@ function AdminGameList() {
         />
 
         <ThemeProvider>
-          <MuiThemeProvider theme={theme ? light : themeActive}>
+          <MuiThemeProvider theme={themeActive}>
             <CssBaseline />
             <main>
               <Container maxWidth="lg">
@@ -150,14 +116,8 @@ function AdminGameList() {
                       <CreateGameCard />
                     </Grid>
                   </Grid>
-                  <Button onClick={handleColorTheme}>
-                    {icon} Handle Toggle Theme
-                  </Button>
-
-                  <Button onClick={() => setTheme(!theme)}>Toggle Theme</Button>
                 </section>
 
-                <Divider variant="middle" />
                 {/* ACTIVE GAMES */}
                 <article className="gameTitle">
                   <Typography variant="h3" color="primary" component="p">
@@ -186,12 +146,10 @@ function AdminGameList() {
                     ))}
                   </Grid>
                 </section>
-                {/* </MuiThemeProvider> */}
 
-                <MuiThemeProvider theme={theme ? light : themeUpcoming}>
+                {/* UCOMING GAMES */}
+                <MuiThemeProvider theme={themeUpcoming}>
                   <CssBaseline />
-                  {/* UCOMING GAMES */}
-
                   <article className="gameTitle">
                     <Typography variant="h3" color="primary" component="p">
                       Upcoming games
@@ -218,9 +176,8 @@ function AdminGameList() {
                 </MuiThemeProvider>
 
                 {/* COMPLETED GAMES */}
-                <MuiThemeProvider theme={theme ? light : themeCompleted}>
+                <MuiThemeProvider theme={themeCompleted}>
                   <CssBaseline />
-
                   <article className="gameTitle">
                     <Typography variant="h3" color="primary" component="p">
                       Completed games

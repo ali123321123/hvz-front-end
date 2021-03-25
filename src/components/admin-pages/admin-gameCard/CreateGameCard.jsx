@@ -3,29 +3,13 @@ import { useState, useEffect } from "react";
 import {
   Card,
   CardHeader,
-  CardMedia,
   CardContent,
   makeStyles,
-  Typography,
-  Divider,
-  Button,
-  ThemeProvider,
-  Tooltip,
-  Grid,
-  Container,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
   IconButton,
 } from "@material-ui/core";
 import "../../game-list/CardStyles.scss";
 import "fontsource-roboto";
-import theme from "../../shared/theme";
-import Moment from "moment";
-import useSWR from "swr";
-import { fetcher } from "../../../services/FetcherFunction";
 import { Cloudinary } from "cloudinary-core";
-import EditGame from "./EditGame";
 import CreateGameForm from "./CreateGameForm";
 import { AddCircle } from "@material-ui/icons";
 
