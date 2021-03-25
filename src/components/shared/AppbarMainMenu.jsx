@@ -87,6 +87,7 @@ export default function AppbarMainMenu({ menuItems, menuTitle }) {
 
   const [open, setOpen] = useState(false);
   const [theme, setTheme] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   const icon = !theme ? <Brightness7Outlined /> : <Brightness3Outlined />;
 
@@ -113,11 +114,18 @@ export default function AppbarMainMenu({ menuItems, menuTitle }) {
 
   const handleLogoutClick = () => {
     Auth.logoutUser();
+    setLoggedIn(false);
   };
 
   const handleColorTheme = () => {
     setTheme((t) => !t);
   };
+
+  useEffect(() => {
+      if(Auth.userIsLoggedIn()){
+          setLoggedIn(true)
+      }
+  }, [])
 
   return (
     <div className={classes.root}>
@@ -155,7 +163,7 @@ export default function AppbarMainMenu({ menuItems, menuTitle }) {
                 {menuTitle}
               </Typography>
               <Button onClick={handleColorTheme}>{icon} Toggle Theme</Button>
-              {!Auth.userIsLoggedIn() ? (
+              {!loggedIn ? (
                 <>
                   <Button color="inherit" onClick={handleLoginClick}>
                     Login
