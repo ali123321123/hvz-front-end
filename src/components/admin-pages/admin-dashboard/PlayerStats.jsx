@@ -2,8 +2,10 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Title from "./Title";
+import { TableCell } from "@material-ui/core";
+import Moment from "moment";
 
-export default function PlayerStats() {
+export default function PlayerStats({ game }) {
   const useStyles = makeStyles({
     depositContext: {
       flex: 1,
@@ -11,10 +13,19 @@ export default function PlayerStats() {
   });
 
   const classes = useStyles();
+  const moment = require("moment");
+
   return (
     <>
-      <Title>Player stats</Title>
-      <h1>hello</h1>
+      {/* <Title>Game stats</Title> */}
+
+      <TableCell>
+        {moment(`${game.startTime}`).format("MMMM Do YYYY, HH:mm ")}
+      </TableCell>
+      <TableCell>
+        {moment(`${game.endTime}`).format("MMMM Do YYYY, HH:mm ")}
+      </TableCell>
+
       <Typography component="p" variant="h4">
         4 hours 38 sec
       </Typography>

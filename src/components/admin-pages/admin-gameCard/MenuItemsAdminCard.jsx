@@ -20,7 +20,10 @@ import {
 } from "@material-ui/icons";
 import DialogPopUp from "../admin-dashboard/DialogPopUp";
 import useSWR from "swr";
-import { fetcher } from "../../../services/FetcherFunction";
+import { fetcherToken } from "../../../services/FetcherFunction";
+import Endpoints from "../../../services/endpoints";
+import { getTokenInStorage } from "../../../utils/tokenHelper";
+
 import { Cloudinary } from "cloudinary-core";
 import { useHistory } from "react-router";
 
@@ -89,8 +92,8 @@ export default function MenuItemsAdminCard() {
   };
 
   const { data: games, error: gamesError } = useSWR(
-    "https://localhost:44390/api/games/4",
-    fetcher
+    `${Endpoints.GAME_API}`,
+    (url) => fetcherToken(url, getTokenInStorage())
   );
 
   useEffect(() => {
@@ -101,7 +104,6 @@ export default function MenuItemsAdminCard() {
 
   const handleOpenForm = () => {
     setOpenForm(openForm);
-    history.push("/adminform");
   };
 
   return (

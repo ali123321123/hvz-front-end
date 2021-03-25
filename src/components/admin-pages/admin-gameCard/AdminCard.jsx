@@ -5,14 +5,9 @@ import {
   CardHeader,
   CardMedia,
   CardContent,
-  makeStyles,
   Typography,
-  Divider,
   Button,
-  ThemeProvider,
   Tooltip,
-  Grid,
-  Container,
 } from "@material-ui/core";
 import "../../game-list/CardStyles.scss";
 import "fontsource-roboto";
@@ -33,10 +28,6 @@ function AdminCard({ game }) {
   useEffect(() => {
     setPlayers(game.countPlayers);
   }, [game]);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
 
   const handleOpenGame = () => {
     history.push({
@@ -97,7 +88,6 @@ function AdminCard({ game }) {
           <CardContent>
             <Button
               //   onClick={handleOpenGame}
-              variant="button"
               color="secondary"
               component="p"
             >

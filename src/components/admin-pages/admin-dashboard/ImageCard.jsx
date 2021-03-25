@@ -6,33 +6,24 @@ import { Cloudinary } from "cloudinary-core";
 
 import React from "react";
 
-const ImageCard = () => {
+const ImageCard = ({ game }) => {
   const useStyles = makeStyles((theme) => ({
-    media: {
-      height: "200px",
+    card: {
+      textAlign: " center",
       objectFit: "cover",
     },
   }));
   const classes = useStyles();
 
-  const { data: games, error: gamesError } = useSWR(
-    "https://localhost:44390/api/games/4",
-    fetcher
-  );
-
-  useEffect(() => {
-    console.log(games);
-  }, [games]);
-
   const cloudinaryCore = new Cloudinary({ cloud_name: "debyqnalg" });
   return (
     <div>
-      {games ? (
-        <Card>
+      {game ? (
+        <Card className={classes.card}>
           <img
-            src={cloudinaryCore.url(games.imageUrl)}
+            src={cloudinaryCore.url(game.imageUrl)}
             alt="game avatar image"
-            height="260px"
+            height="230px"
           />
         </Card>
       ) : null}

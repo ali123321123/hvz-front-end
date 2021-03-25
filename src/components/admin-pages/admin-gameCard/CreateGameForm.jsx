@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useForm, Controller } from "react-hook-form";
+import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 import {
   Checkbox,
   CssBaseline,
@@ -8,35 +8,30 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  DialogContentText,
-  Container,
-  Grid,
   MuiThemeProvider,
   TextField,
   IconButton,
   Typography,
   FormControl,
-  FormLabel,
   FormGroup,
   FormControlLabel,
 } from "@material-ui/core";
 import "react-datepicker/dist/react-datepicker.css";
-import DatePicker from "react-datepicker";
 import {
   MuiPickersUtilsProvider,
-  KeyboardDatePicker,
   KeyboardDateTimePicker,
 } from "@material-ui/pickers";
 import "date-fns";
 import DateFnsUtils from "@date-io/date-fns";
 import { Cloudinary } from "cloudinary-core";
 import { themeCreateGameForm } from "../../shared/themeGameCards";
-import TempInteractiveMap from "../admin-dashboard/TempInteractiveMap";
 import CloseIcon from "@material-ui/icons/Close";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import { createGame } from "../../../utils/createGameApi";
+import Endpoints from "../../../services/endpoints";
+import { getTokenInStorage } from "../../../utils/tokenHelper";
 
-const CreateGameForm = ({ dialogTitle, dialogText, open, setOpen, game }) => {
+const CreateGameForm = ({ open, setOpen, game }) => {
   const cloudinaryCore = new Cloudinary({ cloud_name: "debyqnalg" });
   const { handleSubmit, control } = useForm();
   const [data, setData] = useState(null);
@@ -59,8 +54,15 @@ const CreateGameForm = ({ dialogTitle, dialogText, open, setOpen, game }) => {
       imageUrl,
     };
 
-    console.log(createGame(data))
-    
+    fetch(`${Endpoints.GAME_API}`, {
+      method: "POST",
+      headers: {
+        Authorization: "Bearer " + getTokenInStorage(),
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    }).then((res) => res.json().then((res) => console.warn("result", res)));
+
     setOpen(false);
   };
 

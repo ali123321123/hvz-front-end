@@ -45,9 +45,6 @@ function GameList() {
   }));
   const classes = useStyles();
 
-  //Toggle ColorTheme
-  const [light, setLight] = useState(true);
-
   const [activeGames, setActiveGames] = useState([]);
   const [completedGames, setCompletedGames] = useState([]);
   const [upCommingGames, setupCommingGames] = useState([]);

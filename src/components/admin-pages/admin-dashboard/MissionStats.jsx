@@ -21,12 +21,6 @@ export default function MissionStats() {
     createData(4, "15 Mar, 2019", "Mission 5"),
   ];
 
-  const useStyles = makeStyles((theme) => ({
-    seeMore: {
-      marginTop: theme.spacing(3),
-    },
-  }));
-  const classes = useStyles();
   return (
     <>
       <Title>Missions</Title>

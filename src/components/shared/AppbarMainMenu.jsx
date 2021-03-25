@@ -9,12 +9,25 @@ import {
   Typography,
   IconButton,
   Button,
+  ThemeProvider,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import MenuDrawer from "../admin-pages/admin-dashboard/MenuDrawer";
 import { useHistory } from "react-router";
 import Auth from "../../utils/authentication";
 import { useSelector } from "react-redux";
+import { Brightness3Outlined, Brightness7Outlined } from "@material-ui/icons";
+import {
+  themeActive,
+  themeUpcoming,
+  themeCompleted,
+  light,
+} from "../shared/themeGameCards";
+import useSWR from "swr";
+import { MuiThemeProvider } from "@material-ui/core/styles";
+import { fetcherToken } from "../../services/FetcherFunction";
+import Endpoints from "../../services/endpoints";
+import { getTokenInStorage } from "../../utils/tokenHelper";
 
 export default function AppbarMainMenu({ menuItems, menuTitle }) {
   const user = useSelector((state) => state.loggedInUser);
@@ -30,6 +43,10 @@ export default function AppbarMainMenu({ menuItems, menuTitle }) {
     //keep right padding when drawer closed
     toolbar: {
       paddingRight: 24,
+    },
+
+    title: {
+      flexGrow: 1,
     },
 
     appBar: {
@@ -69,6 +86,18 @@ export default function AppbarMainMenu({ menuItems, menuTitle }) {
   const classes = useStyles();
 
   const [open, setOpen] = useState(false);
+  const [theme, setTheme] = useState(true);
+
+  const icon = !theme ? <Brightness7Outlined /> : <Brightness3Outlined />;
+
+  //Fetch game
+  const { data: games, error: gamesError } = useSWR(
+    `${Endpoints.GAME_API}`,
+    (url) => fetcherToken(url, getTokenInStorage())
+  );
+  console.log("games", games);
+  console.log("hej");
+  console.log(games);
 
   const handleToggleOpen = () => {
     setOpen(true);
@@ -86,45 +115,76 @@ export default function AppbarMainMenu({ menuItems, menuTitle }) {
     Auth.logoutUser();
   };
 
+  const handleColorTheme = () => {
+    setTheme((t) => !t);
+  };
+
   return (
     <div className={classes.root}>
-      <CssBaseline />
-      <AppBar
-        position="absolute"
-        className={clsx(classes.appBar, open && classes.appBarShift)}
-      >
-        <Toolbar className={classes.toolbar}>
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleToggleOpen}
-            className={clsx(
-              classes.menuButton,
-              open && classes.menuButtonHidden
-            )}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography component="h1" variant="h6" color="inherit" noWrap>
-            {menuTitle}
-          </Typography>
-          {!Auth.userIsLoggedIn() ? (
-            <div>
-              <Button onClick={handleLoginClick}>Login</Button>
-              <Button onClick={handleRegisterClick}>Register</Button>
-            </div>
-          ) : (
-            <div>
-              <h3>{user.firstName}</h3>
-              <Button onClick={handleLogoutClick}>Log out</Button>
-            </div>
-          )}
-        </Toolbar>
-      </AppBar>
+      <ThemeProvider>
+        <MuiThemeProvider theme={theme ? light : themeActive}>
+          <CssBaseline />
+          <main></main>
 
-      {/* Drawer Side menu  */}
-      <MenuDrawer open={open} setOpen={setOpen} menuItems={menuItems} />
+          <AppBar
+            position="fixed"
+            className={clsx(classes.appBar, open && classes.appBarShift)}
+          >
+            <Toolbar className={classes.toolbar}>
+              <IconButton
+                edge="start"
+                color="inherit"
+                aria-label="open drawer"
+                onClick={handleToggleOpen}
+                className={clsx(
+                  classes.menuButton,
+                  open && classes.menuButtonHidden
+                )}
+              >
+                <MenuIcon />
+              </IconButton>
+
+              <Typography
+                component="h1"
+                variant="h6"
+                color="inherit"
+                noWrap
+                className={classes.title}
+              >
+                {menuTitle}
+              </Typography>
+              {!Auth.userIsLoggedIn() ? (
+                <>
+                  <Button color="inherit" onClick={handleLoginClick}>
+                    Login
+                  </Button>
+                  <Button onClick={handleRegisterClick}>Register</Button>
+                </>
+              ) : (
+                <>
+                  {/* <h3>{user.firstName}</h3> */}
+
+                  <Button onClick={handleColorTheme}>
+                    {icon} Toggle Theme
+                  </Button>
+
+                  <Button color="inherit" onClick={handleLogoutClick}>
+                    Log out
+                  </Button>
+                </>
+              )}
+            </Toolbar>
+          </AppBar>
+
+          {/* Drawer Side menu  */}
+          <MenuDrawer
+            open={open}
+            setOpen={setOpen}
+            menuItems={menuItems}
+            games={games}
+          />
+        </MuiThemeProvider>
+      </ThemeProvider>
     </div>
   );
 }
