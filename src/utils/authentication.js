@@ -6,7 +6,6 @@ const Auth = {
     sessionStorage.setItem("token", data.token);
     localStorage.setItem("token", data.token);
     const decoded = jwtDecode(data.token);
-    console.log(decoded);
     await Store.dispatch({
       type: "USER_LOGGED_IN",
       data: {

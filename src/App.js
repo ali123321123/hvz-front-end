@@ -17,9 +17,9 @@ function App() {
           {/* <Header /> */}
           <Home />
         </Route>
-        <Route path="/login">
-          <Header />
-          <LoginPage />
+        <Route path="/login" component={LoginPage}>
+          {/* <Header />
+          <LoginPage /> */}
         </Route>
         <Route
           path="/admin"

@@ -11,7 +11,6 @@ export const fetcher = async (url) =>{
 }
 
 export const fetcherToken = async (url,token) => {
-    console.log(token);
     const bearer = 'Bearer ' + token;
     const res = await fetch(url,
         {

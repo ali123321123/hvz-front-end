@@ -1,10 +1,17 @@
 const Validation = {
     responseFromAuthenticateApi: (data) => {
-        console.log(data);
         if(data.status === 200){
             return data.json()
         }
-        console.log("Some error");
+        else {
+            //Some cool error throwing or whatever
+            const error = new Error(data.Error)
+            throw error
+            
+        }
+       
+        //TODO: Implement Validation from Backend
+        
 
         
     }

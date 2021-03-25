@@ -1,15 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router";
 import useSWR from "swr";
+<<<<<<< HEAD
 import { fetcher, fetcherToken } from "../../services/FetcherFunction";
+=======
+import Endpoints from "../../services/endpoints";
+import { fetcherToken } from "../../services/FetcherFunction";
+import Auth from "../../utils/authentication";
+
+>>>>>>> hvz-69-login-register-form
 import "../shared/GameDetailPage.scss";
 import GameDetailInteractiveMap from "./GameDetailInteractiveMap";
 import GameDetailPlayerInfo from "./GameDetailPlayerInfo";
 import Endpoints from "../../services/endpoints";
 import { getTokenInStorage } from "../../utils/tokenHelper";
 
+import {getTokenInStorage} from '../../utils/tokenHelper';
+
 function GameDetail() {
   const { id: gameId } = useParams();
+<<<<<<< HEAD
 
   //   const { data: game, error: gameError } = useSWR(
   //     `${process.env.REACT_APP_BASE_URL}${process.env.REACT_APP_GAME_API}/${gameId}`,
@@ -26,10 +36,20 @@ function GameDetail() {
     data: game,
     error: gameError,
   } = useSWR(`${Endpoints.GAME_API}/${game.id}`, (url) =>
+=======
+  const history = useHistory();
+
+  useEffect(() => {
+    if (!Auth.userIsLoggedIn()) {
+      history.push("/");
+    }
+  }, []);
+
+  const { data: game, error: gameError } = useSWR(
+    `${Endpoints.GAME_API}/${gameId}`, (url) =>
+>>>>>>> hvz-69-login-register-form
     fetcherToken(url, getTokenInStorage())
   );
-
-  const history = useHistory();
 
   const [loading, setLoading] = useState(true);
   const [playAreaCoordinates, setPlayAreaCoordinates] = useState([]);
@@ -64,7 +84,7 @@ function GameDetail() {
               playAreaCoordinates={playAreaCoordinates}
             />
           </div>
-          <GameDetailPlayerInfo gameId={gameId} />
+          <GameDetailPlayerInfo game={game} />
         </div>
       )}
     </div>

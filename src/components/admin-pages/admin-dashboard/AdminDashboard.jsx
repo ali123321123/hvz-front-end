@@ -16,7 +16,6 @@ import AppbarMainMenu from "../../shared/AppbarMainMenu";
 import ImageCard from "./ImageCard";
 
 export default function AdminDashboard(props) {
-  console.log(props.location.state);
   const drawerWidth = 240;
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -80,14 +79,14 @@ export default function AdminDashboard(props) {
   const [game, setGame] = useState({});
 
   useEffect(() => {
-    setGame(props.location.state);
-  }, [props.location.state]);
+      setGame(props.location.state)
+  }, [props.location.state])
 
   return (
     <div className={classes.root}>
       <CssBaseline />
       <AppbarMainMenu
-        menuTitle={`Dashboard | ${game.name}`}
+        menuTitle={"Dashboard | Insert Game Name"}
         menuItems={<MenuItemsAdminDashboard />}
       />
 
@@ -109,15 +108,18 @@ export default function AdminDashboard(props) {
 
             {/* Interactive Map */}
             <Grid item xs={12} md={4} lg={3}>
+                <h1>{game.name}</h1>
               <Paper className={fixedHeightPaper}>
                 <TempInteractiveMap />
               </Paper>
             </Grid>
 
+            
+
             {/* Game Stats */}
             <Grid item xs={9}>
               <Paper className={classes.paper}>
-                <GameStats game={game} />
+                <GameStats />
               </Paper>
             </Grid>
           </Grid>
