@@ -79,31 +79,6 @@ function GameList() {
     }
   }, [games]);
 
-<<<<<<< HEAD
-  const themeLight = createMuiTheme({
-    palette: {
-      background: {
-        default: "#e4f0e2",
-      },
-      text: {
-        primary: "#000000",
-      },
-    },
-  });
-
-  const themeDark = createMuiTheme({
-    palette: {
-      background: {
-        default: "#222222",
-      },
-      text: {
-        primary: "#cec32e",
-      },
-    },
-  });
-
-=======
->>>>>>> 34acab14296ed0cae548aed63c32f5e117813778
   return (
     <>
       {loading ? (

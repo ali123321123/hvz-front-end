@@ -18,12 +18,8 @@ import { useSelector } from "react-redux";
 import {decodedToken} from '../../utils/tokenHelper'
 
 export default function AppbarMainMenu({ menuItems, menuTitle }) {
-<<<<<<< HEAD
     
   const userToken = decodedToken()
-=======
-  const user = useSelector((state) => state.loggedInUser);
->>>>>>> 34acab14296ed0cae548aed63c32f5e117813778
   const history = useHistory();
   const drawerWidth = 240;
 
@@ -85,17 +81,12 @@ export default function AppbarMainMenu({ menuItems, menuTitle }) {
   };
 
   const handleRegisterClick = () => {
-<<<<<<< HEAD
       history.push("/register");
   }
 
   const handleLogoutClick = () => {
       Auth.logoutUser()
   }
-=======
-    history.push("/register");
-  };
->>>>>>> 34acab14296ed0cae548aed63c32f5e117813778
 
   return (
     <div className={classes.root}>
