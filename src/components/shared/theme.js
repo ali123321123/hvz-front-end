@@ -1,12 +1,12 @@
 import { createMuiTheme, responsiveFontSizes } from "@material-ui/core";
 
 // colors
-const primary = "#ffffff";
+const primary = "#e6e6e6";
 const secondary = "#c43c80";
 const card = "f3e45b";
 const black = "#343a40";
 const darkBlack = "rgb(36, 40, 44)";
-const background = "#9c27b0";
+const background = "#0e101c";
 const warningLight = "rgba(253, 200, 69, .3)";
 const warningMain = "rgba(253, 200, 69, .5)";
 const warningDark = "rgba(253, 200, 69, .7)";
@@ -28,7 +28,12 @@ const spacing = 8;
 //Change the theme between light and dark under palette: type: "light"
 const theme = createMuiTheme({
   palette: {
-    primary: { main: primary },
+    primary: {
+      main: primary,
+      dar: primary,
+      light: primary,
+      contrastText: primary,
+    },
     secondary: { main: secondary },
     card: { main: card },
     common: {
@@ -67,7 +72,46 @@ const theme = createMuiTheme({
     borderColor: borderColor,
     borderWidth: borderWidth,
   },
+
   overrides: {
+    MuiGrid: {
+      container: {
+        justifyContent: "center",
+      },
+    },
+    MuiCard: {
+      root: {
+        "&:hover": {
+          boxShadow:
+            "0 12px 15px 0 rgba(0, 0, 0, 0.24) 0 17px 50px 0 rgba(0, 0, 0, 0.19)",
+          boxShadow: "0px 0px 40px 15px #ff0062",
+          //backgroundColor: "#1bdf84",
+        },
+      },
+    },
+    MuiCardMedia: {
+      root: {
+        paddingTop: "75%", // 4:3
+        objectFit: "cover",
+        width: "80%",
+        borderRadius: "100%",
+        margin: "auto",
+        marginTop: "2em",
+        boxShadow: "0px 0px 20px 5px #333",
+        transition: "0.3s",
+
+        "&:hover": {
+          boxShadow: "0px 0px 20px 5px #ff0062",
+          transition: "0.3s",
+        },
+      },
+    },
+    MuiPaper: {
+      rounded: {
+        borderRadius: "20px",
+      },
+    },
+
     MuiExpansionPanel: {
       root: {
         position: "static",

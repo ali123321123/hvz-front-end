@@ -14,6 +14,7 @@ export default function PlayerStats() {
   return (
     <>
       <Title>Player stats</Title>
+      <h1>hello</h1>
       <Typography component="p" variant="h4">
         4 hours 38 sec
       </Typography>
