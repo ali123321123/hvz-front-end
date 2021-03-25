@@ -154,6 +154,7 @@ export default function AppbarMainMenu({ menuItems, menuTitle }) {
               >
                 {menuTitle}
               </Typography>
+              <Button onClick={handleColorTheme}>{icon} Toggle Theme</Button>
               {!Auth.userIsLoggedIn() ? (
                 <>
                   <Button color="inherit" onClick={handleLoginClick}>
@@ -164,11 +165,6 @@ export default function AppbarMainMenu({ menuItems, menuTitle }) {
               ) : (
                 <>
                   <h3>{userToken.actort}</h3>
-
-                  <Button onClick={handleColorTheme}>
-                    {icon} Toggle Theme
-                  </Button>
-
                   <Button color="inherit" onClick={handleLogoutClick}>
                     Log out
                   </Button>
