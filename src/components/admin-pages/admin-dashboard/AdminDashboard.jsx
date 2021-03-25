@@ -81,11 +81,8 @@ export default function AdminDashboard(props) {
     setGame(props.location.state);
   }, [props.location.state]);
 
-<<<<<<< HEAD
   console.log("afmin", game);
-=======
   console.log(props.location.state.id, " game");
->>>>>>> master
   // useEffect(() => {
   //   if (!Auth.userIsLoggedIn()) {
   //     history.push("/");
