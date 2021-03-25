@@ -88,13 +88,13 @@ export default function AdminDashboard(props) {
     const requestOptions = {
       method: "DELETE",
       headers: {
-        Authorization: "Bearer my-token",
-        "My-Custom-Header": "foobar",
+        Authorization: "Bearer " + getTokenInStorage(),
+        "Content-Type": "application/json",
       },
     };
     fetch(`${Endpoints.GAME_API}/${game.id}`, requestOptions);
   };
-
+  console.log(game.id);
   useEffect(() => {
     setGame(props.location.state);
   }, [props.location.state]);
