@@ -1,6 +1,6 @@
 const initialState = {};
 
-const store = (
+const loginStore = (
   state = {
     loggedInUser: {},
   },
@@ -21,4 +21,4 @@ const store = (
   }
 };
 
-export default store;
+export default loginStore;

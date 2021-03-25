@@ -15,10 +15,11 @@ import MenuDrawer from "../admin-pages/admin-dashboard/MenuDrawer";
 import { useHistory } from "react-router";
 import Auth from "../../utils/authentication";
 import { useSelector } from "react-redux";
+import {decodedToken} from '../../utils/tokenHelper'
 
 export default function AppbarMainMenu({ menuItems, menuTitle }) {
     
-  const user = useSelector((state) => state.loggedInUser);
+  const userToken = decodedToken()
   const history = useHistory();
   const drawerWidth = 240;
 
@@ -116,7 +117,7 @@ export default function AppbarMainMenu({ menuItems, menuTitle }) {
             </div>
           ) : (
             <div>
-              <h3>{user.firstName}</h3>
+              <h3>{userToken.actort}</h3>
               <Button onClick={handleLogoutClick}>Log out</Button>
             </div>
           )}
