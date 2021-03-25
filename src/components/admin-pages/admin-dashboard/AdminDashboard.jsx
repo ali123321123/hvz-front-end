@@ -77,12 +77,29 @@ export default function AdminDashboard(props) {
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   const [game, setGame] = useState({});
+  useEffect(() => {
+    setGame(props.location.state);
+  }, [props.location.state]);
 
+  console.log(props.location.state.id, " game");
   // useEffect(() => {
   //   if (!Auth.userIsLoggedIn()) {
   //     history.push("/");
   //   }
   // }, []);
+
+  // DELETE request using fetch with set headers
+  //     const requestOptions = {
+  //       method: "DELETE",
+  //       headers: {
+  //         Authorization: "Bearer my-token",
+  //         "My-Custom-Header": "foobar",
+  //       },
+  //     };
+  //     fetch(
+  //       `https://localhost:44390/api/games/${game.id}`,
+  //       requestOptions
+  //     ).then(() => setStatus("Delete successful"));
 
   const onClickDelete = () => {
     const requestOptions = {
@@ -92,12 +109,8 @@ export default function AdminDashboard(props) {
         "Content-Type": "application/json",
       },
     };
-    fetch(`${Endpoints.GAME_API}/${game.id}`, requestOptions);
+    fetch(`${Endpoints.GAME_API}/${props.location.state.id}`, requestOptions);
   };
-  console.log(game.id);
-  useEffect(() => {
-    setGame(props.location.state);
-  }, [props.location.state]);
 
   return (
     <div className={classes.root}>
