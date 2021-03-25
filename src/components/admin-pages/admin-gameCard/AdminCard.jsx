@@ -16,15 +16,9 @@ import {
 } from "@material-ui/core";
 import "../../game-list/CardStyles.scss";
 import "fontsource-roboto";
-import theme from "../../shared/theme";
-import Moment from "moment";
-import useSWR from "swr";
-import { fetcher } from "../../../services/FetcherFunction";
 import { Cloudinary } from "cloudinary-core";
-import EditGame from "./EditGame";
 import AdminDashboard from "../admin-dashboard/AdminDashboard";
 import { useHistory } from "react-router";
-import Endpoints from "../../../services/endpoints";
 import { Link } from "react-router-dom";
 
 function AdminCard({ game }) {

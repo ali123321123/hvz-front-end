@@ -11,11 +11,10 @@ import {
 } from "@material-ui/core";
 import "../../game-list/CardStyles.scss";
 import "fontsource-roboto";
-import theme from "../../shared/theme";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import useSWR from "swr";
-import { fetcher } from "../../../services/FetcherFunction";
+import { fetcherToken } from "../../../services/FetcherFunction";
 import AdminCard from "./AdminCard";
 import AppbarMainMenu from "../../shared/AppbarMainMenu";
 import MenuItemsAdminCard from "./MenuItemsAdminCard";
@@ -27,6 +26,7 @@ import {
 } from "../../shared/themeGameCards";
 import Endpoints from "../../../services/endpoints";
 import { Brightness3Outlined, Brightness7Outlined } from "@material-ui/icons";
+import { getTokenInStorage } from "../../../utils/tokenHelper";
 
 function AdminGameList() {
   const useStyles = makeStyles((theme) => ({
@@ -65,8 +65,9 @@ function AdminGameList() {
   //Fetch games
   const { data: games, error: gamesError } = useSWR(
     `${Endpoints.GAME_API}`,
-    fetcher
+    (url) => fetcherToken(url, getTokenInStorage())
   );
+
   //Filter out new array from game_state and registration
   useEffect(() => {
     if (gamesError) {

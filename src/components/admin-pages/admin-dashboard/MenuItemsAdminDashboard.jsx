@@ -8,20 +8,20 @@ import {
   Tooltip,
 } from "@material-ui/core";
 import PeopleIcon from "@material-ui/icons/People";
-import LayersIcon from "@material-ui/icons/Layers";
 import {
   AddLocation,
   HighlightOff,
   Lock,
   LockOpen,
-  Photo,
   PlayCircleOutline,
   PostAdd,
 } from "@material-ui/icons";
 import DialogPopUp from "./DialogPopUp";
 import UploadImages from "../../upload-images/UploadImages";
 import useSWR from "swr";
-import { fetcher } from "../../../services/FetcherFunction";
+import { fetcherToken } from "../../../services/FetcherFunction";
+import Endpoints from "../../../services/endpoints";
+import { getTokenInStorage } from "../../../utils/tokenHelper";
 import { Cloudinary } from "cloudinary-core";
 import { useHistory } from "react-router";
 
@@ -89,9 +89,14 @@ export default function MenuItemsAdminDashboard() {
     setRegistrationState(registrationState === true ? false : true);
   };
 
+  // const { data: games, error: gamesError } = useSWR(
+  //   "https://localhost:44390/api/games/4",
+  //   fetcher
+  // );
+
   const { data: games, error: gamesError } = useSWR(
-    "https://localhost:44390/api/games/4",
-    fetcher
+    `${Endpoints.GAME_API}`,
+    (url) => fetcherToken(url, getTokenInStorage())
   );
 
   useEffect(() => {

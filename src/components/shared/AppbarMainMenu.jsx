@@ -24,7 +24,7 @@ export default function AppbarMainMenu({ menuItems, menuTitle }) {
   const useStyles = makeStyles((theme) => ({
     root: {
       display: "flex",
-      width: "10%",
+      width: "100%",
     },
 
     //keep right padding when drawer closed
@@ -82,6 +82,10 @@ export default function AppbarMainMenu({ menuItems, menuTitle }) {
     history.push("/register");
   };
 
+  const handleLogoutClick = () => {
+    Auth.logoutUser();
+  };
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -113,6 +117,7 @@ export default function AppbarMainMenu({ menuItems, menuTitle }) {
           ) : (
             <div>
               <h3>{user.firstName}</h3>
+              <Button onClick={handleLogoutClick}>Log out</Button>
             </div>
           )}
         </Toolbar>

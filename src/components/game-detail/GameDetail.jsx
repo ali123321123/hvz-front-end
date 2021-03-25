@@ -1,25 +1,32 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router";
 import useSWR from "swr";
-import { fetcher } from "../../services/FetcherFunction";
-
+import { fetcher, fetcherToken } from "../../services/FetcherFunction";
 import "../shared/GameDetailPage.scss";
 import GameDetailInteractiveMap from "./GameDetailInteractiveMap";
 import GameDetailPlayerInfo from "./GameDetailPlayerInfo";
+import Endpoints from "../../services/endpoints";
+import { getTokenInStorage } from "../../utils/tokenHelper";
 
 function GameDetail() {
   const { id: gameId } = useParams();
-  
 
-//   const { data: game, error: gameError } = useSWR(
-//     `${process.env.REACT_APP_BASE_URL}${process.env.REACT_APP_GAME_API}/${gameId}`,
-//     fetcher
-//   );
-// console.log(process.env.REACT_APP_GAME_API);
+  //   const { data: game, error: gameError } = useSWR(
+  //     `${process.env.REACT_APP_BASE_URL}${process.env.REACT_APP_GAME_API}/${gameId}`,
+  //     fetcher
+  //   );
+  // console.log(process.env.REACT_APP_GAME_API);
 
-  const { data: game, error: gameError } = useSWR(
-    `https://localhost:44390/api/games/${game.id}`,
-    fetcher
+  // const { data: game, error: gameError } = useSWR(
+  //   `https://localhost:44390/api/games/${game.id}`,
+  //   fetcher
+  // );
+
+  const {
+    data: game,
+    error: gameError,
+  } = useSWR(`${Endpoints.GAME_API}/${game.id}`, (url) =>
+    fetcherToken(url, getTokenInStorage())
   );
 
   const history = useHistory();
