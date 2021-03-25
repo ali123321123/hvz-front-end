@@ -81,22 +81,39 @@ export default function AdminDashboard(props) {
     setGame(props.location.state);
   }, [props.location.state]);
 
+<<<<<<< HEAD
   console.log("afmin", game);
+=======
+  console.log(props.location.state.id, " game");
+>>>>>>> master
   // useEffect(() => {
   //   if (!Auth.userIsLoggedIn()) {
   //     history.push("/");
   //   }
   // }, []);
 
+  // DELETE request using fetch with set headers
+  //     const requestOptions = {
+  //       method: "DELETE",
+  //       headers: {
+  //         Authorization: "Bearer my-token",
+  //         "My-Custom-Header": "foobar",
+  //       },
+  //     };
+  //     fetch(
+  //       `https://localhost:44390/api/games/${game.id}`,
+  //       requestOptions
+  //     ).then(() => setStatus("Delete successful"));
+
   const onClickDelete = () => {
     const requestOptions = {
       method: "DELETE",
       headers: {
-        Authorization: "Bearer my-token",
-        "My-Custom-Header": "foobar",
+        Authorization: "Bearer " + getTokenInStorage(),
+        "Content-Type": "application/json",
       },
     };
-    fetch(`${Endpoints.GAME_API}/${game.id}`, requestOptions);
+    fetch(`${Endpoints.GAME_API}/${props.location.state.id}`, requestOptions);
   };
 
   return (

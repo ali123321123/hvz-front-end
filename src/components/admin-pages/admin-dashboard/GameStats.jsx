@@ -87,6 +87,20 @@ export default function GameStats({ game }) {
               <TableCell>{p.squad}</TableCell>
             </TableRow>
           ))}
+          {/* {players.map((player) => (
+            <TableRow key={player.id}>
+              <TableCell>
+                {moment(`${game.startTime}`).format("MMMM Do YYYY, HH:mm ")}
+              </TableCell>
+              <TableCell>
+                {moment(`${game.endTime}`).format("MMMM Do YYYY, HH:mm ")}
+              </TableCell>
+              <TableCell>{player.name}</TableCell>
+              <TableCell>{player.player}</TableCell>
+              <TableCell>{player.biteCode}</TableCell>
+              <TableCell>{player.squad}</TableCell>
+            </TableRow>
+          ))} */}
         </TableBody>
       </Table>
     </>

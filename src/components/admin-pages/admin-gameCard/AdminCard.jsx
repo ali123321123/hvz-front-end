@@ -51,11 +51,13 @@ function AdminCard({ game }) {
             className="header"
             title={game.name}
             subheader={
-              game.gameState
+              game.gameStarted
                 ? "In Progress"
-                : !game.gameState && game.registrationOpen
+                : game.registrationOpen
                 ? "Open for registration"
-                : "Completed games"
+                : game.gameComplete
+                ? "Completed games"
+                : "No Current Game"
             }
           />
           <CardContent>

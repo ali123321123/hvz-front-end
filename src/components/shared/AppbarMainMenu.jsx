@@ -27,10 +27,10 @@ import useSWR from "swr";
 import { MuiThemeProvider } from "@material-ui/core/styles";
 import { fetcherToken } from "../../services/FetcherFunction";
 import Endpoints from "../../services/endpoints";
-import { getTokenInStorage } from "../../utils/tokenHelper";
+import { getTokenInStorage, decodedToken } from "../../utils/tokenHelper";
 
 export default function AppbarMainMenu({ menuItems, menuTitle }) {
-  const user = useSelector((state) => state.loggedInUser);
+  const userToken = decodedToken();
   const history = useHistory();
   const drawerWidth = 240;
 
@@ -121,12 +121,13 @@ export default function AppbarMainMenu({ menuItems, menuTitle }) {
       <ThemeProvider>
         <MuiThemeProvider theme={theme ? light : themeActive}>
           <CssBaseline />
-          <main></main>
 
           <AppBar
             position="fixed"
             className={clsx(classes.appBar, open && classes.appBarShift)}
           >
+            {/* Drawer Side menu  */}
+            <MenuDrawer open={open} setOpen={setOpen} menuItems={menuItems} />
             <Toolbar className={classes.toolbar}>
               <IconButton
                 edge="start"
@@ -150,6 +151,7 @@ export default function AppbarMainMenu({ menuItems, menuTitle }) {
               >
                 {menuTitle}
               </Typography>
+              <Button onClick={handleColorTheme}>{icon} Toggle Theme</Button>
               {!Auth.userIsLoggedIn() ? (
                 <>
                   <Button color="inherit" onClick={handleLoginClick}>
@@ -159,12 +161,7 @@ export default function AppbarMainMenu({ menuItems, menuTitle }) {
                 </>
               ) : (
                 <>
-                  {/* <h3>{user.firstName}</h3> */}
-
-                  <Button onClick={handleColorTheme}>
-                    {icon} Toggle Theme
-                  </Button>
-
+                  <h3>{userToken.actort}</h3>
                   <Button color="inherit" onClick={handleLogoutClick}>
                     Log out
                   </Button>

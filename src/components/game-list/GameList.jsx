@@ -73,6 +73,7 @@ function GameList() {
     }
   }, [games]);
 
+  console.log(games);
   return (
     <>
       {loading ? (
