@@ -17,7 +17,6 @@ import Auth from "../../utils/authentication";
 import { useSelector } from "react-redux";
 
 export default function AppbarMainMenu({ menuItems, menuTitle }) {
-    
   const user = useSelector((state) => state.loggedInUser);
   const history = useHistory();
   const drawerWidth = 240;
@@ -25,6 +24,7 @@ export default function AppbarMainMenu({ menuItems, menuTitle }) {
   const useStyles = makeStyles((theme) => ({
     root: {
       display: "flex",
+      width: "10%",
     },
 
     //keep right padding when drawer closed
@@ -79,9 +79,8 @@ export default function AppbarMainMenu({ menuItems, menuTitle }) {
   };
 
   const handleRegisterClick = () => {
-      history.push("/register");
-  }
-
+    history.push("/register");
+  };
 
   return (
     <div className={classes.root}>
@@ -109,7 +108,7 @@ export default function AppbarMainMenu({ menuItems, menuTitle }) {
           {!Auth.userIsLoggedIn() ? (
             <div>
               <Button onClick={handleLoginClick}>Login</Button>
-              <Button onClick={handleRegisterClick}>Register</Button>      
+              <Button onClick={handleRegisterClick}>Register</Button>
             </div>
           ) : (
             <div>

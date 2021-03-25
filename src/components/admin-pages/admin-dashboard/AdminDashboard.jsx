@@ -69,6 +69,11 @@ export default function AdminDashboard(props) {
 
   const classes = useStyles();
 
+  // const { data: players, error: playersError } = useSWR(
+  //   `${Endpoints.GAME_API}/${game.id}/players`,
+  //   fetcher
+  // );
+
   //Group classes
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
