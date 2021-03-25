@@ -65,18 +65,15 @@ function GameList() {
     if (!games) {
       setLoading(true);
     } else {
-      setActiveGames(games.filter((f) => f.gameState && !f.registrationOpen));
-      setCompletedGames(
-        games.filter((f) => !f.gameState && !f.registrationOpen)
-      );
-      setupCommingGames(
-        games.filter((f) => !f.gameState && f.registrationOpen)
-      );
+      setActiveGames(games.filter((g) => g.gameStarted));
+      setupCommingGames(games.filter((g) => g.registrationOpen));
+      setCompletedGames(games.filter((g) => g.gameComplete));
 
       setLoading(false);
     }
   }, [games]);
 
+  console.log(games);
   return (
     <>
       {loading ? (
