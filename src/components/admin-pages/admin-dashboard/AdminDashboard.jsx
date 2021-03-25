@@ -77,7 +77,11 @@ export default function AdminDashboard(props) {
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   const [game, setGame] = useState({});
+  useEffect(() => {
+    setGame(props.location.state);
+  }, [props.location.state]);
 
+  console.log("afmin", game);
   // useEffect(() => {
   //   if (!Auth.userIsLoggedIn()) {
   //     history.push("/");
@@ -94,10 +98,6 @@ export default function AdminDashboard(props) {
     };
     fetch(`${Endpoints.GAME_API}/${game.id}`, requestOptions);
   };
-
-  useEffect(() => {
-    setGame(props.location.state);
-  }, [props.location.state]);
 
   return (
     <div className={classes.root}>

@@ -95,9 +95,6 @@ export default function AppbarMainMenu({ menuItems, menuTitle }) {
     `${Endpoints.GAME_API}`,
     (url) => fetcherToken(url, getTokenInStorage())
   );
-  console.log("games", games);
-  console.log("hej");
-  console.log(games);
 
   const handleToggleOpen = () => {
     setOpen(true);

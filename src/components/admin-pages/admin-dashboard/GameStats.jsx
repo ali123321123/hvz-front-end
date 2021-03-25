@@ -10,8 +10,8 @@ import {
 import useSWR from "swr";
 import { fetcherToken } from "../../../services/FetcherFunction";
 import Endpoints from "../../../services/endpoints";
-import { useSelector } from "react-redux";
 import { getTokenInStorage } from "../../../utils/tokenHelper";
+import { useSelector } from "react-redux";
 import Title from "./Title";
 
 const useStyles = makeStyles((theme) => ({
@@ -25,9 +25,6 @@ export default function GameStats({ game }) {
 
   const user = useSelector((state) => state.loggedInUser);
 
-  // console.log(game);
-  console.log("game id", game.id);
-
   const [player, setPlayer] = useState({});
   const [humanPlayers, setHumanPlayers] = useState([]);
   const [playerBiteCode, setPlayerBiteCode] = useState();
@@ -40,8 +37,9 @@ export default function GameStats({ game }) {
   } = useSWR(`${Endpoints.GAME_API}/${game.id}/players`, (url) =>
     fetcherToken(url, getTokenInStorage())
   );
+
   console.log(game);
-  console.log(players);
+  console.log("players", players);
   //Fech Squad
   const {
     data: squads,
@@ -50,12 +48,26 @@ export default function GameStats({ game }) {
     fetcherToken(url, getTokenInStorage())
   );
 
-  console.log(squads);
+  console.log("squads", squads);
+  const [idFromPlayer, setIdFromPlayer] = useState();
+
+  // for (const element of Object.entries(squads)) {
+  //   const key = element[0],
+  //     value = element[1];
+  //   console.log(value.squadMembers);
+  //   const member = value.squadMembers;
+  //   console.log("memeber", member);
+
+  //   console.log(value.name);
+  // }
+  //From player player.id
+  //from squads squadMembers.playerId
+  // console.log(players.filter((g) => players.map((g) => g.name)));
+  // console.log(squads.filter((g) => squads.map((g) => g.name)));
 
   return (
     <>
       <Title>Game info </Title>
-      {/* <h2>{playerBiteCode}</h2> */}
 
       <Table size="small">
         <TableHead>
@@ -72,7 +84,7 @@ export default function GameStats({ game }) {
               <TableCell>{p.name}</TableCell>
               <TableCell>{p.isHuman ? `Human` : `Zombie`}</TableCell>
               <TableCell>{p.biteCode}</TableCell>
-              {/* <TableCell>{p.squad}</TableCell> */}
+              <TableCell>{p.squad}</TableCell>
             </TableRow>
           ))}
         </TableBody>

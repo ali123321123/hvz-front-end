@@ -6,20 +6,22 @@ import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Title from "./Title";
+import useSWR from "swr";
+import { fetcherToken } from "../../../services/FetcherFunction";
+import Endpoints from "../../../services/endpoints";
+import { getTokenInStorage } from "../../../utils/tokenHelper";
 
 export default function MissionStats() {
-  // Generate Mission Data
-  function createData(id, date, name) {
-    return { id, date, name };
-  }
+  const moment = require("moment");
 
-  const rows = [
-    createData(0, "16 Mar, 2019", "Mission 0"),
-    createData(1, "16 Mar, 2019", "Mission 1"),
-    createData(2, "16 Mar, 2019", "Mission 2"),
-    createData(3, "16 Mar, 2019", "Mission 3"),
-    createData(4, "15 Mar, 2019", "Mission 5"),
-  ];
+  //Fech Missions
+
+  const {
+    data: missions,
+    error: missionsError,
+  } = useSWR(`${Endpoints.MISSION_API}`, (url) =>
+    fetcherToken(url, getTokenInStorage())
+  );
 
   return (
     <>
@@ -30,14 +32,20 @@ export default function MissionStats() {
             <TableCell>Mission</TableCell>
             <TableCell>Start Date</TableCell>
             <TableCell>End Date</TableCell>
+            <TableCell>Mission for:</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.id}>
-              <TableCell>{row.name}</TableCell>
-              <TableCell>{row.date}</TableCell>
-              <TableCell>{row.date}</TableCell>
+          {missions.map((m) => (
+            <TableRow key={m.id}>
+              <TableCell>{m.name}</TableCell>
+              <TableCell>
+                {moment(`${m.startTime}`).format("MMMM Do YYYY, HH:mm ")}
+              </TableCell>
+              <TableCell>
+                {moment(`${m.endTime}`).format("MMMM Do YYYY, HH:mm ")}
+              </TableCell>
+              <TableCell>{m.isHumanVisible ? `Human` : `Zombie`}</TableCell>
             </TableRow>
           ))}
         </TableBody>
