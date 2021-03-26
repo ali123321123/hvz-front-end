@@ -73,7 +73,6 @@ function GameList() {
     }
   }, [games]);
 
-  console.log(games);
   return (
     <>
       {loading ? (
@@ -96,7 +95,7 @@ function GameList() {
               <Divider variant="fullWidth" />
             </div>
 
-            <main>
+            <div>
               <Container maxWidth="lg">
                 <MuiThemeProvider theme={themeActive}>
                   <CssBaseline />
@@ -120,7 +119,7 @@ function GameList() {
                       }}
                     >
                       {activeGames.map((game) => (
-                        <Grid item xs={12} sm={6} md={4} lg={4} xl={4}>
+                        <Grid item xs={12} sm={6} md={4} lg={4} xl={4} key={`gridKey${game.id}`}>
                           <GameListCard
                             key={game.id}
                             game={game}
@@ -153,7 +152,7 @@ function GameList() {
                       }}
                     >
                       {upCommingGames.map((game) => (
-                        <Grid item xs={12} sm={6} md={4} lg={4} xl={4}>
+                        <Grid item xs={12} sm={6} md={4} lg={4} xl={4} key={`gridKey${game.id}`}>
                           <GameListCard key={game.id} game={game} />
                         </Grid>
                       ))}
@@ -181,7 +180,7 @@ function GameList() {
                       }}
                     >
                       {completedGames.map((game) => (
-                        <Grid item xs={12} sm={6} md={4} lg={4} xl={4}>
+                        <Grid item xs={12} sm={6} md={4} lg={4} xl={4} key={`gridKey${game.id}`}>
                           <GameListCard key={game.id} game={game} />
                         </Grid>
                       ))}
@@ -189,7 +188,7 @@ function GameList() {
                   </section>
                 </MuiThemeProvider>
               </Container>
-            </main>
+            </div>
           </ThemeProvider>
         </div>
       )}

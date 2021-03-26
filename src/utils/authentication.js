@@ -1,5 +1,6 @@
 import Store from "./store";
 import jwtDecode from "jwt-decode";
+import { getTokenInStorage } from "./tokenHelper";
 
 const Auth = {
   loginUser: async (data) => {
@@ -57,8 +58,8 @@ const Auth = {
 
   userIsAdmin: () => {
     if (Auth.userIsLoggedIn()) {
-      let userData = Store.getState();
-      if (userData.roles === "Admin") {
+      let decodedToken = jwtDecode(getTokenInStorage());
+      if (decodedToken.role === "Admin") {
         return true;
       }
       return false;
@@ -66,10 +67,6 @@ const Auth = {
     return false;
 
   },
-
-  getTokenInStorage: async () => {
-    return sessionStorage.getItem('token')
-  }
 };
 
 export default Auth;

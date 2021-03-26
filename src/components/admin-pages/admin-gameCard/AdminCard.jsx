@@ -32,7 +32,7 @@ function AdminCard({ game }) {
   const handleOpenGame = () => {
     history.push({
       path: `/admin/game/${game.id}`,
-      satte: game,
+      state: game,
     });
   };
   //pass on game.id for edit games

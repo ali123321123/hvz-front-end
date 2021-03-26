@@ -18,8 +18,7 @@ import { useSelector } from "react-redux";
 import Auth from "../../utils/authentication";
 
 const GameCardPopUp = ({ game, open, setOpen }) => {
-
-    const user = useSelector((state) => state.loggedInUser)
+  const user = useSelector((state) => state.loggedInUser);
   const history = useHistory();
 
   const [playArea, setPlayArea] = useState(null);
@@ -30,16 +29,15 @@ const GameCardPopUp = ({ game, open, setOpen }) => {
   };
 
   const handleJoinButton = () => {
-      if(Auth.userIsLoggedIn()){
-        history.push(`/game/${game.id}`);
-        return;
-      }
-      history.push( 
-          {
-            pathname: `/login`,
-            state: game.id,
-          })
-    
+    if (Auth.userIsLoggedIn()) {
+        // need functionality to bake user join game and become player in that game.
+      history.push(`/game/${game.id}`); 
+      return;
+    }
+    history.push({
+      pathname: `/login`,
+      state: game,
+    });
   };
 
   useEffect(() => {
@@ -65,6 +63,7 @@ const GameCardPopUp = ({ game, open, setOpen }) => {
         {playArea && centerArea ? (
           <div className="mapid">
             <GameCardPopupMap
+              gameName={game.name}
               playAreaCoordinates={playArea}
               centerAreaCoordinates={centerArea}
             />

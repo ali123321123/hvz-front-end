@@ -112,6 +112,7 @@ export default function AppbarMainMenu({ menuItems, menuTitle }) {
   const handleLogoutClick = () => {
     Auth.logoutUser();
     setLoggedIn(false);
+    history.push('/')
   };
 
   const handleColorTheme = () => {
