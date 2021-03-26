@@ -11,10 +11,7 @@ import {
 } from "@material-ui/core";
 import "./CardStyles.scss";
 import GameCardPopup from "./GameCardPopup";
-import useSWR from "swr";
-import { fetcher } from "../../services/FetcherFunction";
 import { Cloudinary } from "cloudinary-core";
-import { sizing } from "@material-ui/system";
 
 function GameListCard({ game }) {
   const moment = require("moment");

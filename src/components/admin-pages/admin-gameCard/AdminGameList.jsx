@@ -22,7 +22,6 @@ import {
   themeActive,
   themeUpcoming,
   themeCompleted,
-  light,
 } from "../../shared/themeGameCards";
 import Endpoints from "../../../services/endpoints";
 import { getTokenInStorage } from "../../../utils/tokenHelper";

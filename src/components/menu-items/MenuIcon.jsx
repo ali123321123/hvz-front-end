@@ -7,7 +7,7 @@ import {
   Tooltip,
 } from "@material-ui/core";
 
-const MenuIcon = ({ title, menuIcon, onClick }) => {
+const MenuIcon = ({ title, menuIcon, onClick, disabled }) => {
   const useStyles = makeStyles((theme) => ({
     customWidth: {
       maxWidth: 120,
@@ -20,6 +20,7 @@ const MenuIcon = ({ title, menuIcon, onClick }) => {
       <article>
         <Tooltip
           classes={{ tooltip: classes.customWidth }}
+          disabled={disabled}
           arrow
           placement={"bottom"}
           aria-label={title}

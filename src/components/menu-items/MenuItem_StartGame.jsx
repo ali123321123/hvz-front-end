@@ -8,19 +8,20 @@ import {
 } from "@material-ui/core";
 import { HighlightOff, PlayCircleOutline } from "@material-ui/icons";
 import DialogPopUp from "../admin-pages/admin-dashboard/DialogPopUp";
-import { useLocation, useHistory } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
-const MenuItem_StartGame = (props) => {
+const MenuItem_StartGame = () => {
   //Text constants for Buttons and Dialog
   const gameStart = "Start Game";
   const gameEnd = "End Game";
 
   //Dialog PopUp
   const [openPopUp, setopenPopUp] = useState(false);
-  const [openRegistrationPopUp, setOpenRegistrationPopUp] = useState(false);
 
   //Set game and registration state
-  const [gameState, setGameState] = useState(true);
+  const [game, setGame] = useState({});
+  const [gameState, setGameState] = useState();
+  const [registrationState, setRegistrationState] = useState();
 
   //Open PopUp
   const handleClickOpenPopUp = () => {
@@ -30,42 +31,25 @@ const MenuItem_StartGame = (props) => {
   //Close PopUp On Button NO
   const handleClosePopUp = () => {
     setopenPopUp(false);
-    setOpenRegistrationPopUp(false);
   };
 
   //Toggle GameState
   const handleGameState = () => {
     setopenPopUp(false); // close popup
-    setGameState(gameState === true ? false : true);
+    setGameState(
+      gameState === game.gameStarted ? !game.gameStarted : game.gameStarted
+    );
+    setRegistrationState(
+      registrationState === game.registrationOpen
+        ? !game.registrationOpen
+        : game.registrationOpen
+    );
   };
   const location = useLocation();
-  const [game, setGame] = useState({});
-
-  console.log(location.state);
 
   useEffect(() => {
     setGame(location.state);
   }, [location.state]);
-
-  //if game not started
-  const gameHasStarted = () => {
-    if (game.started) {
-      setGameState(true);
-      console.log("startet", game);
-    } else {
-      setGameState(false);
-    }
-  };
-
-  useEffect(() => {
-    if (game.started) {
-      setGameState(true);
-      console.log("startet", game.gameStarted);
-    } else {
-      setGameState(false);
-      console.log("startet", game.gameStarted);
-    }
-  }, []);
 
   return (
     <div>
@@ -73,9 +57,9 @@ const MenuItem_StartGame = (props) => {
       <article>
         {openPopUp && (
           <DialogPopUp
-            dialogTitle={"game name"}
+            dialogTitle={game.name}
             dialogText={
-              gameState
+              !game.gameStarted
                 ? `Would you like to ${gameStart}`
                 : `Would you like to ${gameEnd} ?`
             }
@@ -91,13 +75,14 @@ const MenuItem_StartGame = (props) => {
           arrow
           placement={"bottom"}
           aria-label={
-            !game.gameStarted ? `${"game has not started"}` : `${"end game"}`
+            !gameState ? `${"game has not started"}` : `${"end game"}`
           }
           title={
             !game.gameStarted ? `${"Game has not started"}` : `${"End game"}`
           }
         >
           <ListItem
+            disabled={game.gameComplete ? true : false}
             button
             onClick={handleClickOpenPopUp}
             aria-label="start game"

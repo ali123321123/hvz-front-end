@@ -23,18 +23,15 @@ import {
 } from "@material-ui/pickers";
 import "date-fns";
 import DateFnsUtils from "@date-io/date-fns";
-import { Cloudinary } from "cloudinary-core";
 import { themeCreateGameForm } from "../../shared/themeGameCards";
 import CloseIcon from "@material-ui/icons/Close";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
-import { createGame } from "../../../utils/createGameApi";
 import Endpoints from "../../../services/endpoints";
 import { getTokenInStorage } from "../../../utils/tokenHelper";
 
-const CreateGameForm = ({ open, setOpen, game }) => {
-  const cloudinaryCore = new Cloudinary({ cloud_name: "debyqnalg" });
-  const { handleSubmit, control } = useForm();
-  const [data, setData] = useState(null);
+const CreateGameForm = ({ open, setOpen }) => {
+  const { handleSubmit } = useForm();
+  const [setData] = useState(null);
 
   const [name, setName] = useState("");
   const [gameState, setGameState] = useState(false);

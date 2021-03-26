@@ -81,8 +81,6 @@ export default function AdminDashboard(props) {
     setGame(props.location.state);
   }, [props.location.state]);
 
-  console.log("afmin", game);
-  console.log(props.location.state.id, " game");
   // useEffect(() => {
   //   if (!Auth.userIsLoggedIn()) {
   //     history.push("/");
@@ -118,7 +116,7 @@ export default function AdminDashboard(props) {
       <CssBaseline />
       <AppbarMainMenu
         menuTitle={`Dashboard | ${game.name}`}
-        menuItems={<MenuItemsAdminDashboard />}
+        menuItems={<MenuItemsAdminDashboard game={game} />}
       />
 
       <main className={classes.content}>
@@ -129,19 +127,9 @@ export default function AdminDashboard(props) {
             <Grid item xs={12} md={3} lg={3}>
               <ImageCard game={game} />
             </Grid>
-            {/* DELETE NEW GAME */}
-
-            <article>
-              <ListItem button onClick={onClickDelete}>
-                <ListItemIcon>
-                  <Delete />
-                </ListItemIcon>
-                <ListItemText primary="Delete Game" />
-              </ListItem>
-            </article>
 
             {/* Mission Stats */}
-            <Grid item xs={12} md={5} lg={6}>
+            <Grid item xs={12} md={5} lg={5}>
               <Paper className={fixedHeightPaper}>
                 <MissionStats />
               </Paper>

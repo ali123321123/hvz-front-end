@@ -7,19 +7,11 @@ import {
   ListItemText,
   Tooltip,
 } from "@material-ui/core";
-import PeopleIcon from "@material-ui/icons/People";
-import {
-  AddLocation,
-  Delete,
-  HighlightOff,
-  Lock,
-  LockOpen,
-  PlayCircleOutline,
-  PostAdd,
-} from "@material-ui/icons";
+import { Lock, LockOpen } from "@material-ui/icons";
 import DialogPopUp from "../admin-pages/admin-dashboard/DialogPopUp";
+import { useLocation } from "react-router-dom";
 
-const MenuItem_OpenRegistration = () => {
+const MenuItem_OpenRegistration = ({ disabled }) => {
   const useStyles = makeStyles((theme) => ({
     customWidth: {
       maxWidth: 120,
@@ -32,38 +24,46 @@ const MenuItem_OpenRegistration = () => {
   const registrationClose = "Close Registration";
 
   //Dialog PopUp
-  const [openPopUp, setopenPopUp] = useState(false);
   const [openRegistrationPopUp, setOpenRegistrationPopUp] = useState(false);
 
   //Set game and registration state
-  const [gameState, setGameState] = useState(true);
-  const [registrationState, setRegistrationState] = useState(true);
+  const [game, setGame] = useState({});
+  const [gameState, setGameState] = useState();
+
+  const handleClickOpenPopUp = () => {
+    setOpenRegistrationPopUp(true);
+  };
 
   //Close PopUp On Button NO
   const handleClosePopUp = () => {
-    setopenPopUp(false);
     setOpenRegistrationPopUp(false);
-  };
-
-  const handleClickOpenRegistrationPopUp = () => {
-    setOpenRegistrationPopUp(true);
   };
 
   //Toggle Registration State
   const handleRegistrationState = () => {
-    setOpenRegistrationPopUp(false); // close popup
-    setRegistrationState(registrationState === true ? false : true);
+    setOpenRegistrationPopUp(false);
+    setGameState(
+      gameState === game.registrationOpen
+        ? !game.registrationOpen
+        : game.registrationOpen
+    );
   };
 
+  const location = useLocation();
+
+  useEffect(() => {
+    setGame(location.state);
+  }, [location.state]);
+  console.log(game.registrationOpen);
   return (
     <div>
-      {/* DIALOG: OPEN REGISTRATION */}
+      {/* DIALOG: START | END GAME */}
       <article>
         {openRegistrationPopUp && (
           <DialogPopUp
-            dialogTitle={"game name"}
+            dialogTitle={game.name}
             dialogText={
-              registrationState
+              gameState
                 ? `Would you like to ${registrationOpen}`
                 : `Would you like to ${registrationClose} ?`
             }
@@ -74,47 +74,30 @@ const MenuItem_OpenRegistration = () => {
         )}
       </article>
 
-      {/* BTN: REGISTRATION */}
       <article>
         <Tooltip
           classes={{ tooltip: classes.customWidth }}
           arrow
           placement={"bottom"}
           aria-label={
-            registrationState
-              ? `${"open registration"}`
-              : `${"close registration"}`
+            gameState ? `${"open registration"}` : `${"close registration"}`
           }
           title={
-            registrationState
+            gameState
               ? `${"Registration is Closed"}`
               : `${"Registration is Open"}`
           }
         >
           <ListItem
-            disabled={gameState ? false : true}
+            disabled={disabled}
             button
-            onClick={handleClickOpenRegistrationPopUp}
-            aria-label={
-              registrationState ? `${registrationOpen}` : `${registrationClose}`
-            }
+            onClick={handleClickOpenPopUp}
+            aria-label="start game"
           >
-            <ListItemIcon>
-              {registrationState ? (
-                <Lock />
-              ) : !registrationState && !gameState ? (
-                <Lock />
-              ) : (
-                <LockOpen />
-              )}
-            </ListItemIcon>
+            <ListItemIcon>{gameState ? <Lock /> : <LockOpen />}</ListItemIcon>
             <ListItemText
               primary={
-                registrationState && gameState
-                  ? `${registrationOpen}`
-                  : !gameState
-                  ? `${"Registration is Closed"}`
-                  : `${registrationClose}`
+                gameState ? `${registrationOpen}` : `${registrationClose}`
               }
             />
           </ListItem>

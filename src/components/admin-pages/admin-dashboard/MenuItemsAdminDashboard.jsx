@@ -11,15 +11,11 @@ import MenuIcon from "../../menu-items/MenuIcon";
 import MenuIcon_ThemeToggle from "../../menu-items/MenuIcon_ThemeToggle";
 import { Divider } from "@material-ui/core";
 
-export default function MenuItemsAdminDashboard({ games }) {
+export default function MenuItemsAdminDashboard({ game }) {
   const [open, setOpen] = useState(false);
   const history = useHistory();
 
-  console.log(games);
-
   const onClickDelete = () => {};
-
-  const cloudinaryCore = new Cloudinary({ cloud_name: "debyqnalg" });
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -44,11 +40,21 @@ export default function MenuItemsAdminDashboard({ games }) {
       {/* BTN: START && END  WITH DIALOG POPUP*/}
       <MenuItem_StartGame />
       {/* BTN: REGISTRATION WITH DIALOG POPUP*/}
-      <MenuItem_OpenRegistration />
+      <MenuItem_OpenRegistration
+        disabled={game.gameComplete || game.gameStarted ? true : false}
+      />
       {/* BTN: ADD MISSION */}
-      <MenuIcon menuIcon={<AddLocation />} title={"Add Mission"} />
+      <MenuIcon
+        disabled={game.gameComplete ? true : false}
+        menuIcon={<AddLocation />}
+        title={"Add Mission"}
+      />
       {/* BTN: ADD EDIT PLAYERS */}
-      <MenuIcon menuIcon={<PeopleIcon />} title={"Edit Players"} />
+      <MenuIcon
+        disabled={game.gameComplete ? true : false}
+        menuIcon={<PeopleIcon />}
+        title={"Edit Players"}
+      />
       {/* CREATE NEW GAME */}
       <MenuIcon
         menuIcon={<PostAdd />}

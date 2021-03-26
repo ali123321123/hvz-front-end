@@ -1,5 +1,3 @@
-import { React, useEffect, useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -14,8 +12,6 @@ import { getTokenInStorage } from "../../../utils/tokenHelper";
 export default function MissionStats() {
   const moment = require("moment");
 
-  const [mission, setMission] = useState();
-
   //Fech Missions
   const {
     data: missions,
@@ -23,12 +19,6 @@ export default function MissionStats() {
   } = useSWR(`${Endpoints.MISSION_API}`, (url) =>
     fetcherToken(url, getTokenInStorage())
   );
-
-  useEffect(() => {
-    if (missions) {
-      setMission(missions);
-    }
-  }, [missions]);
 
   return (
     <>
@@ -43,7 +33,7 @@ export default function MissionStats() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {/* {mission.map((m) => (
+          {missions?.map((m) => (
             <TableRow key={m.id}>
               <TableCell>{m.name}</TableCell>
               <TableCell>
@@ -54,7 +44,7 @@ export default function MissionStats() {
               </TableCell>
               <TableCell>{m.isHumanVisible ? `Human` : `Zombie`}</TableCell>
             </TableRow>
-          ))} */}
+          ))}
         </TableBody>
       </Table>
     </>

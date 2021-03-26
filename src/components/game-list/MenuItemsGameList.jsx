@@ -4,9 +4,18 @@ import { Divider } from "@material-ui/core";
 import BrightnessMedium from "@material-ui/icons/BrightnessMedium";
 import MenuIcon_ThemeToggle from "../menu-items/MenuIcon_ThemeToggle";
 import MenuIcon from "../menu-items/MenuIcon";
-import { AccountCircle } from "@material-ui/icons";
+import {
+  AccountCircle,
+  QueryBuilder,
+  RadioButtonChecked,
+  RadioButtonUnchecked,
+  Timelapse,
+} from "@material-ui/icons";
+import Auth from "../../utils/authentication";
+import { useHistory } from "react-router";
 
 export default function MenuItemsGameList() {
+  const history = useHistory();
   const useStyles = makeStyles((theme) => ({
     registrationButton: {
       marginRight: 36,
@@ -26,7 +35,13 @@ export default function MenuItemsGameList() {
   }));
   const classes = useStyles();
 
-  //onClick ... scroll to section?
+  const handleProfileOption = () => {
+    if (Auth.userIsLoggedIn()) {
+      history.push("/profile");
+    } else {
+      history.push("/login");
+    }
+  };
 
   return (
     <div>
@@ -35,13 +50,17 @@ export default function MenuItemsGameList() {
 
       <Divider />
 
-      <MenuIcon menuIcon={<AccountCircle />} title={"Profile"} />
+      <MenuIcon
+        menuIcon={<AccountCircle />}
+        title={"Profile"}
+        onClick={handleProfileOption}
+      />
 
-      <MenuIcon menuIcon={<BrightnessMedium />} title={"Active Games"} />
+      <MenuIcon menuIcon={<Timelapse />} title={"Active Games"} />
 
-      <MenuIcon menuIcon={<BrightnessMedium />} title={"Upcoming Games"} />
+      <MenuIcon menuIcon={<QueryBuilder />} title={"Upcoming Games"} />
 
-      <MenuIcon menuIcon={<BrightnessMedium />} title={"Completed Games"} />
+      <MenuIcon menuIcon={<RadioButtonChecked />} title={"Completed Games"} />
     </div>
   );
 }
