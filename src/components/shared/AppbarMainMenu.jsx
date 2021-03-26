@@ -12,7 +12,7 @@ import {
   ThemeProvider,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
-import MenuDrawer from "../admin-pages/admin-dashboard/MenuDrawer";
+import MenuDrawer from "../menu-items//MenuDrawer";
 import { useHistory } from "react-router";
 import Auth from "../../utils/authentication";
 import { useSelector } from "react-redux";
@@ -86,10 +86,8 @@ export default function AppbarMainMenu({ menuItems, menuTitle }) {
   const classes = useStyles();
 
   const [open, setOpen] = useState(false);
-  const [theme, setTheme] = useState(true);
-  const [loggedIn, setLoggedIn] = useState(false);
 
-  const icon = !theme ? <Brightness7Outlined /> : <Brightness3Outlined />;
+  const [loggedIn, setLoggedIn] = useState(false);
 
   //Fetch game
   const { data: games, error: gamesError } = useSWR(
@@ -112,23 +110,19 @@ export default function AppbarMainMenu({ menuItems, menuTitle }) {
   const handleLogoutClick = () => {
     Auth.logoutUser();
     setLoggedIn(false);
-    history.push('/')
-  };
-
-  const handleColorTheme = () => {
-    setTheme((t) => !t);
+    history.push("/");
   };
 
   useEffect(() => {
-      if(Auth.userIsLoggedIn()){
-          setLoggedIn(true)
-      }
-  }, [])
+    if (Auth.userIsLoggedIn()) {
+      setLoggedIn(true);
+    }
+  }, []);
 
   return (
     <div className={classes.root}>
       <ThemeProvider>
-        <MuiThemeProvider theme={theme ? light : themeActive}>
+        <MuiThemeProvider theme={themeActive}>
           <CssBaseline />
 
           <AppBar
@@ -160,7 +154,7 @@ export default function AppbarMainMenu({ menuItems, menuTitle }) {
               >
                 {menuTitle}
               </Typography>
-              <Button onClick={handleColorTheme}>{icon} Toggle Theme</Button>
+
               {!loggedIn ? (
                 <>
                   <Button color="inherit" onClick={handleLoginClick}>
