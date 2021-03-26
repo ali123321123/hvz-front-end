@@ -12,15 +12,22 @@ import {
   ThemeProvider,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
+import MenuDrawer from "../admin-pages/admin-dashboard/MenuDrawer";
 import { useHistory } from "react-router";
 import Auth from "../../utils/authentication";
-import { themeActive } from "../shared/themeGameCards";
+import { useSelector } from "react-redux";
+import { Brightness3Outlined, Brightness7Outlined } from "@material-ui/icons";
+import {
+  themeActive,
+  themeUpcoming,
+  themeCompleted,
+  light,
+} from "../shared/themeGameCards";
 import useSWR from "swr";
 import { MuiThemeProvider } from "@material-ui/core/styles";
 import { fetcherToken } from "../../services/FetcherFunction";
 import Endpoints from "../../services/endpoints";
 import { getTokenInStorage, decodedToken } from "../../utils/tokenHelper";
-import MenuDrawer from "../menu-items/MenuDrawer";
 
 export default function AppbarMainMenu({ menuItems, menuTitle }) {
   const userToken = decodedToken();
@@ -79,6 +86,10 @@ export default function AppbarMainMenu({ menuItems, menuTitle }) {
   const classes = useStyles();
 
   const [open, setOpen] = useState(false);
+  const [theme, setTheme] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  const icon = !theme ? <Brightness7Outlined /> : <Brightness3Outlined />;
 
   //Fetch game
   const { data: games, error: gamesError } = useSWR(
@@ -104,10 +115,20 @@ export default function AppbarMainMenu({ menuItems, menuTitle }) {
     history.push('/')
   };
 
+  const handleColorTheme = () => {
+    setTheme((t) => !t);
+  };
+
+  useEffect(() => {
+      if(Auth.userIsLoggedIn()){
+          setLoggedIn(true)
+      }
+  }, [])
+
   return (
     <div className={classes.root}>
       <ThemeProvider>
-        <MuiThemeProvider theme={themeActive}>
+        <MuiThemeProvider theme={theme ? light : themeActive}>
           <CssBaseline />
 
           <AppBar
@@ -139,7 +160,8 @@ export default function AppbarMainMenu({ menuItems, menuTitle }) {
               >
                 {menuTitle}
               </Typography>
-              {!Auth.userIsLoggedIn() ? (
+              <Button onClick={handleColorTheme}>{icon} Toggle Theme</Button>
+              {!loggedIn ? (
                 <>
                   <Button color="inherit" onClick={handleLoginClick}>
                     Login
