@@ -17,6 +17,8 @@ const commonSettings = {
 
 export const light = createMuiTheme({
   palette: {
+    // type: "light",
+
     primary: {
       //Font color
       main: "#9c27b0",
@@ -79,6 +81,7 @@ export const light = createMuiTheme({
 //Dark Theme
 export const themeActive = createMuiTheme({
   palette: {
+    // type: "dark",
     primary: {
       //Font color
       main: "#9c27b0",

@@ -1,23 +1,10 @@
 import React from "react";
-import { useState } from "react";
-import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Tooltip,
-  DialogActions,
-  Button,
-  useTheme,
-} from "@material-ui/core";
-import BrightnessLow from "@material-ui/icons/BrightnessLow";
+import { Divider } from "@material-ui/core";
 import BrightnessMedium from "@material-ui/icons/BrightnessMedium";
-import BrightnessHigh from "@material-ui/icons/BrightnessHigh";
+import MenuIcon_ThemeToggle from "../menu-items/MenuIcon_ThemeToggle";
+import MenuIcon from "../menu-items/MenuIcon";
+import { AccountCircle } from "@material-ui/icons";
 
 export default function MenuItemsGameList() {
   const useStyles = makeStyles((theme) => ({
@@ -38,55 +25,23 @@ export default function MenuItemsGameList() {
     },
   }));
   const classes = useStyles();
-  const theme = useTheme();
+
+  //onClick ... scroll to section?
 
   return (
     <div>
-      <Tooltip
-        classes={{ tooltip: classes.customWidth }}
-        arrow
-        placement={"bottom"}
-        aria-label="active games"
-        title="Active Games"
-      >
-        <ListItem button>
-          <ListItemIcon>
-            <BrightnessMedium />
-          </ListItemIcon>
-          <ListItemText primary="Active Games" />
-        </ListItem>
-      </Tooltip>
+      {/* TOGGLE THEME */}
+      <MenuIcon_ThemeToggle />
 
-      <Tooltip
-        classes={{ tooltip: classes.customWidth }}
-        arrow
-        placement={"bottom"}
-        aria-label="upcoming games"
-        title="Upcoming Games"
-      >
-        <ListItem button>
-          <ListItemIcon>
-            <BrightnessLow />
-          </ListItemIcon>
-          <ListItemText primary="Upcoming Games" />
-        </ListItem>
-      </Tooltip>
+      <Divider />
 
-      <Tooltip
-        classes={{ tooltip: classes.customWidth }}
-        arrow
-        placement={"bottom"}
-        aria-label="completed games"
-        title="Completed Games"
-      >
-        <ListItem button>
-          <ListItemIcon>
-            <BrightnessHigh />
-          </ListItemIcon>
+      <MenuIcon menuIcon={<AccountCircle />} title={"Profile"} />
 
-          <ListItemText primary="Completed Games" />
-        </ListItem>
-      </Tooltip>
+      <MenuIcon menuIcon={<BrightnessMedium />} title={"Active Games"} />
+
+      <MenuIcon menuIcon={<BrightnessMedium />} title={"Upcoming Games"} />
+
+      <MenuIcon menuIcon={<BrightnessMedium />} title={"Completed Games"} />
     </div>
   );
 }

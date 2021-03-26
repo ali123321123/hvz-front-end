@@ -7,7 +7,6 @@ import {
   ThemeProvider,
   Grid,
   Container,
-  Button,
 } from "@material-ui/core";
 import "../../game-list/CardStyles.scss";
 import "fontsource-roboto";
@@ -26,7 +25,6 @@ import {
   light,
 } from "../../shared/themeGameCards";
 import Endpoints from "../../../services/endpoints";
-import { Brightness3Outlined, Brightness7Outlined } from "@material-ui/icons";
 import { getTokenInStorage } from "../../../utils/tokenHelper";
 
 function AdminGameList() {
