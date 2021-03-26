@@ -1,22 +1,9 @@
 import { createMuiTheme } from "@material-ui/core/styles";
 
-// breakpoints
-const xl = 1920;
-const lg = 1280;
-const md = 960;
-const sm = 600;
-const xs = 0;
-
-const commonSettings = {
-  //breakpoints font etc..
-  //Background
-};
-
-//Set rubrik 1 til primary, rubrik 2 til secondary.. active, completed etc..
-//
-
 export const light = createMuiTheme({
   palette: {
+    // type: "light",
+
     primary: {
       //Font color
       main: "#9c27b0",
@@ -79,6 +66,7 @@ export const light = createMuiTheme({
 //Dark Theme
 export const themeActive = createMuiTheme({
   palette: {
+    // type: "dark",
     primary: {
       //Font color
       main: "#9c27b0",

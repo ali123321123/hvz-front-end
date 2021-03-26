@@ -7,11 +7,10 @@ import {
   ThemeProvider,
   Grid,
   Container,
-  Button,
 } from "@material-ui/core";
 import "../../game-list/CardStyles.scss";
 import "fontsource-roboto";
-import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import { MuiThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import useSWR from "swr";
 import { fetcherToken } from "../../../services/FetcherFunction";
@@ -23,10 +22,8 @@ import {
   themeActive,
   themeUpcoming,
   themeCompleted,
-  light,
 } from "../../shared/themeGameCards";
 import Endpoints from "../../../services/endpoints";
-import { Brightness3Outlined, Brightness7Outlined } from "@material-ui/icons";
 import { getTokenInStorage } from "../../../utils/tokenHelper";
 
 function AdminGameList() {

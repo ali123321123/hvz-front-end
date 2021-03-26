@@ -1,7 +1,4 @@
-import { useEffect } from "react";
-import useSWR from "swr";
-import { fetcher } from "../../../services/FetcherFunction";
-import { Card, CardMedia, makeStyles } from "@material-ui/core";
+import { Card, makeStyles } from "@material-ui/core";
 import { Cloudinary } from "cloudinary-core";
 
 import React from "react";

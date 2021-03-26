@@ -1,25 +1,21 @@
 import React from "react";
-import { useState } from "react";
-import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Tooltip,
-  DialogActions,
-  Button,
-  useTheme,
-} from "@material-ui/core";
-import BrightnessLow from "@material-ui/icons/BrightnessLow";
+import { Divider } from "@material-ui/core";
 import BrightnessMedium from "@material-ui/icons/BrightnessMedium";
-import BrightnessHigh from "@material-ui/icons/BrightnessHigh";
+import MenuIcon_ThemeToggle from "../menu-items/MenuIcon_ThemeToggle";
+import MenuIcon from "../menu-items/MenuIcon";
+import {
+  AccountCircle,
+  QueryBuilder,
+  RadioButtonChecked,
+  RadioButtonUnchecked,
+  Timelapse,
+} from "@material-ui/icons";
+import Auth from "../../utils/authentication";
+import { useHistory } from "react-router";
 
 export default function MenuItemsGameList() {
+  const history = useHistory();
   const useStyles = makeStyles((theme) => ({
     registrationButton: {
       marginRight: 36,
@@ -38,55 +34,33 @@ export default function MenuItemsGameList() {
     },
   }));
   const classes = useStyles();
-  const theme = useTheme();
+
+  const handleProfileOption = () => {
+    if (Auth.userIsLoggedIn()) {
+      history.push("/profile");
+    } else {
+      history.push("/login");
+    }
+  };
 
   return (
     <div>
-      <Tooltip
-        classes={{ tooltip: classes.customWidth }}
-        arrow
-        placement={"bottom"}
-        aria-label="active games"
-        title="Active Games"
-      >
-        <ListItem button>
-          <ListItemIcon>
-            <BrightnessMedium />
-          </ListItemIcon>
-          <ListItemText primary="Active Games" />
-        </ListItem>
-      </Tooltip>
+      {/* TOGGLE THEME */}
+      <MenuIcon_ThemeToggle />
 
-      <Tooltip
-        classes={{ tooltip: classes.customWidth }}
-        arrow
-        placement={"bottom"}
-        aria-label="upcoming games"
-        title="Upcoming Games"
-      >
-        <ListItem button>
-          <ListItemIcon>
-            <BrightnessLow />
-          </ListItemIcon>
-          <ListItemText primary="Upcoming Games" />
-        </ListItem>
-      </Tooltip>
+      <Divider />
 
-      <Tooltip
-        classes={{ tooltip: classes.customWidth }}
-        arrow
-        placement={"bottom"}
-        aria-label="completed games"
-        title="Completed Games"
-      >
-        <ListItem button>
-          <ListItemIcon>
-            <BrightnessHigh />
-          </ListItemIcon>
+      <MenuIcon
+        menuIcon={<AccountCircle />}
+        title={"Profile"}
+        onClick={handleProfileOption}
+      />
 
-          <ListItemText primary="Completed Games" />
-        </ListItem>
-      </Tooltip>
+      <MenuIcon menuIcon={<Timelapse />} title={"Active Games"} />
+
+      <MenuIcon menuIcon={<QueryBuilder />} title={"Upcoming Games"} />
+
+      <MenuIcon menuIcon={<RadioButtonChecked />} title={"Completed Games"} />
     </div>
   );
 }

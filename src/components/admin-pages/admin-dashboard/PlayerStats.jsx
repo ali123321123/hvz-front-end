@@ -1,9 +1,7 @@
-import React from "react";
+import { React, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import Title from "./Title";
 import { TableCell } from "@material-ui/core";
-import Moment from "moment";
 
 export default function PlayerStats({ game }) {
   const useStyles = makeStyles({
@@ -12,13 +10,41 @@ export default function PlayerStats({ game }) {
     },
   });
 
+  // const [timeDifferenceSeconds, setTimeDifferenceSeconds] = useState();
+  // const [timeDifferenceMinutes, setTimeDifferenceMinutes] = useState();
+  // const [timeDifferenceHours, setTimeDifferenceHours] = useState();
+
+  console.log(game);
+
+  const currentDate = new Date();
+
+  const startTime = new Date(game.startTime);
+  const endTime = new Date(game.endTime);
+
+  startTime.getTime();
+  console.log(startTime.getHours());
+
+  const timeDifferenceSeconds = Math.abs(
+    endTime.getTime() - startTime.getTime()
+  ); //seconds
+  const timeDifferenceMinutes = Math.floor(timeDifferenceSeconds / 60000);
+  const timeDifferenceHours = Math.floor(timeDifferenceMinutes / 60);
+  console.log("time diff in seconds", timeDifferenceSeconds);
+  console.log("time diff in minutes", timeDifferenceMinutes);
+  console.log("time diff in hours", timeDifferenceHours);
+
+  // if (currentDate > endDate) {
+  //   setHoursPlayed(currentDate - startDate);
+  // if larger than...display weeks
+  // }
+
+  console.log(currentDate);
+
   const classes = useStyles();
   const moment = require("moment");
 
   return (
     <>
-      {/* <Title>Game stats</Title> */}
-
       <TableCell>
         {moment(`${game.startTime}`).format("MMMM Do YYYY, HH:mm ")}
       </TableCell>
