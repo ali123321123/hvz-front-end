@@ -8,10 +8,6 @@ import {
 } from "@material-ui/core";
 import { HighlightOff, PlayCircleOutline } from "@material-ui/icons";
 import DialogPopUp from "../admin-pages/admin-dashboard/DialogPopUp";
-import { fetcherToken } from "../../services/FetcherFunction";
-import useSWR from "swr";
-import Endpoints from "../../services/endpoints";
-import { getTokenInStorage } from "../../utils/tokenHelper";
 import { useLocation, useHistory } from "react-router-dom";
 
 const MenuItem_StartGame = (props) => {
@@ -43,8 +39,6 @@ const MenuItem_StartGame = (props) => {
     setGameState(gameState === true ? false : true);
   };
   const location = useLocation();
-
-  const history = useHistory();
   const [game, setGame] = useState({});
 
   console.log(location.state);
@@ -52,24 +46,6 @@ const MenuItem_StartGame = (props) => {
   useEffect(() => {
     setGame(location.state);
   }, [location.state]);
-
-  //Fetch game
-  // const { data: games, error: gamesError } = useSWR(
-  //   `${Endpoints.GAME_API}`,
-  //   (url) => fetcherToken(url, getTokenInStorage())
-  // );
-  // console.log("games", games);
-  // console.log("hej");
-  // console.log(games.id);
-
-  // fetch(`${Endpoints.GAME_API}/${game.id}`, {
-  //   method: "DELETE",
-  //   headers: {
-  //     Authorization: "Bearer " + getTokenInStorage(),
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: JSON.stringify(data),
-  // }).then((res) => res.json().then((res) => console.warn("result", res)));
 
   //if game not started
   const gameHasStarted = () => {
