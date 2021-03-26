@@ -5,10 +5,10 @@ import Header from "../components/header/Header";
 function Home() {
   return (
     <>
-      {/* <Header />
-      <Main> */}
+       {/* <Header />
+      <Main>  */}
       <GameList />
-      {/* </Main> */}
+      {/* </Main>  */}
     </>
   );
 }

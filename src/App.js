@@ -8,19 +8,19 @@ import GameDetailsPage from "./pages/GameDetailsPage";
 import NotFound from "./pages/NotFound";
 import AdminDashboard from "./components/admin-pages/admin-dashboard/AdminDashboard";
 import Header from "./components/header/Header";
+import RegisterPage from "./pages/RegisterPage";
 
 function App() {
   return (
     <Router>
       <Switch>
         <Route exact path="/">
-          {/* <Header /> */}
+        
           <Home />
         </Route>
-        <Route path="/login" component={LoginPage}>
-          {/* <Header />
-          <LoginPage /> */}
-        </Route>
+        <Route path="/login" component={LoginPage} />
+          
+        <Route path="/register" component={RegisterPage}/>
         <Route
           path="/admin"
           render={({ match: { url } }) => (

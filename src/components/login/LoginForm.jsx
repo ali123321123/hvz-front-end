@@ -16,7 +16,7 @@ import { useHistory } from "react-router";
 
 import Validation from "../../utils/validation";
 
-function LoginForm({ gameId }) {
+function LoginForm({ game }) {
   const history = useHistory();
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -81,14 +81,27 @@ function LoginForm({ gameId }) {
     const loginData = await loginRequest(username, password);
     if (loginData) {
       console.log(loginData);
-      Auth.loginUser(loginData);
-      if (gameId) {
-        history.push(`/game/${gameId}`);
-      } else {
-        history.push(`/`);
+      try {
+        await Auth.loginUser(loginData);
+      } finally {
+        if (Auth.userIsAdmin()) {
+          console.log("is admin");
+          if (game) {
+            history.push({
+              pathname: `/admin/game/${game.id}`,
+              state: game,
+            });
+          } else {
+            history.push(`/`);
+          }
+        } else {
+          if (game) {
+            history.push(`/game/${game.id}`);
+          } else {
+            history.push(`/`);
+          }
+        }
       }
-    } else {
-      errorToaster("Something went wrong");
     }
   };
 

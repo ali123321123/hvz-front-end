@@ -3,7 +3,7 @@ import React from "react";
 import { Marker, Popup, Rectangle } from "react-leaflet";
 import Map from "../map/Map";
 
-function GameCardPopupMap({ playAreaCoordinates, centerAreaCoordinates }) {
+function GameCardPopupMap({ gameName, playAreaCoordinates, centerAreaCoordinates }) {
     
   return (
       
@@ -12,7 +12,7 @@ function GameCardPopupMap({ playAreaCoordinates, centerAreaCoordinates }) {
           <Rectangle bounds={playAreaCoordinates} />
           <Marker position={centerAreaCoordinates}>
             <Popup>
-              A pretty CSS3 popup. <br /> Easily customizable.
+              {gameName} playarea
             </Popup>
           </Marker>
         </Map>

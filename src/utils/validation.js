@@ -1,12 +1,18 @@
+import { errorToaster } from "./global";
+
 const Validation = {
     responseFromAuthenticateApi: (data) => {
         if(data.status === 200){
-            return data.json()
+            const res = data.json()
+            console.log(res);
+            return res
         }
         else {
             //Some cool error throwing or whatever
-            const error = new Error(data.Error)
-            throw error
+            
+            console.log(data);
+            //errorToaster()
+            return null
             
         }
        
