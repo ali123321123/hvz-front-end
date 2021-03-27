@@ -110,7 +110,7 @@ export default function AdminDashboard(props) {
     };
     fetch(`${Endpoints.GAME_API}/${props.location.state.id}`, requestOptions);
   };
-
+  //ON BUTTON YES HANDLE FETCH
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -123,32 +123,30 @@ export default function AdminDashboard(props) {
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
           <Grid container spacing={3}>
+            {/* Player stats */}
+            <Grid item xs={12} md={5} lg={5}>
+              <PlayerStats game={game} />
+            </Grid>
+
             {/* Game Avatar Image */}
-            <Grid item xs={12} md={3} lg={3}>
+            <Grid item xs={12} md={4} lg={4}>
               <ImageCard game={game} />
             </Grid>
 
-            {/* Mission Stats */}
-            <Grid item xs={12} md={5} lg={5}>
-              <Paper className={fixedHeightPaper}>
-                <MissionStats />
-              </Paper>
-            </Grid>
-
             {/* Interactive Map */}
-            <Grid item xs={12} md={4} lg={3}>
+            <Grid item xs={12} md={5} lg={5}>
               <Paper className={fixedHeightPaper}>
                 <TempInteractiveMap />
               </Paper>
             </Grid>
 
-            {/* Player stats */}
-            <Grid item xs={12} md={3} lg={3}>
-              <PlayerStats game={game} />
+            {/* Mission Stats */}
+            <Grid item xs={12} md={7} lg={7}>
+              <MissionStats />
             </Grid>
 
             {/* Game Stats */}
-            <Grid item xs={9}>
+            <Grid item xs={12}>
               <Paper className={classes.paper}>
                 <GameStats game={game} />
               </Paper>

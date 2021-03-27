@@ -21,6 +21,7 @@ import { fetcherToken } from "../../services/FetcherFunction";
 import Endpoints from "../../services/endpoints";
 import { getTokenInStorage, decodedToken } from "../../utils/tokenHelper";
 import MenuDrawer from "../menu-items/MenuDrawer";
+import MenuIcon_ThemeToggle from "../menu-items/MenuIcon_ThemeToggle";
 
 export default function AppbarMainMenu({ menuItems, menuTitle }) {
   const userToken = decodedToken();
@@ -104,66 +105,69 @@ export default function AppbarMainMenu({ menuItems, menuTitle }) {
 
   return (
     <div className={classes.root}>
-      <ThemeProvider>
+      {/* <ThemeProvider>
         <MuiThemeProvider theme={themeActive}>
-          <CssBaseline />
+          <CssBaseline /> */}
 
-          <AppBar
-            position="fixed"
-            className={clsx(classes.appBar, open && classes.appBarShift)}
+      <AppBar
+        position="fixed"
+        className={clsx(classes.appBar, open && classes.appBarShift)}
+      >
+        {/* Drawer Side menu  */}
+        <MenuDrawer open={open} setOpen={setOpen} menuItems={menuItems} />
+        <Toolbar className={classes.toolbar}>
+          <IconButton
+            edge="start"
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleToggleOpen}
+            className={clsx(
+              classes.menuButton,
+              open && classes.menuButtonHidden
+            )}
           >
-            {/* Drawer Side menu  */}
-            <MenuDrawer open={open} setOpen={setOpen} menuItems={menuItems} />
-            <Toolbar className={classes.toolbar}>
-              <IconButton
-                edge="start"
-                color="inherit"
-                aria-label="open drawer"
-                onClick={handleToggleOpen}
-                className={clsx(
-                  classes.menuButton,
-                  open && classes.menuButtonHidden
-                )}
-              >
-                <MenuIcon />
-              </IconButton>
+            <MenuIcon />
+          </IconButton>
 
-              <Typography
-                component="h1"
-                variant="h6"
-                color="inherit"
-                noWrap
-                className={classes.title}
-              >
-                {menuTitle}
-              </Typography>
-              {!Auth.userIsLoggedIn() ? (
-                <>
-                  <Button color="inherit" onClick={handleLoginClick}>
-                    Login
-                  </Button>
-                  <Button onClick={handleRegisterClick}>Register</Button>
-                </>
-              ) : (
-                <>
-                  <h3>{userToken.actort}</h3>
-                  <Button color="inherit" onClick={handleLogoutClick}>
-                    Log out
-                  </Button>
-                </>
-              )}
-            </Toolbar>
-          </AppBar>
+          {/* TOGGLE THEME */}
+          <MenuIcon_ThemeToggle />
 
-          {/* Drawer Side menu  */}
-          <MenuDrawer
-            open={open}
-            setOpen={setOpen}
-            menuItems={menuItems}
-            games={games}
-          />
-        </MuiThemeProvider>
-      </ThemeProvider>
+          <Typography
+            component="h1"
+            variant="h6"
+            color="inherit"
+            noWrap
+            className={classes.title}
+          >
+            {menuTitle}
+          </Typography>
+          {!Auth.userIsLoggedIn() ? (
+            <>
+              <Button color="inherit" onClick={handleLoginClick}>
+                Login
+              </Button>
+              <Button onClick={handleRegisterClick}>Register</Button>
+            </>
+          ) : (
+            <>
+              <h3>{userToken.actort}</h3>
+              <Button color="inherit" onClick={handleLogoutClick}>
+                Log out
+              </Button>
+            </>
+          )}
+        </Toolbar>
+      </AppBar>
+
+      {/* Drawer Side menu  */}
+      <MenuDrawer
+        open={open}
+        setOpen={setOpen}
+        menuItems={menuItems}
+        games={games}
+      />
+      {/* </MuiThemeProvider>
+      </ThemeProvider> */}
     </div>
   );
 }

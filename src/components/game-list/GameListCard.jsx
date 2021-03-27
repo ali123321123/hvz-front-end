@@ -33,7 +33,7 @@ function GameListCard({ game }) {
     <>
       <div>
         <Card className="card">
-          <p>Game id: {game.id}</p>
+          {/* <p>Game id: {game.id}</p> */}
           <CardMedia
             image={cloudinaryCore.url(game.imageUrl)}
             height="200px"
@@ -59,7 +59,7 @@ function GameListCard({ game }) {
           </CardContent>
 
           <CardContent>
-            <Typography variant="body1" color="textPrimary" component="p">
+            <Typography variant="body1" component="p">
               <span>Start Date &emsp; {} &emsp; End Date</span>
             </Typography>
 
@@ -82,7 +82,7 @@ function GameListCard({ game }) {
           <CardContent>
             <Button
               onClick={handleClickOpen}
-              variant="button"
+              variant="outlined"
               color="secondary"
               component="p"
             >

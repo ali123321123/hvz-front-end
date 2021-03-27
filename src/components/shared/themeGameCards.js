@@ -1,15 +1,16 @@
 import { createMuiTheme } from "@material-ui/core/styles";
-
+const primary = "#2c2c2c";
+const secondary = "#c43c80";
+const cardBackground = "#ffffff";
 export const light = createMuiTheme({
   palette: {
     // type: "light",
-
     primary: {
       //Font color
       main: "#9c27b0",
     },
     background: {
-      default: "#0e101c",
+      default: "#eeeeee",
     },
   },
 
@@ -66,15 +67,22 @@ export const light = createMuiTheme({
 //Dark Theme
 export const themeActive = createMuiTheme({
   palette: {
-    // type: "dark",
+    type: "dark",
+
+    background: {
+      default: "#0e101c",
+    },
     primary: {
       //Font color
       main: "#9c27b0",
+      dark: primary,
+      light: secondary,
     },
   },
-  background: {
-    default: "#0e101c",
-  },
+
+  // background: {
+  //   default: "#0e101c",
+  // },
   typography: {
     h3: {
       textAlign: "center",
@@ -83,8 +91,13 @@ export const themeActive = createMuiTheme({
       marginBottom: "0.6em",
     },
   },
-  //Override MuiCard HoverColor
+  //Override MuiCard
   overrides: {
+    MuiListItemIcon: {
+      root: {
+        color: primary,
+      },
+    },
     MuiGrid: {
       container: {
         justifyContent: "center",
@@ -118,8 +131,26 @@ export const themeActive = createMuiTheme({
       },
     },
     MuiPaper: {
+      root: {
+        backgroundColor: cardBackground,
+        color: primary,
+      },
       rounded: {
         borderRadius: "20px",
+      },
+    },
+    MuiButton: {
+      root: {
+        color: primary,
+        border: "#df1b55",
+        "&:hover": {
+          backgroundColor: "secondary",
+        },
+      },
+    },
+    MuiIconButton: {
+      root: {
+        color: primary,
       },
     },
   },
@@ -127,10 +158,20 @@ export const themeActive = createMuiTheme({
 
 export const themeUpcoming = createMuiTheme({
   palette: {
+    type: "dark",
+
+    background: {
+      default: "#0e101c",
+    },
     primary: {
       //Font color
       main: "#ffd000",
+      dark: primary,
+      light: secondary,
     },
+  },
+  background: {
+    default: "blue",
   },
   typography: {
     h3: {
@@ -176,8 +217,21 @@ export const themeUpcoming = createMuiTheme({
       },
     },
     MuiPaper: {
+      root: {
+        backgroundColor: cardBackground,
+        color: primary,
+      },
       rounded: {
         borderRadius: "20px",
+      },
+    },
+    MuiButton: {
+      root: {
+        color: primary,
+        border: "#df1b55",
+        "&:hover": {
+          backgroundColor: "secondary",
+        },
       },
     },
   },
@@ -185,13 +239,19 @@ export const themeUpcoming = createMuiTheme({
 
 export const themeCompleted = createMuiTheme({
   palette: {
+    type: "dark",
     primary: {
       //Font color
       main: "#ff0062",
+      dark: primary,
+      light: secondary,
     },
     background: {
       default: "#0e101c",
     },
+    // background: {
+    //   default: "#0e101c",
+    // },
   },
   typography: {
     h3: {
@@ -237,8 +297,21 @@ export const themeCompleted = createMuiTheme({
       },
     },
     MuiPaper: {
+      root: {
+        backgroundColor: cardBackground,
+        color: primary,
+      },
       rounded: {
         borderRadius: "20px",
+      },
+    },
+    MuiButton: {
+      root: {
+        color: primary,
+        border: "#df1b55",
+        "&:hover": {
+          backgroundColor: "secondary",
+        },
       },
     },
   },

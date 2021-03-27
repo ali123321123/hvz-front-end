@@ -7,8 +7,11 @@ import {
   List,
   Divider,
   IconButton,
+  MuiThemeProvider,
+  ThemeProvider,
 } from "@material-ui/core";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import { themeActive } from "../shared/themeGameCards";
 
 export default function MenuDrawer({ open, setOpen, menuItems }) {
   const drawerWidth = 240;
@@ -102,7 +105,9 @@ export default function MenuDrawer({ open, setOpen, menuItems }) {
 
   return (
     <div className={classes.root}>
-      <CssBaseline />
+      {/* <ThemeProvider>
+        <MuiThemeProvider theme={themeActive}>
+          <CssBaseline /> */}
       {/* Drawer Side menu  */}
       <Drawer
         variant="temporary"
@@ -121,6 +126,8 @@ export default function MenuDrawer({ open, setOpen, menuItems }) {
         <List>{menuItems}</List>
       </Drawer>
       {/* Side menu End  */}
+      {/* </MuiThemeProvider>
+      </ThemeProvider> */}
     </div>
   );
 }

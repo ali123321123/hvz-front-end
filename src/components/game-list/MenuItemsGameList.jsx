@@ -46,7 +46,7 @@ export default function MenuItemsGameList() {
   return (
     <div>
       {/* TOGGLE THEME */}
-      <MenuIcon_ThemeToggle />
+      {/* <MenuIcon_ThemeToggle /> */}
 
       <Divider />
 
