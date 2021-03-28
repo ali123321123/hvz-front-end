@@ -31,7 +31,7 @@ function App() {
           )}
         ></Route>
 
-        <Route path="/profile/:id">
+        <Route path="/profile/">
           <Header />
           <ProfilePage />
         </Route>

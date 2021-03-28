@@ -1,10 +1,12 @@
 import React from 'react'
+import Main from "../components/main/Main";
+import Profile from "../components/profile/Profile";
 
 function ProfilePage() {
     return (
-        <div>
-            
-        </div>
+        <Main>
+            <Profile/>
+        </Main>
     )
 }
 
