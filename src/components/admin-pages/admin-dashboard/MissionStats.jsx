@@ -27,7 +27,7 @@ export default function MissionStats({ game }) {
   const {
     data: missions,
     error: missionsError,
-  } = useSWR(`${Endpoints.MISSION_API}`, (url) =>
+  } = useSWR(`${Endpoints.GAME_API}/${game.id}/missions`, (url) =>
     fetcherToken(url, getTokenInStorage())
   );
 
@@ -38,7 +38,7 @@ export default function MissionStats({ game }) {
     if (missions && game) {
       console.log(missions.filter((f) => f.gameId == game.id));
       setActiveMissions(missions.filter((f) => f.gameID == game.id));
-      console.log(activeMissions);
+      console.log("active missions", activeMissions);
     }
   }, [missions, game]);
 
