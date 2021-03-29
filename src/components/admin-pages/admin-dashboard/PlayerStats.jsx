@@ -1,14 +1,13 @@
 import { React, useEffect, useState } from "react";
 import Typography from "@material-ui/core/Typography";
-import { TableCell, TableContainer } from "@material-ui/core";
+import { TableContainer } from "@material-ui/core";
 import useSWR from "swr";
 import { fetcherToken } from "../../../services/FetcherFunction";
 import Endpoints from "../../../services/endpoints";
 import { getTokenInStorage } from "../../../utils/tokenHelper";
+import CalculateTime from "./CalculateTime";
 
 export default function PlayerStats({ game }) {
-  //TODO! CLEAN AND MOVE CODE BLOCK CALCULATIONS OUT TO COMPONENT
-
   const {
     data: players,
     error: playersError,
@@ -23,53 +22,51 @@ export default function PlayerStats({ game }) {
   useEffect(() => {
     if (players) {
       setHumanPlayers(players.filter((h) => h.isHuman).length);
-      if (players && players.length > 0) {
-        setZombiePlayers(players.length - humanPlayers);
 
+      if (players.length > 0) {
+        setZombiePlayers(players.length - humanPlayers);
         setTotalPlayers(humanPlayers + zombiePlayers);
       }
     }
-  }, [players]);
-
-  const currentDate = new Date();
-  const startTime = new Date(game.startTime);
-  const endTime = new Date(game.endTime);
-
-  const timeDifferenceSeconds = Math.abs(
-    currentDate.getTime() - startTime.getTime()
-  );
-  const timeDifferenceMinutes = Math.floor(timeDifferenceSeconds / 60000);
-  const timeDifferenceHours = Math.floor(timeDifferenceMinutes / 60);
-
-  //TODO
-  // if (currentDate > endDate) {
-  //   setHoursPlayed(currentDate - startDate);
-  // if larger than...display weeks
-  // }
-
-  const moment = require("moment");
+  }, [game, players]);
 
   return (
     <>
       <TableContainer style={{ textAlign: "center" }}>
-        <TableCell>
-          {moment(`${game.startTime}`).format("MMMM Do YYYY, HH:mm ")}
-        </TableCell>
-        <TableCell>
-          {moment(`${game.endTime}`).format("MMMM Do YYYY, HH:mm ")}
-        </TableCell>
+        <CalculateTime game={game} />
 
-        <Typography variant="h4" style={{ marginTop: "10px" }}>
-          {timeDifferenceMinutes} minutes
-        </Typography>
-        <Typography color="primary">since game started</Typography>
-
-        <Typography variant="h4" style={{ marginTop: "10px" }}>
-          {totalPlayers}
-        </Typography>
-        <Typography color="primary" style={{ marginTop: "10px" }}>
-          Players
-        </Typography>
+        <section
+          style={{
+            position: "relative",
+            width: "15vw",
+            height: "15vw",
+            padding: "5% 0",
+            margin: "1em auto",
+            border: "4px dashed white",
+            borderRadius: "50%",
+          }}
+        >
+          <article
+            style={{
+              top: "0",
+              left: "0",
+              width: "100%",
+              height: " 100%",
+            }}
+          >
+            <span
+              style={{
+                textAlign: "center",
+                margin: "center",
+              }}
+            >
+              <Typography variant="h4">
+                {humanPlayers + zombiePlayers}
+              </Typography>
+              <Typography color="textPrimary">Players</Typography>
+            </span>
+          </article>
+        </section>
 
         <Typography component="p" variant="h4" style={{ marginTop: "10px" }}>
           <span style={{ marginTop: "10px" }}>{humanPlayers}</span>

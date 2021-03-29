@@ -27,7 +27,7 @@ export default function MissionStats({ game }) {
   const {
     data: missions,
     error: missionsError,
-  } = useSWR(`${Endpoints.MISSION_API}`, (url) =>
+  } = useSWR(`${Endpoints.GAME_API}/${game.id}/missions`, (url) =>
     fetcherToken(url, getTokenInStorage())
   );
 
@@ -36,9 +36,7 @@ export default function MissionStats({ game }) {
       console.log(missionsError);
     }
     if (missions && game) {
-      console.log(missions.filter((f) => f.gameId == game.id));
       setActiveMissions(missions.filter((f) => f.gameID == game.id));
-      console.log(activeMissions);
     }
   }, [missions, game]);
 
@@ -108,6 +106,7 @@ export default function MissionStats({ game }) {
         </Table>
       </TableContainer>
       <TablePagination
+        color="primary"
         rowsPerPageOptions={[5, 10, 25]}
         labelRowsPerPage=""
         component="div"

@@ -9,6 +9,7 @@ import {
   IconButton,
   MuiThemeProvider,
   ThemeProvider,
+  ClickAwayListener,
 } from "@material-ui/core";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { themeActive } from "../shared/themeGameCards";
@@ -107,6 +108,7 @@ export default function MenuDrawer({ open, setOpen, menuItems }) {
     <div className={classes.root}>
       {/* Drawer Side menu  */}
       <Drawer
+        onEscapeKeyDown={handleToggleClose}
         variant="temporary"
         classes={{
           paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),

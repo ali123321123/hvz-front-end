@@ -31,7 +31,7 @@ export default function MenuItemsAdminDashboard(props) {
   const handleClickOpen = () => {
     setOpen(true);
   };
-  console.log("location", location.state);
+
   const handleClickOpenMission = () => {
     setOpenMission(true);
   };
@@ -57,7 +57,7 @@ export default function MenuItemsAdminDashboard(props) {
       />
 
       {/* BTN: START && END  WITH DIALOG POPUP*/}
-      <MenuItem_StartGame />
+      <MenuItem_StartGame game={game} />
       {/* BTN: REGISTRATION WITH DIALOG POPUP*/}
       <MenuItem_OpenRegistration
         disabled={game.gameComplete || game.gameStarted ? true : false}

@@ -27,35 +27,16 @@ function AdminCard({ game }) {
   const [open, setOpen] = useState(false);
   const [players, setPlayers] = useState();
 
-  const history = useHistory();
-
   useEffect(() => {
     setPlayers(game.countPlayers);
   }, [game]);
-
-  const deleteGame = () => {
-    if (window.confirm("Do you want to delete this game?")) {
-      fetch(`${Endpoints.GAME_API}/${game.id}`, {
-        method: "DELETE",
-        headers: {
-          Authorization: "Bearer " + getTokenInStorage(),
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-      });
-    }
-  };
 
   return (
     <>
       <div>
         <Card className="card" key={game.id}>
           <p>Game id: {game.id}</p>
-          <Button style={{ textAlign: "right" }} onClick={deleteGame}>
-            <ListItemIcon>
-              <Delete />
-            </ListItemIcon>
-          </Button>
+
           <Link
             style={{ textDecoration: "none" }}
             to={{
@@ -79,7 +60,7 @@ function AdminCard({ game }) {
                   ? "Open for registration"
                   : game.gameComplete
                   ? "Completed games"
-                  : "No Current Game"
+                  : "Registration not yet open"
               }
             />
             <CardContent>

@@ -48,19 +48,21 @@ const CreateMissionForm = ({ openMission, setOpenMission }) => {
       name,
       isHumanVisible,
       isZombieVisible,
+      isComplete: false,
       description,
       startTime,
       endTime,
-      //   lat,
-      //   lang,
+      lat: 20,
+      lang: 30,
       gameId: gameId,
     };
 
-    fetch(`${Endpoints.MISSION_API}${gameId}`, {
+    fetch(`${Endpoints.MISSION_API}`, {
       method: "POST",
       headers: {
         Authorization: "Bearer " + getTokenInStorage(),
         "Content-Type": "application/json",
+        Accept: "application/json",
       },
       body: JSON.stringify(data),
     }).then((res) => res.json().then((res) => console.warn("result", res)));

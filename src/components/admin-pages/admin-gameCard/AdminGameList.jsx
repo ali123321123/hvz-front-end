@@ -82,7 +82,13 @@ function AdminGameList() {
       setLoading(true);
     } else {
       setActiveGames(games.filter((g) => g.gameStarted));
-      setupCommingGames(games.filter((g) => g.registrationOpen));
+      setupCommingGames(
+        games.filter(
+          (g) =>
+            g.registrationOpen ||
+            (!g.registrationOpen && !g.gameStarted && !g.gameComplete)
+        )
+      );
       setCompletedGames(games.filter((g) => g.gameComplete));
 
       setLoading(false);
