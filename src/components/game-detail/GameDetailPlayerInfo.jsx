@@ -5,6 +5,8 @@ import Auth from "../../utils/authentication";
 import Endpoints from "../../services/endpoints";
 import { useSelector } from "react-redux";
 import { getTokenInStorage, decodedToken } from "../../utils/tokenHelper";
+import MissionStats from "../admin-pages/admin-dashboard/MissionStats";
+import { makeStyles, Paper } from "@material-ui/core";
 
 function GameDetailPlayerInfo({ game }) {
   const [humanPlayers, setHumanPlayers] = useState([]);
@@ -15,6 +17,18 @@ function GameDetailPlayerInfo({ game }) {
   const [playerSquad, setPlayerSquad] = useState({});
 
   const token = decodedToken();
+
+  const useStyles = makeStyles((theme) => ({
+    paper: {
+        padding: theme.spacing(2),
+        display: "flex",
+        overflow: "auto",
+        flexDirection: "column",
+        borderRadius: "4px",
+      },
+  }))
+
+  const classes = useStyles()
 
   const {
     data: players,
@@ -47,8 +61,6 @@ function GameDetailPlayerInfo({ game }) {
     }
   }, [gameSquads, player]);
 
-
-
   return (
     <aside>
       <div className="players">
@@ -71,6 +83,9 @@ function GameDetailPlayerInfo({ game }) {
       <div className="biteCode">
         <h3>Bite code: {player?.biteCode}</h3>
       </div>
+      <Paper className={classes.paper}>
+        <MissionStats game={game} />
+      </Paper>
     </aside>
   );
 }
