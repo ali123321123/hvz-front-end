@@ -111,7 +111,7 @@ export default function AppbarMainMenu({ menuItems, menuTitle }) {
         className={clsx(classes.appBar, open && classes.appBarShift)}
       >
         {/* Drawer Side menu  */}
-        <MenuDrawer open={open} setOpen={setOpen} menuItems={menuItems} />
+        {/* <MenuDrawer open={open} setOpen={setOpen} menuItems={menuItems} /> */}
         <Toolbar className={classes.toolbar}>
           <IconButton
             edge="start"

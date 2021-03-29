@@ -57,9 +57,10 @@ export default function MissionStats({ game }) {
           <TableHead>
             <TableRow>
               <TableCell>Mission </TableCell>
+              <TableCell>Description </TableCell>
+              <TableCell>Mission for:</TableCell>
               <TableCell>Start Date</TableCell>
               <TableCell>End Date</TableCell>
-              <TableCell>Mission for:</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -76,12 +77,7 @@ export default function MissionStats({ game }) {
                 <TableRow key={m.id} hover role="checkbox">
                   <TableCell>{m.name}</TableCell>
 
-                  <TableCell>
-                    {moment(`${m.startTime}`).format("MMMM Do YYYY, HH:mm ")}
-                  </TableCell>
-                  <TableCell>
-                    {moment(`${m.endTime}`).format("MMMM Do YYYY, HH:mm ")}
-                  </TableCell>
+                  <TableCell>{m.description}</TableCell>
 
                   <TableCell>
                     {m.isHumanVisible ? (
@@ -99,6 +95,13 @@ export default function MissionStats({ game }) {
                         Zombie
                       </Typography>
                     )}
+                  </TableCell>
+
+                  <TableCell>
+                    {moment(`${m.startTime}`).format("MMMM Do YYYY, HH:mm ")}
+                  </TableCell>
+                  <TableCell>
+                    {moment(`${m.endTime}`).format("MMMM Do YYYY, HH:mm ")}
                   </TableCell>
                 </TableRow>
               ))}

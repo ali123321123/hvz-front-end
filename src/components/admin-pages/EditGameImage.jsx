@@ -1,7 +1,4 @@
-import { Button, Paper } from "@material-ui/core";
-import { useState } from "react";
 import { updateImage } from "../../services/ImagesAPI";
-import { Tooltip } from "@material-ui/core";
 import ImageCard from "./admin-dashboard/ImageCard";
 
 const EditGameImage = ({ game }) => {
@@ -24,16 +21,7 @@ const EditGameImage = ({ game }) => {
 
   return (
     <>
-      <Tooltip
-        arrow
-        placement={"bottom"}
-        aria-label="Upload image"
-        title="Upload Image"
-      >
-        <Button onClick={handleUpload}>
-          <ImageCard game={game} />
-        </Button>
-      </Tooltip>
+      <ImageCard game={game} onClick={handleUpload} />
     </>
   );
 };
