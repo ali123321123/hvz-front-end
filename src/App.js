@@ -12,6 +12,8 @@ import NotFound from "./pages/NotFound";
 import AdminDashboard from "./components/admin-pages/admin-dashboard/AdminDashboard";
 import Header from "./components/header/Header";
 import RegisterPage from "./pages/RegisterPage";
+import RulesPage from "./pages/RulesPage";
+
 
 function App() {
   return (
@@ -23,6 +25,7 @@ function App() {
             <Route exact path="/">
               <Home />
             </Route>
+            <Route path="/rules" component={RulesPage} />
             <Route path="/login" component={LoginPage} />
 
             <Route path="/register" component={RegisterPage} />
