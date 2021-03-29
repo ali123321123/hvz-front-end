@@ -5,6 +5,7 @@ import LoginPage from "./pages/LoginPage";
 import AdminPage from "./pages/AdminPage";
 import ProfilePage from "./pages/ProfilePage";
 import GameDetailsPage from "./pages/GameDetailsPage";
+import GameChatPage from "./pages/GameChatPage";
 import NotFound from "./pages/NotFound";
 import AdminDashboard from "./components/admin-pages/admin-dashboard/AdminDashboard";
 import Header from "./components/header/Header";
@@ -31,9 +32,13 @@ function App() {
           )}
         ></Route>
 
-        <Route path="/profile/:id">
+        <Route path="/profile/">
           <Header />
           <ProfilePage />
+        </Route>
+        <Route path="/game/:id/chat">
+          <Header />
+          <GameChatPage />
         </Route>
         <Route path="/game/:id">
           <Header />
