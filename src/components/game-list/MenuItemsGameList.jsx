@@ -10,6 +10,7 @@ import {
   RadioButtonChecked,
   RadioButtonUnchecked,
   Timelapse,
+  Gavel,
 } from "@material-ui/icons";
 import Auth from "../../utils/authentication";
 import { useHistory } from "react-router";
@@ -23,6 +24,9 @@ export default function MenuItemsGameList() {
     } else {
       history.push("/login");
     }
+  };
+  const handleClickRules = () => {
+    history.push("/rules")
   };
 
   return (
@@ -43,6 +47,13 @@ export default function MenuItemsGameList() {
       <MenuIcon menuIcon={<QueryBuilder />} title={"Upcoming Games"} />
 
       <MenuIcon menuIcon={<RadioButtonChecked />} title={"Completed Games"} />
+
+            {/*Rules & Instruction*/}
+            <MenuIcon
+        menuIcon={<Gavel />}
+        title={"Rules & Instructions"}
+        onClick={handleClickRules}
+      />
     </div>
   );
 }
