@@ -3,9 +3,10 @@ $backgroundPink: #bf1650;
 body {
   font-family: "Roboto";
   width: 100%;
-  color: black;
+  background-color: "white";
   box-sizing: border-box;
-  margin-top: 20px;
+  margin-top: 200px;
+  overflow-x: hidden;
 }
 
 .h1 {

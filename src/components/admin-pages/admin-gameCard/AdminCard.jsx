@@ -8,6 +8,7 @@ import {
   Typography,
   Button,
   Tooltip,
+  ListItemIcon,
 } from "@material-ui/core";
 import "../../game-list/CardStyles.scss";
 import "fontsource-roboto";
@@ -15,6 +16,9 @@ import { Cloudinary } from "cloudinary-core";
 import AdminDashboard from "../admin-dashboard/AdminDashboard";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
+import { Delete } from "@material-ui/icons";
+import { getTokenInStorage } from "../../../utils/tokenHelper";
+import Endpoints from "../../../services/endpoints";
 
 function AdminCard({ game }) {
   const moment = require("moment");
@@ -29,80 +33,88 @@ function AdminCard({ game }) {
     setPlayers(game.countPlayers);
   }, [game]);
 
-  const handleOpenGame = () => {
-    history.push({
-      path: `/admin/game/${game.id}`,
-      state: game,
-    });
+  const deleteGame = () => {
+    if (window.confirm("Do you want to delete this game?")) {
+      fetch(`${Endpoints.GAME_API}/${game.id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: "Bearer " + getTokenInStorage(),
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      });
+    }
   };
-  //pass on game.id for edit games
 
   return (
     <>
       <div>
-        <Card className="card">
+        <Card className="card" key={game.id}>
           <p>Game id: {game.id}</p>
-          <CardMedia
-            image={cloudinaryCore.url(game.imageUrl)}
-            height="200px"
-            title="game avatar"
-          />
-          <CardHeader
-            className="header"
-            title={game.name}
-            subheader={
-              game.gameStarted
-                ? "In Progress"
-                : game.registrationOpen
-                ? "Open for registration"
-                : game.gameComplete
-                ? "Completed games"
-                : "No Current Game"
-            }
-          />
-          <CardContent>
-            <Typography variant="body2" color="primary" component="p">
-              {players} Registered Players
-            </Typography>
-          </CardContent>
+          <Button style={{ textAlign: "right" }} onClick={deleteGame}>
+            <ListItemIcon>
+              <Delete />
+            </ListItemIcon>
+          </Button>
+          <Link
+            style={{ textDecoration: "none" }}
+            to={{
+              pathname: `/admin/game/${game.id}`,
+              state: game,
+            }}
+          >
+            <CardMedia
+              image={cloudinaryCore.url(game.imageUrl)}
+              height="200px"
+              title="game avatar"
+            />
+            <CardHeader
+              className="header"
+              title={game.name}
+              color="black"
+              subheader={
+                game.gameStarted
+                  ? "In Progress"
+                  : game.registrationOpen
+                  ? "Open for registration"
+                  : game.gameComplete
+                  ? "Completed games"
+                  : "No Current Game"
+              }
+            />
+            <CardContent>
+              <Typography variant="body2" component="p" color="black">
+                {players} Registered Players
+              </Typography>
+            </CardContent>
 
-          <CardContent>
-            <Typography variant="body1" color="textPrimary" component="p">
-              <span>Start Date &emsp; {} &emsp; End Date</span>
-            </Typography>
+            <CardContent>
+              <Typography variant="body1" color="black" component="p">
+                <span>Start Date &emsp; {} &emsp; End Date</span>
+              </Typography>
 
-            <Typography variant="body2" color="black" component="p">
-              <Tooltip title="Game start">
-                <span>
-                  {moment(`${game.startTime}`).format("MMMM Do YYYY, HH:mm ")}|{" "}
-                  {}
-                </span>
-              </Tooltip>
+              <Typography variant="body2" component="p">
+                <Tooltip title="Game start">
+                  <span>
+                    {moment(`${game.startTime}`).format("MMMM Do YYYY, HH:mm ")}
+                    | {}
+                  </span>
+                </Tooltip>
 
-              <Tooltip title="Game End">
-                <span>
-                  {moment(`${game.endTime}`).format("MMMM Do YYYY, HH:mm ")}
-                </span>
-              </Tooltip>
-            </Typography>
-          </CardContent>
+                <Tooltip title="Game End">
+                  <span>
+                    {moment(`${game.endTime}`).format("MMMM Do YYYY, HH:mm ")}
+                  </span>
+                </Tooltip>
+              </Typography>
+            </CardContent>
 
-          <CardContent>
-            <Button
-              //   onClick={handleOpenGame}
-              color="secondary"
-              component="p"
-            >
-              <Link
-                to={{
-                  pathname: `/admin/game/${game.id}`,
-                  state: game,
-                }}
-              >
+            <CardContent>
+              <Button color="secondary" component="p">
                 Edit game
-              </Link>
-            </Button>
-          </CardContent>
+              </Button>
+            </CardContent>
+          </Link>
         </Card>
       </div>
       {open && (

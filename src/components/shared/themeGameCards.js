@@ -1,16 +1,25 @@
 import { createMuiTheme } from "@material-ui/core/styles";
-
+const primary = "#2c2c2c";
+const secondary = "#c43c80";
+const highlight = "#eef131";
+const black = "#a5a5a5";
+const cardBackground = "#ffffff";
+const white = "#ffffff";
 export const light = createMuiTheme({
   palette: {
     // type: "light",
-
     primary: {
       //Font color
       main: "#9c27b0",
+      dark: primary,
+      light: secondary,
     },
     background: {
-      default: "#0e101c",
+      default: "#eeeeee",
     },
+  },
+  common: {
+    black,
   },
 
   typography: {
@@ -38,6 +47,7 @@ export const light = createMuiTheme({
         },
       },
     },
+
     MuiCardMedia: {
       root: {
         paddingTop: "75%", // 4:3
@@ -66,15 +76,22 @@ export const light = createMuiTheme({
 //Dark Theme
 export const themeActive = createMuiTheme({
   palette: {
-    // type: "dark",
+    type: "dark",
+
+    background: {
+      default: "#131729",
+    },
     primary: {
       //Font color
       main: "#9c27b0",
+      dark: primary,
+      light: secondary,
     },
   },
-  background: {
-    default: "#0e101c",
-  },
+
+  // background: {
+  //   default: "#0e101c",
+  // },
   typography: {
     h3: {
       textAlign: "center",
@@ -83,12 +100,35 @@ export const themeActive = createMuiTheme({
       marginBottom: "0.6em",
     },
   },
-  //Override MuiCard HoverColor
+  //Override MuiCard
   overrides: {
+    // MuiContainer: {
+    //   root: {
+    //     width: "100%",
+    //     display: "block",
+    //     boxSizing: "border-box",
+    //     marginLeft: "auto",
+    //     marginRight: "auto",
+    //     paddingLeft: "16px",
+    //     paddingRight: "0",
+    //   },
+    // },
+
+    MuiListItemIcon: {
+      root: {
+        color: primary,
+      },
+    },
     MuiGrid: {
       container: {
         justifyContent: "center",
         // backgroundColor: "blue",
+      },
+    },
+
+    MuiListItem: {
+      root: {
+        width: "20%",
       },
     },
     MuiCard: {
@@ -118,8 +158,45 @@ export const themeActive = createMuiTheme({
       },
     },
     MuiPaper: {
+      root: {
+        backgroundColor: cardBackground,
+        color: primary,
+      },
       rounded: {
         borderRadius: "20px",
+      },
+    },
+    MuiButton: {
+      root: {
+        color: primary,
+        border: "#df1b55",
+        "&:hover": {
+          backgroundColor: "secondary",
+        },
+      },
+    },
+    MuiIconButton: {
+      root: {
+        color: primary,
+      },
+    },
+
+    MuiTableCell: {
+      stickyHeader: {
+        backgroundColor: white,
+      },
+      head: {
+        color: primary,
+        fontWeight: 600,
+      },
+      body: {
+        color: primary,
+      },
+    },
+
+    MuiTablePagination: {
+      root: {
+        color: primary,
       },
     },
   },
@@ -127,11 +204,19 @@ export const themeActive = createMuiTheme({
 
 export const themeUpcoming = createMuiTheme({
   palette: {
+    type: "dark",
+
+    background: {
+      default: "#131729",
+    },
     primary: {
       //Font color
       main: "#ffd000",
+      dark: primary,
+      light: secondary,
     },
   },
+
   typography: {
     h3: {
       textAlign: "center",
@@ -176,8 +261,36 @@ export const themeUpcoming = createMuiTheme({
       },
     },
     MuiPaper: {
+      root: {
+        backgroundColor: cardBackground,
+        color: primary,
+      },
       rounded: {
         borderRadius: "20px",
+      },
+    },
+    MuiButton: {
+      root: {
+        color: primary,
+        border: "#df1b55",
+        "&:hover": {
+          backgroundColor: "secondary",
+        },
+      },
+    },
+
+    MuiTableCell: {
+      stickyHeader: {
+        backgroundColor: white,
+      },
+      head: {
+        color: primary,
+      },
+    },
+
+    MuiTableRow: {
+      root: {
+        color: primary,
       },
     },
   },
@@ -185,13 +298,19 @@ export const themeUpcoming = createMuiTheme({
 
 export const themeCompleted = createMuiTheme({
   palette: {
+    type: "dark",
     primary: {
       //Font color
       main: "#ff0062",
+      dark: primary,
+      light: secondary,
     },
     background: {
-      default: "#0e101c",
+      default: "#131729",
     },
+    // background: {
+    //   default: "#0e101c",
+    // },
   },
   typography: {
     h3: {
@@ -237,8 +356,36 @@ export const themeCompleted = createMuiTheme({
       },
     },
     MuiPaper: {
+      root: {
+        backgroundColor: cardBackground,
+        color: primary,
+      },
       rounded: {
         borderRadius: "20px",
+      },
+    },
+    MuiButton: {
+      root: {
+        color: primary,
+        border: "#df1b55",
+        "&:hover": {
+          backgroundColor: "secondary",
+        },
+      },
+    },
+
+    MuiTableCell: {
+      stickyHeader: {
+        backgroundColor: white,
+      },
+      head: {
+        color: primary,
+      },
+    },
+
+    MuiTableRow: {
+      root: {
+        color: primary,
       },
     },
   },

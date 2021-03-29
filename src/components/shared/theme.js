@@ -4,7 +4,7 @@ import { createMuiTheme, responsiveFontSizes } from "@material-ui/core";
 const primary = "#e6e6e6";
 const secondary = "#c43c80";
 const card = "f3e45b";
-const black = "#343a40";
+const black = "#a5a5a5";
 const darkBlack = "rgb(36, 40, 44)";
 const background = "#0e101c";
 const warningLight = "rgba(253, 200, 69, .3)";
@@ -27,10 +27,11 @@ const spacing = 8;
 
 //Change the theme between light and dark under palette: type: "light"
 const theme = createMuiTheme({
+  type: "light",
   palette: {
     primary: {
       main: primary,
-      dar: primary,
+      dark: primary,
       light: primary,
       contrastText: primary,
     },
@@ -73,102 +74,6 @@ const theme = createMuiTheme({
     borderWidth: borderWidth,
   },
 
-  overrides: {
-    MuiGrid: {
-      container: {
-        justifyContent: "center",
-      },
-    },
-    MuiCard: {
-      root: {
-        "&:hover": {
-          boxShadow:
-            "0 12px 15px 0 rgba(0, 0, 0, 0.24) 0 17px 50px 0 rgba(0, 0, 0, 0.19)",
-          boxShadow: "0px 0px 40px 15px #ff0062",
-          //backgroundColor: "#1bdf84",
-        },
-      },
-    },
-    MuiCardMedia: {
-      root: {
-        paddingTop: "75%", // 4:3
-        objectFit: "cover",
-        width: "80%",
-        borderRadius: "100%",
-        margin: "auto",
-        marginTop: "2em",
-        boxShadow: "0px 0px 20px 5px #333",
-        transition: "0.3s",
-
-        "&:hover": {
-          boxShadow: "0px 0px 20px 5px #ff0062",
-          transition: "0.3s",
-        },
-      },
-    },
-    MuiPaper: {
-      rounded: {
-        borderRadius: "20px",
-      },
-    },
-
-    MuiExpansionPanel: {
-      root: {
-        position: "static",
-      },
-    },
-    MuiTableCell: {
-      root: {
-        paddingLeft: spacing * 2,
-        paddingRight: spacing * 2,
-        borderBottom: `${borderWidth}px solid ${borderColor}`,
-        [`@media (max-width:  ${sm}px)`]: {
-          paddingLeft: spacing,
-          paddingRight: spacing,
-        },
-      },
-    },
-    MuiDivider: {
-      root: {
-        backgroundColor: "#df1b55",
-        height: borderWidth,
-        marginTop: "-100px",
-      },
-    },
-    MuiPrivateNotchedOutline: {
-      root: {
-        borderWidth: borderWidth,
-      },
-    },
-    MuiListItem: {
-      divider: {
-        borderBottom: `${borderWidth}px solid ${borderColor}`,
-      },
-    },
-
-    MuiDialog: {
-      paper: {
-        width: "100%",
-        backgroundColor: "#fff",
-        maxWidth: 430,
-        marginLeft: spacing,
-        marginRight: spacing,
-      },
-    },
-    MuiTooltip: {
-      tooltip: {
-        backgroundColor: darkBlack,
-      },
-    },
-    MuiExpansionPanelDetails: {
-      root: {
-        [`@media (max-width:  ${sm}px)`]: {
-          paddingLeft: spacing,
-          paddingRight: spacing,
-        },
-      },
-    },
-  },
   typography: {
     useNextVariants: true,
   },

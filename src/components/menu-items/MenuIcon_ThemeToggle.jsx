@@ -21,7 +21,7 @@ const MenuIcon_ThemeToggle = () => {
 
   return (
     <>
-      <MuiThemeProvider theme={theme ? light : themeActive}>
+      <MuiThemeProvider theme={theme ? themeActive : light}>
         <CssBaseline />
       </MuiThemeProvider>
       <Tooltip

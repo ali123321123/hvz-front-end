@@ -33,7 +33,7 @@ function GameListCard({ game }) {
     <>
       <div>
         <Card className="card">
-          <p>Game id: {game.id}</p>
+          {/* <p>Game id: {game.id}</p> */}
           <CardMedia
             image={cloudinaryCore.url(game.imageUrl)}
             height="200px"
@@ -53,17 +53,17 @@ function GameListCard({ game }) {
             }
           />
           <CardContent>
-            <Typography variant="body2" color="primary" component="p">
+            <Typography variant="body2" component="p">
               {players} Registered Players
             </Typography>
           </CardContent>
 
           <CardContent>
-            <Typography variant="body1" color="textPrimary" component="p">
+            <Typography variant="body1" component="p">
               <span>Start Date &emsp; {} &emsp; End Date</span>
             </Typography>
 
-            <Typography variant="body2" color="black" component="p">
+            <Typography variant="body2" component="p">
               <Tooltip title="Game start">
                 <span>
                   {moment(`${game.startTime}`).format("MMMM Do YYYY, HH:mm ")}|{" "}
@@ -82,7 +82,7 @@ function GameListCard({ game }) {
           <CardContent>
             <Button
               onClick={handleClickOpen}
-              variant="button"
+              variant="outlined"
               color="secondary"
               component="p"
             >

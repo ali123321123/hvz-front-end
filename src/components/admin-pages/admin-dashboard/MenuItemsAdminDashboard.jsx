@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PeopleIcon from "@material-ui/icons/People";
 import { AddLocation, Delete, HomeRounded, PostAdd } from "@material-ui/icons";
 import { Cloudinary } from "cloudinary-core";
@@ -10,20 +10,39 @@ import MenuItem_OpenRegistration from "../../menu-items/MenuItem_OpenRegistratio
 import MenuIcon from "../../menu-items/MenuIcon";
 import MenuIcon_ThemeToggle from "../../menu-items/MenuIcon_ThemeToggle";
 import { Divider } from "@material-ui/core";
+import UploadImages from "../../upload-images/UploadImages";
+import { useLocation } from "react-router-dom";
+import CreateMissionForm from "./CreateMissionForm";
+import MenuItem_DeleteGame from "../../menu-items/MenuItem_DeleteGame";
+import { getTokenInStorage } from "../../../utils/tokenHelper";
+import Endpoints from "../../../services/endpoints";
 
-export default function MenuItemsAdminDashboard({ game }) {
+export default function MenuItemsAdminDashboard(props) {
+  const cloudinaryCore = new Cloudinary({ cloud_name: "debyqnalg" });
+  const location = useLocation();
+
+  const [game, setGame] = useState({});
+
   const [open, setOpen] = useState(false);
-  const history = useHistory();
+  const [openMission, setOpenMission] = useState(false);
 
-  const onClickDelete = () => {};
+  const history = useHistory();
 
   const handleClickOpen = () => {
     setOpen(true);
+  };
+  console.log("location", location.state);
+  const handleClickOpenMission = () => {
+    setOpenMission(true);
   };
 
   const handleClickHome = () => {
     history.push("/");
   };
+
+  useEffect(() => {
+    setGame(location.state);
+  }, [location.state]);
 
   return (
     <div>
@@ -48,6 +67,7 @@ export default function MenuItemsAdminDashboard({ game }) {
         disabled={game.gameComplete ? true : false}
         menuIcon={<AddLocation />}
         title={"Add Mission"}
+        onClick={handleClickOpenMission}
       />
       {/* BTN: ADD EDIT PLAYERS */}
       <MenuIcon
@@ -62,12 +82,15 @@ export default function MenuItemsAdminDashboard({ game }) {
         onClick={handleClickOpen}
       />
       {/* DELETE GAME */}
-      <MenuIcon
-        menuIcon={<Delete />}
-        title={"Delete Game"}
-        onClick={onClickDelete}
-      />
+      <MenuItem_DeleteGame game={game} />
+
       {open && <CreateGameForm open={open} setOpen={setOpen} />}
+      {openMission && (
+        <CreateMissionForm
+          openMission={openMission}
+          setOpenMission={setOpenMission}
+        />
+      )}
     </div>
   );
 }

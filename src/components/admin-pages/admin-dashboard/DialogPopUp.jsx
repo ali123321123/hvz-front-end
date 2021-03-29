@@ -22,9 +22,11 @@ const DialogPopUp = ({
         onClose={handleClosePopUp}
         aria-labelledby="responsive-dialog-title"
       >
-        <DialogTitle id="responsive-dialog-title">{dialogTitle}</DialogTitle>
+        <DialogTitle id="responsive-dialog-title" color="primary">
+          {dialogTitle}
+        </DialogTitle>
         <DialogContent>
-          <DialogContentText>{dialogText}</DialogContentText>
+          <DialogContentText color="primary">{dialogText}</DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button autoFocus color="primary" onClick={handleClosePopUp}>
