@@ -1,9 +1,9 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import PeopleIcon from "@material-ui/icons/People";
-import { AddLocation, Delete, HomeRounded, PostAdd } from "@material-ui/icons";
+import { AddLocation, Delete, Gavel, HomeRounded, PostAdd } from "@material-ui/icons";
 import { Cloudinary } from "cloudinary-core";
-import { useHistory } from "react-router";
+import { Route, useHistory } from "react-router";
 import CreateGameForm from "../admin-gameCard/CreateGameForm";
 import MenuItem_StartGame from "../../menu-items/MenuItem_StartGame";
 import MenuItem_OpenRegistration from "../../menu-items/MenuItem_OpenRegistration";
@@ -39,6 +39,9 @@ export default function MenuItemsAdminDashboard(props) {
   const handleClickHome = () => {
     history.push("/");
   };
+  const handleClickRules = () => {
+    history.push("/rules")
+  }
 
   useEffect(() => {
     setGame(location.state);
@@ -91,6 +94,12 @@ export default function MenuItemsAdminDashboard(props) {
           setOpenMission={setOpenMission}
         />
       )}
+      {/*Rules & Instruction*/}
+      <MenuIcon
+        menuIcon={<Gavel />}
+        title={"Rules & Instructions"}
+        onClick={handleClickRules}
+      />
     </div>
   );
 }
