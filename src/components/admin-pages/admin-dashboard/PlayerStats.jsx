@@ -62,12 +62,12 @@ export default function PlayerStats({ game }) {
         <Typography variant="h4" style={{ marginTop: "10px" }}>
           {timeDifferenceMinutes} minutes
         </Typography>
-        <Typography color="textPrimary">since game started</Typography>
+        <Typography color="primary">since game started</Typography>
 
         <Typography variant="h4" style={{ marginTop: "10px" }}>
           {totalPlayers}
         </Typography>
-        <Typography color="textPrimary" style={{ marginTop: "10px" }}>
+        <Typography color="primary" style={{ marginTop: "10px" }}>
           Players
         </Typography>
 
@@ -77,9 +77,7 @@ export default function PlayerStats({ game }) {
           <span style={{ marginTop: "10px" }}>{zombiePlayers}</span>
         </Typography>
 
-        <Typography color="textPrimary">
-          Humans &nbsp; &nbsp; Zombies
-        </Typography>
+        <Typography color="primary">Humans &nbsp; &nbsp; Zombies</Typography>
       </TableContainer>
     </>
   );
