@@ -23,6 +23,7 @@ const Auth = {
   logoutUser: async () => {
     await sessionStorage.removeItem("token");
     await localStorage.removeItem("token");
+    //Delete token in backend - API req to delete it here
     Store.dispatch({ type: "USER_LOGGED_OUT" });
   },
 

@@ -6,9 +6,11 @@ import {
   makeStyles,
   Button,
 } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import RegisterFormInputFiled from "./RegisterFormInputFiled";
+import { registrationRequest } from "../../utils/registerApi";
+import Validation from "../../utils/validation";
 
 function RegisterForm() {
   const history = useHistory();
@@ -105,9 +107,26 @@ function RegisterForm() {
 
   const handleRegisterClick = () => {
     setFormData({
+      firstName: firstName,
+      lastName: lastName,
       username: username,
+      password: password,
+      age: age,
+      phone: phoneNumber,
+      gender: gender,
+      role: "User",
+      email: email,
     });
   };
+
+  useEffect(() => {
+    if (formData) {
+      const validateRegisterRes = Validation.registerDataValidation(formData);
+      if (validateRegisterRes) {
+        const registerRes = registrationRequest(formData);
+      }
+    }
+  }, [formData]);
 
   return (
     <FormControl className={classes.container}>

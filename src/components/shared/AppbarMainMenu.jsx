@@ -135,7 +135,7 @@ export default function AppbarMainMenu({ menuItems, menuTitle }) {
           >
             {menuTitle}
           </Typography>
-          {!Auth.userIsLoggedIn() ? (
+          {!loggedIn ? (
             <>
               <Button color="inherit" onClick={handleLoginClick}>
                 Login

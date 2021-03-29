@@ -30,8 +30,8 @@ const GameCardPopUp = ({ game, open, setOpen }) => {
 
   const handleJoinButton = () => {
     if (Auth.userIsLoggedIn()) {
-        // need functionality to bake user join game and become player in that game.
-      history.push(`/game/${game.id}`); 
+      // need functionality to bake user join game and become player in that game.
+      history.push(`/game/${game.id}`);
       return;
     }
     history.push({
@@ -39,6 +39,13 @@ const GameCardPopUp = ({ game, open, setOpen }) => {
       state: game,
     });
   };
+
+  const handleGameDashboardButton = () => {
+      history.push({
+          pathname: `admin/game/${game.id}`,
+          state: game 
+      })
+  }
 
   useEffect(() => {
     setPlayArea([
@@ -85,9 +92,23 @@ const GameCardPopUp = ({ game, open, setOpen }) => {
             nisi, ducimus quis earum atque ipsam commodi temporibus doloribus,
             quod exercitationem excepturi.
           </Typography>
-          <Button variant="outlined" onClick={handleJoinButton} color="primary">
-            Join Game
-          </Button>
+          {Auth.userIsAdmin() ? (
+            <Button
+              variant="outlined"
+              onClick={handleGameDashboardButton}
+              color="primary"
+            >
+              Game dashboard
+            </Button>
+          ) : (
+            <Button
+              variant="outlined"
+              onClick={handleJoinButton}
+              color="primary"
+            >
+              Join Game
+            </Button>
+          )}
         </DialogContent>
 
         <DialogActions>

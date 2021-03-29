@@ -74,11 +74,16 @@ function LoginForm({ game }) {
   };
 
   const handleLogin = async () => {
-    if (username === "" || password === "") {
-      errorToaster("Username or password is empty");
-      return;
+    
+    const data = {
+        username: username,
+        password: password
     }
-    const loginData = await loginRequest(username, password);
+
+    const validateRes = Validation.loginDataValidation(data)
+
+    if(validateRes) {
+        const loginData = await loginRequest(username, password);
     if (loginData) {
       console.log(loginData);
       try {
@@ -102,6 +107,12 @@ function LoginForm({ game }) {
           }
         }
       }
+    } else {
+        //Handle error / Error toaster
+    }
+
+
+    
     }
   };
 
