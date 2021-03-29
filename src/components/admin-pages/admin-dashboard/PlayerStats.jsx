@@ -26,7 +26,6 @@ export default function PlayerStats({ game }) {
       if (players.length > 0) {
         setZombiePlayers(players.length - humanPlayers);
         setTotalPlayers(humanPlayers + zombiePlayers);
-        console.log("total players", totalPlayers);
       }
     }
   }, [game, players]);
@@ -39,8 +38,8 @@ export default function PlayerStats({ game }) {
         <section
           style={{
             position: "relative",
-            width: "30%",
-            height: "150px",
+            width: "15vw",
+            height: "15vw",
             padding: "5% 0",
             margin: "1em auto",
             border: "4px dashed white",
@@ -58,6 +57,7 @@ export default function PlayerStats({ game }) {
             <span
               style={{
                 textAlign: "center",
+                margin: "center",
               }}
             >
               <Typography variant="h4">
@@ -74,9 +74,7 @@ export default function PlayerStats({ game }) {
           <span style={{ marginTop: "10px" }}>{zombiePlayers}</span>
         </Typography>
 
-        <Typography color="textPrimary">
-          Humans &nbsp; &nbsp; Zombies
-        </Typography>
+        <Typography color="primary">Humans &nbsp; &nbsp; Zombies</Typography>
       </TableContainer>
     </>
   );

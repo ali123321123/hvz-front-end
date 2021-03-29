@@ -44,11 +44,14 @@ const CreateGameForm = ({ open, setOpen }) => {
   const updateGame = () => {
     let data = {
       name,
-      gameState,
       registrationOpen,
       startTime,
       endTime,
       imageUrl,
+      nW_lat: 0,
+      nW_lng: 0,
+      sE_lat: 0,
+      sE_lng: 0,
     };
 
     fetch(`${Endpoints.GAME_API}`, {

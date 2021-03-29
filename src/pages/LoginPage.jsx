@@ -8,15 +8,13 @@ function LoginPage(props) {
   useEffect(() => {
     if (props.location) {
       setStateFromPopUp(props.location.state);
-      console.log("after set state");
     }
   }, []);
-  console.log(props.location);
   return (
     <>
     <Header />
     <Main>
-      <LoginForm gameId={stateFromPopUp}/>
+      <LoginForm game={stateFromPopUp}/>
     </Main>
     </>
   );

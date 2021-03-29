@@ -3,25 +3,20 @@ import { useState } from "react";
 import clsx from "clsx";
 import {
   makeStyles,
-  CssBaseline,
   AppBar,
   Toolbar,
   Typography,
   IconButton,
   Button,
-  ThemeProvider,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
+import MenuDrawer from "../menu-items//MenuDrawer";
 import { useHistory } from "react-router";
 import Auth from "../../utils/authentication";
-import { themeActive } from "../shared/themeGameCards";
 import useSWR from "swr";
-import { MuiThemeProvider } from "@material-ui/core/styles";
 import { fetcherToken } from "../../services/FetcherFunction";
 import Endpoints from "../../services/endpoints";
 import { getTokenInStorage, decodedToken } from "../../utils/tokenHelper";
-import MenuDrawer from "../menu-items/MenuDrawer";
-import MenuIcon_ThemeToggle from "../menu-items/MenuIcon_ThemeToggle";
 
 export default function AppbarMainMenu({ menuItems, menuTitle }) {
   const userToken = decodedToken();
@@ -77,6 +72,8 @@ export default function AppbarMainMenu({ menuItems, menuTitle }) {
 
   const [open, setOpen] = useState(false);
 
+  const [loggedIn, setLoggedIn] = useState(false);
+
   //Fetch game
   const { data: games, error: gamesError } = useSWR(
     `${Endpoints.GAME_API}`,
@@ -97,14 +94,18 @@ export default function AppbarMainMenu({ menuItems, menuTitle }) {
 
   const handleLogoutClick = () => {
     Auth.logoutUser();
+    setLoggedIn(false);
+    history.push("/");
   };
+
+  useEffect(() => {
+    if (Auth.userIsLoggedIn()) {
+      setLoggedIn(true);
+    }
+  }, []);
 
   return (
     <div className={classes.root}>
-      {/* <ThemeProvider>
-        <MuiThemeProvider theme={themeActive}>
-          <CssBaseline /> */}
-
       <AppBar
         position="fixed"
         className={clsx(classes.appBar, open && classes.appBarShift)}
@@ -159,8 +160,6 @@ export default function AppbarMainMenu({ menuItems, menuTitle }) {
         menuItems={menuItems}
         games={games}
       />
-      {/* </MuiThemeProvider>
-      </ThemeProvider> */}
     </div>
   );
 }

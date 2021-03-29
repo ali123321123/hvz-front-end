@@ -83,24 +83,22 @@ export default function GameStats({ game }) {
                   <TableCell color="primary">{p.name}</TableCell>
                   <TableCell color="primary">
                     {p.isHuman ? (
-                      <Typography
-                        variant="body2"
-                        style={{ color: "#3bbb4c", fontWeight: "bold" }}
-                      >
+                      <Typography variant="body2" style={{ color: "#3bbb4c" }}>
                         Human
                       </Typography>
                     ) : p.isPatientZero ? (
                       <Typography
                         variant="body2"
-                        style={{ color: "#901894", fontWeight: "bold" }}
+                        style={{
+                          color: "#df1b55",
+
+                          fontStyle: "italic",
+                        }}
                       >
                         {patientZero}
                       </Typography>
                     ) : (
-                      <Typography
-                        variant="body2"
-                        style={{ color: "#df1b55", fontWeight: "bold" }}
-                      >
+                      <Typography variant="body2" style={{ color: "#df1b55" }}>
                         Zombie
                       </Typography>
                     )}

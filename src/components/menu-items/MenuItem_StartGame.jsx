@@ -9,8 +9,10 @@ import {
 import { HighlightOff, PlayCircleOutline } from "@material-ui/icons";
 import DialogPopUp from "../admin-pages/admin-dashboard/DialogPopUp";
 import { useLocation } from "react-router-dom";
+import { getTokenInStorage } from "../../utils/tokenHelper";
+import Endpoints from "../../services/endpoints";
 
-const MenuItem_StartGame = () => {
+const MenuItem_StartGame = ({ game }) => {
   //Text constants for Buttons and Dialog
   const gameStart = "Start Game";
   const gameEnd = "End Game";
@@ -19,9 +21,39 @@ const MenuItem_StartGame = () => {
   const [openPopUp, setopenPopUp] = useState(false);
 
   //Set game and registration state
-  const [game, setGame] = useState({});
   const [gameState, setGameState] = useState();
   const [registrationState, setRegistrationState] = useState();
+
+  const [name, setName] = useState("");
+  const [registrationOpen, setRegistrationOpen] = useState(false);
+  const [startTime, setStartTime] = useState(new Date());
+  const [endTime, setEndTime] = useState(new Date());
+
+  const [gameStarted, setGameStarted] = useState();
+  const [gameComplete, setGameComplete] = useState();
+  const [imageUrl, setImageUrl] = useState("");
+
+  const startGame = () => {
+    fetch(`${Endpoints.GAME_API}/${game.id}/start_game`, {
+      method: "PUT",
+      headers: {
+        Authorization: "Bearer " + getTokenInStorage(),
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    }).then((res) => res.json().then((res) => console.warn("result", res)));
+  };
+
+  const endGame = () => {
+    fetch(`${Endpoints.GAME_API}/${game.id}/end_game`, {
+      method: "PUT",
+      headers: {
+        Authorization: "Bearer " + getTokenInStorage(),
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    }).then((res) => res.json().then((res) => console.warn("result", res)));
+  };
 
   //Open PopUp
   const handleClickOpenPopUp = () => {
@@ -32,13 +64,17 @@ const MenuItem_StartGame = () => {
   const handleClosePopUp = () => {
     setopenPopUp(false);
   };
-
+  console.log(game.id);
   //Toggle GameState
   const handleGameState = () => {
     setopenPopUp(false); // close popup
+
+    startGame();
+
     setGameState(
-      gameState === game.gameStarted ? !game.gameStarted : game.gameStarted
+      gameState === game.gameStarted ? game.gameComplete : game.gameStarted
     );
+
     setRegistrationState(
       registrationState === game.registrationOpen
         ? !game.registrationOpen
@@ -46,10 +82,6 @@ const MenuItem_StartGame = () => {
     );
   };
   const location = useLocation();
-
-  useEffect(() => {
-    setGame(location.state);
-  }, [location.state]);
 
   return (
     <div>
@@ -82,7 +114,6 @@ const MenuItem_StartGame = () => {
           }
         >
           <ListItem
-            disabled={game.gameComplete ? true : false}
             button
             onClick={handleClickOpenPopUp}
             aria-label="start game"

@@ -6,7 +6,7 @@ import {
 } from "@material-ui/core";
 import { useState, useEffect } from "react";
 import DialogPopUp from "../admin-pages/admin-dashboard/DialogPopUp";
-import { useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { Delete } from "@material-ui/icons";
 import { getTokenInStorage } from "../../utils/tokenHelper";
 import { fetcherToken } from "../../services/FetcherFunction";
@@ -14,6 +14,7 @@ import Endpoints from "../../services/endpoints";
 
 const MenuItem_DeleteGame = ({ game }) => {
   const location = useLocation();
+  const history = useHistory();
 
   const [openPopUp, setopenPopUp] = useState(false);
   const [status, setStatus] = useState(null);
@@ -24,10 +25,14 @@ const MenuItem_DeleteGame = ({ game }) => {
         method: "DELETE",
         headers: {
           Authorization: "Bearer " + getTokenInStorage(),
-          "Content-Type": "application/json",
-          mode: "no-cors",
         },
-      }).then((res) => res.json().then((res) => console.warn("result", res)));
+      }).then((res) =>
+        res.json().then((res) => {
+          history.push("/admin");
+
+          console.warn("result", res);
+        })
+      );
     }
   };
 
@@ -43,7 +48,6 @@ const MenuItem_DeleteGame = ({ game }) => {
 
   const handleGameState = () => {
     setopenPopUp(false);
-    deleteGame();
   };
 
   return (
@@ -72,7 +76,7 @@ const MenuItem_DeleteGame = ({ game }) => {
             disabled={game.gameComplete ? true : false}
             button
             // onClick={handleClickOpenPopUp}
-            onClick={() => deleteGame(game.id)}
+            onClick={deleteGame}
             aria-label="start game"
             variant="danger"
           >
@@ -81,16 +85,6 @@ const MenuItem_DeleteGame = ({ game }) => {
           </ListItem>
         </Tooltip>
       </article>
-
-      <button
-        onClick={(game) =>
-          window.confirm("Are you sure you wish to delete game?") &&
-          deleteGame(game.id) &&
-          document.write("Deleted")
-        }
-      >
-        Delete Game
-      </button>
     </div>
   );
 };
