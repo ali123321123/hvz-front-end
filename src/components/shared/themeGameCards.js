@@ -1,17 +1,25 @@
 import { createMuiTheme } from "@material-ui/core/styles";
 const primary = "#2c2c2c";
 const secondary = "#c43c80";
+const highlight = "#eef131";
+const black = "#a5a5a5";
 const cardBackground = "#ffffff";
+const white = "#ffffff";
 export const light = createMuiTheme({
   palette: {
     // type: "light",
     primary: {
       //Font color
       main: "#9c27b0",
+      dark: primary,
+      light: secondary,
     },
     background: {
       default: "#eeeeee",
     },
+  },
+  common: {
+    black,
   },
 
   typography: {
@@ -39,6 +47,7 @@ export const light = createMuiTheme({
         },
       },
     },
+
     MuiCardMedia: {
       root: {
         paddingTop: "75%", // 4:3
@@ -70,7 +79,7 @@ export const themeActive = createMuiTheme({
     type: "dark",
 
     background: {
-      default: "#0e101c",
+      default: "#131729",
     },
     primary: {
       //Font color
@@ -93,6 +102,18 @@ export const themeActive = createMuiTheme({
   },
   //Override MuiCard
   overrides: {
+    // MuiContainer: {
+    //   root: {
+    //     width: "100%",
+    //     display: "block",
+    //     boxSizing: "border-box",
+    //     marginLeft: "auto",
+    //     marginRight: "auto",
+    //     paddingLeft: "16px",
+    //     paddingRight: "0",
+    //   },
+    // },
+
     MuiListItemIcon: {
       root: {
         color: primary,
@@ -102,6 +123,12 @@ export const themeActive = createMuiTheme({
       container: {
         justifyContent: "center",
         // backgroundColor: "blue",
+      },
+    },
+
+    MuiListItem: {
+      root: {
+        width: "20%",
       },
     },
     MuiCard: {
@@ -153,6 +180,25 @@ export const themeActive = createMuiTheme({
         color: primary,
       },
     },
+
+    MuiTableCell: {
+      stickyHeader: {
+        backgroundColor: white,
+      },
+      head: {
+        color: primary,
+        fontWeight: 600,
+      },
+      body: {
+        color: primary,
+      },
+    },
+
+    MuiTablePagination: {
+      root: {
+        color: primary,
+      },
+    },
   },
 });
 
@@ -161,7 +207,7 @@ export const themeUpcoming = createMuiTheme({
     type: "dark",
 
     background: {
-      default: "#0e101c",
+      default: "#131729",
     },
     primary: {
       //Font color
@@ -170,9 +216,7 @@ export const themeUpcoming = createMuiTheme({
       light: secondary,
     },
   },
-  background: {
-    default: "blue",
-  },
+
   typography: {
     h3: {
       textAlign: "center",
@@ -234,6 +278,21 @@ export const themeUpcoming = createMuiTheme({
         },
       },
     },
+
+    MuiTableCell: {
+      stickyHeader: {
+        backgroundColor: white,
+      },
+      head: {
+        color: primary,
+      },
+    },
+
+    MuiTableRow: {
+      root: {
+        color: primary,
+      },
+    },
   },
 });
 
@@ -247,7 +306,7 @@ export const themeCompleted = createMuiTheme({
       light: secondary,
     },
     background: {
-      default: "#0e101c",
+      default: "#131729",
     },
     // background: {
     //   default: "#0e101c",
@@ -312,6 +371,21 @@ export const themeCompleted = createMuiTheme({
         "&:hover": {
           backgroundColor: "secondary",
         },
+      },
+    },
+
+    MuiTableCell: {
+      stickyHeader: {
+        backgroundColor: white,
+      },
+      head: {
+        color: primary,
+      },
+    },
+
+    MuiTableRow: {
+      root: {
+        color: primary,
       },
     },
   },

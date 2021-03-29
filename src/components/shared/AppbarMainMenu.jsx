@@ -29,11 +29,6 @@ export default function AppbarMainMenu({ menuItems, menuTitle }) {
   const drawerWidth = 240;
 
   const useStyles = makeStyles((theme) => ({
-    root: {
-      display: "flex",
-      width: "100%",
-    },
-
     //keep right padding when drawer closed
     toolbar: {
       paddingRight: 24,
@@ -41,6 +36,7 @@ export default function AppbarMainMenu({ menuItems, menuTitle }) {
 
     title: {
       flexGrow: 1,
+      paddingRight: "-20px",
     },
 
     appBar: {
@@ -128,9 +124,6 @@ export default function AppbarMainMenu({ menuItems, menuTitle }) {
           >
             <MenuIcon />
           </IconButton>
-
-          {/* TOGGLE THEME */}
-          <MenuIcon_ThemeToggle />
 
           <Typography
             component="h1"

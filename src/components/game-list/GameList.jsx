@@ -7,12 +7,10 @@ import {
   Typography,
   makeStyles,
   Container,
-  ThemeProvider,
   TablePagination,
 } from "@material-ui/core";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { MuiThemeProvider } from "@material-ui/core/styles";
-import theme from "../shared/theme";
 import useSWR from "swr";
 import { fetcherToken } from "../../services/FetcherFunction";
 import AppbarMainMenu from "../shared/AppbarMainMenu";
@@ -26,10 +24,29 @@ import {
 import Endpoints from "../../services/endpoints";
 import { getTokenInStorage } from "../../utils/tokenHelper";
 import "./CardStyles.scss";
-import TablePaginationActions from "@material-ui/core/TablePagination/TablePaginationActions";
 
 function GameList() {
   const useStyles = makeStyles((theme) => ({
+    root: {
+      width: "100%",
+      // backgroundColor: "blue",
+
+      "& .MuiSvgIcon-root-141": {
+        fontSize: "1.8em",
+      },
+
+      "& .MuiTypography-h3": {
+        textAlign: "center",
+      },
+      "& .MuiTypography-colorPrimary": {
+        color: "#434346",
+      },
+      "& .MuiDivider-root": {
+        height: "2px",
+        marginBottom: "2em",
+      },
+    },
+
     caption: {
       color: "#CA1551",
       fontSize: "20px",
@@ -44,28 +61,11 @@ function GameList() {
     actions: {
       color: "#CA1551",
     },
-
-    root: {
-      "& .MuiSvgIcon-root": {
-        width: "2em",
-        height: "2em",
-      },
-      // "& .MuiTablePagination-actions": {
-      //   color: "red",
-      // },
-      width: "100%",
-      position: "relative",
-
-      "& .MuiTypography-h3": {
-        textAlign: "center",
-      },
-      "& .MuiTypography-colorPrimary": {
-        color: "#434346",
-      },
-      "& .MuiDivider-root": {
-        height: "2px",
-        marginBottom: "2em",
-      },
+    container: {
+      maxWidth: "100%",
+      paddingTop: theme.spacing(16),
+      paddingBottom: theme.spacing(4),
+      textAlign: "center",
     },
   }));
   const classes = useStyles();
@@ -118,7 +118,6 @@ function GameList() {
         <div className={classes.root}>
           {/* APP BAR  */}
           <AppbarMainMenu menuItems={<MenuItemsGameList />} />
-          {/* <ThemeProvider theme={theme}> */}
           <div
             style={{
               marginTop: "6em",
@@ -133,44 +132,43 @@ function GameList() {
           </div>
 
           <main>
-            <Container maxWidth="lg">
-              {/* <MuiThemeProvider theme={themeActive}>
-                  <CssBaseline /> */}
+            <Container maxWidth="lg" fluid>
+              <MuiThemeProvider theme={themeActive}>
+                <CssBaseline />
+                {/* ACTIVE GAMES */}
+                <article className="gameTitle">
+                  <Typography variant="h3" color="primary" component="p">
+                    Active games
+                  </Typography>
+                </article>
 
-              {/* ACTIVE GAMES */}
-              <article className="gameTitle">
-                <Typography variant="h3" color="primary" component="p">
-                  Active games
-                </Typography>
-              </article>
-
-              <Divider variant="middle" />
-              <section>
-                <Grid
-                  container
-                  spacing={10}
-                  align="center"
-                  style={{
-                    textAlign: "center",
-                  }}
-                >
-                  {activeGames
-                    ?.slice(
-                      page * rowsPerPage,
-                      page * rowsPerPage + rowsPerPage
-                    )
-                    .map((game) => (
-                      <Grid item xs={12} sm={6} md={4} lg={4} xl={4}>
-                        <GameListCard
-                          key={game.id}
-                          game={game}
-                          className={classes.card}
-                        />
-                      </Grid>
-                    ))}
-                </Grid>
-              </section>
-              {/* </MuiThemeProvider> */}
+                <Divider variant="middle" />
+                <section>
+                  <Grid
+                    container
+                    spacing={10}
+                    align="center"
+                    style={{
+                      textAlign: "center",
+                    }}
+                  >
+                    {activeGames
+                      ?.slice(
+                        page * rowsPerPage,
+                        page * rowsPerPage + rowsPerPage
+                      )
+                      .map((game) => (
+                        <Grid item xs={12} sm={6} md={4} lg={4} xl={4}>
+                          <GameListCard
+                            key={game.id}
+                            game={game}
+                            className={classes.card}
+                          />
+                        </Grid>
+                      ))}
+                  </Grid>
+                </section>
+              </MuiThemeProvider>
               <TablePagination
                 rowsPerPageOptions={[1, 3, 6, 12]}
                 labelRowsPerPage=""
@@ -190,44 +188,44 @@ function GameList() {
               />
 
               {/* UCOMING GAMES */}
-              {/* <MuiThemeProvider theme={themeUpcoming}>
-                  <CssBaseline /> */}
+              <MuiThemeProvider theme={themeUpcoming}>
+                <CssBaseline />
 
-              <article className="gameTitle">
-                <Typography variant="h3" color="primary" component="p">
-                  Upcoming games
-                </Typography>
-              </article>
+                <article className="gameTitle">
+                  <Typography variant="h3" color="primary" component="p">
+                    Upcoming games
+                  </Typography>
+                </article>
 
-              <Divider />
-              <section className="container">
-                <Grid
-                  container
-                  spacing={10}
-                  align="center"
-                  style={{
-                    textAlign: "center",
-                  }}
-                >
-                  {upCommingGames
-                    ?.slice(
-                      page * rowsPerPage,
-                      page * rowsPerPage + rowsPerPage
-                    )
-                    .map((game) => (
-                      <Grid item xs={12} sm={6} md={4} lg={4} xl={4}>
-                        <GameListCard key={game.id} game={game} />
-                      </Grid>
-                    ))}
-                </Grid>
-              </section>
-              {/* </MuiThemeProvider> */}
+                <Divider />
+                <section className="container">
+                  <Grid
+                    container
+                    spacing={10}
+                    align="center"
+                    style={{
+                      textAlign: "center",
+                    }}
+                  >
+                    {upCommingGames
+                      ?.slice(
+                        page * rowsPerPage,
+                        page * rowsPerPage + rowsPerPage
+                      )
+                      .map((game) => (
+                        <Grid item xs={12} sm={6} md={4} lg={4} xl={4}>
+                          <GameListCard key={game.id} game={game} />
+                        </Grid>
+                      ))}
+                  </Grid>
+                </section>
+              </MuiThemeProvider>
               <TablePagination
                 rowsPerPageOptions={[1, 3, 6, 12]}
                 labelRowsPerPage=""
                 component="div"
                 nextIconButtonProps={classes.tablePagination}
-                count={activeGames?.length}
+                count={upCommingGames?.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onChangePage={handleChangePage}
@@ -242,43 +240,43 @@ function GameList() {
               />
 
               {/* COMPLETED GAMES */}
-              {/* <MuiThemeProvider theme={themeCompleted}>
-                  <CssBaseline /> */}
-              <article className="gameTitle">
-                <Typography variant="h3" color="primary" component="p">
-                  Completed games
-                </Typography>
-              </article>
+              <MuiThemeProvider theme={themeCompleted}>
+                <CssBaseline />
+                <article className="gameTitle">
+                  <Typography variant="h3" color="primary" component="p">
+                    Completed games
+                  </Typography>
+                </article>
 
-              <Divider />
-              <section className="container">
-                <Grid
-                  container
-                  spacing={10}
-                  align="center"
-                  style={{
-                    textAlign: "center",
-                  }}
-                >
-                  {completedGames
-                    ?.slice(
-                      page * rowsPerPage,
-                      page * rowsPerPage + rowsPerPage
-                    )
-                    .map((game) => (
-                      <Grid item xs={12} sm={6} md={4} lg={4} xl={4}>
-                        <GameListCard key={game.id} game={game} />
-                      </Grid>
-                    ))}
-                </Grid>
-              </section>
-              {/* </MuiThemeProvider> */}
+                <Divider />
+                <section className="container">
+                  <Grid
+                    container
+                    spacing={10}
+                    align="center"
+                    style={{
+                      textAlign: "center",
+                    }}
+                  >
+                    {completedGames
+                      ?.slice(
+                        page * rowsPerPage,
+                        page * rowsPerPage + rowsPerPage
+                      )
+                      .map((game) => (
+                        <Grid item xs={12} sm={6} md={4} lg={4} xl={4}>
+                          <GameListCard key={game.id} game={game} />
+                        </Grid>
+                      ))}
+                  </Grid>
+                </section>
+              </MuiThemeProvider>
               <TablePagination
                 rowsPerPageOptions={[1, 3, 6, 12]}
                 labelRowsPerPage=""
                 component="div"
                 nextIconButtonProps={classes.tablePagination}
-                count={activeGames?.length}
+                count={completedGames?.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onChangePage={handleChangePage}
@@ -293,7 +291,6 @@ function GameList() {
               />
             </Container>
           </main>
-          {/* </ThemeProvider> */}
         </div>
       )}
     </>

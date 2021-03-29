@@ -105,9 +105,6 @@ export default function MenuDrawer({ open, setOpen, menuItems }) {
 
   return (
     <div className={classes.root}>
-      {/* <ThemeProvider>
-        <MuiThemeProvider theme={themeActive}>
-          <CssBaseline /> */}
       {/* Drawer Side menu  */}
       <Drawer
         variant="temporary"
@@ -126,8 +123,6 @@ export default function MenuDrawer({ open, setOpen, menuItems }) {
         <List>{menuItems}</List>
       </Drawer>
       {/* Side menu End  */}
-      {/* </MuiThemeProvider>
-      </ThemeProvider> */}
     </div>
   );
 }

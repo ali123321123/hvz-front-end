@@ -55,6 +55,7 @@ const MenuItem_OpenRegistration = ({ disabled }) => {
     setGame(location.state);
   }, [location.state]);
   console.log(game.registrationOpen);
+
   return (
     <div>
       {/* DIALOG: START | END GAME */}

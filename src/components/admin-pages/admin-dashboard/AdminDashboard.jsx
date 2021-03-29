@@ -6,9 +6,6 @@ import {
   Container,
   Grid,
   Paper,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
 } from "@material-ui/core";
 import TempInteractiveMap from "./TempInteractiveMap";
 import GameStats from "./GameStats";
@@ -21,12 +18,11 @@ import { fetcherToken } from "../../../services/FetcherFunction";
 import Endpoints from "../../../services/endpoints";
 import { getTokenInStorage } from "../../../utils/tokenHelper";
 import { Delete } from "@material-ui/icons";
+import EditGameImage from "../EditGameImage";
 
 export default function AdminDashboard(props) {
   const drawerWidth = 240;
   const useStyles = makeStyles((theme) => ({
-    root: {},
-
     //Content container
     container: {
       paddingTop: theme.spacing(8),
@@ -38,6 +34,7 @@ export default function AdminDashboard(props) {
       display: "flex",
       overflow: "auto",
       flexDirection: "column",
+      borderRadius: "4px",
     },
 
     appBar: {
@@ -77,6 +74,7 @@ export default function AdminDashboard(props) {
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   const [game, setGame] = useState({});
+
   useEffect(() => {
     setGame(props.location.state);
   }, [props.location.state]);
@@ -100,16 +98,6 @@ export default function AdminDashboard(props) {
   //       requestOptions
   //     ).then(() => setStatus("Delete successful"));
 
-  const onClickDelete = () => {
-    const requestOptions = {
-      method: "DELETE",
-      headers: {
-        Authorization: "Bearer " + getTokenInStorage(),
-        "Content-Type": "application/json",
-      },
-    };
-    fetch(`${Endpoints.GAME_API}/${props.location.state.id}`, requestOptions);
-  };
   //ON BUTTON YES HANDLE FETCH
   return (
     <div className={classes.root}>
@@ -130,7 +118,8 @@ export default function AdminDashboard(props) {
 
             {/* Game Avatar Image */}
             <Grid item xs={12} md={4} lg={4}>
-              <ImageCard game={game} />
+              {/* <ImageCard game={game} /> */}
+              <EditGameImage game={game} />
             </Grid>
 
             {/* Interactive Map */}
@@ -142,7 +131,9 @@ export default function AdminDashboard(props) {
 
             {/* Mission Stats */}
             <Grid item xs={12} md={7} lg={7}>
-              <MissionStats />
+              <Paper className={classes.paper}>
+                <MissionStats game={game} />
+              </Paper>
             </Grid>
 
             {/* Game Stats */}

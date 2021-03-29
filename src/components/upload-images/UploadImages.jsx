@@ -1,4 +1,3 @@
-import React from "react";
 import { updateImage } from "../../services/ImagesAPI";
 import {
   ListItem,
@@ -34,7 +33,7 @@ function UploadImages({ game }) {
           arrow
           placement={"bottom"}
           aria-label="edit image"
-          title="Edit Image"
+          title="Upload Image"
         >
           <ListItem button onClick={handleUpload}>
             <ListItemIcon>

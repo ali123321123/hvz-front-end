@@ -53,7 +53,7 @@ function GameListCard({ game }) {
             }
           />
           <CardContent>
-            <Typography variant="body2" color="primary" component="p">
+            <Typography variant="body2" component="p">
               {players} Registered Players
             </Typography>
           </CardContent>
@@ -63,7 +63,7 @@ function GameListCard({ game }) {
               <span>Start Date &emsp; {} &emsp; End Date</span>
             </Typography>
 
-            <Typography variant="body2" color="black" component="p">
+            <Typography variant="body2" component="p">
               <Tooltip title="Game start">
                 <span>
                   {moment(`${game.startTime}`).format("MMMM Do YYYY, HH:mm ")}|{" "}

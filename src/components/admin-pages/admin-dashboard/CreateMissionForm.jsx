@@ -23,19 +23,21 @@ import {
 } from "@material-ui/pickers";
 import "date-fns";
 import DateFnsUtils from "@date-io/date-fns";
-import { themeCreateGameForm } from "../../shared/themeGameCards";
 import CloseIcon from "@material-ui/icons/Close";
-import CloudUploadIcon from "@material-ui/icons/CloudUpload";
+import { themeCreateGameForm } from "../../shared/themeGameCards";
 import Endpoints from "../../../services/endpoints";
 import { getTokenInStorage } from "../../../utils/tokenHelper";
+import { useParams } from "react-router";
 
-const CreateGameForm = ({ open, setOpen }) => {
+const CreateMissionForm = ({ openMission, setOpenMission }) => {
+  const { id: gameId } = useParams();
   const { handleSubmit } = useForm();
   const [setData] = useState(null);
 
   const [name, setName] = useState("");
-  const [gameState, setGameState] = useState(false);
-  const [registrationOpen, setRegistrationOpen] = useState(false);
+  const [description, setDescription] = useState("");
+  const [isHumanVisible, setIsHumanVisible] = useState(false);
+  const [isZombieVisible, setIsZombieVisible] = useState(false);
   const [startTime, setStartTime] = useState(new Date());
   const [endTime, setEndTime] = useState(new Date());
 
@@ -44,56 +46,47 @@ const CreateGameForm = ({ open, setOpen }) => {
   const updateGame = () => {
     let data = {
       name,
-      gameState,
-      registrationOpen,
+      isHumanVisible,
+      isZombieVisible,
+      description,
       startTime,
       endTime,
-      imageUrl,
+      //   lat,
+      //   lang,
+      gameId: gameId,
     };
 
-    fetch(`${Endpoints.GAME_API}`, {
+    fetch(`${Endpoints.MISSION_API}${gameId}`, {
       method: "POST",
       headers: {
         Authorization: "Bearer " + getTokenInStorage(),
         "Content-Type": "application/json",
-        Accept: "application/json",
       },
       body: JSON.stringify(data),
     }).then((res) => res.json().then((res) => console.warn("result", res)));
 
-    setOpen(false);
+    setOpenMission(false);
   };
 
-  const myWidget = window.cloudinary.createUploadWidget(
-    {
-      cloudName: "debyqnalg",
-      uploadPreset: "siwpunif",
-    },
-    (error, res) => {
-      if (!error && res && res.event === "success") {
-        console.log(res.info);
-        setImageUrl(res.info.public_id);
-      }
-    }
-  );
+  console.log("gameID", gameId);
 
-  const handleUpload = () => {
-    myWidget.open();
-  };
-
-  const handleGameTitle = (e) => {
+  const handleMissionTitle = (e) => {
     setName(e.target.value);
   };
 
-  const handleGameState = () => {
-    setGameState(true);
+  const handleMissionDescription = (e) => {
+    setDescription(e.target.value);
   };
-  const handleRegistration = () => {
-    setRegistrationOpen(true);
+
+  const handleForHumans = () => {
+    setIsHumanVisible(true);
+  };
+  const handleForZombies = () => {
+    setIsZombieVisible(true);
   };
 
   const handleClose = () => {
-    setOpen(false);
+    setOpenMission(false);
   };
 
   const handleStartDateChange = (date) => {
@@ -111,7 +104,7 @@ const CreateGameForm = ({ open, setOpen }) => {
       <MuiThemeProvider theme={themeCreateGameForm}>
         <CssBaseline />
         <Dialog
-          open={open}
+          open={openMission}
           fullWidth
           onClose={handleClose}
           maxWidth="sm"
@@ -124,7 +117,7 @@ const CreateGameForm = ({ open, setOpen }) => {
           </DialogActions>
 
           <DialogTitle id="form-dialog-title">
-            <Typography variant="h4">Create new Game</Typography>
+            <Typography variant="h4">Create new Mission</Typography>
           </DialogTitle>
 
           <DialogContent dividers>
@@ -136,9 +129,19 @@ const CreateGameForm = ({ open, setOpen }) => {
                 <TextField
                   autofocus
                   name="name"
-                  label="Game Title"
+                  label="Mission Title"
                   style={{ padding: "10px" }}
-                  onChange={handleGameTitle}
+                  onChange={handleMissionTitle}
+                />
+              </DialogContent>
+
+              <DialogContent>
+                <TextField
+                  autofocus
+                  name="description"
+                  label="Mission Description"
+                  style={{ padding: "10px" }}
+                  onChange={handleMissionDescription}
                 />
               </DialogContent>
 
@@ -167,47 +170,36 @@ const CreateGameForm = ({ open, setOpen }) => {
                 />
               </MuiPickersUtilsProvider>
 
+              {/* Human   */}
+              <FormControl component="fieldset">
+                <FormGroup>
+                  <FormControlLabel
+                    control={
+                      <Checkbox onClick={handleForHumans} name="Humans" />
+                    }
+                    label="For Humans"
+                  />
+                </FormGroup>
+              </FormControl>
+
+              {/* Zombie   */}
+              <FormControl component="fieldset">
+                <FormGroup>
+                  <FormControlLabel
+                    control={
+                      <Checkbox onClick={handleForZombies} name="Zomnbies" />
+                    }
+                    label="For Zombies"
+                  />
+                </FormGroup>
+              </FormControl>
+
               {/* Interactive Map | UPLOAD IMAGE*/}
               <DialogContent>
                 <Typography gutterBottom>Interactive Map</Typography>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handleUpload}
-                  startIcon={<CloudUploadIcon />}
-                >
-                  Upload Image
-                </Button>
               </DialogContent>
 
-              {/* REGISTRATION  */}
-              <FormControl component="fieldset">
-                <FormGroup>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        onClick={handleRegistration}
-                        name="registrationOpen"
-                      />
-                    }
-                    label="Open Registration"
-                  />
-                </FormGroup>
-              </FormControl>
-
-              {/* START GAME */}
-              <FormControl component="fieldset">
-                <FormGroup>
-                  <FormControlLabel
-                    control={
-                      <Checkbox onClick={handleGameState} name="gameState" />
-                    }
-                    label="Start Game"
-                  />
-                </FormGroup>
-              </FormControl>
-
-              {/* BUTTON CREATE GAME */}
+              {/* BUTTON CREATE MISSION */}
               <section>
                 <DialogActions>
                   <Button
@@ -216,7 +208,7 @@ const CreateGameForm = ({ open, setOpen }) => {
                     type="button"
                     onClick={updateGame}
                   >
-                    Create Game
+                    Create Mission
                   </Button>
                 </DialogActions>
               </section>
@@ -228,4 +220,4 @@ const CreateGameForm = ({ open, setOpen }) => {
   );
 };
 
-export default CreateGameForm;
+export default CreateMissionForm;

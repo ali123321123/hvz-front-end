@@ -16,24 +16,6 @@ import { useHistory } from "react-router";
 
 export default function MenuItemsGameList() {
   const history = useHistory();
-  const useStyles = makeStyles((theme) => ({
-    registrationButton: {
-      marginRight: 36,
-    },
-    registrationButtonHidden: {
-      display: "none",
-    },
-    gameButton: {
-      marginRight: 36,
-    },
-    gameButtonHidden: {
-      display: "none",
-    },
-    customWidth: {
-      maxWidth: 120,
-    },
-  }));
-  const classes = useStyles();
 
   const handleProfileOption = () => {
     if (Auth.userIsLoggedIn()) {
@@ -46,7 +28,7 @@ export default function MenuItemsGameList() {
   return (
     <div>
       {/* TOGGLE THEME */}
-      {/* <MenuIcon_ThemeToggle /> */}
+      <MenuIcon_ThemeToggle />
 
       <Divider />
 

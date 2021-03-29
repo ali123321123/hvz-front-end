@@ -1,5 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import { useHistory, useParams } from "react-router";
+import Auth from "../../../utils/authentication";
 import {
   makeStyles,
   Typography,
@@ -51,6 +53,7 @@ function AdminGameList() {
     },
   }));
   const classes = useStyles();
+  const history = useHistory();
 
   const [activeGames, setActiveGames] = useState([]);
   const [completedGames, setCompletedGames] = useState([]);
@@ -63,6 +66,12 @@ function AdminGameList() {
     `${Endpoints.GAME_API}`,
     (url) => fetcherToken(url, getTokenInStorage())
   );
+
+  useEffect(() => {
+    if (!Auth.userIsLoggedIn()) {
+      history.push("/");
+    }
+  }, []);
 
   //Filter out new array from gameState and registration
   useEffect(() => {
@@ -189,7 +198,7 @@ function AdminGameList() {
                     >
                       {completedGames.map((game) => (
                         <Grid item xs={12} sm={6} md={4} lg={4} xl={4}>
-                          <AdminCard key={game.id} game={game} />
+                          <AdminCard color="black" key={game.id} game={game} />
                         </Grid>
                       ))}
                     </Grid>
