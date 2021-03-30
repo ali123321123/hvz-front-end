@@ -9,6 +9,7 @@ import GameDetailPlayerInfo from "./GameDetailPlayerInfo";
 import Endpoints from "../../services/endpoints";
 import { getTokenInStorage } from "../../utils/tokenHelper";
 import { useMapEvents } from "react-leaflet";
+import GameChat from "../chat/gamechat/GameChat";
 
 function GameDetail() {
   const { id: gameId } = useParams();
@@ -66,6 +67,7 @@ function GameDetail() {
           <GameDetailPlayerInfo game={game} />
         </div>
       )}
+      <GameChat />
     </div>
   );
 }
