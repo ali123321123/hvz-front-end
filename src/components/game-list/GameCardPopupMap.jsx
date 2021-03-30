@@ -8,13 +8,9 @@ function GameCardPopupMap({ gameName, playAreaCoordinates, centerAreaCoordinates
   return (
       
       
-        <Map center={centerAreaCoordinates} zoomBounds={playAreaCoordinates}>
+        <Map center={centerAreaCoordinates} zoomBounds={playAreaCoordinates} scrollWheelZoom={false}>
           <Rectangle bounds={playAreaCoordinates} />
-          <Marker position={centerAreaCoordinates}>
-            <Popup>
-              {gameName} playarea
-            </Popup>
-          </Marker>
+          
         </Map>
 
   );
