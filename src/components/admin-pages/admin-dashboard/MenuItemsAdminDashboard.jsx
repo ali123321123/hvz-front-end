@@ -1,14 +1,19 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import PeopleIcon from "@material-ui/icons/People";
-import { AddLocation, Delete, Gavel, HomeRounded, PostAdd } from "@material-ui/icons";
+import {
+  AddLocation,
+  Delete,
+  Gavel,
+  HomeRounded,
+  PostAdd,
+} from "@material-ui/icons";
 import { Cloudinary } from "cloudinary-core";
 import { Route, useHistory } from "react-router";
 import CreateGameForm from "../admin-gameCard/CreateGameForm";
 import MenuItem_StartGame from "../../menu-items/MenuItem_StartGame";
 import MenuItem_OpenRegistration from "../../menu-items/MenuItem_OpenRegistration";
 import MenuIcon from "../../menu-items/MenuIcon";
-import MenuIcon_ThemeToggle from "../../menu-items/MenuIcon_ThemeToggle";
 import { Divider } from "@material-ui/core";
 import { useLocation } from "react-router-dom";
 import CreateMissionForm from "./CreateMissionForm";
@@ -37,8 +42,8 @@ export default function MenuItemsAdminDashboard(props) {
     history.push("/");
   };
   const handleClickRules = () => {
-    history.push("/rules")
-  }
+    history.push("/rules");
+  };
 
   useEffect(() => {
     setGame(location.state);
@@ -46,9 +51,6 @@ export default function MenuItemsAdminDashboard(props) {
 
   return (
     <div>
-      <MenuIcon_ThemeToggle />
-
-      <Divider />
       {/* BTN: HOME */}
       <MenuIcon
         menuIcon={<HomeRounded />}

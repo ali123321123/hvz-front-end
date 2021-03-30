@@ -1,7 +1,6 @@
 import React from "react";
 import { useState } from "react";
 import { HomeRounded, PostAdd } from "@material-ui/icons";
-import MenuIcon_ThemeToggle from "../../menu-items/MenuIcon_ThemeToggle";
 import MenuIcon from "../../menu-items/MenuIcon";
 import CreateGameForm from "./CreateGameForm";
 import { Divider } from "@material-ui/core";
@@ -22,11 +21,6 @@ export default function MenuItemsAdminCard() {
 
   return (
     <div>
-      {/* TOGGLE THEME */}
-      <MenuIcon_ThemeToggle />
-
-      <Divider />
-
       {/* BTN: HOME */}
       <MenuIcon
         menuIcon={<HomeRounded />}

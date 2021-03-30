@@ -16,7 +16,9 @@ import Title from "./Title";
 import { TableContainer, TablePagination } from "@material-ui/core";
 
 export default function GameStats({ game }) {
-//   const user = useSelector((state) => state.loggedInUser);
+  const moment = require("moment");
+
+  // const user = useSelector((state) => state.loggedInUser);
 
   const noSquad = "No Squad";
   const patientZero = "Patient Zero";
@@ -64,7 +66,11 @@ export default function GameStats({ game }) {
   return (
     <>
       <TableContainer>
-        <Title>Game info </Title>
+        <Title>
+          Game info |{" "}
+          {moment(`${game.startTime}`).format("MMMM Do YYYY, HH:mm ")} -{" "}
+          {moment(`${game.endTime}`).format("MMMM Do YYYY, HH:mm ")}
+        </Title>
 
         <Table size="small" stickyHeader aria-label="player-info">
           <TableHead>
@@ -126,7 +132,7 @@ export default function GameStats({ game }) {
         rowsPerPageOptions={[5, 10, 25]}
         labelRowsPerPage=""
         component="div"
-        count={players?.length}
+        count={-1}
         rowsPerPage={rowsPerPage}
         page={page}
         onChangePage={handleChangePage}

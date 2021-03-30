@@ -30,14 +30,17 @@ import CloseIcon from "@material-ui/icons/Close";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import Endpoints from "../../../services/endpoints";
 import { getTokenInStorage } from "../../../utils/tokenHelper";
+import { useHistory } from "react-router";
 
 const CreateGameForm = ({ open, setOpen }) => {
   const { handleSubmit } = useForm();
   const [setData] = useState(null);
 
+  const history = useHistory();
+
   const [name, setName] = useState("");
   const [gameState, setGameState] = useState(false);
-  const [registrationOpen, setRegistrationOpen] = useState(false);
+  const [registrationOpen, setRegistrationOpen] = useState(true);
   const [startTime, setStartTime] = useState(new Date());
   const [endTime, setEndTime] = useState(new Date());
 
@@ -67,6 +70,8 @@ const CreateGameForm = ({ open, setOpen }) => {
     }).then((res) => res.json().then((res) => console.warn("result", res)));
 
     setOpen(false);
+    window.confirm("Game created!");
+    history.push("/admin");
   };
 
   const myWidget = window.cloudinary.createUploadWidget(
@@ -94,7 +99,7 @@ const CreateGameForm = ({ open, setOpen }) => {
     setGameState(true);
   };
   const handleRegistration = () => {
-    setRegistrationOpen(true);
+    setRegistrationOpen(false);
   };
 
   const handleClose = () => {
@@ -138,10 +143,12 @@ const CreateGameForm = ({ open, setOpen }) => {
             <form onSubmit={handleSubmit((data) => setData(data))}>
               {/* GAME TITLE & IMAGE */}
               <DialogContent>
-                <Container maxWidth="lg" fluid>
-                  <Grid item xs={6}>
+                <Container maxWidth="lg">
+                  <Grid item xs={6} color="primary">
                     <TextField
-                      autofocus
+                      required
+                      autoFocus
+                      color="primary"
                       name="name"
                       label="Game Title"
                       style={{ padding: "10px" }}
@@ -194,9 +201,11 @@ const CreateGameForm = ({ open, setOpen }) => {
               <FormControl component="fieldset">
                 <FormGroup>
                   <FormControlLabel
+                    color="inherit"
                     control={
                       <Checkbox
-                        onClick={handleRegistration}
+                        checked={registrationOpen}
+                        onChange={handleRegistration}
                         name="registrationOpen"
                       />
                     }

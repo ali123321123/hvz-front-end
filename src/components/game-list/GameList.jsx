@@ -175,7 +175,7 @@ function GameList() {
           </div>
 
           <main>
-            <Container maxWidth="lg" fluid>
+            <Container maxWidth="lg">
               <MuiThemeProvider theme={themeActive}>
                 <CssBaseline />
                 {/* ACTIVE GAMES */}
@@ -201,12 +201,16 @@ function GameList() {
                         pageActive * rowsPerPage + rowsPerPage
                       )
                       .map((game) => (
-                        <Grid item xs={12} sm={6} md={4} lg={4} xl={4}>
-                          <GameListCard
-                            key={game.id}
-                            game={game}
-                            className={classes.card}
-                          />
+                        <Grid
+                          item
+                          xs={12}
+                          sm={6}
+                          md={4}
+                          lg={4}
+                          xl={4}
+                          key={game.id}
+                        >
+                          <GameListCard key={game.id} game={game} />
                         </Grid>
                       ))}
                   </Grid>
@@ -256,7 +260,15 @@ function GameList() {
                         pageUpComming * rowsPerPage + rowsPerPage
                       )
                       .map((game) => (
-                        <Grid item xs={12} sm={6} md={4} lg={4} xl={4}>
+                        <Grid
+                          item
+                          xs={12}
+                          sm={6}
+                          md={4}
+                          lg={4}
+                          xl={4}
+                          key={game.id}
+                        >
                           <GameListCard key={game.id} game={game} />
                         </Grid>
                       ))}
@@ -307,7 +319,15 @@ function GameList() {
                         pageComplete * rowsPerPage + rowsPerPage
                       )
                       .map((game) => (
-                        <Grid item xs={12} sm={6} md={4} lg={4} xl={4}>
+                        <Grid
+                          item
+                          xs={12}
+                          sm={6}
+                          md={4}
+                          lg={4}
+                          xl={4}
+                          key={game.id}
+                        >
                           <GameListCard key={game.id} game={game} />
                         </Grid>
                       ))}
