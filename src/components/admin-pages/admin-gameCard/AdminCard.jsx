@@ -63,13 +63,13 @@ function AdminCard({ game }) {
               }
             />
             <CardContent>
-              <Typography variant="body2" component="p" color="black">
+              <Typography variant="body2" component="p" color="inherit">
                 {players} Registered Players
               </Typography>
             </CardContent>
 
             <CardContent>
-              <Typography variant="body1" color="black" component="p">
+              <Typography variant="body1" color="inherit" component="p">
                 <span>Start Date &emsp; {} &emsp; End Date</span>
               </Typography>
 

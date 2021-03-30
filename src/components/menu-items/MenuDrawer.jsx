@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useState } from "react";
 import clsx from "clsx";
 import {
   makeStyles,
@@ -7,12 +7,18 @@ import {
   List,
   Divider,
   IconButton,
-  MuiThemeProvider,
   ThemeProvider,
   ClickAwayListener,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Tooltip,
+  Switch,
 } from "@material-ui/core";
+import { MuiThemeProvider } from "@material-ui/core/styles";
+
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import { themeActive } from "../shared/themeGameCards";
+import { themeActive, light } from "../shared/themeGameCards";
 
 export default function MenuDrawer({ open, setOpen, menuItems }) {
   const drawerWidth = 240;
@@ -100,31 +106,64 @@ export default function MenuDrawer({ open, setOpen, menuItems }) {
   }));
   const classes = useStyles();
 
+  const [theme, setTheme] = useState(true);
+  const [checked, setChecked] = useState(true);
+
+  const handleColorTheme = () => {
+    setTheme((t) => !t);
+    setChecked((c) => !c);
+    console.log("switched ");
+  };
+
   const handleToggleClose = () => {
     setOpen(false);
   };
 
   return (
-    <div className={classes.root}>
-      {/* Drawer Side menu  */}
-      <Drawer
-        onEscapeKeyDown={handleToggleClose}
-        variant="temporary"
-        classes={{
-          paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
-        }}
-        open={open}
-      >
-        <div className={classes.toolbarIcon}>
-          <IconButton onClick={handleToggleClose}>
-            <ChevronLeftIcon />
-          </IconButton>
-        </div>
-        <Divider />
+    <>
+      {/* TOGGLE THEME */}
+      <MuiThemeProvider theme={theme ? themeActive : light}>
+        <CssBaseline />
+      </MuiThemeProvider>
 
-        <List>{menuItems}</List>
-      </Drawer>
-      {/* Side menu End  */}
-    </div>
+      <div className={classes.root}>
+        {/* Drawer Side menu  */}
+        <Drawer
+          onEscapeKeyDown={handleToggleClose}
+          variant="temporary"
+          classes={{
+            paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+          }}
+          open={open}
+        >
+          <div className={classes.toolbarIcon}>
+            <IconButton onClick={handleToggleClose}>
+              <ChevronLeftIcon />
+            </IconButton>
+          </div>
+          <Divider />
+
+          <List>
+            {" "}
+            <Tooltip
+              arrow
+              placement={"bottom"}
+              aria-label="toggle theme"
+              title="Toggle Theme"
+            >
+              <ListItem button>
+                <ListItemIcon>
+                  <Switch checked={checked} onChange={handleColorTheme} />
+                </ListItemIcon>
+                <ListItemText primary="Dark Mode" />
+              </ListItem>
+            </Tooltip>
+            <Divider />
+            {menuItems}
+          </List>
+        </Drawer>
+        {/* Side menu End  */}
+      </div>
+    </>
   );
 }

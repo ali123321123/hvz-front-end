@@ -19,15 +19,15 @@ import {
   MuiThemeProvider,
   CssBaseline,
 } from "@material-ui/core";
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import EditIcon from "@material-ui/icons/Edit";
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import { light, active } from "../../shared/themeGameCards";
 export default function EditMissionStats({ game }) {
   const moment = require("moment");
 
   const useStyles = makeStyles((theme) => ({
     root: {
-      color: "black"
+      color: "black",
     },
   }));
   const classes = useStyles();
@@ -41,8 +41,10 @@ export default function EditMissionStats({ game }) {
   const {
     data: missions,
     error: missionsError,
-  } = useSWR(`${Endpoints.GAME_API}/${game.id}/missions`, (url) =>
-    fetcherToken(url, getTokenInStorage()),{refreshInterval: 100}
+  } = useSWR(
+    `${Endpoints.GAME_API}/${game.id}/missions`,
+    (url) => fetcherToken(url, getTokenInStorage()),
+    { refreshInterval: 100 }
   );
 
   useEffect(() => {
@@ -64,12 +66,9 @@ export default function EditMissionStats({ game }) {
     setPage(0);
   };
 
-
   return (
     <>
-    <MuiThemeProvider theme={light}>
-        <CssBaseline />
-      <TableContainer >
+      <TableContainer>
         <Title stickyHeader>Missions</Title>
         <Table stickyHeader aria-label="mission-stats">
           <TableHead>
@@ -108,8 +107,6 @@ export default function EditMissionStats({ game }) {
         onChangePage={handleChangePage}
         onChangeRowsPerPage={handleChangeRowsPerPage}
       />
-      
-      </MuiThemeProvider>
     </>
   );
 }

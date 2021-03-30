@@ -5,6 +5,7 @@ const highlight = "#eef131";
 const black = "#a5a5a5";
 const cardBackground = "#ffffff";
 const white = "#ffffff";
+
 export const light = createMuiTheme({
   palette: {
     type: "light",
@@ -32,6 +33,34 @@ export const light = createMuiTheme({
   },
 
   overrides: {
+    MuiSwitch: {
+      track: {
+        backgroundColor: "red",
+      },
+    },
+
+    MuiFormLabel: {
+      root: {
+        color: primary,
+      },
+    },
+    MuiInputBase: {
+      root: {
+        color: primary,
+      },
+    },
+
+    MuiInputBase: {
+      input: {
+        color: primary,
+      },
+    },
+
+    MuiFormLabel: {
+      root: {
+        color: primary,
+      },
+    },
     MuiGrid: {
       container: {
         justifyContent: "center",
@@ -47,27 +76,27 @@ export const light = createMuiTheme({
       },
     },
     MuiFormLabel: {
-        root: {
-          color: primary,
-        },
+      root: {
+        color: primary,
       },
-      MuiInputBase: {
-        root: {
-          color: primary,
-        },
+    },
+    MuiInputBase: {
+      root: {
+        color: primary,
       },
-  
-      MuiInputBase: {
-        input: {
-          color: primary,
-        },
+    },
+
+    MuiInputBase: {
+      input: {
+        color: primary,
       },
-  
-      MuiFormLabel: {
-        root: {
-          color: primary,
-        },
+    },
+
+    MuiFormLabel: {
+      root: {
+        color: primary,
       },
+    },
 
     MuiCardMedia: {
       root: {
@@ -123,17 +152,34 @@ export const themeActive = createMuiTheme({
   },
   //Override MuiCard
   overrides: {
-    // MuiContainer: {
-    //   root: {
-    //     width: "100%",
-    //     display: "block",
-    //     boxSizing: "border-box",
-    //     marginLeft: "auto",
-    //     marginRight: "auto",
-    //     paddingLeft: "16px",
-    //     paddingRight: "0",
-    //   },
-    // },
+    MuiSwitch: {
+      track: {
+        backgroundColor: "red",
+      },
+    },
+
+    MuiFormLabel: {
+      root: {
+        color: primary,
+      },
+    },
+    MuiInputBase: {
+      root: {
+        color: primary,
+      },
+    },
+
+    MuiInputBase: {
+      input: {
+        color: primary,
+      },
+    },
+
+    MuiFormLabel: {
+      root: {
+        color: primary,
+      },
+    },
 
     MuiListItemIcon: {
       root: {
@@ -413,6 +459,7 @@ export const themeCompleted = createMuiTheme({
 
 export const themeCreateGameForm = createMuiTheme({
   palette: {
+    type: "light",
     primary: {
       //Font color
       main: "#9c27b0",

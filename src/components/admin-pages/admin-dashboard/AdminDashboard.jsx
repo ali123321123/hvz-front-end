@@ -6,6 +6,7 @@ import {
   Container,
   Grid,
   Paper,
+  MuiThemeProvider,
 } from "@material-ui/core";
 import TempInteractiveMap from "./TempInteractiveMap";
 import GameStats from "./GameStats";
@@ -17,6 +18,7 @@ import AppbarMainMenu from "../../shared/AppbarMainMenu";
 import EditGameImage from "../EditGameImage";
 import Auth from "../../../utils/authentication";
 import { useHistory } from "react-router";
+import { themeActive } from "../../shared/themeGameCards";
 
 export default function AdminDashboard(props) {
   const drawerWidth = 240;
@@ -85,49 +87,50 @@ export default function AdminDashboard(props) {
 
   return (
     <div className={classes.root}>
-      <CssBaseline />
       <AppbarMainMenu
         menuTitle={`Dashboard | ${game.name}`}
         menuItems={<MenuItemsAdminDashboard game={game} />}
       />
+      <MuiThemeProvider theme={themeActive}>
+        <CssBaseline />
+        <main className={classes.content}>
+          <div className={classes.appBarSpacer} />
+          <Container maxWidth="lg" className={classes.container}>
+            <Grid container spacing={3}>
+              {/* Player stats */}
+              <Grid item xs={12} md={5} lg={5}>
+                <PlayerStats game={game} />
+              </Grid>
 
-      <main className={classes.content}>
-        <div className={classes.appBarSpacer} />
-        <Container maxWidth="lg" className={classes.container}>
-          <Grid container spacing={3}>
-            {/* Player stats */}
-            <Grid item xs={12} md={5} lg={5}>
-              <PlayerStats game={game} />
-            </Grid>
+              {/* Game Avatar Image */}
+              <Grid item xs={12} md={4} lg={4}>
+                <EditGameImage game={game} />
+              </Grid>
 
-            {/* Game Avatar Image */}
-            <Grid item xs={12} md={4} lg={4}>
-              <EditGameImage game={game} />
-            </Grid>
+              {/* Interactive Map */}
+              <Grid item xs={12} md={5} lg={5}>
+                <Paper className={fixedHeightPaper}>
+                  <TempInteractiveMap />
+                </Paper>
+              </Grid>
 
-            {/* Interactive Map */}
-            <Grid item xs={12} md={5} lg={5}>
-              <Paper className={fixedHeightPaper}>
-                <TempInteractiveMap />
-              </Paper>
-            </Grid>
-            
-            {/* Mission Stats */}
-            <Grid item xs={12} md={7} lg={7}>
-              <Paper className={classes.paper}>
-                <EditMissionStats game={game} />
-              </Paper>
-            </Grid>
+              {/* Mission Stats */}
+              <Grid item xs={12} md={7} lg={7}>
+                <Paper className={classes.paper}>
+                  <EditMissionStats game={game} />
+                </Paper>
+              </Grid>
 
-            {/* Game Stats */}
-            <Grid item xs={12}>
-              <Paper className={classes.paper}>
-                <GameStats game={game} />
-              </Paper>
+              {/* Game Stats */}
+              <Grid item xs={12}>
+                <Paper className={classes.paper}>
+                  <GameStats game={game} />
+                </Paper>
+              </Grid>
             </Grid>
-          </Grid>
-        </Container>
-      </main>
+          </Container>
+        </main>
+      </MuiThemeProvider>
     </div>
   );
 }
