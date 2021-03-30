@@ -6,17 +6,17 @@ import { makeStyles, Paper } from "@material-ui/core";
 import InputBase from "@material-ui/core/InputBase";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
+import SendIcon from '@material-ui/icons/Send';
 import DirectionsIcon from "@material-ui/icons/Directions";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import Chip from "@material-ui/core/Chip";
-import SendIcon from '@material-ui/icons/Send';
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: "2px 4px",
     display: "flex",
     alignItems: "center",
-    width: "90%",
+    width: "100%",
     margin: "auto",
     marginTop: "2%",
   },
@@ -68,11 +68,9 @@ export default function GameChatInput({isGlobal}) {
         value={message}
         onChange={handleMessage}
         onKeyPress={handleMessageEnterPress}
-        placeholder={`Send new chatmessage to ${isGlobal ? 'everyone' : 'your faction'}`}
+        placeholder={`Send new ${isGlobal ? 'global' : 'faction'} chat`}
         inputProps={{ "aria-label": "Send new chatmessage" }}
       />
-
-      <Divider className={classes.divider} orientation="vertical" />
       <IconButton
         color="primary"
         className={classes.iconButton}
