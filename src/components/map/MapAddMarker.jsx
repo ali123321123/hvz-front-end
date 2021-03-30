@@ -1,15 +1,21 @@
 import DateFnsUtils from "@date-io/date-fns";
 import {
   Button,
+  CssBaseline,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
   FormControl,
   Input,
+  MuiThemeProvider,
   TextField,
 } from "@material-ui/core";
-import { KeyboardDateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+import { light } from "@material-ui/core/styles/createPalette";
+import {
+  KeyboardDateTimePicker,
+  MuiPickersUtilsProvider,
+} from "@material-ui/pickers";
 import React, { useState } from "react";
 import { Marker, Popup, useMapEvents } from "react-leaflet";
 
@@ -33,7 +39,6 @@ function MapAddMarker() {
     setOpenInput(false);
   };
 
-
   const handleMissionTitle = (e) => {
     setMissionTitle(e.target.value);
   };
@@ -53,91 +58,96 @@ function MapAddMarker() {
   };
 
   const handleAddButton = () => {
-    setMarkers([...markers, {
-            position: {
-              lat: position.lat,
-              lng: position.lng,
-            },
-            title: missionTitle,
-            description: missionDescription,
-            startTime: startTime,
-            endTime: endTime,
-          },
-    ])
-    setOpenInput(false)
-  }
+    setMarkers([
+      ...markers,
+      {
+        position: {
+          lat: position.lat,
+          lng: position.lng,
+        },
+        title: missionTitle,
+        description: missionDescription,
+        startTime: startTime,
+        endTime: endTime,
+      },
+    ]);
+    setOpenInput(false);
+  };
 
   return (
     <>
-      <Dialog aria-labelledby="customized-dialog-title" open={openInput}>
-        <DialogTitle id="customized-dialog-title" onClose={handleClose}>
-          Add squad mission
-        </DialogTitle>
+      <MuiThemeProvider theme={light}>
+        <CssBaseline />
+        <Dialog aria-labelledby="customized-dialog-title" open={openInput}>
+          <DialogTitle id="customized-dialog-title" onClose={handleClose}>
+            Add squad mission
+          </DialogTitle>
 
-        <form>
-          {/* GAME TITLE & IMAGE */}
-          <DialogContent>
-            <TextField
-              autofocus
-              name="name"
-              label="Mission Title"
-              style={{ padding: "10px" }}
-              onChange={handleMissionTitle}
-            />
-          </DialogContent>
+          <form>
+            {/* GAME TITLE & IMAGE */}
+            <DialogContent>
+              <TextField
+                autofocus
+                name="name"
+                label="Mission Title"
+                style={{ padding: "10px" }}
+                onChange={handleMissionTitle}
+              />
+            </DialogContent>
 
-          <DialogContent>
-            <TextField
-              autofocus
-              name="description"
-              label="Mission Description"
-              style={{ padding: "10px" }}
-              onChange={handleMissionDescription}
-            />
-          </DialogContent>
+            <DialogContent>
+              <TextField
+                autofocus
+                name="description"
+                label="Mission Description"
+                style={{ padding: "10px" }}
+                onChange={handleMissionDescription}
+              />
+            </DialogContent>
 
-          {/* START | END DATE */}
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <KeyboardDateTimePicker
-              id="time-picker"
-              label="Start Date/Time (UTC)"
-              format="MM/dd/yyyy"
-              value={startTime}
-              onChange={handleStartDateChange}
-              InputLabelProps={{
-                shrink: true,
-              }}
-            />
-            <KeyboardDateTimePicker
-              id="time-picker"
-              label="End Date/Time (UTC)"
-              format="MM/dd/yyyy"
-              value={endTime}
-              onChange={handleEndDateChange}
-              minDate={startTime}
-              InputLabelProps={{
-                shrink: true,
-              }}
-            />
-          </MuiPickersUtilsProvider>
-        </form>
+            {/* START | END DATE */}
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <KeyboardDateTimePicker
+                id="time-picker"
+                label="Start Date/Time (UTC)"
+                format="MM/dd/yyyy"
+                value={startTime}
+                onChange={handleStartDateChange}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+              <KeyboardDateTimePicker
+                id="time-picker"
+                label="End Date/Time (UTC)"
+                format="MM/dd/yyyy"
+                value={endTime}
+                onChange={handleEndDateChange}
+                minDate={startTime}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+            </MuiPickersUtilsProvider>
+          </form>
 
-        <Button variant="outlined" onClick={handleAddButton} color="primary">
-          Add mission
-        </Button>
-
-        <DialogActions>
-          <Button autoFocus onClick={handleClose} color="primary">
-            Close
+          <Button variant="outlined" onClick={handleAddButton} color="primary">
+            Add mission
           </Button>
-        </DialogActions>
-      </Dialog>
-      {markers &&
-        markers?.map((m) => (
-          <Marker position={m.position}>
-            <Popup>{m.description}</Popup>
-          </Marker>
-        ))}
+
+          <DialogActions>
+            <Button autoFocus onClick={handleClose} color="primary">
+              Close
+            </Button>
+          </DialogActions>
+        </Dialog>
+        {markers &&
+          markers?.map((m) => (
+            <Marker position={m.position}>
+              <Popup>{m.description}</Popup>
+            </Marker>
+          ))}
+      </MuiThemeProvider>
     </>
   );
 }
