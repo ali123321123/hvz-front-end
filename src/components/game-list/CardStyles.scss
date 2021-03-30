@@ -1,5 +1,5 @@
 $primaryColor: red;
-$secondaryColor: blue;
+$secondaryColor: rgb(63, 63, 63);
 $fontColor: #333;
 $primaryFont: Roboto;
 
@@ -22,7 +22,6 @@ $primaryFont: Roboto;
   display: block;
   width: 100%;
   margin-top: 6em;
-  color: blue;
 }
 
 .mapid {
@@ -35,9 +34,6 @@ $primaryFont: Roboto;
   height: 100%;
 }
 
-.MuiTablePagination-actions {
-  color: "blue";
-}
 .MuiTablePagination-toolbar {
   padding-right: 20px;
 }

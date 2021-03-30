@@ -10,12 +10,9 @@ import MenuItem_OpenRegistration from "../../menu-items/MenuItem_OpenRegistratio
 import MenuIcon from "../../menu-items/MenuIcon";
 import MenuIcon_ThemeToggle from "../../menu-items/MenuIcon_ThemeToggle";
 import { Divider } from "@material-ui/core";
-import UploadImages from "../../upload-images/UploadImages";
 import { useLocation } from "react-router-dom";
 import CreateMissionForm from "./CreateMissionForm";
 import MenuItem_DeleteGame from "../../menu-items/MenuItem_DeleteGame";
-import { getTokenInStorage } from "../../../utils/tokenHelper";
-import Endpoints from "../../../services/endpoints";
 
 export default function MenuItemsAdminDashboard(props) {
   const cloudinaryCore = new Cloudinary({ cloud_name: "debyqnalg" });

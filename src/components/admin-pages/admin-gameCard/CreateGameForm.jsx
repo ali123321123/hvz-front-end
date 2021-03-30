@@ -15,6 +15,8 @@ import {
   FormControl,
   FormGroup,
   FormControlLabel,
+  Grid,
+  Container,
 } from "@material-ui/core";
 import "react-datepicker/dist/react-datepicker.css";
 import {
@@ -136,13 +138,31 @@ const CreateGameForm = ({ open, setOpen }) => {
             <form onSubmit={handleSubmit((data) => setData(data))}>
               {/* GAME TITLE & IMAGE */}
               <DialogContent>
-                <TextField
-                  autofocus
-                  name="name"
-                  label="Game Title"
-                  style={{ padding: "10px" }}
-                  onChange={handleGameTitle}
-                />
+                <Container maxWidth="lg" fluid>
+                  <Grid item xs={6}>
+                    <TextField
+                      autofocus
+                      name="name"
+                      label="Game Title"
+                      style={{ padding: "10px" }}
+                      onChange={handleGameTitle}
+                    />
+
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={handleUpload}
+                      startIcon={<CloudUploadIcon />}
+                    >
+                      Upload Image
+                    </Button>
+                  </Grid>
+                </Container>
+              </DialogContent>
+
+              {/* Interactive Map | UPLOAD IMAGE*/}
+              <DialogContent>
+                <Typography gutterBottom>Interactive Map</Typography>
               </DialogContent>
 
               {/* START | END DATE */}
@@ -170,19 +190,6 @@ const CreateGameForm = ({ open, setOpen }) => {
                 />
               </MuiPickersUtilsProvider>
 
-              {/* Interactive Map | UPLOAD IMAGE*/}
-              <DialogContent>
-                <Typography gutterBottom>Interactive Map</Typography>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handleUpload}
-                  startIcon={<CloudUploadIcon />}
-                >
-                  Upload Image
-                </Button>
-              </DialogContent>
-
               {/* REGISTRATION  */}
               <FormControl component="fieldset">
                 <FormGroup>
@@ -194,18 +201,6 @@ const CreateGameForm = ({ open, setOpen }) => {
                       />
                     }
                     label="Open Registration"
-                  />
-                </FormGroup>
-              </FormControl>
-
-              {/* START GAME */}
-              <FormControl component="fieldset">
-                <FormGroup>
-                  <FormControlLabel
-                    control={
-                      <Checkbox onClick={handleGameState} name="gameState" />
-                    }
-                    label="Start Game"
                   />
                 </FormGroup>
               </FormControl>

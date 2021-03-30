@@ -21,17 +21,8 @@ const MenuItem_StartGame = ({ game }) => {
   const [openPopUp, setopenPopUp] = useState(false);
 
   //Set game and registration state
-  const [gameState, setGameState] = useState();
   const [registrationState, setRegistrationState] = useState();
-
-  const [name, setName] = useState("");
-  const [registrationOpen, setRegistrationOpen] = useState(false);
-  const [startTime, setStartTime] = useState(new Date());
-  const [endTime, setEndTime] = useState(new Date());
-
   const [gameStarted, setGameStarted] = useState();
-  const [gameComplete, setGameComplete] = useState();
-  const [imageUrl, setImageUrl] = useState("");
 
   const startGame = () => {
     fetch(`${Endpoints.GAME_API}/${game.id}/start_game`, {
@@ -64,16 +55,21 @@ const MenuItem_StartGame = ({ game }) => {
   const handleClosePopUp = () => {
     setopenPopUp(false);
   };
-  console.log(game.id);
+
+  console.log(game);
   //Toggle GameState
   const handleGameState = () => {
-    setopenPopUp(false); // close popup
+    setopenPopUp(false);
 
-    startGame();
+    if (gameStarted) {
+      endGame();
+    } else if (!gameStarted) {
+      startGame();
+    }
 
-    setGameState(
-      gameState === game.gameStarted ? game.gameComplete : game.gameStarted
-    );
+    // setGameState(
+    //   gameState === game.gameStarted ? game.gameComplete : game.gameStarted
+    // );
 
     setRegistrationState(
       registrationState === game.registrationOpen
@@ -106,9 +102,7 @@ const MenuItem_StartGame = ({ game }) => {
         <Tooltip
           arrow
           placement={"bottom"}
-          aria-label={
-            !gameState ? `${"game has not started"}` : `${"end game"}`
-          }
+          aria-label={`start game`}
           title={
             !game.gameStarted ? `${"Game has not started"}` : `${"End game"}`
           }
