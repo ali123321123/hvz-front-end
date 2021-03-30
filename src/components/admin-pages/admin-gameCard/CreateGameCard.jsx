@@ -14,9 +14,6 @@ import CreateGameForm from "./CreateGameForm";
 import { AddCircle } from "@material-ui/icons";
 
 function CreateGameCard({ game }) {
-  const moment = require("moment");
-  const cloudinaryCore = new Cloudinary({ cloud_name: "debyqnalg" });
-
   const useStyles = makeStyles((theme) => ({
     largeButton: {
       padding: 24,
@@ -39,7 +36,7 @@ function CreateGameCard({ game }) {
         <Card style={{ textAlign: "center" }}>
           <CardContent>{""}</CardContent>
           <CardContent
-            button
+            button="true"
             onClick={handleClickOpen}
             style={{ paddingTop: "100px" }}
           >

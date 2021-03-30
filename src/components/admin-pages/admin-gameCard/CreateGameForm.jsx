@@ -138,10 +138,11 @@ const CreateGameForm = ({ open, setOpen }) => {
             <form onSubmit={handleSubmit((data) => setData(data))}>
               {/* GAME TITLE & IMAGE */}
               <DialogContent>
-                <Container maxWidth="lg" fluid>
-                  <Grid item xs={6}>
+                <Container maxWidth="lg">
+                  <Grid item xs={6} color="primary">
                     <TextField
-                      autofocus
+                      autoFocus
+                      color="primary"
                       name="name"
                       label="Game Title"
                       style={{ padding: "10px" }}
@@ -194,6 +195,7 @@ const CreateGameForm = ({ open, setOpen }) => {
               <FormControl component="fieldset">
                 <FormGroup>
                   <FormControlLabel
+                    color="inherit"
                     control={
                       <Checkbox
                         onClick={handleRegistration}

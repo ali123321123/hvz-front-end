@@ -3,8 +3,6 @@ import Typography from "@material-ui/core/Typography";
 import { Box, LinearProgress, TableCell } from "@material-ui/core";
 
 const CalculateTime = ({ game }) => {
-  const moment = require("moment");
-
   const [progress, setProgress] = useState(10);
   const [timeCalculation, setTimeCalculation] = useState();
   const [calculationText, setCalculationText] = useState("");
@@ -43,13 +41,6 @@ const CalculateTime = ({ game }) => {
   }, [game]);
   return (
     <>
-      <TableCell alignItems="center">
-        {moment(`${game.startTime}`).format("MMMM Do YYYY, HH:mm ")}
-      </TableCell>
-      <TableCell>
-        {moment(`${game.endTime}`).format("MMMM Do YYYY, HH:mm ")}
-      </TableCell>
-
       <Typography variant="h4" style={{ marginTop: "10px" }}>
         {timeCalculation} minutes
       </Typography>

@@ -8,11 +8,12 @@ import {
 } from "@material-ui/core";
 import { HighlightOff, PlayCircleOutline } from "@material-ui/icons";
 import DialogPopUp from "../admin-pages/admin-dashboard/DialogPopUp";
-import { useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { getTokenInStorage } from "../../utils/tokenHelper";
 import Endpoints from "../../services/endpoints";
 
 const MenuItem_StartGame = ({ game }) => {
+  const history = useHistory();
   //Text constants for Buttons and Dialog
   const gameStart = "Start Game";
   const gameEnd = "End Game";
@@ -22,7 +23,6 @@ const MenuItem_StartGame = ({ game }) => {
 
   //Set game and registration state
   const [registrationState, setRegistrationState] = useState();
-  const [gameStarted, setGameStarted] = useState();
 
   const startGame = () => {
     fetch(`${Endpoints.GAME_API}/${game.id}/start_game`, {
@@ -56,20 +56,19 @@ const MenuItem_StartGame = ({ game }) => {
     setopenPopUp(false);
   };
 
-  console.log(game);
   //Toggle GameState
   const handleGameState = () => {
     setopenPopUp(false);
+    if (game.gameStarted) {
+      window.confirm("Game has ended");
 
-    if (gameStarted) {
+      history.push("/admin");
       endGame();
-    } else if (!gameStarted) {
+    } else if (!game.gameStarted) {
+      window.confirm("Game has started!");
+      history.push("/admin");
       startGame();
     }
-
-    // setGameState(
-    //   gameState === game.gameStarted ? game.gameComplete : game.gameStarted
-    // );
 
     setRegistrationState(
       registrationState === game.registrationOpen

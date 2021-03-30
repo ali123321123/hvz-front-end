@@ -14,50 +14,47 @@ import Header from "./components/header/Header";
 import RegisterPage from "./pages/RegisterPage";
 import RulesPage from "./pages/RulesPage";
 
-
 function App() {
   return (
-    <ThemeProvider>
-      <MuiThemeProvider theme={themeActive}>
-        <CssBaseline />
-        <Router>
-          <Switch>
-            <Route exact path="/">
-              <Home />
-            </Route>
-            <Route path="/rules" component={RulesPage} />
-            <Route path="/login" component={LoginPage} />
+    <MuiThemeProvider theme={themeActive}>
+      <CssBaseline />
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="/rules" component={RulesPage} />
+          <Route path="/login" component={LoginPage} />
 
-            <Route path="/register" component={RegisterPage} />
-            <Route
-              path="/admin"
-              render={({ match: { url } }) => (
-                <>
-                  <Route path={`${url}/`} component={AdminPage} exact />
-                  <Route path={`${url}/game/:id`} component={AdminDashboard} />
-                </>
-              )}
-            ></Route>
+          <Route path="/register" component={RegisterPage} />
+          <Route
+            path="/admin"
+            render={({ match: { url } }) => (
+              <>
+                <Route path={`${url}/`} component={AdminPage} exact />
+                <Route path={`${url}/game/:id`} component={AdminDashboard} />
+              </>
+            )}
+          ></Route>
 
-            <Route path="/profile/">
-              <Header />
-              <ProfilePage />
-            </Route>
-            <Route path="/game/:id/chat">
-              <Header />
-              <GameChatPage />
-            </Route>
-            <Route path="/game/:id">
-              <Header />
-              <GameDetailsPage />
-            </Route>
-            <Route path="*">
-              <NotFound />
-            </Route>
-          </Switch>
-        </Router>
-      </MuiThemeProvider>
-    </ThemeProvider>
+          <Route path="/profile/">
+            <Header />
+            <ProfilePage />
+          </Route>
+          <Route path="/game/:id/chat">
+            <Header />
+            <GameChatPage />
+          </Route>
+          <Route path="/game/:id">
+            <Header />
+            <GameDetailsPage />
+          </Route>
+          <Route path="*">
+            <NotFound />
+          </Route>
+        </Switch>
+      </Router>
+    </MuiThemeProvider>
   );
 }
 

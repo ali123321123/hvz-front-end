@@ -15,6 +15,7 @@ import {
   FormControl,
   FormGroup,
   FormControlLabel,
+  TableCell,
 } from "@material-ui/core";
 import "react-datepicker/dist/react-datepicker.css";
 import {
@@ -24,7 +25,7 @@ import {
 import "date-fns";
 import DateFnsUtils from "@date-io/date-fns";
 import CloseIcon from "@material-ui/icons/Close";
-import { themeCreateGameForm } from "../../shared/themeGameCards";
+import { light } from "../../shared/themeGameCards";
 import Endpoints from "../../../services/endpoints";
 import { getTokenInStorage } from "../../../utils/tokenHelper";
 import { useParams } from "react-router";
@@ -40,8 +41,6 @@ const CreateMissionForm = ({ openMission, setOpenMission }) => {
   const [isZombieVisible, setIsZombieVisible] = useState(false);
   const [startTime, setStartTime] = useState(new Date());
   const [endTime, setEndTime] = useState(new Date());
-
-  const [imageUrl, setImageUrl] = useState("");
 
   const updateGame = () => {
     let data = {
@@ -70,8 +69,6 @@ const CreateMissionForm = ({ openMission, setOpenMission }) => {
     setOpenMission(false);
   };
 
-  console.log("gameID", gameId);
-
   const handleMissionTitle = (e) => {
     setName(e.target.value);
   };
@@ -92,18 +89,16 @@ const CreateMissionForm = ({ openMission, setOpenMission }) => {
   };
 
   const handleStartDateChange = (date) => {
-    console.log(date);
     setStartTime(date);
   };
 
   const handleEndDateChange = (date) => {
-    console.log(date);
     setEndTime(date);
   };
 
   return (
     <div>
-      <MuiThemeProvider theme={themeCreateGameForm}>
+      <MuiThemeProvider theme={light}>
         <CssBaseline />
         <Dialog
           open={openMission}
@@ -127,9 +122,11 @@ const CreateMissionForm = ({ openMission, setOpenMission }) => {
 
             <form onSubmit={handleSubmit((data) => setData(data))}>
               {/* GAME TITLE & IMAGE */}
+
               <DialogContent>
                 <TextField
-                  autofocus
+                  required
+                  autoFocus
                   name="name"
                   label="Mission Title"
                   style={{ padding: "10px" }}
@@ -139,7 +136,8 @@ const CreateMissionForm = ({ openMission, setOpenMission }) => {
 
               <DialogContent>
                 <TextField
-                  autofocus
+                  required
+                  autoFocus
                   name="description"
                   label="Mission Description"
                   style={{ padding: "10px" }}

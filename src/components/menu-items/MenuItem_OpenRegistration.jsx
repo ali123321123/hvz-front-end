@@ -54,7 +54,6 @@ const MenuItem_OpenRegistration = ({ disabled }) => {
   useEffect(() => {
     setGame(location.state);
   }, [location.state]);
-  console.log(game.registrationOpen);
 
   return (
     <div>

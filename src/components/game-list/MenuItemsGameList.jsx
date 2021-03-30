@@ -1,14 +1,9 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { Divider } from "@material-ui/core";
-import BrightnessMedium from "@material-ui/icons/BrightnessMedium";
-import MenuIcon_ThemeToggle from "../menu-items/MenuIcon_ThemeToggle";
 import MenuIcon from "../menu-items/MenuIcon";
 import {
   AccountCircle,
   QueryBuilder,
   RadioButtonChecked,
-  RadioButtonUnchecked,
   Timelapse,
   Gavel,
 } from "@material-ui/icons";
@@ -31,11 +26,6 @@ export default function MenuItemsGameList() {
 
   return (
     <div>
-      {/* TOGGLE THEME */}
-      <MenuIcon_ThemeToggle />
-
-      <Divider />
-
       <MenuIcon
         menuIcon={<AccountCircle />}
         title={"Profile"}
