@@ -38,20 +38,21 @@ export default function PlayerStats({ game }) {
         <section
           style={{
             position: "relative",
-            width: "15vw",
-            height: "15vw",
-            padding: "5% 0",
-            margin: "1em auto",
-            border: "4px dashed white",
+            width: "25%",
+            paddingBottom: "25% ",
             borderRadius: "50%",
+            margin: "2em auto ",
+            border: "2px dashed #00ffd5",
+            // boxShadow: "0px 0px 40px 15px #00ffd5",
           }}
         >
           <article
             style={{
-              top: "0",
-              left: "0",
-              width: "100%",
-              height: " 100%",
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              margin: " 0",
             }}
           >
             <span
@@ -63,7 +64,7 @@ export default function PlayerStats({ game }) {
               <Typography variant="h4">
                 {humanPlayers + zombiePlayers}
               </Typography>
-              <Typography color="textPrimary">Players</Typography>
+              <Typography color="primary">Players</Typography>
             </span>
           </article>
         </section>

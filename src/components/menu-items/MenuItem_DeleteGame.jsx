@@ -73,7 +73,7 @@ const MenuItem_DeleteGame = ({ game }) => {
           title="Delete Game"
         >
           <ListItem
-            disabled={game.gameComplete ? true : false}
+            // disabled={game.gameComplete ? true : false}
             button
             // onClick={handleClickOpenPopUp}
             onClick={deleteGame}

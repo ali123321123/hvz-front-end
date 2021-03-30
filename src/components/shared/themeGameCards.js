@@ -7,7 +7,7 @@ const cardBackground = "#ffffff";
 const white = "#ffffff";
 export const light = createMuiTheme({
   palette: {
-    // type: "light",
+    type: "light",
     primary: {
       //Font color
       main: "#9c27b0",
@@ -35,7 +35,6 @@ export const light = createMuiTheme({
     MuiGrid: {
       container: {
         justifyContent: "center",
-        // backgroundColor: "blue",
       },
     },
     MuiCard: {
@@ -144,7 +143,6 @@ export const themeActive = createMuiTheme({
     MuiGrid: {
       container: {
         justifyContent: "center",
-        // backgroundColor: "blue",
       },
     },
 
