@@ -110,6 +110,19 @@ function GameList() {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+  // Navigation / scrolling from menu items
+  const activeGamesRef = React.useRef(null);
+  const upcomingGamesRef = React.useRef(null);
+  const completedGamesRef = React.useRef(null);
+  const handleClickActive = () => {
+    activeGamesRef.current.scrollIntoView();
+  }
+  const handleClickUpcoming = () => {
+    upcomingGamesRef.current.scrollIntoView();
+  }
+  const handleClickCompleted = () => {
+    completedGamesRef.current.scrollIntoView();
+  }
   return (
     <>
       {loading ? (
@@ -117,7 +130,10 @@ function GameList() {
       ) : (
         <div className={classes.root}>
           {/* APP BAR  */}
-          <AppbarMainMenu menuItems={<MenuItemsGameList />} />
+          <AppbarMainMenu menuItems={<MenuItemsGameList 
+          handleClickActive={handleClickActive} 
+          handleClickUpcoming={handleClickUpcoming} 
+          handleClickCompleted={handleClickCompleted}/>} />
           <div
             style={{
               marginTop: "6em",
@@ -136,7 +152,7 @@ function GameList() {
               <MuiThemeProvider theme={themeActive}>
                 <CssBaseline />
                 {/* ACTIVE GAMES */}
-                <article className="gameTitle">
+                <article className="gameTitle" ref={activeGamesRef}>
                   <Typography variant="h3" color="primary" component="p">
                     Active games
                   </Typography>
@@ -191,7 +207,7 @@ function GameList() {
               <MuiThemeProvider theme={themeUpcoming}>
                 <CssBaseline />
 
-                <article className="gameTitle">
+                <article className="gameTitle" ref={upcomingGamesRef}>
                   <Typography variant="h3" color="primary" component="p">
                     Upcoming games
                   </Typography>
@@ -242,7 +258,7 @@ function GameList() {
               {/* COMPLETED GAMES */}
               <MuiThemeProvider theme={themeCompleted}>
                 <CssBaseline />
-                <article className="gameTitle">
+                <article className="gameTitle" ref={completedGamesRef}>
                   <Typography variant="h3" color="primary" component="p">
                     Completed games
                   </Typography>
