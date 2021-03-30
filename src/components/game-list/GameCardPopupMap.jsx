@@ -10,7 +10,6 @@ function GameCardPopupMap({ gameName, playAreaCoordinates, centerAreaCoordinates
       
         <Map center={centerAreaCoordinates} zoomBounds={playAreaCoordinates} scrollWheelZoom={false}>
           <Rectangle bounds={playAreaCoordinates} />
-          
         </Map>
 
   );

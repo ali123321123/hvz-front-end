@@ -1,0 +1,101 @@
+[33mcommit 01c316ee476bd97ad21eb35623c4c2526c46c51c[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: Lars Vidar Amundsen Lien <lars@laff.no>
+Date:   Tue Mar 30 17:24:46 2021 +0200
+
+    login enter keypress, join game ok
+
+[1mdiff --git a/src/components/admin-pages/admin-dashboard/AdminAPI.jsx b/src/components/admin-pages/admin-dashboard/AdminAPI.jsx[m
+[1mindex bba16d4..4148a60 100644[m
+[1m--- a/src/components/admin-pages/admin-dashboard/AdminAPI.jsx[m
+[1m+++ b/src/components/admin-pages/admin-dashboard/AdminAPI.jsx[m
+[36m@@ -34,7 +34,7 @@[m [mexport const UpdateMission = (data, id) => {[m
+   };[m
+ [m
+   export const DeletePlayer = (playerId) => {[m
+[31m-    fetch(`${Endpoints.MISSION_API}/${playerId}`, {[m
+[32m+[m[32m    fetch(`${Endpoints.PLAYERS_API}/${playerId}`, {[m
+       method: "DELETE",[m
+       headers: {[m
+         Authorization: "Bearer " + getTokenInStorage(),[m
+[1mdiff --git a/src/components/game-list/GameCardPopup.jsx b/src/components/game-list/GameCardPopup.jsx[m
+[1mindex 05c1da3..8ec6823 100644[m
+[1m--- a/src/components/game-list/GameCardPopup.jsx[m
+[1m+++ b/src/components/game-list/GameCardPopup.jsx[m
+[36m@@ -15,6 +15,8 @@[m [mimport GameCardPopupMap from "./GameCardPopupMap";[m
+ import "./CardStyles.scss";[m
+ import { useSelector } from "react-redux";[m
+ import Auth from "../../utils/authentication";[m
+[32m+[m[32mimport {decodedToken, getTokenInStorage} from "../../utils/tokenHelper"[m
+[32m+[m[32mimport Endpoints from "../../services/endpoints";[m
+ [m
+ const GameCardPopUp = ({ game, open, setOpen }) => {[m
+   // const user = useSelector((state) => state.loggedInUser);[m
+[36m@@ -29,7 +31,23 @@[m [mconst GameCardPopUp = ({ game, open, setOpen }) => {[m
+ [m
+   const handleJoinButton = () => {[m
+     if (Auth.userIsLoggedIn()) {[m
+[31m-      // need functionality to bake user join game and become player in that game.[m
+[32m+[m[41m        [m
+[32m+[m[32m        let data = {[m
+[32m+[m[32m            userId: decodedToken().unique_name,[m
+[32m+[m[32m            gameId: game.id[m
+[32m+[m[32m        }[m
+[32m+[m[32m            fetch(`${Endpoints.GAME_API}/${game.id}/join_game`, {[m
+[32m+[m[32m              method: "Post",[m
+[32m+[m[32m              headers: {[m
+[32m+[m[32m                Authorization: "Bearer " + getTokenInStorage(),[m
+[32m+[m[32m                "Content-Type": "application/json",[m
+[32m+[m[32m              },[m
+[32m+[m[32m              body: JSON.stringify(data),[m
+[32m+[m[32m            }).then((res) =>[m
+[32m+[m[32m              res.json().then((res) => {[m
+[32m+[m[32m                console.warn("result", res);[m
+[32m+[m[32m              })[m
+[32m+[m[32m            );[m
+       history.push(`/game/${game.id}`);[m
+       return;[m
+     }[m
+[36m@@ -79,11 +97,7 @@[m [mconst GameCardPopUp = ({ game, open, setOpen }) => {[m
+           )}[m
+ [m
+           <Typography gutterBottom>[m
+[31m-            <br />[m
+[31m-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum,[m
+[31m-            eligendi? Qui tenetur aut reiciendis dolorum laborum magnam minima[m
+[31m-            nisi, ducimus quis earum atque ipsam commodi temporibus doloribus,[m
+[31m-            quod exercitationem excepturi.[m
+[32m+[m[32m            {game.description}[m
+           </Typography>[m
+           <Button variant="outlined" onClick={handleJoinButton} color="primary">[m
+             Join Game[m
+[1mdiff --git a/src/components/login/LoginForm.jsx b/src/components/login/LoginForm.jsx[m
+[1mindex 314c293..431df19 100644[m
+[1m--- a/src/components/login/LoginForm.jsx[m
+[1m+++ b/src/components/login/LoginForm.jsx[m
+[36m@@ -59,6 +59,10 @@[m [mfunction LoginForm({ game }) {[m
+     setPassword(e.target.value);[m
+   };[m
+ [m
+[32m+[m[32m  const handleLoginEnterPress = e => {[m
+[32m+[m[32m    if(e.key === 'Enter') handleLogin()[m
+[32m+[m[32m}[m
+[32m+[m
+   const handleLogin = async () => {[m
+     if (username === "" || password === "") {[m
+       errorToaster("Username or password is empty");[m
+[36m@@ -117,6 +121,7 @@[m [mfunction LoginForm({ game }) {[m
+               id="UsernameInput"[m
+               aria-describedby="username"[m
+               onChange={handleUsernameChange}[m
+[32m+[m[32m              onKeyPress={handleLoginEnterPress}[m
+             />[m
+ [m
+             {/* <FormHelperText id="my-helper-text">[m
+[36m@@ -139,6 +144,7 @@[m [mfunction LoginForm({ game }) {[m
+               id="PasswordInput"[m
+               aria-describedby="password"[m
+               onChange={handlePasswordChange}[m
+[32m+[m[32m              onKeyPress={handleLoginEnterPress}[m
+             />[m
+             {/* <FormHelperText id="my-helper-text">[m
+               We'll never share your email.[m

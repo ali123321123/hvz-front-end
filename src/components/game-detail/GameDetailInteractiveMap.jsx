@@ -19,7 +19,7 @@ function GameDetailInteractiveMap({playAreaCoordinates, scrollWheelZoom}) {
       {centerArea && (
         <Map center={centerArea} zoomBounds={playAreaCoordinates} scrollWheelZoom={scrollWheelZoom}>
           <Rectangle bounds={playAreaCoordinates} />
-          <MapAddMarker/>
+          <MapAddMarker />
 
         </Map>
       )}

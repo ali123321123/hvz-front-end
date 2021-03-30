@@ -28,6 +28,8 @@ export default function MenuItemsAdminDashboard(props) {
   const [open, setOpen] = useState(false);
   const [openMission, setOpenMission] = useState(false);
 
+  const [centerArea, setCenterArea] = useState([]);
+
   const history = useHistory();
 
   const handleClickOpen = () => {
@@ -48,6 +50,7 @@ export default function MenuItemsAdminDashboard(props) {
   useEffect(() => {
     setGame(location.state);
   }, [location.state]);
+
 
   return (
     <div>
@@ -70,6 +73,7 @@ export default function MenuItemsAdminDashboard(props) {
         menuIcon={<AddLocation />}
         title={"Add Mission"}
         onClick={handleClickOpenMission}
+        
       />
       {/* BTN: ADD EDIT PLAYERS */}
       <MenuIcon
@@ -91,6 +95,7 @@ export default function MenuItemsAdminDashboard(props) {
         <CreateMissionForm
           openMission={openMission}
           setOpenMission={setOpenMission}
+          game={game}
         />
       )}
       {/*Rules & Instruction*/}

@@ -29,14 +29,14 @@ import { light } from "../../shared/themeGameCards";
 import Endpoints from "../../../services/endpoints";
 import { getTokenInStorage } from "../../../utils/tokenHelper";
 import { useHistory, useLocation, useParams } from "react-router";
+import Map from "../../map/Map";
+import MapAddMarker from "../../map/MapAddMarker";
 
-const CreateMissionForm = ({ openMission, setOpenMission }) => {
+const CreateMissionForm = ({ openMission, setOpenMission, game }) => {
   const location = useLocation();
   const { id: gameId } = useParams();
   const { handleSubmit } = useForm();
   const [setData] = useState(null);
-
-  const [game, setGame] = useState({});
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -54,8 +54,8 @@ const CreateMissionForm = ({ openMission, setOpenMission }) => {
       description,
       startTime,
       endTime,
-      lat: 20,
-      lang: 30,
+      lat: markerPosition.lat,
+      lng: markerPosition.lng,
       gameId: gameId,
     };
 
@@ -74,9 +74,7 @@ const CreateMissionForm = ({ openMission, setOpenMission }) => {
     window.location.reload();
   };
 
-  useEffect(() => {
-    setGame(location.state);
-  }, [location.state]);
+  const [markerPosition, setMarkerPosition] = useState([])
 
   const handleMissionTitle = (e) => {
     setName(e.target.value);
@@ -105,6 +103,8 @@ const CreateMissionForm = ({ openMission, setOpenMission }) => {
     setEndTime(date);
   };
 
+  
+
   return (
     <div>
       <MuiThemeProvider theme={light}>
@@ -113,7 +113,6 @@ const CreateMissionForm = ({ openMission, setOpenMission }) => {
           open={openMission}
           fullWidth
           onClose={handleClose}
-          maxWidth="sm"
           aria-labelledby="responsive-dialog-title"
         >
           <DialogActions>
@@ -203,9 +202,14 @@ const CreateMissionForm = ({ openMission, setOpenMission }) => {
               </FormControl>
 
               {/* Interactive Map | UPLOAD IMAGE*/}
-              <DialogContent>
-                <Typography gutterBottom>Interactive Map</Typography>
-              </DialogContent>
+              {game && (
+                 <DialogContent style={{height: "20em"}}>
+                <Map center={[(game.nW_lat + game.sE_lat) / 2, (game.nW_lng + game.sE_lng) / 2 ]} scrollWheelZoom={true}>
+                    <MapAddMarker setMarkerPosition={setMarkerPosition}/>
+                </Map>
+              </DialogContent> 
+              )}
+              
 
               {/* BUTTON CREATE MISSION */}
               <section>

@@ -16,24 +16,15 @@ import {
   Typography,
 } from "@material-ui/core";
 
-export default function MissionStats({ game }) {
+export default function MissionStats({ game, missions }) {
   const moment = require("moment");
 
   const [activeMissions, setActiveMissions] = useState();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(3);
-  //Fech Missions
-  const {
-    data: missions,
-    error: missionsError,
-  } = useSWR(`${Endpoints.GAME_API}/${game.id}/missions`, (url) =>
-    fetcherToken(url, getTokenInStorage())
-  );
+  
 
   useEffect(() => {
-    if (missionsError) {
-      console.log(missionsError);
-    }
     if (missions && game) {
       setActiveMissions(missions.filter((f) => f.gameID == game.id));
     }
