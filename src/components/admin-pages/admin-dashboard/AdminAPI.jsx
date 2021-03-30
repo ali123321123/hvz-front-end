@@ -34,7 +34,7 @@ export const UpdateMission = (data, id) => {
   };
 
   export const DeletePlayer = (playerId) => {
-    fetch(`${Endpoints.MISSION_API}/${playerId}`, {
+    fetch(`${Endpoints.PLAYERS_API}/${playerId}`, {
       method: "DELETE",
       headers: {
         Authorization: "Bearer " + getTokenInStorage(),
