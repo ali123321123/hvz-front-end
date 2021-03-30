@@ -14,21 +14,28 @@ import { getTokenInStorage } from "../../../utils/tokenHelper";
 import { useSelector } from "react-redux";
 import Title from "./Title";
 import { TableContainer, TablePagination } from "@material-ui/core";
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
+import { DeletePlayer } from "./AdminAPI";
+import Button from "@material-ui/core/Button";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Dialog from "@material-ui/core/Dialog";
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import GameStatsRow from "./GameStatsRow"
 
 export default function GameStats({ game }) {
   const moment = require("moment");
 
-  // const user = useSelector((state) => state.loggedInUser);
 
-  const noSquad = "No Squad";
-  const patientZero = "Patient Zero";
 
-  //Fech players
+  //Fetch players
   const {
     data: players,
     error: playersError,
   } = useSWR(`${Endpoints.GAME_API}/${game.id}/players`, (url) =>
-    fetcherToken(url, getTokenInStorage())
+    fetcherToken(url, getTokenInStorage()),{refreshInterval:1}
   );
 
   //Fech Squad
@@ -39,16 +46,7 @@ export default function GameStats({ game }) {
     fetcherToken(url, getTokenInStorage())
   );
 
-  useEffect(() => {
-    if (players) {
-      players.forEach(
-        (p) =>
-          (p.squad = squads.find((s) =>
-            s.squadMembers.some((sm) => sm.playerId == p.id)
-          ))
-      );
-    }
-  }, []);
+
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -62,6 +60,9 @@ export default function GameStats({ game }) {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+
+
+
 
   return (
     <>
@@ -79,51 +80,14 @@ export default function GameStats({ game }) {
               <TableCell>Player Type</TableCell>
               <TableCell>Bite Code</TableCell>
               <TableCell>Squad Name</TableCell>
+              <TableCell></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {players
               ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((p) => (
-                <TableRow key={p.id}>
-                  <TableCell color="primary">{p.name}</TableCell>
-                  <TableCell color="primary">
-                    {p.isHuman ? (
-                      <Typography variant="body2" style={{ color: "#3bbb4c" }}>
-                        Human
-                      </Typography>
-                    ) : p.isPatientZero ? (
-                      <Typography
-                        variant="body2"
-                        style={{
-                          color: "#df1b55",
-
-                          fontStyle: "italic",
-                        }}
-                      >
-                        {patientZero}
-                      </Typography>
-                    ) : (
-                      <Typography variant="body2" style={{ color: "#df1b55" }}>
-                        Zombie
-                      </Typography>
-                    )}
-                  </TableCell>
-                  <TableCell>{p.biteCode}</TableCell>
-                  <TableCell>
-                    {p.squadName ? (
-                      p.squadName
-                    ) : (
-                      <Typography
-                        variant="body2"
-                        color="secondary"
-                        style={{ fontStyle: "italic" }}
-                      >
-                        {noSquad}
-                      </Typography>
-                    )}
-                  </TableCell>
-                </TableRow>
+                <GameStatsRow p={p} />
               ))}
           </TableBody>
         </Table>

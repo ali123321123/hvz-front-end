@@ -1,14 +1,11 @@
 import { useState, useEffect } from "react";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
-import {
-  Typography,
-  TextField,
-} from "@material-ui/core";
+import { Typography, TextField } from "@material-ui/core";
 import SaveIcon from "@material-ui/icons/Save";
 import BlockIcon from "@material-ui/icons/Block";
 import EditIcon from "@material-ui/icons/Edit";
-import DoneIcon from '@material-ui/icons/Done';
+import DoneIcon from "@material-ui/icons/Done";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import { DeleteMission, UpdateMission } from "./AdminAPI";
 import "react-datepicker/dist/react-datepicker.css";
@@ -18,9 +15,12 @@ import {
 } from "@material-ui/pickers";
 import "date-fns";
 import DateFnsUtils from "@date-io/date-fns";
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
+import FormGroup from "@material-ui/core/FormGroup";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Switch from "@material-ui/core/Switch";
+import Button from "@material-ui/core/Button";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Dialog from "@material-ui/core/Dialog";
 
 export default function MissionStatsRow({ mission }) {
   const moment = require("moment");
@@ -63,9 +63,11 @@ export default function MissionStatsRow({ mission }) {
   const handleMissionLongtitude = (e) => setlongtitude(e.target.value);
 
   // Event handlers
-  const handleDeleteMissionClick = () => {
-    DeleteMission(mission.id);
-  };
+  const handleDeleteMissionClick = () => setDeleteMissionDialogOpen(true);
+
+  const handleMissionDialogYes = () => DeleteMission(mission.id);
+
+  const [deleteMissionDialogOpen, setDeleteMissionDialogOpen] = useState();
 
   const handleEditMissionClick = () => setEditMission(!editMission);
 
@@ -73,17 +75,17 @@ export default function MissionStatsRow({ mission }) {
 
   const handleCompleteMissionClick = () => {
     let data = {
-        ...mission,
-        isComplete: !mission.isComplete,
-        endTime: new Date(Date.now()).toISOString(),
-      };
-  console.log(data);
-      UpdateMission(data, mission.id)
-  }
+      ...mission,
+      isComplete: !mission.isComplete,
+      endTime: new Date(Date.now()).toISOString(),
+    };
+    console.log(data);
+    UpdateMission(data, mission.id);
+  };
 
   const handleSaveMissionClick = () => {
     let data = {
-        ...mission,
+      ...mission,
       name: name,
       isHumanVisible: isHumanVisible,
       isZombieVisible: !isHumanVisible,
@@ -93,18 +95,19 @@ export default function MissionStatsRow({ mission }) {
       lng: longtitude,
       isComplete: isComplete,
     };
-console.log(data);
-    UpdateMission(data, mission.id)
-      setEditMission(false);
+    console.log(data);
+    UpdateMission(data, mission.id);
+    setEditMission(false);
   };
-
 
   return (
     <>
       <TableRow key={mission.id} hover role="checkbox">
         {!editMission ? (
           <>
-            <TableCell>{mission.isComplete ? mission.name+"(Complete)" : mission.name}</TableCell>
+            <TableCell>
+              {mission.isComplete ? mission.name + "(Complete)" : mission.name}
+            </TableCell>
 
             <TableCell>
               {moment(`${mission.startTime}`).format("MMMM Do YYYY, HH:mm ")}-
@@ -129,23 +132,45 @@ console.log(data);
               )}
             </TableCell>
             <TableCell>
-                <DoneIcon
+              <DoneIcon
                 style={{ cursor: "pointer" }}
                 onClick={handleCompleteMissionClick}
               />
-              </TableCell>
-              <TableCell>
+            </TableCell>
+            <TableCell>
               <EditIcon
                 style={{ cursor: "pointer" }}
                 onClick={handleEditMissionClick}
               />
-              </TableCell>
-              <TableCell>
+            </TableCell>
+            <TableCell>
               <DeleteForeverIcon
                 style={{ color: "red", cursor: "pointer" }}
                 onClick={handleDeleteMissionClick}
               />
             </TableCell>
+            <Dialog
+              aria-labelledby="simple-dialog-title"
+              open={deleteMissionDialogOpen}
+            >
+              <DialogTitle id="simple-dialog-title">
+                Are you sure you want to delete this mission
+              </DialogTitle>
+              <Button
+                variant="outlined"
+                color="primary"
+                onClick={handleMissionDialogYes}
+              >
+                Yes
+              </Button>
+              <Button
+                variant="outlined"
+                color="primary"
+                onClick={() => setDeleteMissionDialogOpen(false)}
+              >
+                Cancel
+              </Button>
+            </Dialog>
           </>
         ) : (
           <>
@@ -155,7 +180,7 @@ console.log(data);
                 name="name"
                 label="Mission Title"
                 value={name}
-                style={{ padding: "10px"}}
+                style={{ padding: "10px" }}
                 onChange={handleMissionTitle}
               />
             </TableCell>
@@ -205,8 +230,8 @@ console.log(data);
                 style={{ cursor: "pointer" }}
                 onClick={handleSaveMissionClick}
               />
-              </TableCell>
-              <TableCell>
+            </TableCell>
+            <TableCell>
               <BlockIcon
                 style={{ color: "red", cursor: "pointer" }}
                 onClick={handleCancelClick}
