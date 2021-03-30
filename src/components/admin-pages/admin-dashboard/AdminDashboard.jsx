@@ -10,6 +10,7 @@ import {
 import TempInteractiveMap from "./TempInteractiveMap";
 import GameStats from "./GameStats";
 import MissionStats from "./MissionStats";
+import EditMissionStats from "./EditMissionStats";
 import PlayerStats from "./PlayerStats";
 import MenuItemsAdminDashboard from "./MenuItemsAdminDashboard";
 import AppbarMainMenu from "../../shared/AppbarMainMenu";
@@ -110,11 +111,11 @@ export default function AdminDashboard(props) {
                 <TempInteractiveMap />
               </Paper>
             </Grid>
-
+            
             {/* Mission Stats */}
             <Grid item xs={12} md={7} lg={7}>
               <Paper className={classes.paper}>
-                <MissionStats game={game} />
+                <EditMissionStats game={game} />
               </Paper>
             </Grid>
 

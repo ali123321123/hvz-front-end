@@ -18,7 +18,7 @@ import { useSelector } from "react-redux";
 import Auth from "../../utils/authentication";
 
 const GameCardPopUp = ({ game, open, setOpen }) => {
-  const user = useSelector((state) => state.loggedInUser);
+//   const user = useSelector((state) => state.loggedInUser);
   const history = useHistory();
 
   const [playArea, setPlayArea] = useState(null);

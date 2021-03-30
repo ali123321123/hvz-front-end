@@ -16,7 +16,7 @@ import Title from "./Title";
 import { TableContainer, TablePagination } from "@material-ui/core";
 
 export default function GameStats({ game }) {
-  const user = useSelector((state) => state.loggedInUser);
+//   const user = useSelector((state) => state.loggedInUser);
 
   const noSquad = "No Squad";
   const patientZero = "Patient Zero";

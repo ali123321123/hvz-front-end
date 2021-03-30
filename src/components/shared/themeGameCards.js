@@ -46,6 +46,28 @@ export const light = createMuiTheme({
         },
       },
     },
+    MuiFormLabel: {
+        root: {
+          color: primary,
+        },
+      },
+      MuiInputBase: {
+        root: {
+          color: primary,
+        },
+      },
+  
+      MuiInputBase: {
+        input: {
+          color: primary,
+        },
+      },
+  
+      MuiFormLabel: {
+        root: {
+          color: primary,
+        },
+      },
 
     MuiCardMedia: {
       root: {
