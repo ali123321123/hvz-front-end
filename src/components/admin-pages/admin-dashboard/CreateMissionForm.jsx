@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import {
   Checkbox,
@@ -28,12 +28,15 @@ import CloseIcon from "@material-ui/icons/Close";
 import { light } from "../../shared/themeGameCards";
 import Endpoints from "../../../services/endpoints";
 import { getTokenInStorage } from "../../../utils/tokenHelper";
-import { useParams } from "react-router";
+import { useHistory, useLocation, useParams } from "react-router";
 
 const CreateMissionForm = ({ openMission, setOpenMission }) => {
+  const location = useLocation();
   const { id: gameId } = useParams();
   const { handleSubmit } = useForm();
   const [setData] = useState(null);
+
+  const [game, setGame] = useState({});
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -67,7 +70,13 @@ const CreateMissionForm = ({ openMission, setOpenMission }) => {
     }).then((res) => res.json().then((res) => console.warn("result", res)));
 
     setOpenMission(false);
+    window.confirm("Mission created!");
+    window.location.reload();
   };
+
+  useEffect(() => {
+    setGame(location.state);
+  }, [location.state]);
 
   const handleMissionTitle = (e) => {
     setName(e.target.value);
@@ -113,8 +122,8 @@ const CreateMissionForm = ({ openMission, setOpenMission }) => {
             </IconButton>
           </DialogActions>
 
-          <DialogTitle id="form-dialog-title">
-            <Typography variant="h4">Create new Mission</Typography>
+          <DialogTitle variant="h4" id="form-dialog-title">
+            <Typography variant="h3">Create new Mission</Typography>
           </DialogTitle>
 
           <DialogContent dividers>
@@ -137,7 +146,6 @@ const CreateMissionForm = ({ openMission, setOpenMission }) => {
               <DialogContent>
                 <TextField
                   required
-                  autoFocus
                   name="description"
                   label="Mission Description"
                   style={{ padding: "10px" }}

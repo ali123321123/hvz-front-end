@@ -61,7 +61,6 @@ const MenuItem_StartGame = ({ game }) => {
     setopenPopUp(false);
     if (game.gameStarted) {
       window.confirm("Game has ended");
-
       history.push("/admin");
       endGame();
     } else if (!game.gameStarted) {

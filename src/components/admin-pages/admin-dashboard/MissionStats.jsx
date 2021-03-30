@@ -22,7 +22,6 @@ export default function MissionStats({ game }) {
   const [activeMissions, setActiveMissions] = useState();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(3);
-
   //Fech Missions
   const {
     data: missions,
