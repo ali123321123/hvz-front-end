@@ -13,12 +13,9 @@ import MissionStats from "./MissionStats";
 import PlayerStats from "./PlayerStats";
 import MenuItemsAdminDashboard from "./MenuItemsAdminDashboard";
 import AppbarMainMenu from "../../shared/AppbarMainMenu";
-import ImageCard from "./ImageCard";
-import { fetcherToken } from "../../../services/FetcherFunction";
-import Endpoints from "../../../services/endpoints";
-import { getTokenInStorage } from "../../../utils/tokenHelper";
-import { Delete } from "@material-ui/icons";
 import EditGameImage from "../EditGameImage";
+import Auth from "../../../utils/authentication";
+import { useHistory } from "react-router";
 
 export default function AdminDashboard(props) {
   const drawerWidth = 240;
@@ -69,7 +66,7 @@ export default function AdminDashboard(props) {
   }));
 
   const classes = useStyles();
-
+  const history = useHistory();
   //Group classes
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
@@ -79,26 +76,12 @@ export default function AdminDashboard(props) {
     setGame(props.location.state);
   }, [props.location.state]);
 
-  // useEffect(() => {
-  //   if (!Auth.userIsLoggedIn()) {
-  //     history.push("/");
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (!Auth.userIsLoggedIn()) {
+      history.push("/");
+    }
+  }, []);
 
-  // DELETE request using fetch with set headers
-  //     const requestOptions = {
-  //       method: "DELETE",
-  //       headers: {
-  //         Authorization: "Bearer my-token",
-  //         "My-Custom-Header": "foobar",
-  //       },
-  //     };
-  //     fetch(
-  //       `https://localhost:44390/api/games/${game.id}`,
-  //       requestOptions
-  //     ).then(() => setStatus("Delete successful"));
-
-  //ON BUTTON YES HANDLE FETCH
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -118,7 +101,6 @@ export default function AdminDashboard(props) {
 
             {/* Game Avatar Image */}
             <Grid item xs={12} md={4} lg={4}>
-              {/* <ImageCard game={game} /> */}
               <EditGameImage game={game} />
             </Grid>
 

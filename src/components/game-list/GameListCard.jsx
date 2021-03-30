@@ -40,16 +40,19 @@ function GameListCard({ game }) {
             title="game avatar"
           />
           <CardHeader
-            className="header"
             title={game.name}
             subheader={
-              game.gameStarted
-                ? "In Progress"
-                : game.registrationOpen
-                ? "Open for registration"
-                : game.gameComplete
-                ? "Completed games"
-                : "No Current Game"
+              game.gameStarted ? (
+                <span style={{ color: "#9c27b0" }}>In Progress</span>
+              ) : game.registrationOpen ? (
+                <span style={{ color: "#9c27b0" }}>Open for registration</span>
+              ) : game.gameComplete ? (
+                <span style={{ color: "#9c27b0" }}>Completed games</span>
+              ) : (
+                <span style={{ color: "#9c27b0" }}>
+                  Registration not yet open
+                </span>
+              )
             }
           />
           <CardContent>

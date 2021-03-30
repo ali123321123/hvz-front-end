@@ -26,7 +26,7 @@ export default function MenuItemsGameList({handleClickActive, handleClickUpcomin
     }
   };
   const handleClickRules = () => {
-    history.push("/rules")
+    history.push("/rules");
   };
   
 
@@ -50,8 +50,8 @@ export default function MenuItemsGameList({handleClickActive, handleClickUpcomin
 
       <MenuIcon menuIcon={<RadioButtonChecked />} title={"Completed Games"} onClick={handleClickCompleted}/>
 
-            {/*Rules & Instruction*/}
-            <MenuIcon
+      {/*Rules & Instruction*/}
+      <MenuIcon
         menuIcon={<Gavel />}
         title={"Rules & Instructions"}
         onClick={handleClickRules}

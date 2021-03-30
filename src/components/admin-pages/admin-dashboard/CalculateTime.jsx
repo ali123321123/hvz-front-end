@@ -43,7 +43,7 @@ const CalculateTime = ({ game }) => {
   }, [game]);
   return (
     <>
-      <TableCell>
+      <TableCell alignItems="center">
         {moment(`${game.startTime}`).format("MMMM Do YYYY, HH:mm ")}
       </TableCell>
       <TableCell>
@@ -60,7 +60,7 @@ const CalculateTime = ({ game }) => {
         </Box>
       </Box>
 
-      <Typography color="textPrimary">{calculationText}</Typography>
+      <Typography color="primary">{calculationText}</Typography>
     </>
   );
 };

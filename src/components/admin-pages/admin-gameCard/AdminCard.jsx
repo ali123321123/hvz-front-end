@@ -8,17 +8,12 @@ import {
   Typography,
   Button,
   Tooltip,
-  ListItemIcon,
 } from "@material-ui/core";
 import "../../game-list/CardStyles.scss";
 import "fontsource-roboto";
 import { Cloudinary } from "cloudinary-core";
 import AdminDashboard from "../admin-dashboard/AdminDashboard";
-import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
-import { Delete } from "@material-ui/icons";
-import { getTokenInStorage } from "../../../utils/tokenHelper";
-import Endpoints from "../../../services/endpoints";
 
 function AdminCard({ game }) {
   const moment = require("moment");
@@ -34,33 +29,37 @@ function AdminCard({ game }) {
   return (
     <>
       <div>
-        <Card className="card" key={game.id}>
-          <p>Game id: {game.id}</p>
+        <Link
+          style={{ textDecoration: "none" }}
+          to={{
+            pathname: `/admin/game/${game.id}`,
+            state: game,
+          }}
+        >
+          <Card className="card" key={game.id}>
+            <p>Game id: {game.id}</p>
 
-          <Link
-            style={{ textDecoration: "none" }}
-            to={{
-              pathname: `/admin/game/${game.id}`,
-              state: game,
-            }}
-          >
             <CardMedia
               image={cloudinaryCore.url(game.imageUrl)}
               height="200px"
               title="game avatar"
             />
             <CardHeader
-              className="header"
               title={game.name}
-              color="black"
               subheader={
-                game.gameStarted
-                  ? "In Progress"
-                  : game.registrationOpen
-                  ? "Open for registration"
-                  : game.gameComplete
-                  ? "Completed games"
-                  : "Registration not yet open"
+                game.gameStarted ? (
+                  <span style={{ color: "#9c27b0" }}>In Progress</span>
+                ) : game.registrationOpen ? (
+                  <span style={{ color: "#9c27b0" }}>
+                    Open for registration
+                  </span>
+                ) : game.gameComplete ? (
+                  <span style={{ color: "#9c27b0" }}>Completed games</span>
+                ) : (
+                  <span style={{ color: "#9c27b0" }}>
+                    Registration not yet open
+                  </span>
+                )
               }
             />
             <CardContent>
@@ -95,8 +94,8 @@ function AdminCard({ game }) {
                 Edit game
               </Button>
             </CardContent>
-          </Link>
-        </Card>
+          </Card>
+        </Link>
       </div>
       {open && (
         <AdminDashboard
