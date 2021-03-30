@@ -9,7 +9,6 @@ import {
   DialogContent,
   DialogActions,
 } from "@material-ui/core";
-import Map from "../map/Map";
 import "./CardStyles.scss"; // remove?
 import { useHistory } from "react-router";
 import GameCardPopupMap from "./GameCardPopupMap";
@@ -66,6 +65,7 @@ const GameCardPopUp = ({ game, open, setOpen }) => {
               gameName={game.name}
               playAreaCoordinates={playArea}
               centerAreaCoordinates={centerArea}
+              scrollWheelZoom={false}
             />
           </div>
         ) : null}

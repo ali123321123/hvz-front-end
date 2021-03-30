@@ -8,6 +8,7 @@ import GameDetailInteractiveMap from "./GameDetailInteractiveMap";
 import GameDetailPlayerInfo from "./GameDetailPlayerInfo";
 import Endpoints from "../../services/endpoints";
 import { getTokenInStorage } from "../../utils/tokenHelper";
+import { useMapEvents } from "react-leaflet";
 
 function GameDetail() {
   const { id: gameId } = useParams();
@@ -47,6 +48,8 @@ function GameDetail() {
     }
   }, [game, gameError]);
 
+  
+
   return (
     <div>
       {loading ? (
@@ -57,6 +60,7 @@ function GameDetail() {
           <div className="gameDetailMap">
             <GameDetailInteractiveMap
               playAreaCoordinates={playAreaCoordinates}
+              scrollWheelZoom={true}
             />
           </div>
           <GameDetailPlayerInfo game={game} />
@@ -65,5 +69,7 @@ function GameDetail() {
     </div>
   );
 }
+
+
 
 export default GameDetail;

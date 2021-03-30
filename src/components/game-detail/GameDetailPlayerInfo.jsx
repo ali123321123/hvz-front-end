@@ -56,7 +56,7 @@ function GameDetailPlayerInfo({ game }) {
         <h3>Zombies: {zombiePlayers.length}</h3>
       </div>
       <div className="userName">
-        <h3>Player name: {player.name}</h3>
+        <h3>Player name: {player?.name}</h3>
       </div>
       <div className="squadName">
         <h3>Squad:{playerSquad?.name}</h3>
