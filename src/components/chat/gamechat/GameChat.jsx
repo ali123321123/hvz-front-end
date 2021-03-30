@@ -31,6 +31,7 @@ export default function GameChat() {
   const useStyles = makeStyles((theme) => ({
     root: {
       marginTop: "8%",
+      color: "primary"
     },
     paper: {
       width: "90%",

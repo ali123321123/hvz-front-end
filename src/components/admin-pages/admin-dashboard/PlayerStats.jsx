@@ -24,7 +24,7 @@ export default function PlayerStats({ game }) {
       setHumanPlayers(players.filter((h) => h.isHuman).length);
 
       if (players.length > 0) {
-        setZombiePlayers(players.length - humanPlayers);
+        setZombiePlayers(players.filter((h) => h.isHuman === false).length);
         setTotalPlayers(humanPlayers + zombiePlayers);
       }
     }
