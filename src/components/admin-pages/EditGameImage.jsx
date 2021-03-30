@@ -17,6 +17,7 @@ const EditGameImage = ({ game }) => {
 
   const handleUpload = () => {
     myWidget.open();
+    console.log("image uploaded");
   };
 
   return (

@@ -101,7 +101,7 @@ export default function EditMissionStats({ game }) {
         rowsPerPageOptions={[5, 10, 25]}
         labelRowsPerPage=""
         component="div"
-        count={missions?.length}
+        count={-1}
         rowsPerPage={rowsPerPage}
         page={page}
         onChangePage={handleChangePage}

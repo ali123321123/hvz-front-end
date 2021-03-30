@@ -1,60 +1,46 @@
 import React, { useState } from "react";
 import {
+  Avatar,
   Button,
+  Container,
+  CssBaseline,
   FormControl,
+  FormGroup,
   FormHelperText,
   Input,
   InputLabel,
   makeStyles,
+  MuiThemeProvider,
+  TextField,
+  Typography,
 } from "@material-ui/core";
-
 import { loginRequest } from "../../utils/loginApi";
 import Auth from "../../utils/authentication";
-
 import { errorToaster } from "../../utils/global";
 import { useHistory } from "react-router";
-
 import Validation from "../../utils/validation";
+import { themeActive, light } from "../shared/themeGameCards";
+import { LockOpenOutlined } from "@material-ui/icons";
 
 function LoginForm({ game }) {
   const history = useHistory();
   const useStyles = makeStyles((theme) => ({
-    root: {
-      textAlign: "center",
+    avatar: {
+      margin: theme.spacing(1),
+      backgroundColor: theme.palette.secondary.main,
     },
-
-    media: {
-      //paddingTop: "56.25%", // 16:9
-      paddingTop: "75%", // 4:3
-      objectFit: "cover",
-      width: "80%",
-      borderRadius: "100%",
-      margin: "auto",
-      marginTop: "2em",
-    },
-
-    primary: {
-      main: "#a61766",
-    },
-    palette: {
-      type: "dark",
-      common: {
-        black: "#a61766",
-      },
-    },
-    customWidth: {
-      maxWidth: 120,
-    },
-
     container: {
-      paddingTop: theme.spacing(8),
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      paddingTop: theme.spacing(18),
       paddingBottom: theme.spacing(4),
       textAlign: "center",
     },
 
-    divider: {
-      marginTop: "0px",
-      height: "1px",
+    submit: {
+      margin: theme.spacing(3, 0, 2),
+      width: "50%",
     },
   }));
 
@@ -106,32 +92,71 @@ function LoginForm({ game }) {
   };
 
   return (
-    <FormControl className={classes.container}>
-      <InputLabel htmlFor="my-input">Username</InputLabel>
-      <Input
-        value={username}
-        id="UsernameInput"
-        aria-describedby="my-helper-text"
-        placeholder="Username"
-        onChange={handleUsernameChange}
-      />
-      <FormHelperText id="my-helper-text">
-        We'll never share your email.
-      </FormHelperText>
-      <InputLabel htmlFor="my-input">Password</InputLabel>
-      <Input
-        type="password"
-        value={password}
-        id="PasswordInput"
-        aria-describedby="my-helper-text"
-        placeholder="Password"
-        onChange={handlePasswordChange}
-      />
-      <FormHelperText id="my-helper-text">
-        We'll never share your email.
-      </FormHelperText>
-      <Button onClick={handleLogin}>Login</Button>
-    </FormControl>
+    <Container component="main" maxWidth="xs">
+      <MuiThemeProvider theme={light}>
+        <CssBaseline />
+
+        <FormControl className={classes.container}>
+          <Avatar className={classes.avatar}>
+            <LockOpenOutlined />
+          </Avatar>
+
+          <Typography component="h1" variant="h5">
+            Sign in
+          </Typography>
+          <FormGroup>
+            <InputLabel htmlFor="my-input">Username</InputLabel>
+            <TextField
+              required
+              value={username}
+              variant="outlined"
+              margin="normal"
+              label="Username"
+              fullWidth
+              autoComplete="email"
+              id="UsernameInput"
+              aria-describedby="username"
+              onChange={handleUsernameChange}
+            />
+
+            {/* <FormHelperText id="my-helper-text">
+              We'll never share your email.
+            </FormHelperText> */}
+          </FormGroup>
+
+          <FormGroup>
+            <InputLabel htmlFor="my-input">Password</InputLabel>
+            <TextField
+              required
+              type="password"
+              value={password}
+              variant="outlined"
+              margin="normal"
+              label="Password"
+              autoComplete="current-passsword"
+              fullWidth
+              type="password"
+              id="PasswordInput"
+              aria-describedby="password"
+              onChange={handlePasswordChange}
+            />
+            {/* <FormHelperText id="my-helper-text">
+              We'll never share your email.
+            </FormHelperText> */}
+          </FormGroup>
+
+          <Button
+            className={classes.submit}
+            type="submit"
+            variant="contained"
+            color="primary"
+            onClick={handleLogin}
+          >
+            Login
+          </Button>
+        </FormControl>
+      </MuiThemeProvider>
+    </Container>
   );
 }
 
