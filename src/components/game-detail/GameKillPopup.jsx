@@ -86,6 +86,7 @@ const GameKillPopup = ({ player, game, open, setOpen }) => {
             [game.sE_lat, game.sE_lng],
           ]);
     })
+    /*
     const [position, setPosition] = useState(null);
  
     const map = useMapEvents({
@@ -94,6 +95,7 @@ const GameKillPopup = ({ player, game, open, setOpen }) => {
         setMarkerPosition(e.latlng);
       },
     });
+    */
 
 
 
@@ -110,7 +112,7 @@ const GameKillPopup = ({ player, game, open, setOpen }) => {
                 <div className="gameDetailMap">
             <GameDetailInteractiveMap
               playAreaCoordinates={playAreaCoordinates}
-               <Marker
+            
             />
           </div>
 
