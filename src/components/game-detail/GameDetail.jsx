@@ -61,7 +61,6 @@ function GameDetail() {
           <div className="gameDetailMap">
             <GameDetailInteractiveMap
               playAreaCoordinates={playAreaCoordinates}
-              scrollWheelZoom={true}
             />
           </div>
           <GameDetailPlayerInfo game={game} />

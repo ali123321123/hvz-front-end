@@ -22,7 +22,7 @@ function AdminGameMap({ game, missions }) {
   return (
     <>
       {center.length > 0 && (
-        <Map center={center} scrollWheelZoom={true}>
+        <Map center={center} zoom={17} scrollWheelZoom={true}>
           <Rectangle bounds={gameArea}/>
           {missions?.map((m) => (
             <Marker position={[m.lat, m.lng]}>

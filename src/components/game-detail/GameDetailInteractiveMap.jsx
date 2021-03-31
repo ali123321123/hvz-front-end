@@ -3,7 +3,7 @@ import Map from "../map/Map";
 import { Marker, Popup, Rectangle } from "react-leaflet";
 import MapAddMarker from "../map/MapAddMarker";
 
-function GameDetailInteractiveMap({playAreaCoordinates, scrollWheelZoom}) {
+function GameDetailInteractiveMap({playAreaCoordinates}) {
 
   const [centerArea, setCenterArea] = useState(null);
 
@@ -17,10 +17,8 @@ function GameDetailInteractiveMap({playAreaCoordinates, scrollWheelZoom}) {
   return (
   <>
       {centerArea && (
-        <Map center={centerArea} zoomBounds={playAreaCoordinates} scrollWheelZoom={scrollWheelZoom}>
+        <Map center={centerArea} zoom={17} scrollWheelZoom={true}>
           <Rectangle bounds={playAreaCoordinates} />
-          <MapAddMarker />
-
         </Map>
       )}
    </>
