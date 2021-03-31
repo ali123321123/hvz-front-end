@@ -16,12 +16,15 @@ import {
   Switch,
 } from "@material-ui/core";
 import { MuiThemeProvider } from "@material-ui/core/styles";
-
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { themeActive, light } from "../shared/themeGameCards";
+import MenuIcon from "./MenuIcon";
+import { Route, useHistory } from "react-router";
+import { HomeRounded } from "@material-ui/icons";
 
 export default function MenuDrawer({ open, setOpen, menuItems }) {
   const drawerWidth = 240;
+  const history = useHistory();
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -115,6 +118,10 @@ export default function MenuDrawer({ open, setOpen, menuItems }) {
     console.log("switched ");
   };
 
+  const handleClickHome = () => {
+    history.push("/");
+  };
+
   const handleToggleClose = () => {
     setOpen(false);
   };
@@ -158,6 +165,12 @@ export default function MenuDrawer({ open, setOpen, menuItems }) {
                 <ListItemText primary="Dark Mode" />
               </ListItem>
             </Tooltip>
+            {/* BTN: HOME */}
+            <MenuIcon
+              menuIcon={<HomeRounded />}
+              title={"Home "}
+              onClick={handleClickHome}
+            />
             <Divider />
             {menuItems}
           </List>

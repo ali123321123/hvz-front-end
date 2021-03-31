@@ -21,13 +21,6 @@ export default function MenuItemsAdminCard() {
 
   return (
     <div>
-      {/* BTN: HOME */}
-      <MenuIcon
-        menuIcon={<HomeRounded />}
-        title={"Home "}
-        onClick={handleClickHome}
-      />
-
       {/* CREATE NEW GAME */}
       <MenuIcon
         menuIcon={<PostAdd />}

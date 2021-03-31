@@ -1,13 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import PeopleIcon from "@material-ui/icons/People";
-import {
-  AddLocation,
-  Delete,
-  Gavel,
-  HomeRounded,
-  PostAdd,
-} from "@material-ui/icons";
+import { AddLocation, Delete, Gavel, PostAdd } from "@material-ui/icons";
 import { Cloudinary } from "cloudinary-core";
 import { Route, useHistory } from "react-router";
 import CreateGameForm from "../admin-gameCard/CreateGameForm";
@@ -40,9 +34,6 @@ export default function MenuItemsAdminDashboard(props) {
     setOpenMission(true);
   };
 
-  const handleClickHome = () => {
-    history.push("/");
-  };
   const handleClickRules = () => {
     history.push("/rules");
   };
@@ -51,16 +42,8 @@ export default function MenuItemsAdminDashboard(props) {
     setGame(location.state);
   }, [location.state]);
 
-
   return (
     <div>
-      {/* BTN: HOME */}
-      <MenuIcon
-        menuIcon={<HomeRounded />}
-        title={"Home "}
-        onClick={handleClickHome}
-      />
-
       {/* BTN: START && END  WITH DIALOG POPUP*/}
       <MenuItem_StartGame game={game} />
       {/* BTN: REGISTRATION WITH DIALOG POPUP*/}
@@ -73,7 +56,6 @@ export default function MenuItemsAdminDashboard(props) {
         menuIcon={<AddLocation />}
         title={"Add Mission"}
         onClick={handleClickOpenMission}
-        
       />
       {/* BTN: ADD EDIT PLAYERS */}
       <MenuIcon

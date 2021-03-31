@@ -11,11 +11,11 @@ export default function MenuItemRules() {
 
   return (
     <div>
-      <MenuIcon
+      {/* <MenuIcon
         menuIcon={<HomeRounded />}
         title={"Home "}
         onClick={handleClickHome}
-      />
+      /> */}
     </div>
   );
 }

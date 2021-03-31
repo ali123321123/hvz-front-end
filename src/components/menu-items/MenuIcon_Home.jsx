@@ -6,7 +6,7 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { useHistory } from "react-router";
-import { HomeOutlined } from "@material-ui/icons";
+import { HomeRounded } from "@material-ui/icons";
 
 const MenuIcon_Home = () => {
   const history = useHistory();
@@ -34,7 +34,7 @@ const MenuIcon_Home = () => {
         >
           <ListItem button onClick={onClick}>
             <ListItemIcon>
-              <HomeOutlined />
+              <HomeRounded />
               <ListItemText primary="Home" />
             </ListItemIcon>
           </ListItem>

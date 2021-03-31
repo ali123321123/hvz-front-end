@@ -15,7 +15,7 @@ import GameCardPopupMap from "./GameCardPopupMap";
 import "./CardStyles.scss";
 import { useSelector } from "react-redux";
 import Auth from "../../utils/authentication";
-import {decodedToken, getTokenInStorage} from "../../utils/tokenHelper"
+import { decodedToken, getTokenInStorage } from "../../utils/tokenHelper";
 import Endpoints from "../../services/endpoints";
 
 const GameCardPopUp = ({ game, open, setOpen }) => {
@@ -31,23 +31,22 @@ const GameCardPopUp = ({ game, open, setOpen }) => {
 
   const handleJoinButton = () => {
     if (Auth.userIsLoggedIn()) {
-        
-        let data = {
-            userId: decodedToken().unique_name,
-            gameId: game.id
-        }
-            fetch(`${Endpoints.GAME_API}/${game.id}/join_game`, {
-              method: "Post",
-              headers: {
-                Authorization: "Bearer " + getTokenInStorage(),
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(data),
-            }).then((res) =>
-              res.json().then((res) => {
-                console.warn("result", res);
-              })
-            );
+      let data = {
+        userId: decodedToken().unique_name,
+        gameId: game.id,
+      };
+      fetch(`${Endpoints.GAME_API}/${game.id}/join_game`, {
+        method: "Post",
+        headers: {
+          Authorization: "Bearer " + getTokenInStorage(),
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }).then((res) =>
+        res.json().then((res) => {
+          console.warn("result", res);
+        })
+      );
       history.push(`/game/${game.id}`);
       return;
     }
@@ -96,9 +95,7 @@ const GameCardPopUp = ({ game, open, setOpen }) => {
             </Typography>
           )}
 
-          <Typography gutterBottom>
-            {game.description}
-          </Typography>
+          <Typography gutterBottom>{game.description}</Typography>
           <Button variant="outlined" onClick={handleJoinButton} color="primary">
             Join Game
           </Button>
