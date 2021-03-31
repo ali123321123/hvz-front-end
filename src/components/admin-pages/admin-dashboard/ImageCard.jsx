@@ -46,16 +46,11 @@ const ImageCard = ({ onClick, title, arrow }) => {
     },
   }));
   const classes = useStyles();
+  const [game, setGame] = useState({});
 
   const cloudinaryCore = new Cloudinary({ cloud_name: "debyqnalg" });
   const location = useLocation();
-<<<<<<< HEAD
-
-=======
   const { id: gameId } = useParams();
-  useEffect(() => {
-    setGame(location.state);
-  }, [location.state]);
 
   //Fetch games
   const {
@@ -64,11 +59,10 @@ const ImageCard = ({ onClick, title, arrow }) => {
   } = useSWR(`${Endpoints.GAME_API}/${gameId}`, (url) =>
     fetcherToken(url, getTokenInStorage())
   );
->>>>>>> game-detail-page-layout
 
   return (
     <>
-      {game ? (
+      {games ? (
         <Tooltip
           arrow={arrow}
           placement={"bottom"}
@@ -79,7 +73,7 @@ const ImageCard = ({ onClick, title, arrow }) => {
           <Button onClick={onClick} className={classes.roundButton}>
             <img
               className={classes.roundImage}
-              src={cloudinaryCore.url(game.imageUrl)}
+              src={cloudinaryCore.url(games.imageUrl)}
               alt="game avatar image"
             />
           </Button>
