@@ -1,13 +1,13 @@
 import { Button, makeStyles, Tooltip } from "@material-ui/core";
 import { Cloudinary } from "cloudinary-core";
 import { useState, useEffect } from "react";
-import Endpoints from "../../../services/endpoints";
-import { getTokenInStorage } from "../../../utils/tokenHelper";
 import useSWR from "swr";
-import { fetcherToken } from "../../../services/FetcherFunction";
 import { useLocation, useParams } from "react-router-dom";
+import { getTokenInStorage } from "../../utils/tokenHelper";
+import { fetcherToken } from "../../services/FetcherFunction";
+import Endpoints from "../../services/endpoints";
 
-const ImageCard = ({ onClick, title, arrow }) => {
+const AvatarImage = ({ onClick, player }) => {
   const useStyles = makeStyles((theme) => ({
     card: {
       textAlign: " center",
@@ -46,16 +46,23 @@ const ImageCard = ({ onClick, title, arrow }) => {
     },
   }));
   const classes = useStyles();
+  const [game, setGame] = useState({});
 
   const cloudinaryCore = new Cloudinary({ cloud_name: "debyqnalg" });
   const location = useLocation();
-<<<<<<< HEAD
-
-=======
   const { id: gameId } = useParams();
+
   useEffect(() => {
     setGame(location.state);
   }, [location.state]);
+
+  //Fetch Player
+  const {
+    data: players,
+    error: playersError,
+  } = useSWR(`${Endpoints.GAME_API}/${gameId}/players`, (url) =>
+    fetcherToken(url, getTokenInStorage())
+  );
 
   //Fetch games
   const {
@@ -64,23 +71,22 @@ const ImageCard = ({ onClick, title, arrow }) => {
   } = useSWR(`${Endpoints.GAME_API}/${gameId}`, (url) =>
     fetcherToken(url, getTokenInStorage())
   );
->>>>>>> game-detail-page-layout
 
   return (
     <>
-      {game ? (
+      {games ? (
         <Tooltip
-          arrow={arrow}
+          arrow
           placement={"bottom"}
           aria-label="Upload image"
-          title={title}
+          title="Upload Image"
         >
           {/* <Card className={classes.card}> */}
           <Button onClick={onClick} className={classes.roundButton}>
             <img
               className={classes.roundImage}
-              src={cloudinaryCore.url(game.imageUrl)}
-              alt="game avatar image"
+              src={cloudinaryCore.url(games.imageUrl)}
+              alt="player avatar image"
             />
           </Button>
         </Tooltip>
@@ -90,4 +96,4 @@ const ImageCard = ({ onClick, title, arrow }) => {
   );
 };
 
-export default ImageCard;
+export default AvatarImage;

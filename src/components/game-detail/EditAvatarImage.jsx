@@ -1,7 +1,8 @@
+import React from "react";
 import { updateImage } from "../../services/ImagesAPI";
-import ImageCard from "./admin-dashboard/ImageCard";
+import AvatarImage from "./AvatarImage";
 
-const EditGameImage = ({ game }) => {
+const EditAvatarImage = ({ player, game }) => {
   const myWidget = window.cloudinary.createUploadWidget(
     {
       cloudName: "debyqnalg",
@@ -19,17 +20,11 @@ const EditGameImage = ({ game }) => {
     myWidget.open();
     console.log("image uploaded");
   };
-
   return (
-    <>
-      <ImageCard
-        game={game}
-        onClick={handleUpload}
-        title="Upload Image"
-        arrow="true"
-      />
-    </>
+    <div>
+      <AvatarImage player={player} onClick={handleUpload} />
+    </div>
   );
 };
 
-export default EditGameImage;
+export default EditAvatarImage;

@@ -4,17 +4,8 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import Title from "./Title";
-import useSWR from "swr";
-import { fetcherToken } from "../../../services/FetcherFunction";
-import Endpoints from "../../../services/endpoints";
-import { getTokenInStorage } from "../../../utils/tokenHelper";
-import {
-  Paper,
-  TableContainer,
-  TablePagination,
-  Typography,
-} from "@material-ui/core";
+import { TableContainer, TablePagination, Typography } from "@material-ui/core";
+import Title from "../admin-pages/admin-dashboard/Title";
 
 export default function MissionStats({ game, missions }) {
   const moment = require("moment");
@@ -22,7 +13,6 @@ export default function MissionStats({ game, missions }) {
   const [activeMissions, setActiveMissions] = useState();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(3);
-  
 
   useEffect(() => {
     if (missions && game) {
