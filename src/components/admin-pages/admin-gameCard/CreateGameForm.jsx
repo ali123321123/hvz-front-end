@@ -67,11 +67,13 @@ const CreateGameForm = ({ open, setOpen }) => {
         Accept: "application/json",
       },
       body: JSON.stringify(data),
-    }).then((res) => res.json().then((res) => console.warn("result", res)));
+    }).then((res) => res.json().then((res) => 
+    {
+        history.push(`/admin/game/${res.id}`, { state: res});
+        console.warn("result", res)
+    }));
 
     setOpen(false);
-    window.confirm("Game created!");
-    history.push("/admin");
   };
 
   const myWidget = window.cloudinary.createUploadWidget(

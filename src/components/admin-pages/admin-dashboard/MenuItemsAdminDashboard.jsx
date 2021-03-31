@@ -13,11 +13,10 @@ import { useLocation } from "react-router-dom";
 import CreateMissionForm from "./CreateMissionForm";
 import MenuItem_DeleteGame from "../../menu-items/MenuItem_DeleteGame";
 
-export default function MenuItemsAdminDashboard(props) {
+export default function MenuItemsAdminDashboard({game}) {
   const cloudinaryCore = new Cloudinary({ cloud_name: "debyqnalg" });
   const location = useLocation();
 
-  const [game, setGame] = useState({});
 
   const [open, setOpen] = useState(false);
   const [openMission, setOpenMission] = useState(false);
@@ -38,10 +37,7 @@ export default function MenuItemsAdminDashboard(props) {
     history.push("/rules");
   };
 
-  useEffect(() => {
-    setGame(location.state);
-  }, [location.state]);
-
+  
   return (
     <div>
       {/* BTN: START && END  WITH DIALOG POPUP*/}
@@ -51,18 +47,18 @@ export default function MenuItemsAdminDashboard(props) {
         disabled={game.gameComplete || game.gameStarted ? true : false}
       />
       {/* BTN: ADD MISSION */}
-      <MenuIcon
+      {/* <MenuIcon
         disabled={game.gameComplete ? true : false}
         menuIcon={<AddLocation />}
         title={"Add Mission"}
         onClick={handleClickOpenMission}
-      />
+      /> */}
       {/* BTN: ADD EDIT PLAYERS */}
-      <MenuIcon
+      {/* <MenuIcon
         disabled={game.gameComplete ? true : false}
         menuIcon={<PeopleIcon />}
         title={"Edit Players"}
-      />
+      /> */}
       {/* CREATE NEW GAME */}
       <MenuIcon
         menuIcon={<PostAdd />}

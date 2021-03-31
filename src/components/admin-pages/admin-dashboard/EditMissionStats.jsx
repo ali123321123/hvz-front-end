@@ -4,6 +4,7 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
+import { AddLocation } from "@material-ui/icons";
 import Title from "./Title";
 import useSWR from "swr";
 import { fetcherToken } from "../../../services/FetcherFunction";
@@ -12,22 +13,22 @@ import MissionStatsRow from "./MissionStatsRow";
 import { getTokenInStorage } from "../../../utils/tokenHelper";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import {
-  Paper,
   TableContainer,
   TablePagination,
-  Typography,
-  MuiThemeProvider,
-  CssBaseline,
 } from "@material-ui/core";
-import EditIcon from "@material-ui/icons/Edit";
-import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
-import { light, active } from "../../shared/themeGameCards";
+import CreateMissionForm from "./CreateMissionForm";
+import Fab from "@material-ui/core/Fab";
 export default function EditMissionStats({ game }) {
   const moment = require("moment");
 
   const useStyles = makeStyles((theme) => ({
     root: {
       color: "black",
+    },
+    missionStatsHeader: {
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "space-between",
     },
   }));
   const classes = useStyles();
@@ -66,10 +67,36 @@ export default function EditMissionStats({ game }) {
     setPage(0);
   };
 
+  const [openMission, setOpenMission] = useState(false);
+  const handleClickOpenMission = () => {
+    setOpenMission(true);
+  };
+
   return (
     <>
       <TableContainer>
-        <Title stickyHeader>Missions</Title>
+        <div className={classes.missionStatsHeader}>
+          <Title stickyHeader>Missions</Title>
+          <Fab
+            color="secondary"
+            aria-label="Add Mission button"
+            variant="extended"
+            size="medium"
+            onClick={handleClickOpenMission}
+          >
+            <>
+              Add Mission
+              <AddLocation />
+            </>
+          </Fab>
+        </div>
+        {openMission && (
+          <CreateMissionForm
+            openMission={openMission}
+            setOpenMission={setOpenMission}
+            game={game}
+          />
+        )}
         <Table stickyHeader aria-label="mission-stats">
           <TableHead>
             <TableRow>

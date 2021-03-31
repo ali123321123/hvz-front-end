@@ -1,19 +1,12 @@
 import {
   Button,
-  Card,
   makeStyles,
   Tooltip,
-  Typography,
 } from "@material-ui/core";
 import { Cloudinary } from "cloudinary-core";
-import { useState, useEffect } from "react";
-import Endpoints from "../../../services/endpoints";
-import { getTokenInStorage } from "../../../utils/tokenHelper";
-import useSWR from "swr";
-import { fetcherToken } from "../../../services/FetcherFunction";
 import { useLocation } from "react-router-dom";
 
-const ImageCard = ({ onClick }) => {
+const ImageCard = ({ onClick, game }) => {
   const useStyles = makeStyles((theme) => ({
     card: {
       textAlign: " center",
@@ -52,26 +45,14 @@ const ImageCard = ({ onClick }) => {
     },
   }));
   const classes = useStyles();
-  const [game, setGame] = useState({});
 
   const cloudinaryCore = new Cloudinary({ cloud_name: "debyqnalg" });
   const location = useLocation();
 
-  useEffect(() => {
-    setGame(location.state);
-  }, [location.state]);
-
-  //Fetch games
-  const {
-    data: games,
-    error: gamesError,
-  } = useSWR(`${Endpoints.GAME_API}/${game.id}`, (url) =>
-    fetcherToken(url, getTokenInStorage())
-  );
 
   return (
     <>
-      {games ? (
+      {game ? (
         <Tooltip
           arrow
           placement={"bottom"}
@@ -82,7 +63,7 @@ const ImageCard = ({ onClick }) => {
           <Button onClick={onClick} className={classes.roundButton}>
             <img
               className={classes.roundImage}
-              src={cloudinaryCore.url(games.imageUrl)}
+              src={cloudinaryCore.url(game.imageUrl)}
               alt="game avatar image"
             />
           </Button>

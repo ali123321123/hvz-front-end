@@ -17,7 +17,7 @@ import MenuItemsAdminDashboard from "./MenuItemsAdminDashboard";
 import AppbarMainMenu from "../../shared/AppbarMainMenu";
 import EditGameImage from "../EditGameImage";
 import Auth from "../../../utils/authentication";
-import { useHistory } from "react-router";
+import { useHistory, useParams } from "react-router";
 import { themeActive } from "../../shared/themeGameCards";
 import Map from "../../map/Map";
 import useSWR from "swr";
@@ -28,13 +28,28 @@ import { Marker, Popup, Rectangle } from "react-leaflet";
 import AdminGameMap from "./AdminGameMap";
 
 export default function AdminDashboard(props) {
+  const { id: gameId } = useParams();
+  const [game, setGame] = useState({});
+  useEffect(() => {
+    fetch(`${Endpoints.GAME_API}/${gameId}`, {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + getTokenInStorage(),
+      },
+    }).then((res) =>
+      res.json().then((res) => {
+        console.warn("result", res);
+        setGame(res);
+      })
+    );
+    console.log(game);
+  }, []);
   //Fech Missions
   const {
     data: missions,
     error: missionsError,
-  } = useSWR(
-    `${Endpoints.GAME_API}/${props.location.state.id}/missions`,
-    (url) => fetcherToken(url, getTokenInStorage())
+  } = useSWR(`${Endpoints.GAME_API}/${gameId}/missions`, (url) =>
+    fetcherToken(url, getTokenInStorage())
   );
   const drawerWidth = 240;
   const useStyles = makeStyles((theme) => ({
@@ -88,27 +103,23 @@ export default function AdminDashboard(props) {
   //Group classes
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
-  const [game, setGame] = useState({});
-//   const [center, setCenter] = useState();
-//   const [gameArea, setGameArea] = useState([]);
+  //   const [game, setGame] = useState({});
+  //   const [center, setCenter] = useState();
+  //   const [gameArea, setGameArea] = useState([]);
 
-  useEffect(() => {
-    setGame(props.location.state);
-  }, [props.location.state]);
-
-//   useEffect(() => {
-//     if (game) {
-//       console.log(game);
-//       const x = (game.nW_lat + game.sE_lat) / 2;
-//       const y = (game.nW_lng + game.sE_lng) / 2;
-//       console.log(x, y);
-//       setCenter([x, y]);
-//       setGameArea([
-//         [game.nW_lat, game.nW_lng],
-//         [game.sE_lat, game.sE_lng],
-//       ]);
-//     }
-//   }, [game]);
+  //   useEffect(() => {
+  //     if (game) {
+  //       console.log(game);
+  //       const x = (game.nW_lat + game.sE_lat) / 2;
+  //       const y = (game.nW_lng + game.sE_lng) / 2;
+  //       console.log(x, y);
+  //       setCenter([x, y]);
+  //       setGameArea([
+  //         [game.nW_lat, game.nW_lng],
+  //         [game.sE_lat, game.sE_lng],
+  //       ]);
+  //     }
+  //   }, [game]);
 
   useEffect(() => {
     if (!Auth.userIsLoggedIn()) {
@@ -141,9 +152,7 @@ export default function AdminDashboard(props) {
 
               {/* Interactive Map */}
               <Grid item xs={12} md={5} lg={5}>
-                {game && (
-                  <AdminGameMap game={game} missions={missions}/>
-                )}
+                {game && <AdminGameMap game={game} missions={missions} />}
               </Grid>
 
               {/* Mission Stats */}

@@ -70,7 +70,6 @@ const CreateMissionForm = ({ openMission, setOpenMission, game }) => {
     }).then((res) => res.json().then((res) => console.warn("result", res)));
 
     setOpenMission(false);
-    window.confirm("Mission created!");
     window.location.reload();
   };
 
