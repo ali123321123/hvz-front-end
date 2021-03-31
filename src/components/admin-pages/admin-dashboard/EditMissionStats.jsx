@@ -52,11 +52,8 @@ export default function EditMissionStats({ game }) {
     if (missionsError) {
       console.log(missionsError);
     }
-    if (missions && game) {
-      setActiveMissions(missions.filter((f) => f.gameID === game.id));
-    }
     console.log(missions);
-  }, [missions, game]);
+  }, [missionsError]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);

@@ -185,6 +185,7 @@ export default function GameStats({ game }) {
                 <DialogContent>
                   <TextField
                     required
+                    autoFocus
                     variant="outlined"
                     name="user id"
                     value={userId}
