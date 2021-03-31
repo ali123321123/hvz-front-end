@@ -79,6 +79,8 @@ function GameList() {
   const [pageComplete, setPageComplete] = useState(0);
 
   const [rowsPerPage, setRowsPerPage] = useState(3);
+  const [rowsPerPageUpcomming, setRowsPerPageCUpcomming] = useState(3);
+  const [rowsPerPageComplete, setRowsPerPageComplete] = useState(3);
 
   const [loading, setLoading] = useState(true);
 
@@ -122,12 +124,12 @@ function GameList() {
   };
 
   const handleChangeRowsPerPageUpcomming = (event) => {
-    setRowsPerPage(+event.target.value);
+    setRowsPerPageCUpcomming(+event.target.value);
     setPageUpcomming(0);
   };
 
   const handleChangeRowsPerPageCompleted = (event) => {
-    setRowsPerPage(+event.target.value);
+    setRowsPerPageComplete(+event.target.value);
     setPageComplete(0);
   };
   // Navigation / scrolling from menu items
@@ -136,13 +138,13 @@ function GameList() {
   const completedGamesRef = React.useRef(null);
   const handleClickActive = () => {
     activeGamesRef.current.scrollIntoView();
-  }
+  };
   const handleClickUpcoming = () => {
     upcomingGamesRef.current.scrollIntoView();
-  }
+  };
   const handleClickCompleted = () => {
     completedGamesRef.current.scrollIntoView();
-  }
+  };
   return (
     <>
       {loading ? (
@@ -150,10 +152,15 @@ function GameList() {
       ) : (
         <div className={classes.root}>
           {/* APP BAR  */}
-          <AppbarMainMenu menuItems={<MenuItemsGameList 
-          handleClickActive={handleClickActive} 
-          handleClickUpcoming={handleClickUpcoming} 
-          handleClickCompleted={handleClickCompleted}/>} />
+          <AppbarMainMenu
+            menuItems={
+              <MenuItemsGameList
+                handleClickActive={handleClickActive}
+                handleClickUpcoming={handleClickUpcoming}
+                handleClickCompleted={handleClickCompleted}
+              />
+            }
+          />
           <div
             style={{
               marginTop: "6em",
@@ -256,8 +263,9 @@ function GameList() {
                   >
                     {upCommingGames
                       ?.slice(
-                        pageUpComming * rowsPerPage,
-                        pageUpComming * rowsPerPage + rowsPerPage
+                        pageUpComming * rowsPerPageUpcomming,
+                        pageUpComming * rowsPerPageUpcomming +
+                          rowsPerPageUpcomming
                       )
                       .map((game) => (
                         <Grid
@@ -282,7 +290,7 @@ function GameList() {
                 nextIconButtonProps={classes.tablePagination}
                 count={upCommingGames?.length}
                 rowsPerPage={rowsPerPage}
-                page={pageUpComming}
+                page={rowsPerPageUpcomming}
                 onChangePage={handleChangePageUpcomming}
                 onChangeRowsPerPage={handleChangeRowsPerPageUpcomming}
                 classes={{
@@ -315,8 +323,8 @@ function GameList() {
                   >
                     {completedGames
                       ?.slice(
-                        pageComplete * rowsPerPage,
-                        pageComplete * rowsPerPage + rowsPerPage
+                        pageComplete * rowsPerPageComplete,
+                        pageComplete * rowsPerPageComplete + rowsPerPageComplete
                       )
                       .map((game) => (
                         <Grid
@@ -340,7 +348,7 @@ function GameList() {
                 component="div"
                 nextIconButtonProps={classes.tablePagination}
                 count={completedGames?.length}
-                rowsPerPage={rowsPerPage}
+                rowsPerPage={rowsPerPageComplete}
                 page={pageComplete}
                 onChangePage={handleChangePageCompleted}
                 onChangeRowsPerPage={handleChangeRowsPerPageCompleted}
