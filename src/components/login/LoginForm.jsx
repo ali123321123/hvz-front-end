@@ -59,6 +59,10 @@ function LoginForm({ game }) {
     setPassword(e.target.value);
   };
 
+  const handleEnterKeypress = e => {
+      if(e.key === "Enter") handleLogin()
+  }
+
   const handleLogin = async () => {
     if (username === "" || password === "") {
       errorToaster("Username or password is empty");
@@ -117,6 +121,7 @@ function LoginForm({ game }) {
               id="UsernameInput"
               aria-describedby="username"
               onChange={handleUsernameChange}
+              onKeyPress={handleEnterKeypress}
             />
 
             {/* <FormHelperText id="my-helper-text">
@@ -139,6 +144,7 @@ function LoginForm({ game }) {
               id="PasswordInput"
               aria-describedby="password"
               onChange={handlePasswordChange}
+              onKeyPress={handleEnterKeypress}
             />
             {/* <FormHelperText id="my-helper-text">
               We'll never share your email.
