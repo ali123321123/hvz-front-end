@@ -17,6 +17,9 @@ import {
   FormControlLabel,
   Grid,
   Container,
+  Radio,
+  FormLabel,
+  RadioGroup,
 } from "@material-ui/core";
 import "react-datepicker/dist/react-datepicker.css";
 import {
@@ -31,6 +34,8 @@ import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import Endpoints from "../../../services/endpoints";
 import { getTokenInStorage } from "../../../utils/tokenHelper";
 import { useHistory } from "react-router";
+import Map from "../../map/Map";
+import MapAddRectanglePlayArea from "../../map/MapAddRectanglePlayArea";
 
 const CreateGameForm = ({ open, setOpen }) => {
   const { handleSubmit } = useForm();
@@ -43,8 +48,10 @@ const CreateGameForm = ({ open, setOpen }) => {
   const [registrationOpen, setRegistrationOpen] = useState(true);
   const [startTime, setStartTime] = useState(new Date());
   const [endTime, setEndTime] = useState(new Date());
+  const [playAreaSize, setPlayAreaSize] = useState();
 
   const [imageUrl, setImageUrl] = useState("");
+  const [rectangleCorners, setRectangleCorners] = useState([]);
 
   const updateGame = () => {
     let data = {
@@ -53,10 +60,10 @@ const CreateGameForm = ({ open, setOpen }) => {
       startTime,
       endTime,
       imageUrl,
-      nW_lat: 0,
-      nW_lng: 0,
-      sE_lat: 0,
-      sE_lng: 0,
+      nW_lat: rectangleCorners[0][0],
+      nW_lng: rectangleCorners[0][1],
+      sE_lat: rectangleCorners[1][0],
+      sE_lng: rectangleCorners[1][1],
     };
 
     fetch(`${Endpoints.GAME_API}`, {
@@ -118,6 +125,10 @@ const CreateGameForm = ({ open, setOpen }) => {
     setEndTime(date);
   };
 
+  const handleSizeRadioButton = (e) => {
+    setPlayAreaSize(e.target.value);
+  };
+
   return (
     <div>
       <MuiThemeProvider theme={themeCreateGameForm}>
@@ -172,6 +183,44 @@ const CreateGameForm = ({ open, setOpen }) => {
               {/* Interactive Map | UPLOAD IMAGE*/}
               <DialogContent>
                 <Typography gutterBottom>Interactive Map</Typography>
+
+                <FormControl component="fieldset">
+                  <FormLabel component="legend">Play Area Size</FormLabel>
+                  <RadioGroup
+                    aria-label="gender"
+                    name="gender1"
+                    value={playAreaSize}
+                    onChange={handleSizeRadioButton}
+                  >
+                    <FormControlLabel
+                      value="s"
+                      control={<Radio />}
+                      label="Small"
+                    />
+                    <FormControlLabel
+                      value="m"
+                      control={<Radio />}
+                      label="Medium"
+                    />
+                    <FormControlLabel
+                      value="l"
+                      control={<Radio />}
+                      label="Large"
+                    />
+                    <FormControlLabel
+                      value="xl"
+                      control={<Radio />}
+                      label="Extra large"
+                    />
+                  </RadioGroup>
+                </FormControl>
+                {playAreaSize && (
+                  <div style={{ height: "20em" }}>
+                    <Map center={[0, 0]} scrollWheelZoom={true}>
+                      <MapAddRectanglePlayArea rectangleCorners={rectangleCorners} setRectangleCorners={setRectangleCorners} size={playAreaSize} />
+                    </Map>
+                  </div>
+                )}
               </DialogContent>
 
               {/* START | END DATE */}
