@@ -1,13 +1,13 @@
 import { Button, makeStyles, Tooltip } from "@material-ui/core";
 import { Cloudinary } from "cloudinary-core";
 import { useState, useEffect } from "react";
-import Endpoints from "../../../services/endpoints";
-import { getTokenInStorage } from "../../../utils/tokenHelper";
 import useSWR from "swr";
-import { fetcherToken } from "../../../services/FetcherFunction";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
+import { getTokenInStorage } from "../../utils/tokenHelper";
+import { fetcherToken } from "../../services/FetcherFunction";
+import Endpoints from "../../services/endpoints";
 
-const ImageCard = ({ onClick }) => {
+const AvatarImage = ({ onClick, player }) => {
   const useStyles = makeStyles((theme) => ({
     card: {
       textAlign: " center",
@@ -50,16 +50,25 @@ const ImageCard = ({ onClick }) => {
 
   const cloudinaryCore = new Cloudinary({ cloud_name: "debyqnalg" });
   const location = useLocation();
+  const { id: gameId } = useParams();
 
   useEffect(() => {
     setGame(location.state);
   }, [location.state]);
 
+  //Fetch Player
+  const {
+    data: players,
+    error: playersError,
+  } = useSWR(`${Endpoints.GAME_API}/${gameId}/players`, (url) =>
+    fetcherToken(url, getTokenInStorage())
+  );
+
   //Fetch games
   const {
     data: games,
     error: gamesError,
-  } = useSWR(`${Endpoints.GAME_API}/${game.id}`, (url) =>
+  } = useSWR(`${Endpoints.GAME_API}/${gameId}`, (url) =>
     fetcherToken(url, getTokenInStorage())
   );
 
@@ -77,7 +86,7 @@ const ImageCard = ({ onClick }) => {
             <img
               className={classes.roundImage}
               src={cloudinaryCore.url(games.imageUrl)}
-              alt="game avatar image"
+              alt="player avatar image"
             />
           </Button>
         </Tooltip>
@@ -87,4 +96,4 @@ const ImageCard = ({ onClick }) => {
   );
 };
 
-export default ImageCard;
+export default AvatarImage;

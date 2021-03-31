@@ -5,7 +5,7 @@ import Auth from "../../utils/authentication";
 import Endpoints from "../../services/endpoints";
 import { useSelector } from "react-redux";
 import { getTokenInStorage, decodedToken } from "../../utils/tokenHelper";
-import GameKillPopup from './GameKillPopup'
+import GameKillPopup from "./GameKillPopup";
 import {
   Typography,
   Button,
@@ -56,13 +56,11 @@ function GameDetailPlayerInfo({ game }) {
     }
   }, [gameSquads, player]);
 
-const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const KillPrompt = () => {
-    setOpen(true)
-  }
-
-
+    setOpen(true);
+  };
 
   return (
     <aside>
@@ -87,13 +85,16 @@ const [open, setOpen] = useState(false);
         <h3>Bite code: {player?.biteCode}</h3>
       </div>
       <div className="kill">
-        <Button 
-        onClick={KillPrompt} 
-        variant="outlined"
-        color="secondary"
-        >Kill</Button>
+        <Button onClick={KillPrompt} variant="outlined" color="secondary">
+          Kill
+        </Button>
       </div>
-       <GameKillPopup open={open} setOpen={setOpen} player={player} game={game}/>
+      <GameKillPopup
+        open={open}
+        setOpen={setOpen}
+        player={player}
+        game={game}
+      />
     </aside>
   );
 }

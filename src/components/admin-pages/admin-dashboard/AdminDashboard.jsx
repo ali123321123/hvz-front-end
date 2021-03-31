@@ -10,7 +10,6 @@ import {
 } from "@material-ui/core";
 import TempInteractiveMap from "./TempInteractiveMap";
 import GameStats from "./GameStats";
-import MissionStats from "./MissionStats";
 import EditMissionStats from "./EditMissionStats";
 import PlayerStats from "./PlayerStats";
 import MenuItemsAdminDashboard from "./MenuItemsAdminDashboard";
@@ -89,26 +88,26 @@ export default function AdminDashboard(props) {
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   const [game, setGame] = useState({});
-//   const [center, setCenter] = useState();
-//   const [gameArea, setGameArea] = useState([]);
+  //   const [center, setCenter] = useState();
+  //   const [gameArea, setGameArea] = useState([]);
 
   useEffect(() => {
     setGame(props.location.state);
   }, [props.location.state]);
 
-//   useEffect(() => {
-//     if (game) {
-//       console.log(game);
-//       const x = (game.nW_lat + game.sE_lat) / 2;
-//       const y = (game.nW_lng + game.sE_lng) / 2;
-//       console.log(x, y);
-//       setCenter([x, y]);
-//       setGameArea([
-//         [game.nW_lat, game.nW_lng],
-//         [game.sE_lat, game.sE_lng],
-//       ]);
-//     }
-//   }, [game]);
+  //   useEffect(() => {
+  //     if (game) {
+  //       console.log(game);
+  //       const x = (game.nW_lat + game.sE_lat) / 2;
+  //       const y = (game.nW_lng + game.sE_lng) / 2;
+  //       console.log(x, y);
+  //       setCenter([x, y]);
+  //       setGameArea([
+  //         [game.nW_lat, game.nW_lng],
+  //         [game.sE_lat, game.sE_lng],
+  //       ]);
+  //     }
+  //   }, [game]);
 
   useEffect(() => {
     if (!Auth.userIsLoggedIn()) {
@@ -141,9 +140,7 @@ export default function AdminDashboard(props) {
 
               {/* Interactive Map */}
               <Grid item xs={12} md={5} lg={5}>
-                {game && (
-                  <AdminGameMap game={game} missions={missions}/>
-                )}
+                {game && <AdminGameMap game={game} missions={missions} />}
               </Grid>
 
               {/* Mission Stats */}
