@@ -78,7 +78,7 @@ function LoginForm({ game }) {
               state: game,
             });
           } else {
-            history.push(`/`);
+            history.push(`/admin`);
           }
         } else {
           if (game) {

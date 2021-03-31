@@ -6,10 +6,15 @@ import {
   TableHead,
   TableRow,
 } from "@material-ui/core";
+import { useHistory } from "react-router";
 
 export default function GameRows({players}) {
     
   const moment = require("moment");
+  const history = useHistory();
+  const viewGame = (e) =>{
+    history.push("/game/"+ e.target.value)
+  }
 
   return (
     <>
@@ -22,6 +27,7 @@ export default function GameRows({players}) {
             <TableCell>Faction</TableCell>
             <TableCell>Kills</TableCell>
             <TableCell>Time</TableCell>
+            <TableCell>View</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -34,6 +40,7 @@ export default function GameRows({players}) {
               <TableCell>{g.isHuman ? `Human` : g.isPatientZero ? `Patient Zero` : `Zombie`}</TableCell>
               <TableCell>{g.killerKills.length}</TableCell>
               <TableCell>{moment(`${g.game.startTime}`).format("DD-MM-YY")} to {moment(`${g.game.endTime}`).format("DD-MM-YY")}</TableCell>
+              <TableCell><button value={g.game.id} onClick={viewGame} >View Game</button></TableCell>
             </TableRow>
           ))}
         </TableBody>

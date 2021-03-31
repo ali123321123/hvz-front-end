@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
     width: '60%',
     marginTop: '10%',
     margin: 'auto',
+    marginBottom: '5%',
   },
   heading: {
     fontSize: theme.typography.pxToRem(15),
