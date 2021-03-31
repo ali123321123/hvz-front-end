@@ -5,37 +5,26 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  Typography,
 } from "@material-ui/core";
 import useSWR from "swr";
 import { fetcherToken } from "../../../services/FetcherFunction";
 import Endpoints from "../../../services/endpoints";
 import { getTokenInStorage } from "../../../utils/tokenHelper";
-import { useSelector } from "react-redux";
 import Title from "./Title";
 import { TableContainer, TablePagination } from "@material-ui/core";
-import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
-import { DeletePlayer } from "./AdminAPI";
-import Button from "@material-ui/core/Button";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import Dialog from "@material-ui/core/Dialog";
-import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import GameStatsRow from "./GameStatsRow"
+import GameStatsRow from "./GameStatsRow";
 
 export default function GameStats({ game }) {
   const moment = require("moment");
-
-
 
   //Fetch players
   const {
     data: players,
     error: playersError,
-  } = useSWR(`${Endpoints.GAME_API}/${game.id}/players`, (url) =>
-    fetcherToken(url, getTokenInStorage()),{refreshInterval:1}
+  } = useSWR(
+    `${Endpoints.GAME_API}/${game.id}/players`,
+    (url) => fetcherToken(url, getTokenInStorage()),
+    { refreshInterval: 1 }
   );
 
   //Fech Squad
@@ -45,8 +34,6 @@ export default function GameStats({ game }) {
   } = useSWR(`${Endpoints.GAME_API}/${game.id}/squads`, (url) =>
     fetcherToken(url, getTokenInStorage())
   );
-
-
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -60,9 +47,6 @@ export default function GameStats({ game }) {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-
-
-
 
   return (
     <>
