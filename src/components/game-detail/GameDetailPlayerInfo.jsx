@@ -14,10 +14,12 @@ import {
   DialogContent,
   DialogActions,
 } from "@material-ui/core";
+import { useParams } from "react-router";
 
 function GameDetailPlayerInfo({ game }) {
   const [humanPlayers, setHumanPlayers] = useState([]);
   const [zombiePlayers, setZombiePlayers] = useState([]);
+  const { id: gameId } = useParams();
 
   const [player, setPlayer] = useState({});
 
@@ -28,15 +30,15 @@ function GameDetailPlayerInfo({ game }) {
   const {
     data: players,
     error: playersError,
-  } = useSWR(`${Endpoints.GAME_API}/${game.id}/players`, (url) =>
+  } = useSWR(`${Endpoints.GAME_API}/${gameId}/players`, (url) =>
     fetcherToken(url, getTokenInStorage())
   );
-
+  console.log(players);
   //TODO: squadMembers will be supported later (FIX THEN)
   const {
     data: gameSquads,
     error: gameSquadsError,
-  } = useSWR(`${Endpoints.GAME_API}/${game.id}/squads`, (url) =>
+  } = useSWR(`${Endpoints.GAME_API}/${gameId}/squads`, (url) =>
     fetcherToken(url, getTokenInStorage())
   );
 
@@ -89,12 +91,12 @@ function GameDetailPlayerInfo({ game }) {
           Kill
         </Button>
       </div>
-      <GameKillPopup
+      {/* <GameKillPopup
         open={open}
         setOpen={setOpen}
         player={player}
         game={game}
-      />
+      /> */}
     </aside>
   );
 }

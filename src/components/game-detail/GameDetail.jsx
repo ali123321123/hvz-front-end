@@ -28,6 +28,7 @@ import EditGameImage from "../admin-pages/EditGameImage";
 import EditAvatarImage from "./EditAvatarImage";
 import AccordionMissions from "./AccordionMissions";
 import AccordianRowMissions from "./AccordianRowMissions";
+import ImageCard from "../admin-pages/admin-dashboard/ImageCard";
 
 function GameDetail() {
   const drawerWidth = 240;
@@ -115,6 +116,7 @@ function GameDetail() {
             <CssBaseline />
             <main className={classes.content}>
               <div className={classes.appBarSpacer} />
+
               <Container maxWidth="lg" className={classes.container}>
                 <Grid container spacing={3}>
                   {/* Player stats */}
@@ -124,7 +126,7 @@ function GameDetail() {
 
                   {/* PROFILE AVATAR IMAGE | PLAYER INFO* */}
                   <Grid item xs={12} md={4} lg={4}>
-                    <EditAvatarImage player={player} />
+                    <ImageCard game={game} />
                     <Typography> {player?.name}</Typography>
                     <Typography>
                       Bite code: &nbsp; {player?.biteCode}
@@ -133,7 +135,7 @@ function GameDetail() {
 
                   {/* INTERACTIVE MAP */}
                   <Grid item xs={12} md={5} lg={5}>
-                    <div style={{ heigh: "250px" }}>
+                    <div>
                       <GameDetailInteractiveMap
                         playAreaCoordinates={playAreaCoordinates}
                         scrollWheelZoom={true}
@@ -144,7 +146,7 @@ function GameDetail() {
                   {/* MISSION STATS*/}
                   <Grid item xs={12} md={7} lg={7}>
                     {/* <Paper className={classes.paper}> */}
-                    <AccordionMissions game={game} />
+                    <AccordionMissions game={game} player={player} />
 
                     {/* </Paper> */}
                   </Grid>

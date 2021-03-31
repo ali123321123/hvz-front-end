@@ -5,9 +5,9 @@ import Endpoints from "../../../services/endpoints";
 import { getTokenInStorage } from "../../../utils/tokenHelper";
 import useSWR from "swr";
 import { fetcherToken } from "../../../services/FetcherFunction";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 
-const ImageCard = ({ onClick }) => {
+const ImageCard = ({ onClick, title, arrow }) => {
   const useStyles = makeStyles((theme) => ({
     card: {
       textAlign: " center",
@@ -50,7 +50,7 @@ const ImageCard = ({ onClick }) => {
 
   const cloudinaryCore = new Cloudinary({ cloud_name: "debyqnalg" });
   const location = useLocation();
-
+  const { id: gameId } = useParams();
   useEffect(() => {
     setGame(location.state);
   }, [location.state]);
@@ -59,7 +59,7 @@ const ImageCard = ({ onClick }) => {
   const {
     data: games,
     error: gamesError,
-  } = useSWR(`${Endpoints.GAME_API}/${game.id}`, (url) =>
+  } = useSWR(`${Endpoints.GAME_API}/${gameId}`, (url) =>
     fetcherToken(url, getTokenInStorage())
   );
 
@@ -67,10 +67,10 @@ const ImageCard = ({ onClick }) => {
     <>
       {games ? (
         <Tooltip
-          arrow
+          arrow={arrow}
           placement={"bottom"}
           aria-label="Upload image"
-          title="Upload Image"
+          title={title}
         >
           {/* <Card className={classes.card}> */}
           <Button onClick={onClick} className={classes.roundButton}>

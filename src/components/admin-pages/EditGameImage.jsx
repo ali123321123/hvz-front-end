@@ -22,7 +22,12 @@ const EditGameImage = ({ game }) => {
 
   return (
     <>
-      <ImageCard game={game} onClick={handleUpload} />
+      <ImageCard
+        game={game}
+        onClick={handleUpload}
+        title="Upload Image"
+        arrow="true"
+      />
     </>
   );
 };

@@ -21,6 +21,7 @@ const AccordionRowSquads = ({ s }) => {
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
+
   return (
     <div>
       <Accordion
@@ -33,7 +34,9 @@ const AccordionRowSquads = ({ s }) => {
           aria-controls="panel1bh-content"
           id="panel1bh-header"
         >
-          <TableCell>{s.name}</TableCell>
+          <TableCell>
+            {s.name} rank: {s.rank}
+          </TableCell>
           <TableCell>
             {s.isHumanVisible ? (
               <Typography
@@ -54,7 +57,7 @@ const AccordionRowSquads = ({ s }) => {
         </AccordionSummary>
 
         <AccordionDetails>
-          <Typography>squad members?</Typography>
+          <Typography>squad members?{s.rank}</Typography>
         </AccordionDetails>
       </Accordion>
     </div>
