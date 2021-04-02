@@ -91,33 +91,32 @@ export default function GameStats({ game }) {
   };
 
   const addPlayer = () => {
-
     let data = {
-        userId: userId,
-        gameId: game.id,
-      };
-      fetch(`${Endpoints.GAME_API}/${game.id}/join_game`, {
-        method: "Post",
-        headers: {
-          Authorization: "Bearer " + getTokenInStorage(),
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      }).then((res) =>
-        res.json().then((res) => {
-            if(res.message) setAddUserError(true)
-            else handleClickOpenAddplayer()
-          console.warn("result", res);
-        })
-      );
-  }
+      userId: userId,
+      gameId: game.id,
+    };
+    fetch(`${Endpoints.GAME_API}/${game.id}/join_game`, {
+      method: "Post",
+      headers: {
+        Authorization: "Bearer " + getTokenInStorage(),
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    }).then((res) =>
+      res.json().then((res) => {
+        if (res.message) setAddUserError(true);
+        else handleClickOpenAddplayer();
+        console.warn("result", res);
+      })
+    );
+  };
 
   return (
     <>
       <TableContainer>
         <div className={classes.gamesStatsHeader}>
           <Title>
-            Game info |{" "}
+            {game.name} |{" "}
             {moment(`${game.startTime}`).format("MMMM Do YYYY, HH:mm ")} -{" "}
             {moment(`${game.endTime}`).format("MMMM Do YYYY, HH:mm ")}
           </Title>
@@ -166,50 +165,50 @@ export default function GameStats({ game }) {
       />
       {/* ADD PLAYER DIALOG */}
       <Dialog
-            open={openAddPlayer}
-            fullWidth
-            onClose={handleClickOpenAddplayer}
-            aria-labelledby="responsive-dialog-title"
-          >
+        open={openAddPlayer}
+        fullWidth
+        onClose={handleClickOpenAddplayer}
+        aria-labelledby="responsive-dialog-title"
+      >
+        <DialogActions>
+          <IconButton aria-label="close" onClick={handleClickOpenAddplayer}>
+            <CloseIcon />
+          </IconButton>
+        </DialogActions>
+
+        <DialogTitle>
+          <Typography variant="h3">Add new Player</Typography>
+        </DialogTitle>
+
+        <DialogContent dividers>
+          <DialogContent>
+            <TextField
+              required
+              autoFocus
+              variant="outlined"
+              name="user id"
+              value={userId}
+              label="User Id"
+              style={{ padding: "10px" }}
+              onChange={handleUserId}
+            />
+          </DialogContent>
+          {/* BUTTON ADD PLAYER */}
+          <section>
             <DialogActions>
-              <IconButton aria-label="close" onClick={handleClickOpenAddplayer}>
-                <CloseIcon />
-              </IconButton>
+              <Button
+                className="buttonPink"
+                color="primary"
+                type="button"
+                onClick={addPlayer}
+              >
+                Add player
+              </Button>
             </DialogActions>
-
-            <DialogTitle>
-              <Typography variant="h3">Add new Player</Typography>
-            </DialogTitle>
-
-            <DialogContent dividers>
-                <DialogContent>
-                  <TextField
-                    required
-                    autoFocus
-                    variant="outlined"
-                    name="user id"
-                    value={userId}
-                    label="User Id"
-                    style={{ padding: "10px"}}
-                    onChange={handleUserId}
-                  />
-                </DialogContent>
-                {/* BUTTON ADD PLAYER */}
-                <section>
-                  <DialogActions>
-                    <Button
-                      className="buttonPink"
-                      color="primary"
-                      type="button"
-                      onClick={addPlayer}
-                    >
-                      Add player
-                    </Button>
-                  </DialogActions>
-                  {addUserError && <p>Could not add user</p>}
-                </section>
-            </DialogContent>
-          </Dialog>
+            {addUserError && <p>Could not add user</p>}
+          </section>
+        </DialogContent>
+      </Dialog>
     </>
   );
 }

@@ -36,6 +36,7 @@ import { getTokenInStorage } from "../../../utils/tokenHelper";
 import { useHistory } from "react-router";
 import Map from "../../map/Map";
 import MapAddRectanglePlayArea from "../../map/MapAddRectanglePlayArea";
+import "../../shared/Leaflet.scss";
 
 const CreateGameForm = ({ open, setOpen }) => {
   const { handleSubmit } = useForm();
@@ -74,11 +75,12 @@ const CreateGameForm = ({ open, setOpen }) => {
         Accept: "application/json",
       },
       body: JSON.stringify(data),
-    }).then((res) => res.json().then((res) => 
-    {
-        history.push(`/admin/game/${res.id}`, { state: res});
-        console.warn("result", res)
-    }));
+    }).then((res) =>
+      res.json().then((res) => {
+        history.push(`/admin/game/${res.id}`, { state: res });
+        console.warn("result", res);
+      })
+    );
 
     setOpen(false);
   };
@@ -180,7 +182,7 @@ const CreateGameForm = ({ open, setOpen }) => {
                 </Container>
               </DialogContent>
 
-              {/* Interactive Map | UPLOAD IMAGE*/}
+              {/* Interactive Map */}
               <DialogContent>
                 <Typography gutterBottom>Interactive Map</Typography>
 
@@ -217,7 +219,11 @@ const CreateGameForm = ({ open, setOpen }) => {
                 {playAreaSize && (
                   <div style={{ height: "20em" }}>
                     <Map center={[0, 0]} scrollWheelZoom={true}>
-                      <MapAddRectanglePlayArea rectangleCorners={rectangleCorners} setRectangleCorners={setRectangleCorners} size={playAreaSize} />
+                      <MapAddRectanglePlayArea
+                        rectangleCorners={rectangleCorners}
+                        setRectangleCorners={setRectangleCorners}
+                        size={playAreaSize}
+                      />
                     </Map>
                   </div>
                 )}

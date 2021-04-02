@@ -8,7 +8,6 @@ import {
   Paper,
   MuiThemeProvider,
 } from "@material-ui/core";
-import TempInteractiveMap from "./TempInteractiveMap";
 import GameStats from "./GameStats";
 import EditMissionStats from "./EditMissionStats";
 import PlayerStats from "./PlayerStats";
@@ -18,13 +17,12 @@ import EditGameImage from "../EditGameImage";
 import Auth from "../../../utils/authentication";
 import { useHistory, useParams } from "react-router";
 import { themeActive } from "../../shared/themeGameCards";
-import Map from "../../map/Map";
 import useSWR from "swr";
 import Endpoints from "../../../services/endpoints";
 import { fetcherToken } from "../../../services/FetcherFunction";
 import { getTokenInStorage } from "../../../utils/tokenHelper";
-import { Marker, Popup, Rectangle } from "react-leaflet";
 import AdminGameMap from "./AdminGameMap";
+import "../../shared/Leaflet.scss";
 
 export default function AdminDashboard(props) {
   const { id: gameId } = useParams();
@@ -130,7 +128,7 @@ export default function AdminDashboard(props) {
   return (
     <div className={classes.root}>
       <AppbarMainMenu
-        menuTitle={`Dashboard | ${game.name}`}
+        menuTitle={`Admin Dashboard`}
         menuItems={<MenuItemsAdminDashboard game={game} />}
       />
       <MuiThemeProvider theme={themeActive}>

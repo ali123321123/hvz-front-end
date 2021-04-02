@@ -3,13 +3,10 @@ import { useHistory, useParams } from "react-router";
 import useSWR from "swr";
 import { fetcherToken } from "../../services/FetcherFunction";
 import Auth from "../../utils/authentication";
-import "../shared/GameDetailPage.scss";
+import "../shared/Leaflet.scss";
 import GameDetailInteractiveMap from "./GameDetailInteractiveMap";
-import GameDetailPlayerInfo from "./GameDetailPlayerInfo";
 import Endpoints from "../../services/endpoints";
 import { decodedToken, getTokenInStorage } from "../../utils/tokenHelper";
-import { useMapEvents } from "react-leaflet";
-import GameChat from "../chat/gamechat/GameChat";
 import {
   Typography,
   makeStyles,
@@ -20,19 +17,14 @@ import {
   MuiThemeProvider,
 } from "@material-ui/core";
 import AppbarMainMenu from "../shared/AppbarMainMenu";
-import MenuItemsAdminDashboard from "../admin-pages/admin-dashboard/MenuItemsAdminDashboard";
 import { themeActive } from "../shared/themeGameCards";
-import MissionStats from "./MissionStats";
 import PlayerStats from "../admin-pages/admin-dashboard/PlayerStats";
-import EditGameImage from "../admin-pages/EditGameImage";
-import EditAvatarImage from "./EditAvatarImage";
 import AccordionMissions from "./AccordionMissions";
-import AccordianRowMissions from "./AccordianRowMissions";
 import ImageCard from "../admin-pages/admin-dashboard/ImageCard";
+import MenuItemsGameDetail from "./MenuItemsGameDetail";
+import GameKillPopup from "./GameKillPopup";
 
 function GameDetail() {
-  const drawerWidth = 240;
-
   const useStyles = makeStyles((theme) => ({
     //Content container
     container: {
@@ -105,13 +97,23 @@ function GameDetail() {
       ]);
     }
   }, [game, gameError]);
+
+  const [open, setOpen] = useState(false);
+
+  const KillPrompt = () => {
+    setOpen(true);
+  };
+
   return (
     <div>
       {loading ? (
         <p>Loading...</p>
       ) : (
         <div className={classes.root}>
-          <AppbarMainMenu menuTitle={` ${player.name} | ${game.name}`} />
+          <AppbarMainMenu
+            menuTitle={`  ${game.name}`}
+            menuItems={<MenuItemsGameDetail />}
+          />
           <MuiThemeProvider theme={themeActive}>
             <CssBaseline />
             <main className={classes.content}>
@@ -121,26 +123,24 @@ function GameDetail() {
                 <Grid container spacing={3}>
                   {/* Player stats */}
                   <Grid item xs={12} md={5} lg={5}>
+                    <Typography variant="h5">
+                      {player?.name} &nbsp; - &nbsp; {player?.biteCode}
+                    </Typography>
+                    <br />
                     <PlayerStats game={game} />
                   </Grid>
 
                   {/* PROFILE AVATAR IMAGE | PLAYER INFO* */}
                   <Grid item xs={12} md={4} lg={4}>
                     <ImageCard game={game} />
-                    <Typography> {player?.name}</Typography>
-                    <Typography>
-                      Bite code: &nbsp; {player?.biteCode}
-                    </Typography>
                   </Grid>
 
                   {/* INTERACTIVE MAP */}
                   <Grid item xs={12} md={5} lg={5}>
-                    <div>
-                      <GameDetailInteractiveMap
-                        playAreaCoordinates={playAreaCoordinates}
-                        scrollWheelZoom={true}
-                      />
-                    </div>
+                    <GameDetailInteractiveMap
+                      playAreaCoordinates={playAreaCoordinates}
+                      scrollWheelZoom={true}
+                    />
                   </Grid>
 
                   {/* MISSION STATS*/}
@@ -154,6 +154,12 @@ function GameDetail() {
                   {/* SQUAD INFO*/}
                   <Grid item xs={12} md={5} lg={5}>
                     <Paper className={classes.paper}>
+                      <GameKillPopup
+                        open={open}
+                        setOpen={setOpen}
+                        player={player}
+                        game={game}
+                      />
                       <Typography>Placeholder Squad</Typography>
                     </Paper>
                   </Grid>

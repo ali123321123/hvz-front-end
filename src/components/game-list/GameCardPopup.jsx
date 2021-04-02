@@ -9,14 +9,13 @@ import {
   DialogContent,
   DialogActions,
 } from "@material-ui/core";
-import "./CardStyles.scss"; // remove?
 import { useHistory } from "react-router";
 import GameCardPopupMap from "./GameCardPopupMap";
 import "./CardStyles.scss";
-import { useSelector } from "react-redux";
 import Auth from "../../utils/authentication";
 import { decodedToken, getTokenInStorage } from "../../utils/tokenHelper";
 import Endpoints from "../../services/endpoints";
+import "../shared/Leaflet.scss";
 
 const GameCardPopUp = ({ game, open, setOpen }) => {
   // const user = useSelector((state) => state.loggedInUser);
@@ -72,20 +71,20 @@ const GameCardPopUp = ({ game, open, setOpen }) => {
 
   return (
     <div>
-      <Dialog aria-labelledby="customized-dialog-title" open={open}>
-        <DialogTitle id="customized-dialog-title" onClose={handleClose}>
+      <Dialog aria-labelledby="join-game-popup" open={open} fullWidth>
+        <DialogTitle id="join-game-popup" onClose={handleClose}>
           {game.name}
         </DialogTitle>
-        {playArea && centerArea ? (
-          <div className="mapid">
+        <DialogContent>
+          {playArea && centerArea ? (
             <GameCardPopupMap
               gameName={game.name}
               playAreaCoordinates={playArea}
               centerAreaCoordinates={centerArea}
               scrollWheelZoom={false}
             />
-          </div>
-        ) : null}
+          ) : null}
+        </DialogContent>
 
         <DialogContent dividers>
           {centerArea && (

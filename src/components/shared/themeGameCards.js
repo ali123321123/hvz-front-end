@@ -163,21 +163,16 @@ export const themeActive = createMuiTheme({
         color: primary,
       },
     },
+
     MuiInputBase: {
       root: {
         color: primary,
       },
     },
 
-    MuiInputBase: {
-      input: {
-        color: primary,
-      },
-    },
-
-    MuiFormLabel: {
-      root: {
-        color: primary,
+    MuiOutlinedInput: {
+      notchedOutline: {
+        borderColor: primary,
       },
     },
 
