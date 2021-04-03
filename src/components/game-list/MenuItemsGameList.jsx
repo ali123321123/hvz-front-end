@@ -10,7 +10,11 @@ import {
 import Auth from "../../utils/authentication";
 import { useHistory } from "react-router";
 
-export default function MenuItemsGameList({handleClickActive, handleClickUpcoming, handleClickCompleted}) {
+export default function MenuItemsGameList({
+  handleClickActive,
+  handleClickUpcoming,
+  handleClickCompleted,
+}) {
   const history = useHistory();
 
   const handleProfileOption = () => {
@@ -19,12 +23,13 @@ export default function MenuItemsGameList({handleClickActive, handleClickUpcomin
     } else {
       history.push("/login");
     }
+    if (Auth.userIsAdmin()) {
+      history.push("/admin");
+    }
   };
   const handleClickRules = () => {
     history.push("/rules");
   };
-  
-
 
   return (
     <div>
@@ -34,11 +39,23 @@ export default function MenuItemsGameList({handleClickActive, handleClickUpcomin
         onClick={handleProfileOption}
       />
 
-      <MenuIcon menuIcon={<Timelapse />} title={"Active Games"} onClick={handleClickActive} />
+      <MenuIcon
+        menuIcon={<Timelapse />}
+        title={"Active Games"}
+        onClick={handleClickActive}
+      />
 
-      <MenuIcon menuIcon={<QueryBuilder />} title={"Upcoming Games"} onClick={handleClickUpcoming}/>
+      <MenuIcon
+        menuIcon={<QueryBuilder />}
+        title={"Upcoming Games"}
+        onClick={handleClickUpcoming}
+      />
 
-      <MenuIcon menuIcon={<RadioButtonChecked />} title={"Completed Games"} onClick={handleClickCompleted}/>
+      <MenuIcon
+        menuIcon={<RadioButtonChecked />}
+        title={"Completed Games"}
+        onClick={handleClickCompleted}
+      />
 
       {/*Rules & Instruction*/}
       <MenuIcon

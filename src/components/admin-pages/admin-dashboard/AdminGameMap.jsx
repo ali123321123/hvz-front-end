@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Marker, Popup, Rectangle } from "react-leaflet";
 import Map from "../../map/Map";
+import "../../shared/Leaflet.scss";
 
 function AdminGameMap({ game, missions }) {
   const [center, setCenter] = useState([]);
@@ -23,7 +24,7 @@ function AdminGameMap({ game, missions }) {
     <>
       {center.length > 0 && (
         <Map center={center} zoom={17} scrollWheelZoom={true}>
-          <Rectangle bounds={gameArea}/>
+          <Rectangle bounds={gameArea} />
           {missions?.map((m) => (
             <Marker position={[m.lat, m.lng]}>
               <Popup>{m.name}</Popup>

@@ -12,6 +12,8 @@ import {
 import "./CardStyles.scss";
 import GameCardPopup from "./GameCardPopup";
 import { Cloudinary } from "cloudinary-core";
+import { Link } from "react-router-dom";
+import Auth from "../../utils/authentication";
 
 function GameListCard({ game }) {
   const moment = require("moment");
@@ -27,6 +29,17 @@ function GameListCard({ game }) {
 
   const handleClickOpen = () => {
     setOpen(true);
+  };
+
+  const goToGameDetail = () => {
+    if (Auth.userIsLoggedIn()) {
+      <Link
+        to={{
+          pathname: `/admin/game/${game.id}`,
+          state: game,
+        }}
+      ></Link>;
+    }
   };
 
   return (
@@ -82,16 +95,37 @@ function GameListCard({ game }) {
             </Typography>
           </CardContent>
 
-          <CardContent>
-            <Button
-              onClick={handleClickOpen}
-              variant="outlined"
-              color="secondary"
-              component="p"
-            >
-              See More
-            </Button>
-          </CardContent>
+          {Auth.userIsLoggedIn() ? (
+            <CardContent>
+              <Link
+                style={{ textDecoration: "none" }}
+                to={{
+                  pathname: `/game/${game.id}`,
+                  state: game,
+                }}
+              >
+                <Button
+                  onClick={goToGameDetail}
+                  variant="outlined"
+                  color="secondary"
+                  component="p"
+                >
+                  Go to Game
+                </Button>
+              </Link>
+            </CardContent>
+          ) : (
+            <CardContent className="btnCard">
+              <Button
+                onClick={handleClickOpen}
+                variant="outlined"
+                color="secondary"
+                component="p"
+              >
+                See More
+              </Button>
+            </CardContent>
+          )}
         </Card>
       </div>
       {open && <GameCardPopup open={open} setOpen={setOpen} game={game} />}

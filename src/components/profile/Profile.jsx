@@ -1,4 +1,3 @@
-
 import clsx from "clsx";
 import {
   makeStyles,
@@ -17,10 +16,10 @@ import { fetcherToken } from "../../services/FetcherFunction";
 import Auth from "../../utils/authentication";
 import "./styles.scss";
 import Endpoints from "../../services/endpoints";
-import { getTokenInStorage, decodedToken} from "../../utils/tokenHelper";
-import GameRows from "./GameRows"
-import UserStats from "./UserStats"
-import UserInfo from "./UserInfo"
+import { getTokenInStorage, decodedToken } from "../../utils/tokenHelper";
+import GameRows from "./GameRows";
+import UserStats from "./UserStats";
+import UserInfo from "./UserInfo";
 
 function Profile() {
   const history = useHistory();
@@ -62,7 +61,6 @@ function Profile() {
   }));
   const classes = useStyles();
 
-  
   //Group classes
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
   useEffect(() => {
@@ -71,18 +69,14 @@ function Profile() {
     }
   }, []);
 
-  const {
-    data: user,
-    error: userError,
-  } = useSWR(`${Endpoints.USERS_API}/${decodedToken().unique_name}`, (url) =>
-    fetcherToken(url, getTokenInStorage())
+  const { data: user, error: userError } = useSWR(
+    `${Endpoints.USERS_API}/${decodedToken().unique_name}`,
+    (url) => fetcherToken(url, getTokenInStorage())
   );
   //Fetch games
-  const {
-    data: players,
-    error: playersError,
-  } = useSWR(`${Endpoints.USERS_API}/${decodedToken().unique_name}/games`, (url) =>
-    fetcherToken(url, getTokenInStorage())
+  const { data: players, error: playersError } = useSWR(
+    `${Endpoints.USERS_API}/${decodedToken().unique_name}/games`,
+    (url) => fetcherToken(url, getTokenInStorage())
   );
 
   const [loading, setLoading] = useState(true);
@@ -108,34 +102,45 @@ function Profile() {
         <p>Loading...</p>
       ) : (
         <main className={classes.content}>
-        <div className={classes.appBarSpacer} />
-        <Container maxWidth="lg" className={classes.container}>
-          <Grid container spacing={2}>
-            <Grid item xs={12} md={3} lg={3}>
-            <UserStats user={user} players={players}/>
-            </Grid>
+          <div className={classes.appBarSpacer} />
+          <Container maxWidth="lg" className={classes.container}>
+            {!Auth.userIsAdmin() ? (
+              <Grid container spacing={2}>
+                <Grid item xs={12} md={3} lg={3}>
+                  <UserStats user={user} players={players} />
+                </Grid>
 
-            {/* User info */}
-            <Grid item xs={12} md={9} lg={9}>
-              <Paper>
-                <UserInfo user={user} />
-              </Paper>
-            </Grid>
+                {/* User info */}
+                <Grid item xs={12} md={9} lg={9}>
+                  <Paper>
+                    <UserInfo user={user} />
+                  </Paper>
+                </Grid>
 
-            {/* User stats */}
-            <Grid item xs={12} md={3} lg={3}>
-              {/* <UserStats user={user} gamesCount={games}/> */}
-            </Grid>
+                {/* User stats */}
+                <Grid item xs={12} md={3} lg={3}>
+                  {/* <UserStats user={user} gamesCount={games}/> */}
+                </Grid>
 
-            {/* Game Stats */}
-            <Grid item xs={12}>
-              <Paper className={classes.paper}>
-                <GameRows players={players}/>
-              </Paper>
-            </Grid>
-          </Grid>
-        </Container>
-      </main>
+                {/* Game Stats */}
+                <Grid item xs={12}>
+                  <Paper className={classes.paper}>
+                    <GameRows players={players} />
+                  </Paper>
+                </Grid>
+              </Grid>
+            ) : (
+              <Grid container spacing={2}>
+                {/* User info */}
+                <Grid item xs={12} md={9} lg={9}>
+                  <Paper>
+                    <UserInfo user={user} />
+                  </Paper>
+                </Grid>
+              </Grid>
+            )}
+          </Container>
+        </main>
       )}
     </>
   );

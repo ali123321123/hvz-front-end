@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { HomeRounded, PostAdd } from "@material-ui/icons";
+import { AccountCircle, HomeRounded, PostAdd } from "@material-ui/icons";
 import MenuIcon from "../../menu-items/MenuIcon";
 import CreateGameForm from "./CreateGameForm";
 import { Divider } from "@material-ui/core";
@@ -19,8 +19,18 @@ export default function MenuItemsAdminCard() {
     history.push("/");
   };
 
+  const handleProfileOption = () => {
+    history.push("/profile");
+  };
+
   return (
     <div>
+      <MenuIcon
+        menuIcon={<AccountCircle />}
+        title={"Profile"}
+        onClick={handleProfileOption}
+      />
+
       {/* CREATE NEW GAME */}
       <MenuIcon
         menuIcon={<PostAdd />}

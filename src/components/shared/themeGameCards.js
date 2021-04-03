@@ -131,6 +131,7 @@ export const themeActive = createMuiTheme({
     background: {
       default: "#131729",
     },
+    color: "black",
     primary: {
       //Font color
       main: "#9c27b0",

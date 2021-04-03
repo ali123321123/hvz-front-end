@@ -21,6 +21,7 @@ import { themeActive, light } from "../shared/themeGameCards";
 import MenuIcon from "./MenuIcon";
 import { Route, useHistory } from "react-router";
 import { HomeRounded } from "@material-ui/icons";
+import Auth from "../../utils/authentication";
 
 export default function MenuDrawer({ open, setOpen, menuItems }) {
   const drawerWidth = 240;
@@ -119,7 +120,12 @@ export default function MenuDrawer({ open, setOpen, menuItems }) {
   };
 
   const handleClickHome = () => {
-    history.push("/");
+    if (Auth.userIsLoggedIn()) {
+      history.push("/");
+    }
+    if (Auth.userIsAdmin()) {
+      history.push("/admin");
+    }
   };
 
   const handleToggleClose = () => {

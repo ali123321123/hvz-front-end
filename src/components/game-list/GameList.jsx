@@ -29,6 +29,7 @@ function GameList() {
   const useStyles = makeStyles((theme) => ({
     root: {
       width: "100%",
+      position: "relative",
 
       "& .MuiSvgIcon-root-141": {
         fontSize: "1.8em",
@@ -61,10 +62,11 @@ function GameList() {
       color: "#CA1551",
     },
     container: {
-      maxWidth: "100%",
-      paddingTop: theme.spacing(16),
+      paddingTop: theme.spacing(4),
       paddingBottom: theme.spacing(4),
-      textAlign: "center",
+      display: "flex",
+      justifyItems: "center",
+      margin: "0 auto",
     },
   }));
   const classes = useStyles();
@@ -181,7 +183,7 @@ function GameList() {
             />
           </div>
 
-          <main>
+          <main className={classes.container}>
             <Container maxWidth="lg">
               <MuiThemeProvider theme={themeActive}>
                 <CssBaseline />
@@ -193,7 +195,7 @@ function GameList() {
                 </article>
 
                 <Divider variant="middle" />
-                <section>
+                <section className="container">
                   <Grid
                     container
                     spacing={10}
