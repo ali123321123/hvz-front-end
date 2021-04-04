@@ -11,8 +11,15 @@ import {
   TableHead,
   TableRow,
   Typography,
+  Grid,
+  withStyles,
+  Fab,
 } from "@material-ui/core";
 import { ExpandMore } from "@material-ui/icons";
+import MuiAccordion from '@material-ui/core/Accordion';
+import MuiAccordionSummary from '@material-ui/core/AccordionSummary';
+import MuiAccordionDetails from '@material-ui/core/AccordionDetails';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 
 const AccordionRowSquads = ({ s }) => {
   const moment = require("moment");
@@ -22,8 +29,43 @@ const AccordionRowSquads = ({ s }) => {
     setExpanded(isExpanded ? panel : false);
   };
 
+  const Accordion = withStyles({
+    root: {
+      border: '1px solid rgba(0, 0, 0, .125)',
+      boxShadow: 'none',
+      '&:not(:last-child)': {
+        borderBottom: 0,
+      },
+      '&:before': {
+        display: 'none',
+      },
+      '&$expanded': {
+        margin: 'auto',
+      },
+    },
+    expanded: {},
+  })(MuiAccordion);
+  
+  const AccordionSummary = withStyles({
+    root: {
+      backgroundColor: 'rgba(0, 0, 0, .03)',
+      borderBottom: '1px solid rgba(0, 0, 0, .125)',
+      marginBottom: -1,
+      minHeight: 56,
+      '&$expanded': {
+        minHeight: 56,
+      },
+    },
+    content: {
+      '&$expanded': {
+        margin: '12px 0',
+      },
+    },
+    expanded: {},
+  })(MuiAccordionSummary);
+
   return (
-    <div>
+    <>
       <Accordion
         key={s.id}
         expanded={expanded === "panel1"}
@@ -34,33 +76,54 @@ const AccordionRowSquads = ({ s }) => {
           aria-controls="panel1bh-content"
           id="panel1bh-header"
         >
-          <TableCell>
-            {s.name} rank: {s.rank}
-          </TableCell>
-          <TableCell>
-            {s.isHumanVisible ? (
+        <Grid item xs={4}>
+          {s.name}
+        </Grid>
+        <Grid item xs={4}>
               <Typography
                 variant="body2"
-                style={{ color: "#3bbb4c", fontWeight: "bold" }}
+                style={{ fontWeight: "bold" }}
               >
-                Human
+                {s.squadMembers.length}
               </Typography>
-            ) : (
-              <Typography
-                variant="body2"
-                style={{ color: "#df1b55", fontWeight: "bold" }}
-              >
-                Zombie
-              </Typography>
-            )}
-          </TableCell>
+        </Grid>
+        <Grid item xs={4}>
+        <Fab
+            color="secondary"
+            aria-label="Add Mission button"
+            variant="extended"
+            size="medium"
+            // onClick={}
+          >
+            <>
+              Join
+              <PlayArrowIcon />
+            </>
+          </Fab>
+        </Grid>
         </AccordionSummary>
 
         <AccordionDetails>
-          <Typography>squad members?{s.rank}</Typography>
+          <Grid container >
+              <Grid xs={5}>
+                  <Grid xs={12}>
+                      <Typography style={{ fontWeight: "bold", borderBottom:"1px solid black" }}>SquadMembers</Typography>
+                  </Grid>
+                  {s.squadMembers.map(sm => (
+                      <Typography>{sm.name}</Typography>
+                  ))}
+              </Grid>
+              <Grid xs={5}>
+                  <Grid xs={12}>
+                      <Typography style={{ fontWeight: "bold", borderBottom:"1px solid black" }}>Faction</Typography>
+                  </Grid>
+                  <Typography>{s.isHuman ? `Human` : `Zombie`}</Typography>
+                  
+              </Grid>
+          </Grid>
         </AccordionDetails>
       </Accordion>
-    </div>
+    </>
   );
 };
 export default AccordionRowSquads;
