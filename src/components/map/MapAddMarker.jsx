@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Marker, useMapEvents } from "react-leaflet";
+//import Marker from 'react-leaflet-enhanced-marker'
+import {customMarkerIcon} from './MapIconMaker';
 
-function MapAddMarker({ setMarkerPosition }) {
+function MapAddMarker(props, { setMarkerPosition, markerImage }) {
   const [position, setPosition] = useState(null);
- 
+
   const map = useMapEvents({
     click(e) {
       setPosition(e.latlng);
@@ -11,7 +13,11 @@ function MapAddMarker({ setMarkerPosition }) {
     },
   });
 
-  return <>{position && <Marker position={position} />}</>;
+  
+
+  return (
+    <>{position && <Marker icon={customMarkerIcon(markerImage, position)} position={position}>{props.children}</Marker>}</>
+  );
 }
 
 export default MapAddMarker;

@@ -18,6 +18,7 @@ import {
   Grid,
   Paper,
   MuiThemeProvider,
+  Button,
 } from "@material-ui/core";
 import AppbarMainMenu from "../shared/AppbarMainMenu";
 import MenuItemsAdminDashboard from "../admin-pages/admin-dashboard/MenuItemsAdminDashboard";
@@ -29,6 +30,7 @@ import EditAvatarImage from "./EditAvatarImage";
 import AccordionMissions from "./AccordionMissions";
 import AccordianRowMissions from "./AccordianRowMissions";
 import ImageCard from "../admin-pages/admin-dashboard/ImageCard";
+import GameKillPopup from "./GameKillPopup";
 
 function GameDetail() {
   const drawerWidth = 240;
@@ -75,6 +77,7 @@ function GameDetail() {
   const [player, setPlayer] = useState({});
   const [loading, setLoading] = useState(true);
   const [playAreaCoordinates, setPlayAreaCoordinates] = useState([]);
+  const [killOpen, setKillOpen] = useState(false);
 
   const {
     data: players,
@@ -105,6 +108,11 @@ function GameDetail() {
       ]);
     }
   }, [game, gameError]);
+
+  const KillPrompt = () => {
+    setKillOpen(true);
+  };
+
   return (
     <div>
       {loading ? (
@@ -141,6 +149,17 @@ function GameDetail() {
                         scrollWheelZoom={true}
                       />
                     </div>
+                    {player.isHuman && ( //Endre til '!player.isHuman' for å bare vise knappen når man er zombie
+                      <div className="kill">
+                        <Button
+                          onClick={KillPrompt}
+                          variant="outlined"
+                          color="secondary"
+                        >
+                          Kill
+                        </Button>
+                      </div>
+                    )}
                   </Grid>
 
                   {/* MISSION STATS*/}
@@ -171,6 +190,12 @@ function GameDetail() {
         </div>
       )}
       {/* <GameChat /> */}
+      <GameKillPopup
+        open={killOpen}
+        setOpen={setKillOpen}
+        player={player}
+        game={game}
+      />
     </div>
   );
 }

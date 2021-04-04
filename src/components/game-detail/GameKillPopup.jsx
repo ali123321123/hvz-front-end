@@ -10,6 +10,7 @@ import SendIcon from '@material-ui/icons/Send';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { light } from "../shared/themeGameCards";
+import Icons from '../../utils/icons'
 
 
 import {
@@ -24,6 +25,8 @@ import {
 import Endpoints from '../../services/endpoints';
 
 const GameKillPopup = ({ player, game, open, setOpen }) => {
+
+ 
 
     const useStyles = makeStyles((theme) =>
         createStyles({
@@ -109,7 +112,9 @@ const GameKillPopup = ({ player, game, open, setOpen }) => {
                 {game && (
                     <DialogContent style={{ height: "20em" }}>
                         <Map center={[(game.nW_lat + game.sE_lat) / 2, (game.nW_lng + game.sE_lng) / 2]} scrollWheelZoom={true}>
-                            <MapAddMarker setMarkerPosition={setMarkerPosition} />
+                            <MapAddMarker markerImage={Icons.tombstone} setMarkerPosition={setMarkerPosition}>
+                                
+                            </MapAddMarker>
                         </Map>
                     </DialogContent>
                 )}
