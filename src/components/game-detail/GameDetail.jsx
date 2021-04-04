@@ -20,6 +20,7 @@ import AppbarMainMenu from "../shared/AppbarMainMenu";
 import { themeActive } from "../shared/themeGameCards";
 import PlayerStats from "../admin-pages/admin-dashboard/PlayerStats";
 import AccordionMissions from "./AccordionMissions";
+import GameChat from "../chat/gamechat/GameChat"
 import ImageCard from "../admin-pages/admin-dashboard/ImageCard";
 import MenuItemsGameDetail from "./MenuItemsGameDetail";
 import GameKillPopup from "./GameKillPopup";
