@@ -16,7 +16,7 @@ function MapAddMarker(props, { setMarkerPosition, markerImage }) {
   
 
   return (
-    <>{position && <Marker icon={customMarkerIcon(markerImage, position)} position={position}>{props.children}</Marker>}</>
+    <>{position && <Marker icon={customMarkerIcon(markerImage)} position={position}>{props.children}</Marker>}</>
   );
 }
 

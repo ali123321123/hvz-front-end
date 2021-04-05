@@ -36,7 +36,7 @@ function AdminGameMap({ game, missions }) {
             } else if (m.isHumanVisible && !m.isZombiVisible) {
               return (
                 <Marker
-                  icon={customMarkerIcon(Icons.humanMarker, [m.lat, m.lng])}
+                  icon={customMarkerIcon(Icons.humanMarker)}
                   position={[m.lat, m.lng]}
                 >
                   <Popup>{m.name}</Popup>
@@ -45,7 +45,7 @@ function AdminGameMap({ game, missions }) {
             } else if (m.isZombiVisible && !m.isHumaVisible) {
               return (
                 <Marker
-                  Icon={customMarkerIcon(Icons.zombieMarker, [m.lat, m.lng])}
+                  Icon={customMarkerIcon(Icons.zombieMarker)}
                   position={[m.lat, m.lng]}
                 >
                   <Popup>{m.name}</Popup>
