@@ -14,11 +14,12 @@ import GameCardPopup from "./GameCardPopup";
 import { Cloudinary } from "cloudinary-core";
 import { Link } from "react-router-dom";
 import Auth from "../../utils/authentication";
+import { getTokenInStorage, decodedToken } from "../../utils/tokenHelper";
 
 function GameListCard({ game }) {
   const moment = require("moment");
   const cloudinaryCore = new Cloudinary({ cloud_name: "debyqnalg" });
-
+ const token = decodedToken();
   const [open, setOpen] = useState(false);
   const [players, setPlayers] = useState();
 
@@ -95,7 +96,8 @@ function GameListCard({ game }) {
             </Typography>
           </CardContent>
 
-          {Auth.userIsLoggedIn() ? (
+          {game.players.some(p => p.userId == token?.unique_name)
+          ? (
             <CardContent>
               <Link
                 style={{ textDecoration: "none" }}

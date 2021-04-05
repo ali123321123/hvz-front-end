@@ -64,10 +64,10 @@ export default function MissionStatsRow({ mission }) {
 
   // Event handlers
   const handleDeleteMissionClick = () => setDeleteMissionDialogOpen(true);
+  const [deleteMissionDialogOpen, setDeleteMissionDialogOpen] = useState();
 
   const handleMissionDialogYes = () => DeleteMission(mission.id);
 
-  const [deleteMissionDialogOpen, setDeleteMissionDialogOpen] = useState();
 
   const handleEditMissionClick = () => setEditMission(!editMission);
 

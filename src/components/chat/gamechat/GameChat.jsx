@@ -5,18 +5,22 @@ import { fetcherToken } from "../../../services/FetcherFunction";
 import Auth from "../../../utils/authentication";
 import Endpoints from "../../../services/endpoints";
 import { getTokenInStorage, decodedToken } from "../../../utils/tokenHelper";
-import { makeStyles, Paper, useTheme } from "@material-ui/core";
+import { makeStyles, useTheme } from "@material-ui/core";
 import GameChatInput from "./GameChatInput";
-import GameChatMessage from "./GameChatMessage";
-import TabPanel from "./TabPanel";
-import AppBar from "@material-ui/core/AppBar";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import IconButton from "@material-ui/core/IconButton";
-import SendIcon from "@material-ui/icons/Send";
-import AccountBoxIcon from "@material-ui/icons/AccountBox";
 import CloseIcon from "@material-ui/icons/Close";
+import Backdrop from "@material-ui/core/Backdrop";
+import SpeedDial from "@material-ui/lab/SpeedDial";
+import SpeedDialIcon from "@material-ui/lab/SpeedDialIcon";
+import SpeedDialAction from "@material-ui/lab/SpeedDialAction";
 import Grid from "@material-ui/core/Grid";
+import FileCopyIcon from "@material-ui/icons/FileCopyOutlined";
+import SaveIcon from "@material-ui/icons/Save";
+import PrintIcon from "@material-ui/icons/Print";
+import ForumIcon from "@material-ui/icons/Forum";
+import GroupIcon from "@material-ui/icons/Group";
+import PublicIcon from "@material-ui/icons/Public";
+import Fab from "@material-ui/core/Fab";
+import SportsKabaddiIcon from "@material-ui/icons/SportsKabaddi";
 import "./GameChat.scss";
 function tabProps(index) {
   return {
@@ -38,6 +42,11 @@ export default function GameChat() {
     root: {
       marginTop: "8%",
       color: "primary",
+    },
+    speedDial: {
+      position: "absolute",
+      bottom: theme.spacing(2),
+      right: theme.spacing(1),
     },
     paper: {
       width: "90%",
@@ -64,7 +73,7 @@ export default function GameChat() {
       background: "#683db8",
       fontSize: "20px",
       height: "50px",
-      cursor: "pointer"
+      cursor: "pointer",
     },
   }));
   const classes = useStyles();
@@ -82,115 +91,181 @@ export default function GameChat() {
     (url) => fetcherToken(url, getTokenInStorage()),
     { refreshInterval: 10 }
   );
-  
+
   // Makes sure the div is scrolled to bottom when new message is recieved
   const messagesEndRef = useRef(null);
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView();
   }, [chats]);
 
-  const [gameChatOpen, setGameChatOpen] = useState();
+  const [chatOpen, setChatOpen] = useState();
+  const [globalChatOpen, setGlobalChatOpen] = useState();
   const [factionChatOpen, setFactionChatOpen] = useState();
   const [squadChatOpen, setSquadChatOpen] = useState();
+
+  // Chat Speed Dial
+  const actions = [
+    {
+      icon: <SportsKabaddiIcon />,
+      name: "Faction",
+      action: () => handleOpenFactionChat(),
+    },
+    { icon: <PublicIcon />, name: "Global", action: () => handleOpenGlobalChat() },
+    { icon: <GroupIcon />, name: "Squad" },
+  ];
+  const [speedDialOpen, setSpeedDialOpen] = useState();
+  const handleSpeedDialOpen = () => setSpeedDialOpen(!speedDialOpen);
+
+  const handleOpenGlobalChat = () => {
+    setSpeedDialOpen(false);
+    setGlobalChatOpen(!globalChatOpen);
+    setFactionChatOpen(false);
+    setSquadChatOpen(false);
+  };
+  const handleOpenFactionChat = () => {
+    setSpeedDialOpen(false);
+    setGlobalChatOpen(false);
+    setFactionChatOpen(!factionChatOpen);
+    setSquadChatOpen(false);
+  };
+
   return (
-      <>
-    <div className="chatContainer">
-      <div class="card">
-        <Grid
-          container
-          className={classes.chatHeader}
-          onClick={() => setGameChatOpen(!gameChatOpen)}
-        >
-          <Grid item xs={2}>
-          </Grid>
-          <Grid item xs={8}>
-            Gamechat
-          </Grid>
-          <Grid item xs={2}>
-            <CloseIcon />
-          </Grid>
-        </Grid>
+    <>
+      {globalChatOpen && (
+        <div className="chatContainer">
+          <div class="card">
+            <Grid
+              container
+              className={classes.chatHeader}
+              onClick={() => setChatOpen(!chatOpen)}
+            >
+              <Grid item xs={2}></Grid>
+              <Grid item xs={8}>
+                Gamechat
+              </Grid>
+              <Grid item xs={2}>
+                <CloseIcon onClick={() => setGlobalChatOpen(!globalChatOpen)}/>
+              </Grid>
+            </Grid>
 
-        {!gameChatOpen &&
-        <div>
-          <div class="card-content chat-content">
-            <div class="content" >
-              {chats?.filter(
-                  (chat) =>
-                    (!chat.isHumanGlobal && !chat.isZombieGlobal && chat.gameId)
-                )
-                .sort((a, b) => a.chatTime - b.chatTime)
-                .map((c,i) => (
+            {!chatOpen && (
+              <div>
+                <div class="card-content chat-content">
+                  <div class="content">
+                    {chats
+                      ?.filter(
+                        (chat) =>
+                          !chat.isHumanGlobal &&
+                          !chat.isZombieGlobal &&
+                          chat.gameId
+                      )
+                      .sort((a, b) => a.chatTime - b.chatTime)
+                      .map((c, i) => (
                         <>
-                  <div class={`chat-message-group ${c.username === token.actort?"writer-user":""}`} >
-                    <div class="chat-messages">
-                      <div class="from">{c.username}</div>
-                      <div class="message">{c.message}</div>
-                      <div class="from">{moment(`${c.chatTime}`).format("HH:mm")}</div>
-                    </div>
+                          <div
+                            class={`chat-message-group ${
+                              c.username === token.actort ? "writer-user" : ""
+                            }`}
+                          >
+                            <div class="chat-messages">
+                              <div class="from">{c.username}</div>
+                              <div class="message">{c.message}</div>
+                              <div class="from">
+                                {moment(`${c.chatTime}`).format("HH:mm")}
+                              </div>
+                            </div>
+                          </div>
+                        </>
+                      ))}
                   </div>
-                  </>
-                ))}
-                 
-            </div>
+                </div>
+                <footer class="card-footer">
+                  <GameChatInput isGlobal={true} />
+                </footer>
+              </div>
+            )}
           </div>
-          <footer class="card-footer">
-              <GameChatInput isGlobal={true} />
-          </footer>
         </div>
-        }
-      </div>
-    </div>
+      )}
 
-    <div className="chatContainer chat2">
-      <div class="card">
-        <Grid
-          container
-          className={classes.chatHeader}
-          onClick={() => setFactionChatOpen(!factionChatOpen)}
-        >
-          <Grid item xs={2}>
-          </Grid>
-          <Grid item xs={8}>
-            Factionchat
-          </Grid>
-          <Grid item xs={2}>
-            <CloseIcon />
-          </Grid>
-        </Grid>
+      {factionChatOpen && (
+        <div className="chatContainer">
+          <div class="card">
+            <Grid
+              container
+              className={classes.chatHeader}
+              onClick={() => setChatOpen(!chatOpen)}
+            >
+              <Grid item xs={2}></Grid>
+              <Grid item xs={8}>
+                Factionchat
+              </Grid>
+              <Grid item xs={2}>
+                <CloseIcon  onClick={() => setFactionChatOpen(!factionChatOpen)}/>
+              </Grid>
+            </Grid>
 
-        {!factionChatOpen &&
-        <div>
-          <div class="card-content chat-content">
-            <div class="content" >
-              {chats?.filter(
-                  (chat) =>
-                    (chat.isHumanGlobal || chat.isZombieGlobal && chat.gameId)
-                )
-                .sort((a, b) => a.chatTime - b.chatTime)
-                .map((c,i) => (
+            {!chatOpen && (
+              <div>
+                <div class="card-content chat-content">
+                  <div class="content">
+                    {chats
+                      ?.filter(
+                        (chat) =>
+                          chat.isHumanGlobal ||
+                          (chat.isZombieGlobal && chat.gameId)
+                      )
+                      .sort((a, b) => a.chatTime - b.chatTime)
+                      .map((c, i) => (
                         <>
-                  <div class={`chat-message-group ${c.username === token.actort?"writer-user":""}`} >
-                    <div class="chat-messages">
-                      <div class="from">{c.username}</div>
-                      <div class="message">{c.message}</div>
-                      <div class="from">{moment(`${c.chatTime}`).format("HH:mm")}</div>
-                    </div>
+                          <div
+                            class={`chat-message-group ${
+                              c.username === token.actort ? "writer-user" : ""
+                            }`}
+                          >
+                            <div class="chat-messages">
+                              <div class="from">{c.username}</div>
+                              <div class="message">{c.message}</div>
+                              <div class="from">
+                                {moment(`${c.chatTime}`).format("HH:mm")}
+                              </div>
+                            </div>
+                          </div>
+                        </>
+                      ))}
                   </div>
-                  </>
-                ))}
-                 
-            </div>
+                </div>
+                <footer class="card-footer">
+                  <GameChatInput isGlobal={false} />
+                </footer>
+              </div>
+            )}
           </div>
-          <footer class="card-footer">
-              <GameChatInput isGlobal={false} />
-          </footer>
         </div>
-        }
-      </div>
-    </div>
+      )}
+
+      {/* CHAT SPEED DIAL */}
+      <Backdrop open={speedDialOpen} />
+      <SpeedDial
+        ariaLabel="SpeedDial tooltip example"
+        className={classes.speedDial}
+        icon={<ForumIcon />}
+        onClose={handleSpeedDialOpen}
+        onOpen={handleSpeedDialOpen}
+        open={speedDialOpen}
+      >
+        {actions.map((action) => (
+          <SpeedDialAction
+            key={action.name}
+            icon={action.icon}
+            tooltipTitle={action.name}
+            tooltipOpen
+            onClick={action.action}
+          />
+        ))}
+      </SpeedDial>
     </>
-    
+
     // <div className={classes.root}>
     //   <Paper className={classes.paper}>
     //     <AppBar position="static" color="default">
