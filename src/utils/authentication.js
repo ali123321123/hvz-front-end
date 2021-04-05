@@ -67,6 +67,7 @@ const Auth = {
     return false;
 
   },
+
 };
 
 export default Auth;

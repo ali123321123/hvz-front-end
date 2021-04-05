@@ -3,7 +3,7 @@ import { Marker, useMapEvents } from "react-leaflet";
 //import Marker from 'react-leaflet-enhanced-marker'
 import {customMarkerIcon} from './MapIconMaker';
 
-function MapAddMarker(props, { setMarkerPosition, markerImage }) {
+function MapAddMarker({ setMarkerPosition, markerImage }) {
   const [position, setPosition] = useState(null);
 
   const map = useMapEvents({
@@ -16,7 +16,7 @@ function MapAddMarker(props, { setMarkerPosition, markerImage }) {
   
 
   return (
-    <>{position && <Marker icon={customMarkerIcon(markerImage)} position={position}>{props.children}</Marker>}</>
+    <>{position && <Marker icon={customMarkerIcon(markerImage)} position={position}/>} </>
   );
 }
 
