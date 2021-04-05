@@ -111,6 +111,7 @@ const GameKillPopup = ({ player, game, open, setOpen }) => {
                 (game.nW_lng + game.sE_lng) / 2,
               ]}
               scrollWheelZoom={true}
+              zoom={17}
             >
               <MapAddMarker setMarkerPosition={setMarkerPosition} />
             </Map>

@@ -3,7 +3,7 @@ import { React, useState } from "react";
 import MenuIcon from "../menu-items/MenuIcon";
 import GameKillPopup from "./GameKillPopup";
 
-const MenuItemsGameDetail = () => {
+const MenuItemsGameDetail = ({game, player}) => {
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -17,7 +17,7 @@ const MenuItemsGameDetail = () => {
         onClick={handleClickOpen}
       />
 
-      {open && <GameKillPopup open={open} setOpen={setOpen} />}
+      {open && <GameKillPopup open={open} setOpen={setOpen} game={game} player={player} />}
     </div>
   );
 };
