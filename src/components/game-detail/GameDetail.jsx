@@ -24,7 +24,7 @@ import GameChat from "../chat/gamechat/GameChat";
 import ImageCard from "../admin-pages/admin-dashboard/ImageCard";
 import MenuItemsGameDetail from "./MenuItemsGameDetail";
 import GameKillPopup from "./GameKillPopup";
-import SquadTab from "./SquadTab"
+import SquadTab from "./SquadTab";
 
 function GameDetail() {
   const useStyles = makeStyles((theme) => ({
@@ -154,18 +154,18 @@ function GameDetail() {
                   </Grid>
 
                   {/* SQUAD INFO*/}
-                  <Grid item xs={12} md={7} lg={7}>
+                  <Grid item xs={12}>
                     <Paper className={classes.paper}>
                       <SquadTab player={player} gameId={game.id} />
                     </Paper>
                   </Grid>
 
-                  {/* Game Stats */}
-                  <Grid item xs={12}>
+                  {/* Kill Stats */}
+                  {/* <Grid item xs={12}>
                     <Paper className={classes.paper}>
-                      <Typography>Placeholder </Typography>
+                      <Typography></Typography>
                     </Paper>
-                  </Grid>
+                  </Grid> */}
                 </Grid>
                 <GameKillPopup
                   open={open}
