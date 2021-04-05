@@ -23,6 +23,7 @@ import {
 } from "@material-ui/core";
 import Endpoints from "../../services/endpoints";
 import { themeActive } from "../shared/themeGameCards";
+import Icons from "../../utils/icons";
 
 const GameKillPopup = ({ player, game, open, setOpen }) => {
   const useStyles = makeStyles((theme) =>
@@ -115,7 +116,7 @@ const GameKillPopup = ({ player, game, open, setOpen }) => {
               scrollWheelZoom={true}
               zoom={17}
             >
-              <MapAddMarker setMarkerPosition={setMarkerPosition} />
+              <MapAddMarker setMarkerPosition={setMarkerPosition} markerImage={Icons.tombstone} />
             </Map>
             // </DialogContent>
           )}
