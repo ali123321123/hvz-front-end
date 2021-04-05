@@ -4,6 +4,7 @@ import { fetcherToken } from "../../services/FetcherFunction";
 import { getTokenInStorage } from "../../utils/tokenHelper";
 import Endpoints from "../../services/endpoints";
 import AccordianRowMissions from "./AccordianRowMissions";
+import Title from "../admin-pages/admin-dashboard/Title";
 
 const AccordionMissions = ({ game }) => {
   //Fech Missions
@@ -22,9 +23,11 @@ const AccordionMissions = ({ game }) => {
 
   return (
     <>
-      {missions?.map((m) => (
-        <AccordianRowMissions m={m} />
-      ))}
+      {missions ? (
+        missions.map((m) => <AccordianRowMissions m={m} />)
+      ) : (
+        <Title>No active Mission</Title>
+      )}
     </>
   );
 };

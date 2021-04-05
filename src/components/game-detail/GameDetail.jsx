@@ -170,10 +170,9 @@ function GameDetail() {
 
                   {/* MISSION STATS*/}
                   <Grid item xs={12} md={7} lg={7}>
-                    {/* <Paper className={classes.paper}> */}
-                    <AccordionMissions game={game} player={player} />
-
-                    {/* </Paper> */}
+                    <Paper className={classes.paper}>
+                      <AccordionMissions game={game} player={player} />
+                    </Paper>
                   </Grid>
 
                   {/* SQUAD INFO*/}
