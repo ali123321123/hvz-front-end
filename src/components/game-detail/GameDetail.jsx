@@ -22,9 +22,9 @@ import PlayerStats from "../admin-pages/admin-dashboard/PlayerStats";
 import AccordionMissions from "./AccordionMissions";
 import GameChat from "../chat/gamechat/GameChat";
 import ImageCard from "../admin-pages/admin-dashboard/ImageCard";
-import MenuItemsGameDetail from "./MenuItemsGameDetail";
 import GameKillPopup from "./GameKillPopup";
 import SquadTab from "./SquadTab";
+import AccordionKills from "./AccordionKills"
 
 function GameDetail() {
   const useStyles = makeStyles((theme) => ({
@@ -114,7 +114,6 @@ function GameDetail() {
         <div className={classes.root}>
           <AppbarMainMenu
             menuTitle={`  ${game.name}`}
-            menuItems={<MenuItemsGameDetail game={game} player={player} />}
           />
           <MuiThemeProvider theme={themeActive}>
             <CssBaseline />
@@ -161,11 +160,11 @@ function GameDetail() {
                   </Grid>
 
                   {/* Kill Stats */}
-                  {/* <Grid item xs={12}>
+                  { <Grid item xs={12}>
                     <Paper className={classes.paper}>
-                      <Typography></Typography>
+                      <AccordionKills game={game} player={player}/>
                     </Paper>
-                  </Grid> */}
+                  </Grid> }
                 </Grid>
                 <GameKillPopup
                   open={open}
