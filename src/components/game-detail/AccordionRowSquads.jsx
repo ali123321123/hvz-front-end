@@ -20,6 +20,9 @@ import MuiAccordion from '@material-ui/core/Accordion';
 import MuiAccordionSummary from '@material-ui/core/AccordionSummary';
 import MuiAccordionDetails from '@material-ui/core/AccordionDetails';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import Button from "@material-ui/core/Button";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Dialog from "@material-ui/core/Dialog";
 
 const AccordionRowSquads = ({ s }) => {
   const moment = require("moment");
@@ -28,6 +31,13 @@ const AccordionRowSquads = ({ s }) => {
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
+
+  const handleJoinSquadYesClick = () => {
+
+  }
+  
+  const handleJoinSquadClick = () => setJoinSquadDialogOpen(true);
+  const [joinSquadDialogOpen, setJoinSquadDialogOpen] = useState();
 
   const Accordion = withStyles({
     root: {
@@ -123,6 +133,28 @@ const AccordionRowSquads = ({ s }) => {
           </Grid>
         </AccordionDetails>
       </Accordion>
+      <Dialog
+              aria-labelledby="simple-dialog-title"
+              open={joinSquadDialogOpen}
+            >
+              <DialogTitle id="simple-dialog-title">
+                Are you sure you want to join this squad
+              </DialogTitle>
+              <Button
+                variant="outlined"
+                color="primary"
+                onClick={handleJoinSquadYesClick}
+              >
+                Yes
+              </Button>
+              <Button
+                variant="outlined"
+                color="primary"
+                onClick={() => setJoinSquadDialogOpen(false)}
+              >
+                Cancel
+              </Button>
+            </Dialog>
     </>
   );
 };
