@@ -1,27 +1,21 @@
-import React, { useEffect, useRef } from "react";
-import { useHistory, useParams } from "react-router";
+import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router";
 import useSWR from "swr";
 import { fetcherToken } from "../../services/FetcherFunction";
 import Auth from "../../utils/authentication";
 import Endpoints from "../../services/endpoints";
-import { getTokenInStorage, decodedToken } from "../../utils/tokenHelper";
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  makeStyles,
-  Typography,
-  useTheme,
-  Fab,
-} from "@material-ui/core";
-import Grid from "@material-ui/core/Grid";
+import { getTokenInStorage } from "../../utils/tokenHelper";
+import { makeStyles, Typography, Fab, Grid } from "@material-ui/core";
 import Title from "../admin-pages/admin-dashboard/Title";
 import AccordionRowSquads from "./AccordionRowSquads";
 import { AddLocation } from "@material-ui/icons";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import Button from "@material-ui/core/Button";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Dialog from "@material-ui/core/Dialog";
 
 export default function SquadTab({ player, gameId }) {
   const history = useHistory();
-  const token = decodedToken();
   useEffect(() => {
     if (!Auth.userIsLoggedIn()) {
       history.push("/");
@@ -30,9 +24,15 @@ export default function SquadTab({ player, gameId }) {
 
   const useStyles = makeStyles((theme) => ({
     root: {},
+    squadTitle: {
+      display: "flex",
+      justifyContent: "space-between",
+      padding: "10px",
+      width: "90%",
+      margin: "auto",
+    },
   }));
   const classes = useStyles();
-  const theme = useTheme();
   const moment = require("moment");
 
   const {
@@ -44,17 +44,46 @@ export default function SquadTab({ player, gameId }) {
     { refreshInterval: 10 }
   );
 
-  const handleCheckinSquadClick = () => {
-    console.log("checkin");
+  const handleCheckinSquadClick = () => {postCheckinSquad()};
+
+  const postCheckinSquad = () => {
+    let data = {
+      gameId: player.gameId,
+      squadId: player.squad.id,
+      squadMemberId: player.squad.squadMembers.find(
+        (s) => s.playerId == player.id
+      ).id,
+      lat: 59.9213924958088,
+      lng: 10.80503367970039,
+      startTime: new Date(Date.now()).toISOString(),
+      endTime: new Date(Date.now()).toISOString(),
+    };
+    console.log(data);
+    fetch(`${Endpoints.SQUADS_API}/${data.squadId}/check-in`, {
+      method: "POST",
+      headers: {
+        Authorization: "Bearer " + getTokenInStorage(),
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    }).then((res) => res.json().then((res) => console.warn("result", res)));
+    window.location.reload();
   };
+  const handleLeaveSquadYesClick = () => {
+    setLeaveSquadDialogOpen(false);
+    fetch(`${Endpoints.SQUADS_API}/${player.squad.id}/leave`, {
+      method: "POST",
+      headers: {
+        Authorization: "Bearer " + getTokenInStorage(),
+        "Content-Type": "application/json",
+      },
+    }).then((res) => res.json().then((res) => console.warn("result", res)));
+    console.log("Leave squad");
+  };
+  const handleLeaveSquadClick = () => setLeaveSquadDialogOpen(true);
+  const [leaveSquadDialogOpen, setLeaveSquadDialogOpen] = useState();
 
   console.log(player.squad);
-
-  // Makes sure the div is scrolled to bottom when new message is recieved
-  const messagesEndRef = useRef(null);
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView();
-  }, []);
 
   return (
     <>
@@ -66,14 +95,14 @@ export default function SquadTab({ player, gameId }) {
               <Typography variant="h6">Name</Typography>
             </Grid>
             <Grid item xs={4}>
-              <Typography variant="h6">SquadMembers</Typography>
+              <Typography variant="h6">Members alive</Typography>
             </Grid>
             <Grid item xs={4}>
               <Typography variant="h6"></Typography>
             </Grid>
             {squads.map((squad) => (
-              <Grid item xs={12}>
-                <AccordionRowSquads s={squad} />
+              <Grid key={squad.id} item xs={12}>
+                <AccordionRowSquads s={squad} playerId={player.id} />
               </Grid>
             ))}
           </Grid>
@@ -81,14 +110,42 @@ export default function SquadTab({ player, gameId }) {
       )}
       {player.squad != null && (
         <>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              padding: "10px",
-            }}
-          >
-            <Title stickyHeader>Your squad: {player.squad.name}</Title>
+          <div className={classes.squadTitle}>
+            <Title stickyHeader>{player.squad.name}</Title>
+            <Fab
+              color="secondary"
+              aria-label="Add Mission button"
+              variant="extended"
+              size="medium"
+              onClick={handleLeaveSquadClick}
+            >
+              <>
+                Leave
+                <ExitToAppIcon />
+              </>
+            </Fab>
+            <Dialog
+              aria-labelledby="simple-dialog-title"
+              open={leaveSquadDialogOpen}
+            >
+              <DialogTitle id="simple-dialog-title">
+                Are you sure you want to leave this squad
+              </DialogTitle>
+              <Button
+                variant="outlined"
+                color="primary"
+                onClick={handleLeaveSquadYesClick}
+              >
+                Yes
+              </Button>
+              <Button
+                variant="outlined"
+                color="primary"
+                onClick={() => setLeaveSquadDialogOpen(false)}
+              >
+                Cancel
+              </Button>
+            </Dialog>
             <Fab
               color="secondary"
               aria-label="Add Mission button"
@@ -104,7 +161,7 @@ export default function SquadTab({ player, gameId }) {
           </div>
           {/* SQUADMEMBERS */}
           <Grid container>
-            <Grid item container xs={5}>
+            <Grid item container xs={10}>
               <Grid item xs={12}>
                 <Typography
                   style={{
@@ -116,29 +173,18 @@ export default function SquadTab({ player, gameId }) {
                 </Typography>
               </Grid>
               {player.squad.squadMembers.map((sm) => (
-                <Grid item xs={12}>
-                  <Typography>{sm.name}</Typography>
+                <Grid key={sm.id} container item xs={12}>
+                  <Grid item xs={4}>
+                    <Typography>{sm.name}</Typography>
+                  </Grid>
+                  <Grid item xs={4}>
+                    <Typography>{sm.rank}</Typography>
+                  </Grid>
+                  <Grid item xs={4}>
+                    <Typography>{sm.isHuman ? `Human` : `Zombie`}</Typography>
+                  </Grid>
                 </Grid>
               ))}
-            </Grid>
-
-            {/* FACTION */}
-            <Grid item container xs={5}>
-              <Grid item xs={12}>
-                <Typography
-                  style={{
-                    fontWeight: "bold",
-                    borderBottom: "1px solid black",
-                  }}
-                >
-                  Faction
-                </Typography>
-              </Grid>
-              <Grid item xs={12}>
-                <Typography>
-                  {player.squad.isHuman ? `Human` : `Zombie`}
-                </Typography>
-              </Grid>
             </Grid>
 
             {/* SQUAD CHECKINS */}
@@ -154,7 +200,7 @@ export default function SquadTab({ player, gameId }) {
                 </Typography>
               </Grid>
               {player.squad.squadCheckins.map((sc) => (
-                <Grid container item>
+                <Grid key={sc.id} container item>
                   <Grid item xs={4}>
                     <Typography>
                       {moment(`${sc.startTime}`).format("HH:mm, DD.MM")}
