@@ -47,9 +47,17 @@ const CreateMissionForm = ({ openMission, setOpenMission, game }) => {
   const [isZombieVisible, setIsZombieVisible] = useState(false);
   const [startTime, setStartTime] = useState(new Date());
   const [endTime, setEndTime] = useState(new Date());
-  const [visibleForWhom, setVisibleForWhom] = useState(true) // If the mission is for humans = true, for zombies = false
+  const [visibleForWhom, setVisibleForWhom] = useState(false); // If the mission is for humans = true, for zombies = false
 
   const updateGame = () => {
+      if(visibleForWhom) {
+          setIsHumanVisible(true)
+          setIsZombieVisible(false)
+      }
+      else{
+        setIsHumanVisible(false)
+        setIsZombieVisible(true)
+      }
     let data = {
       name,
       isHumanVisible,
@@ -88,9 +96,11 @@ const CreateMissionForm = ({ openMission, setOpenMission, game }) => {
   };
 
   const handleForHumans = () => {
+    setIsZombieVisible(false);
     setIsHumanVisible(true);
   };
   const handleForZombies = () => {
+    setIsHumanVisible(false);
     setIsZombieVisible(true);
   };
 
@@ -107,10 +117,9 @@ const CreateMissionForm = ({ openMission, setOpenMission, game }) => {
   };
 
   const handleHumanPlayerRadioButton = (e) => {
-      console.log(e.target.value);
-    setVisibleForWhom((s) => !s)
-
-  }
+    setVisibleForWhom((s) => !s);
+    
+  };
 
   return (
     <div>
@@ -225,7 +234,6 @@ const CreateMissionForm = ({ openMission, setOpenMission, game }) => {
                     control={<Radio />}
                     label="For Zombies"
                   />
-                  
                 </RadioGroup>
               </FormControl>
 
