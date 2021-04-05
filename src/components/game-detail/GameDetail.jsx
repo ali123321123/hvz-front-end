@@ -178,7 +178,7 @@ function GameDetail() {
           </MuiThemeProvider>
         </div>
       )}
-      {/* <GameChat /> */}
+      <GameChat />
     </div>
   );
 }

@@ -69,10 +69,11 @@ export default function SquadTab({ player, gameId }) {
     }).then((res) => res.json().then((res) => console.warn("result", res)));
     window.location.reload();
   };
+  
   const handleLeaveSquadYesClick = () => {
     setLeaveSquadDialogOpen(false);
     fetch(`${Endpoints.SQUADS_API}/${player.squad.id}/leave`, {
-      method: "POST",
+      method: "DELETE",
       headers: {
         Authorization: "Bearer " + getTokenInStorage(),
         "Content-Type": "application/json",
