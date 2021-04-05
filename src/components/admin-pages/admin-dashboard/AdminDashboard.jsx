@@ -50,6 +50,12 @@ export default function AdminDashboard(props) {
   } = useSWR(`${Endpoints.GAME_API}/${gameId}/missions`, (url) =>
     fetcherToken(url, getTokenInStorage())
   );
+
+  const {data: kills, error: killsError} = useSWR(
+    `${Endpoints.GAME_API}/${game.id}/kills`,
+    (url) => fetcherToken(url, getTokenInStorage())
+);
+
   const drawerWidth = 240;
   const useStyles = makeStyles((theme) => ({
     //Content container
@@ -151,7 +157,7 @@ export default function AdminDashboard(props) {
 
               {/* Interactive Map */}
               <Grid item xs={12} md={5} lg={5}>
-                {game && <AdminGameMap game={game} missions={missions} />}
+                {game && <AdminGameMap game={game} missions={missions} kills={kills}/>}
               </Grid>
 
               {/* Mission Stats */}

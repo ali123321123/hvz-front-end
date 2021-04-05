@@ -86,6 +86,13 @@ function GameDetail() {
     fetcherToken(url, getTokenInStorage())
   );
 
+  const {
+    data: kills,
+    error: killsError,
+  } = useSWR(`${Endpoints.GAME_API}/${gameId}/kills`, (url) =>
+    fetcherToken(url, getTokenInStorage())
+  );
+
   useEffect(() => {
     if (players) {
       setPlayer(players.filter((p) => p.userId == token.unique_name)[0]);
@@ -147,6 +154,7 @@ function GameDetail() {
                       <GameDetailInteractiveMap
                         playAreaCoordinates={playAreaCoordinates}
                         scrollWheelZoom={true}
+                        kills={kills}
                       />
                     </div>
                     {player.isHuman && ( //Endre til '!player.isHuman' for å bare vise knappen når man er zombie

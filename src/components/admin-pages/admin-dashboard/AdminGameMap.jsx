@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Marker, Popup, Rectangle } from "react-leaflet";
+import useSWR from "swr";
 import Icons from "../../../utils/icons";
 import Map from "../../map/Map";
 import { customMarkerIcon } from "../../map/MapIconMaker";
 
-function AdminGameMap({ game, missions }) {
+function AdminGameMap({ game, missions, kills }) {
   const [center, setCenter] = useState([]);
   const [gameArea, setGameArea] = useState([]);
 
@@ -53,6 +54,14 @@ function AdminGameMap({ game, missions }) {
               );
             }
           })}
+          {kills?.map((k) => (
+            <Marker
+              icon={customMarkerIcon(Icons.tombstone)}
+              position={[k.lat, k.lng]}
+            >
+              <Popup>{k.story}</Popup>
+            </Marker>
+          ))}
         </Map>
       )}
     </>
