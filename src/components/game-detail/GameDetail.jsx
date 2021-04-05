@@ -114,7 +114,7 @@ function GameDetail() {
         <div className={classes.root}>
           <AppbarMainMenu
             menuTitle={`  ${game.name}`}
-            menuItems={<MenuItemsGameDetail />}
+            menuItems={<MenuItemsGameDetail game={game} player={player} />}
           />
           <MuiThemeProvider theme={themeActive}>
             <CssBaseline />
