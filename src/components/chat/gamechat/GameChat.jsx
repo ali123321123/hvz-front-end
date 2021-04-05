@@ -163,6 +163,7 @@ export default function GameChat() {
                       .map((c, i) => (
                         <>
                           <div
+                          key={c.id}
                             class={`chat-message-group ${
                               c.username === token.actort ? "writer-user" : ""
                             }`}
@@ -219,6 +220,7 @@ export default function GameChat() {
                       .map((c, i) => (
                         <>
                           <div
+                          key={c.id}
                             class={`chat-message-group ${
                               c.username === token.actort ? "writer-user" : ""
                             }`}

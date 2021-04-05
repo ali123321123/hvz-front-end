@@ -154,17 +154,7 @@ function GameDetail() {
                         kills={kills}
                       />
                     </div>
-                    {player.isHuman && ( //Endre til '!player.isHuman' for å bare vise knappen når man er zombie
-                      <div className="kill">
-                        <Button
-                          onClick={KillPrompt}
-                          variant="outlined"
-                          color="secondary"
-                        >
-                          Kill
-                        </Button>
-                      </div>
-                    )}
+                    
                   </Grid>
 
                   {/* MISSION STATS*/}

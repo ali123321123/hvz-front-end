@@ -78,7 +78,9 @@ export default function SquadTab({ player, gameId }) {
         Authorization: "Bearer " + getTokenInStorage(),
         "Content-Type": "application/json",
       },
-    }).then((res) => res.json().then((res) => console.warn("result", res)));
+    })
+    .then(data => console.warn("result", data))
+    .catch(error => console.log(error))
     console.log("Leave squad");
   };
   const handleLeaveSquadClick = () => setLeaveSquadDialogOpen(true);

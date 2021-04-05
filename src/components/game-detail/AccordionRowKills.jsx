@@ -43,7 +43,7 @@ const AccordianRowKills = ({ k }) => {
 
 
     return (
-        <div>
+        <>
             <Accordion
                 key={k.id}
                 expanded={expanded === "panel1"}
@@ -54,7 +54,7 @@ const AccordianRowKills = ({ k }) => {
                     aria-controls="panel1bh-content"
                     id="panel1bh-header"
                 >
-                    <Typography > <b>{killer.name}</b> killed <b>{victim.name}</b> {moment(`${k.tod}`).format(" HH:mm ")}</Typography>
+                    <Typography > <b>{killer?.name}</b> killed <b>{victim?.name}</b> {moment(`${k.tod}`).format(" HH:mm ")}</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                     <Typography>
@@ -70,13 +70,13 @@ const AccordianRowKills = ({ k }) => {
 
                 <AccordionDetails>
                     <Typography>
-                        Killer: {killer.name}
+                        Killer: {killer?.name}
                     </Typography>
                 </AccordionDetails>
 
                 <AccordionDetails>
                     <Typography>
-                        Victim: {victim.name}
+                        Victim: {victim?.name}
                     </Typography>
                 </AccordionDetails>
                 
@@ -84,7 +84,8 @@ const AccordianRowKills = ({ k }) => {
 
             </Accordion>
             <br></br>
-        </div>
+        </>
+        
     )
 }
 export default AccordianRowKills;
