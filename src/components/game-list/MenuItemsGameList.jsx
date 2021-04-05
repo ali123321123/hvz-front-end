@@ -17,28 +17,12 @@ export default function MenuItemsGameList({
 }) {
   const history = useHistory();
 
-  const handleProfileOption = () => {
-    if (Auth.userIsLoggedIn()) {
-      history.push("/profile");
-    } else {
-      history.push("/login");
-    }
-    if (Auth.userIsAdmin()) {
-      history.push("/admin");
-    }
-  };
   const handleClickRules = () => {
     history.push("/rules");
   };
 
   return (
     <div>
-      <MenuIcon
-        menuIcon={<AccountCircle />}
-        title={"Profile"}
-        onClick={handleProfileOption}
-      />
-
       <MenuIcon
         menuIcon={<Timelapse />}
         title={"Active Games"}

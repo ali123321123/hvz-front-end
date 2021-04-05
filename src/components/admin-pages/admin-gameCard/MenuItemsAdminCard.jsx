@@ -15,22 +15,12 @@ export default function MenuItemsAdminCard() {
     setOpen(true);
   };
 
-  const handleClickHome = () => {
-    history.push("/");
-  };
-
   const handleProfileOption = () => {
     history.push("/profile");
   };
 
   return (
     <div>
-      <MenuIcon
-        menuIcon={<AccountCircle />}
-        title={"Profile"}
-        onClick={handleProfileOption}
-      />
-
       {/* CREATE NEW GAME */}
       <MenuIcon
         menuIcon={<PostAdd />}

@@ -19,7 +19,7 @@ const AccordionMissions = ({ game }) => {
   }, [missionsError]);
 
   console.log(missions);
-  console.log(game);
+
   return (
     <>
       {missions?.map((m) => (

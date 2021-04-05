@@ -20,7 +20,7 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { themeActive, light } from "../shared/themeGameCards";
 import MenuIcon from "./MenuIcon";
 import { Route, useHistory } from "react-router";
-import { HomeRounded } from "@material-ui/icons";
+import { AccountCircle, HomeRounded } from "@material-ui/icons";
 import Auth from "../../utils/authentication";
 
 export default function MenuDrawer({ open, setOpen, menuItems }) {
@@ -128,6 +128,17 @@ export default function MenuDrawer({ open, setOpen, menuItems }) {
     }
   };
 
+  const handleProfileOption = () => {
+    if (Auth.userIsLoggedIn()) {
+      history.push("/profile");
+    } else {
+      history.push("/login");
+    }
+    if (Auth.userIsAdmin()) {
+      history.push("/profile");
+    }
+  };
+
   const handleToggleClose = () => {
     setOpen(false);
   };
@@ -176,6 +187,11 @@ export default function MenuDrawer({ open, setOpen, menuItems }) {
               menuIcon={<HomeRounded />}
               title={"Home "}
               onClick={handleClickHome}
+            />
+            <MenuIcon
+              menuIcon={<AccountCircle />}
+              title={"Profile"}
+              onClick={handleProfileOption}
             />
             <Divider />
             {menuItems}

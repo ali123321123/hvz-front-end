@@ -8,6 +8,7 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
+  Grid,
 } from "@material-ui/core";
 import { useHistory } from "react-router";
 import GameCardPopupMap from "./GameCardPopupMap";
@@ -16,6 +17,8 @@ import Auth from "../../utils/authentication";
 import { decodedToken, getTokenInStorage } from "../../utils/tokenHelper";
 import Endpoints from "../../services/endpoints";
 import "../shared/Leaflet.scss";
+import PlayerStats from "../admin-pages/admin-dashboard/PlayerStats";
+import CalculateTime from "../admin-pages/admin-dashboard/CalculateTime";
 
 const GameCardPopUp = ({ game, open, setOpen }) => {
   // const user = useSelector((state) => state.loggedInUser);
@@ -75,6 +78,11 @@ const GameCardPopUp = ({ game, open, setOpen }) => {
         <DialogTitle id="join-game-popup" onClose={handleClose}>
           {game.name}
         </DialogTitle>
+
+        <DialogContent>
+          <CalculateTime game={game} />
+        </DialogContent>
+
         <DialogContent>
           {playArea && centerArea ? (
             <GameCardPopupMap
@@ -95,6 +103,7 @@ const GameCardPopUp = ({ game, open, setOpen }) => {
           )}
 
           <Typography gutterBottom>{game.description}</Typography>
+
           <Button variant="outlined" onClick={handleJoinButton} color="primary">
             Join Game
           </Button>
