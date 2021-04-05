@@ -38,15 +38,12 @@ function App() {
           ></Route>
 
           <Route path="/profile/">
-            <Header />
             <ProfilePage />
           </Route>
           <Route path="/game/:id/chat">
-            <Header />
             <GameChatPage />
           </Route>
           <Route path="/game/:id">
-            <Header />
             <GameDetailsPage />
           </Route>
           <Route path="*">
