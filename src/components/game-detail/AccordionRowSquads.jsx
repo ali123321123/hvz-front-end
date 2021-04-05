@@ -23,17 +23,34 @@ import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import Button from "@material-ui/core/Button";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Dialog from "@material-ui/core/Dialog";
+import Endpoints from "../../services/endpoints";
+import { getTokenInStorage } from "../../utils/tokenHelper";
 
-const AccordionRowSquads = ({ s }) => {
+const AccordionRowSquads = ({ s, playerId }) => {
   const moment = require("moment");
   const [expanded, setExpanded] = useState(false);
 
+  console.log(s);
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
 
   const handleJoinSquadYesClick = () => {
-
+    let data = {
+        gameId: s.gameId,
+        squadId: s.id,
+        playerId: playerId,
+      };
+      console.log(data);
+      fetch(`${Endpoints.SQUADS_API}/${data.squadId}/join`, {
+        method: "POST",
+        headers: {
+          Authorization: "Bearer " + getTokenInStorage(),
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }).then((res) => res.json().then((res) => console.warn("result", res)));
+      window.location.reload()
   }
   
   const handleJoinSquadClick = () => setJoinSquadDialogOpen(true);
@@ -94,16 +111,16 @@ const AccordionRowSquads = ({ s }) => {
                 variant="body2"
                 style={{ fontWeight: "bold" }}
               >
-                {s.squadMembers.length}
+                {s.squadMembers.filter(s => s.isHuman).length}/{s.squadMembers.length}
               </Typography>
         </Grid>
         <Grid item xs={4}>
         <Fab
             color="secondary"
-            aria-label="Add Mission button"
+            aria-label="Join Squad button"
             variant="extended"
             size="medium"
-            // onClick={}
+            onClick={handleJoinSquadClick}
           >
             <>
               Join

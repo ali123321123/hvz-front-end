@@ -200,13 +200,13 @@ function GameDetail() {
           </MuiThemeProvider>
         </div>
       )}
-      {/* <GameChat /> */}
       <GameKillPopup
         open={killOpen}
         setOpen={setKillOpen}
         player={player}
         game={game}
       />
+      <GameChat />
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useSWR from "swr";
 import { fetcherToken } from "../../services/FetcherFunction";
 import { getTokenInStorage } from "../../utils/tokenHelper";
@@ -18,6 +18,8 @@ const AccordionMissions = ({ game }) => {
   useEffect(() => {
     console.log(missionsError);
   }, [missionsError]);
+
+  
 
   console.log(missions);
 
