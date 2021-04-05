@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Marker, Popup, Rectangle } from "react-leaflet";
+import useSWR from "swr";
+import Icons from "../../../utils/icons";
 import Map from "../../map/Map";
-import "../../shared/Leaflet.scss";
+import { customMarkerIcon } from "../../map/MapIconMaker";
 
-function AdminGameMap({ game, missions }) {
+function AdminGameMap({ game, missions, kills }) {
   const [center, setCenter] = useState([]);
   const [gameArea, setGameArea] = useState([]);
 
@@ -25,9 +27,39 @@ function AdminGameMap({ game, missions }) {
       {center.length > 0 && (
         <Map center={center} zoom={17} scrollWheelZoom={true}>
           <Rectangle bounds={gameArea} />
-          {missions?.map((m) => (
-            <Marker position={[m.lat, m.lng]}>
-              <Popup>{m.name}</Popup>
+          {missions?.map((m) => {
+            if (m.isHumaVisible && m.isZombiVisible) {
+              return (
+                <Marker position={[m.lat, m.lng]}>
+                  <Popup>{m.name}</Popup>
+                </Marker>
+              );
+            } else if (m.isHumanVisible && !m.isZombiVisible) {
+              return (
+                <Marker
+                  icon={customMarkerIcon(Icons.humanMarker)}
+                  position={[m.lat, m.lng]}
+                >
+                  <Popup>{m.name}</Popup>
+                </Marker>
+              );
+            } else if (m.isZombiVisible && !m.isHumaVisible) {
+              return (
+                <Marker
+                  Icon={customMarkerIcon(Icons.zombieMarker)}
+                  position={[m.lat, m.lng]}
+                >
+                  <Popup>{m.name}</Popup>
+                </Marker>
+              );
+            }
+          })}
+          {kills?.map((k) => (
+            <Marker
+              icon={customMarkerIcon(Icons.tombstone)}
+              position={[k.lat, k.lng]}
+            >
+              <Popup>{k.story}</Popup>
             </Marker>
           ))}
         </Map>

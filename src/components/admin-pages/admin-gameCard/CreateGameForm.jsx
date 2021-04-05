@@ -189,8 +189,8 @@ const CreateGameForm = ({ open, setOpen }) => {
                 <FormControl component="fieldset">
                   <FormLabel component="legend">Play Area Size</FormLabel>
                   <RadioGroup
-                    aria-label="gender"
-                    name="gender1"
+                    aria-label="playArea"
+                    name="playAreaSelect"
                     value={playAreaSize}
                     onChange={handleSizeRadioButton}
                   >

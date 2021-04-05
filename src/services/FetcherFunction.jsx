@@ -12,6 +12,7 @@ export const fetcher = async (url) => {
 export const fetcherToken = async (url, token) => {
   const bearer = "Bearer " + token;
   const res = await fetch(url, {
+      
     headers: {
       Authorization: bearer,
       "Content-Type": "application/json",

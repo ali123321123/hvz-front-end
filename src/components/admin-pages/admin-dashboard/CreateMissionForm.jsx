@@ -16,6 +16,8 @@ import {
   FormGroup,
   FormControlLabel,
   TableCell,
+  RadioGroup,
+  Radio,
 } from "@material-ui/core";
 import "react-datepicker/dist/react-datepicker.css";
 import {
@@ -31,6 +33,7 @@ import { getTokenInStorage } from "../../../utils/tokenHelper";
 import { useHistory, useLocation, useParams } from "react-router";
 import Map from "../../map/Map";
 import MapAddMarker from "../../map/MapAddMarker";
+import Icons from "../../../utils/icons";
 
 const CreateMissionForm = ({ openMission, setOpenMission, game }) => {
   const location = useLocation();
@@ -44,6 +47,7 @@ const CreateMissionForm = ({ openMission, setOpenMission, game }) => {
   const [isZombieVisible, setIsZombieVisible] = useState(false);
   const [startTime, setStartTime] = useState(new Date());
   const [endTime, setEndTime] = useState(new Date());
+  const [visibleForWhom, setVisibleForWhom] = useState(true) // If the mission is for humans = true, for zombies = false
 
   const updateGame = () => {
     let data = {
@@ -73,7 +77,7 @@ const CreateMissionForm = ({ openMission, setOpenMission, game }) => {
     window.location.reload();
   };
 
-  const [markerPosition, setMarkerPosition] = useState([])
+  const [markerPosition, setMarkerPosition] = useState([]);
 
   const handleMissionTitle = (e) => {
     setName(e.target.value);
@@ -102,7 +106,11 @@ const CreateMissionForm = ({ openMission, setOpenMission, game }) => {
     setEndTime(date);
   };
 
-  
+  const handleHumanPlayerRadioButton = (e) => {
+      console.log(e.target.value);
+    setVisibleForWhom((s) => !s)
+
+  }
 
   return (
     <div>
@@ -177,7 +185,7 @@ const CreateMissionForm = ({ openMission, setOpenMission, game }) => {
               </MuiPickersUtilsProvider>
 
               {/* Human   */}
-              <FormControl component="fieldset">
+              {/* <FormControl component="fieldset">
                 <FormGroup>
                   <FormControlLabel
                     control={
@@ -186,10 +194,10 @@ const CreateMissionForm = ({ openMission, setOpenMission, game }) => {
                     label="For Humans"
                   />
                 </FormGroup>
-              </FormControl>
+              </FormControl> */}
 
               {/* Zombie   */}
-              <FormControl component="fieldset">
+              {/* <FormControl component="fieldset">
                 <FormGroup>
                   <FormControlLabel
                     control={
@@ -198,17 +206,53 @@ const CreateMissionForm = ({ openMission, setOpenMission, game }) => {
                     label="For Zombies"
                   />
                 </FormGroup>
+              </FormControl> */}
+
+              <FormControl component="fieldset">
+                <RadioGroup
+                  aria-label="missionType"
+                  name="missionTypeSelect"
+                  value={visibleForWhom}
+                  onChange={handleHumanPlayerRadioButton}
+                >
+                  <FormControlLabel
+                    value={true}
+                    control={<Radio />}
+                    label="For Humans"
+                  />
+                  <FormControlLabel
+                    value={false}
+                    control={<Radio />}
+                    label="For Zombies"
+                  />
+                  
+                </RadioGroup>
               </FormControl>
 
               {/* Interactive Map | UPLOAD IMAGE*/}
               {game && (
-                 <DialogContent style={{height: "20em"}}>
-                <Map center={[(game.nW_lat + game.sE_lat) / 2, (game.nW_lng + game.sE_lng) / 2 ]} scrollWheelZoom={true}>
-                    <MapAddMarker setMarkerPosition={setMarkerPosition}/>
-                </Map>
-              </DialogContent> 
+                <DialogContent style={{ height: "20em" }}>
+                  <Map
+                    center={[
+                      (game.nW_lat + game.sE_lat) / 2,
+                      (game.nW_lng + game.sE_lng) / 2,
+                    ]}
+                    scrollWheelZoom={true}
+                  >
+                    {visibleForWhom ? (
+                      <MapAddMarker
+                        markerImage={Icons.humanMarker}
+                        setMarkerPosition={setMarkerPosition}
+                      />
+                    ) : (
+                      <MapAddMarker
+                        markerImage={Icons.zombieMarker}
+                        setMarkerPosition={setMarkerPosition}
+                      />
+                    )}
+                  </Map>
+                </DialogContent>
               )}
-              
 
               {/* BUTTON CREATE MISSION */}
               <section>

@@ -15,6 +15,7 @@ import {
   Grid,
   Paper,
   MuiThemeProvider,
+  Button,
 } from "@material-ui/core";
 import AppbarMainMenu from "../shared/AppbarMainMenu";
 import { themeActive } from "../shared/themeGameCards";
@@ -69,11 +70,19 @@ function GameDetail() {
   const [player, setPlayer] = useState({});
   const [loading, setLoading] = useState(true);
   const [playAreaCoordinates, setPlayAreaCoordinates] = useState([]);
+  const [killOpen, setKillOpen] = useState(false);
 
   const {
     data: players,
     error: playersError,
   } = useSWR(`${Endpoints.GAME_API}/${gameId}/players`, (url) =>
+    fetcherToken(url, getTokenInStorage())
+  );
+
+  const {
+    data: kills,
+    error: killsError,
+  } = useSWR(`${Endpoints.GAME_API}/${gameId}/kills`, (url) =>
     fetcherToken(url, getTokenInStorage())
   );
 
@@ -139,10 +148,24 @@ function GameDetail() {
 
                   {/* INTERACTIVE MAP */}
                   <Grid item xs={12} md={5} lg={5}>
-                    <GameDetailInteractiveMap
-                      playAreaCoordinates={playAreaCoordinates}
-                      scrollWheelZoom={true}
-                    />
+                    <div>
+                      <GameDetailInteractiveMap
+                        playAreaCoordinates={playAreaCoordinates}
+                        scrollWheelZoom={true}
+                        kills={kills}
+                      />
+                    </div>
+                    {player.isHuman && ( //Endre til '!player.isHuman' for å bare vise knappen når man er zombie
+                      <div className="kill">
+                        <Button
+                          onClick={KillPrompt}
+                          variant="outlined"
+                          color="secondary"
+                        >
+                          Kill
+                        </Button>
+                      </div>
+                    )}
                   </Grid>
 
                   {/* MISSION STATS*/}
@@ -179,6 +202,12 @@ function GameDetail() {
         </div>
       )}
       {/* <GameChat /> */}
+      <GameKillPopup
+        open={killOpen}
+        setOpen={setKillOpen}
+        player={player}
+        game={game}
+      />
     </div>
   );
 }
