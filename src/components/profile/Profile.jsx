@@ -20,6 +20,7 @@ import { getTokenInStorage, decodedToken } from "../../utils/tokenHelper";
 import GameRows from "./GameRows";
 import UserStats from "./UserStats";
 import UserInfo from "./UserInfo";
+import AppbarMainMenu from "../shared/AppbarMainMenu";
 
 function Profile() {
   const history = useHistory();
@@ -37,26 +38,6 @@ function Profile() {
       display: "flex",
       overflow: "auto",
       flexDirection: "column",
-    },
-
-    appBar: {
-      //Keep appbar on top
-      zIndex: theme.zIndex.drawer + 1,
-      transition: theme.transitions.create(["width", "margin"], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-    },
-
-    appBarSpacer: theme.mixins.toolbar,
-    content: {
-      flexGrow: 1,
-      height: "100vh",
-      overflow: "auto",
-    },
-
-    fixedHeight: {
-      height: 240,
     },
   }));
   const classes = useStyles();
@@ -103,6 +84,7 @@ function Profile() {
       ) : (
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
+          <AppbarMainMenu />
           <Container maxWidth="lg" className={classes.container}>
             {!Auth.userIsAdmin() ? (
               <Grid container spacing={2}>
